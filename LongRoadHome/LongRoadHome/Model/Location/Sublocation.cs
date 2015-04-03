@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
     public abstract class Sublocation
@@ -7,7 +9,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         private int sublocationID;
         private String imagePath;
 
-        public ArrayList<Item> Scavenge()
+        public List<Item> Scavenge()
         {
             throw new System.Exception("Not implemented");
         }

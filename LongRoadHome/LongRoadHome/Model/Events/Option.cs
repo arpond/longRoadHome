@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
 	public class Option {
 		private int optionNumber;
 		private String optionText;
-		private ArrayList<EventEffect> effects;
+		private List<EventEffect> effects;
 
 		public String GetOptionText() {
 			return this.optionText;
@@ -11,13 +12,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
 		public int GetOptionNumber() {
 			return this.optionNumber;
 		}
-		public ArrayList<EventEffect> GetOptionEffects() {
+		public List<EventEffect> GetOptionEffects() {
 			throw new System.Exception("Not implemented");
 		}
 
 		private EventEffect eventEffect;
-
-		private Event event;
 
 	}
 

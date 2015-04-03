@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 {
     public class PlayerCharacter
@@ -7,19 +8,36 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         private PrimaryResource hunger;
         private PrimaryResource thirst;
         private PrimaryResource sanity;
-        private HashMap<PrimaryResource, float> modifierMap;
+        private Dictionary<PrimaryResource, float> modifierMap;
+
+        public PlayerCharacter()
+        {
+            this.health = new PrimaryResource(100, "health");
+            this.hunger = new PrimaryResource(100, "hunger");
+            this.thirst = new PrimaryResource(100, "thirst");
+            this.sanity = new PrimaryResource(100, "sanity");
+
+            this.modifierMap = new Dictionary<PrimaryResource, float>();
+
+            modifierMap.Add(health, 1.0f);
+            modifierMap.Add(hunger, 1.0f);
+            modifierMap.Add(thirst, 1.0f);
+            modifierMap.Add(sanity, 1.0f);
+        }
 
         public PlayerCharacter(ref String pc)
         {
             throw new System.Exception("Not implemented");
         }
-        public void AdjustHealth(ref int adjustment)
+        public void AdjustHealth(int adjustment)
         {
-            throw new System.Exception("Not implemented");
+            int currentHealth = health.GetAmount();
+            health.SetAmount(currentHealth + adjustment);
         }
-        public void AdjustHunger(ref int adjustment)
+        public void AdjustHunger(int adjustment)
         {
-            throw new System.Exception("Not implemented");
+            int currentHunger = hunger.GetAmount();
+            hunger.SetAmount(currentHunger + adjustment);
         }
         public void AdjustThirst(ref int adjustment)
         {
@@ -49,12 +67,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             throw new System.Exception("Not implemented");
         }
-        public void RecalculateModifers(ref ArrayList<PassiveMod> modifiers)
+        public void RecalculateModifers(ref List<PassiveMod> modifiers)
         {
             throw new System.Exception("Not implemented");
         }
 
-        private PrimaryReource primaryReource;
+        private PrimaryResource primaryReource;
 
         private PCModel pCModel;
 

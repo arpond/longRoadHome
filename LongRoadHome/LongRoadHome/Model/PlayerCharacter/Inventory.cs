@@ -1,11 +1,12 @@
 
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 {
     public class Inventory
     {
         private int size;
-        private ArrayList<Item> inventory;
+        private List<Item> inventory;
 
         public Inventory(ref String inv)
         {
@@ -23,7 +24,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             throw new System.Exception("Not implemented");
         }
-        public ArrayList<Item> GetInventory()
+        public List<Item> GetInventory()
         {
             return this.inventory;
         }
@@ -31,7 +32,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             throw new System.Exception("Not implemented");
         }
-        public ArrayList<PassiveMod> GetAllPassives()
+        public List<PassiveMod> GetAllPassives()
         {
             throw new System.Exception("Not implemented");
         }

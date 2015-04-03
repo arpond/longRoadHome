@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
-    public class Location : DummyLocation, Residential
+    public class Location : DummyLocation
     {
-        private Bool visited;
-        private HashMap<int, Sublocation> sublocations;
-        private Sublocation* currentSubLocation;
+        private bool visited;
+        private Dictionary<int, Sublocation> sublocations;
+        private Sublocation currentSubLocation;
 
         public void TriggerEvent()
         {
@@ -15,7 +16,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         {
             throw new System.Exception("Not implemented");
         }
-        public Bool GetVisited()
+        public bool GetVisited()
         {
             return this.visited;
         }

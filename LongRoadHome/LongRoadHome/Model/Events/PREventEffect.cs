@@ -1,4 +1,5 @@
 using System;
+using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
 	public class PREventEffect : EventEffect  {
 		private PrimaryResource pr;
