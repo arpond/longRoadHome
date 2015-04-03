@@ -23,7 +23,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
         public override String ParseToString()
         {
-            throw new System.Exception("Not implemented");
+            return name + ":" + amount;
         }
     }
 }
