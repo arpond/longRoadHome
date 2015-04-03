@@ -1,4 +1,4 @@
-﻿namespace uk.ac.dundee.arpond.LongRoadHome
+﻿namespace uk.ac.dundee.arpond.longRoadHome
 {
     partial class Form1
     {

@@ -7,7 +7,7 @@
     <ProjectGuid>{68FCF77B-39FB-4A4C-B94C-9AE756FAFF46}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uk.ac.dundee.arpond.LongRoadHome</RootNamespace>
+    <RootNamespace>uk.ac.dundee.arpond.longRoadHome</RootNamespace>
     <AssemblyName>LongRoadHome</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

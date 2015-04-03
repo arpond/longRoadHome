@@ -4,18 +4,27 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 {
     public class PlayerCharacter
     {
-        private PrimaryResource health;
-        private PrimaryResource hunger;
-        private PrimaryResource thirst;
-        private PrimaryResource sanity;
+        private Dictionary<String, PrimaryResource> primaryResources;
         private Dictionary<PrimaryResource, float> modifierMap;
+
+        public const String HEALTH = "health";
+        public const String HUNGER = "hunger";
+        public const String THIRST = "thirst";
+        public const String SANITY = "sanity";
 
         public PlayerCharacter()
         {
-            this.health = new PrimaryResource(100, "health");
-            this.hunger = new PrimaryResource(100, "hunger");
-            this.thirst = new PrimaryResource(100, "thirst");
-            this.sanity = new PrimaryResource(100, "sanity");
+            PrimaryResource health = new PrimaryResource(100, HEALTH);
+            PrimaryResource hunger = new PrimaryResource(100, HUNGER);
+            PrimaryResource thirst = new PrimaryResource(100, THIRST);
+            PrimaryResource sanity = new PrimaryResource(100, SANITY);
+
+            this.primaryResources = new Dictionary<string, PrimaryResource>();
+
+            primaryResources.Add(HEALTH, health);
+            primaryResources.Add(HUNGER, hunger);
+            primaryResources.Add(THIRST, thirst);
+            primaryResources.Add(SANITY, sanity);
 
             this.modifierMap = new Dictionary<PrimaryResource, float>();
 
@@ -29,39 +38,37 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             throw new System.Exception("Not implemented");
         }
-        public void AdjustHealth(int adjustment)
+
+        public void AdjustResource(String resourceName, int adjustment)
         {
-            int currentHealth = health.GetAmount();
-            health.SetAmount(currentHealth + adjustment);
+            PrimaryResource resource;
+            if (primaryResources.TryGetValue(resourceName, out resource))
+            {
+                int currentResounce = resource.GetAmount();
+                int result = currentResounce + adjustment;
+
+                if (result < 0)
+                {
+                    result = 0;
+                }
+                else if (result > 100)
+                {
+                    result = 100;
+                }
+
+                resource.SetAmount(result);
+                primaryResources[resourceName] = resource;
+            }
         }
-        public void AdjustHunger(int adjustment)
+
+        public int GetResource(String resourceName)
         {
-            int currentHunger = hunger.GetAmount();
-            hunger.SetAmount(currentHunger + adjustment);
-        }
-        public void AdjustThirst(ref int adjustment)
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public void AdjustSanity(ref int adjustment)
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public int GetHealth()
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public int GetHunger()
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public int GetThirst()
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public int GetSanity()
-        {
-            throw new System.Exception("Not implemented");
+            PrimaryResource resource;
+            if (primaryResources.TryGetValue(resourceName, out resource))
+            {
+                return resource.GetAmount();
+            }
+            return -1;
         }
         public String ParseToString()
         {
@@ -71,10 +78,5 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             throw new System.Exception("Not implemented");
         }
-
-        private PrimaryResource primaryReource;
-
-        private PCModel pCModel;
-
     }
 }
