@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LongRoadHome
+namespace uk.ac.dundee.arpond.LongRoadHome
 {
     static class Program
     {

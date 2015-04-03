@@ -5,6 +5,72 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRoadHome", "LongRoadHome\LongRoadHome.csproj", "{68FCF77B-39FB-4A4C-B94C-9AE756FAFF46}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{942F54BA-ABD4-4F0D-8796-BFC83B7AF344}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Effect.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Effect.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\GameState.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\GameState.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\ModelFacade.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\ModelFacade.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{64474BED-37CC-4495-B4C3-DC0571A491F9}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\Event.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\Event.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\EventCatalogue.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\EventCatalogue.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\EventEffect.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\EventEffect.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\EventModel.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\EventModel.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\ItemEventEffect.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\ItemEventEffect.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\Option.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\Option.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\PREventEffect.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Model\Events\PREventEffect.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PlayerCharacter", "PlayerCharacter", "{A51599A0-5D94-4366-B308-C82E8A13084F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\GeneratedCode\LongRoadHome\Inventory.cs = ..\..\GeneratedCode\LongRoadHome\Inventory.cs
+		..\..\GeneratedCode\LongRoadHome\Item.cs = ..\..\GeneratedCode\LongRoadHome\Item.cs
+		..\..\GeneratedCode\LongRoadHome\ItemCatalogue.cs = ..\..\GeneratedCode\LongRoadHome\ItemCatalogue.cs
+		..\..\GeneratedCode\LongRoadHome\ItemEffect.cs = ..\..\GeneratedCode\LongRoadHome\ItemEffect.cs
+		..\..\GeneratedCode\LongRoadHome\PassiveMod.cs = ..\..\GeneratedCode\LongRoadHome\PassiveMod.cs
+		..\..\GeneratedCode\LongRoadHome\PCModel.cs = ..\..\GeneratedCode\LongRoadHome\PCModel.cs
+		..\..\GeneratedCode\LongRoadHome\PlayerCharacter.cs = ..\..\GeneratedCode\LongRoadHome\PlayerCharacter.cs
+		..\..\GeneratedCode\LongRoadHome\PrimaryReource.cs = ..\..\GeneratedCode\LongRoadHome\PrimaryReource.cs
+		..\..\GeneratedCode\LongRoadHome\Resource.cs = ..\..\GeneratedCode\LongRoadHome\Resource.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Location", "Location", "{6FF70624-931C-4E93-81D4-D087A937390F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\GeneratedCode\LongRoadHome\Civic.cs = ..\..\GeneratedCode\LongRoadHome\Civic.cs
+		..\..\GeneratedCode\LongRoadHome\Commercial.cs = ..\..\GeneratedCode\LongRoadHome\Commercial.cs
+		..\..\GeneratedCode\LongRoadHome\DummyLocation.cs = ..\..\GeneratedCode\LongRoadHome\DummyLocation.cs
+		..\..\GeneratedCode\LongRoadHome\Location.cs = ..\..\GeneratedCode\LongRoadHome\Location.cs
+		..\..\GeneratedCode\LongRoadHome\LocationModel.cs = ..\..\GeneratedCode\LongRoadHome\LocationModel.cs
+		..\..\GeneratedCode\LongRoadHome\Residential.cs = ..\..\GeneratedCode\LongRoadHome\Residential.cs
+		..\..\GeneratedCode\LongRoadHome\Sublocation.cs = ..\..\GeneratedCode\LongRoadHome\Sublocation.cs
+		..\..\GeneratedCode\LongRoadHome\SubLocationFactory.cs = ..\..\GeneratedCode\LongRoadHome\SubLocationFactory.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discovery", "Discovery", "{3423FD89-D223-4422-A897-32FFFB44F739}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\GeneratedCode\LongRoadHome\Discovery.cs = ..\..\GeneratedCode\LongRoadHome\Discovery.cs
+		..\..\GeneratedCode\LongRoadHome\DiscoveryCatalogue.cs = ..\..\GeneratedCode\LongRoadHome\DiscoveryCatalogue.cs
+		..\..\GeneratedCode\LongRoadHome\DiscoveryModel.cs = ..\..\GeneratedCode\LongRoadHome\DiscoveryModel.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controller", "Controller", "{7496992B-525E-45D3-AACB-F2AD7D105703}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Controller\DifficultyController.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Controller\DifficultyController.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Controller\FileReadWriter.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Controller\FileReadWriter.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Controller\MainController.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\Controller\MainController.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{99E325D9-59ED-4268-8520-91F038CCC0C7}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\Animation.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\Animation.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\Animator.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\Animator.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\AudioPlayer.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\AudioPlayer.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\GameView.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\GameView.cs
+		..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\IGameView.cs = ..\..\GeneratedCode\LongRoadHome\uk\ac\dundee\arpond\longRoadHome\View\IGameView.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +84,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{64474BED-37CC-4495-B4C3-DC0571A491F9} = {942F54BA-ABD4-4F0D-8796-BFC83B7AF344}
+		{A51599A0-5D94-4366-B308-C82E8A13084F} = {942F54BA-ABD4-4F0D-8796-BFC83B7AF344}
+		{6FF70624-931C-4E93-81D4-D087A937390F} = {942F54BA-ABD4-4F0D-8796-BFC83B7AF344}
+		{3423FD89-D223-4422-A897-32FFFB44F739} = {942F54BA-ABD4-4F0D-8796-BFC83B7AF344}
 	EndGlobalSection
 EndGlobal
