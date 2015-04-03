@@ -12,6 +12,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public const String THIRST = "thirst";
         public const String SANITY = "sanity";
 
+        /// <summary>
+        /// Generates a standard PC
+        /// </summary>
         public PlayerCharacter()
         {
             PrimaryResource health = new PrimaryResource(100, HEALTH);
@@ -34,6 +37,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             modifierMap.Add(sanity, 1.0f);
         }
 
+        /// <summary>
+        /// Generates a PC based on the string input
+        /// Check the string is valid before calling this function
+        /// </summary>
+        /// <param name="input">String to be converted into a PC</param>
         public PlayerCharacter(String input)
         {
             this.primaryResources = new Dictionary<string, PrimaryResource>();
@@ -49,6 +57,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             }
         }
 
+        /// <summary>
+        /// Adjusts a resouce based on the resouce name passed and the adjustment value
+        /// The resource should be one of the public constants
+        /// </summary>
+        /// <param name="resourceName">Name of the resource to modify</param>
+        /// <param name="adjustment">Adjustment to make</param>
         public void AdjustResource(String resourceName, int adjustment)
         {
             PrimaryResource resource = GetPrimaryResource(resourceName);
@@ -57,20 +71,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                 int currentResounce = resource.GetAmount();
                 int result = currentResounce + adjustment;
 
-                if (result < 0)
-                {
-                    result = 0;
-                }
-                else if (result > 100)
-                {
-                    result = 100;
-                }
-
                 resource.SetAmount(result);
                 primaryResources[resourceName] = resource;
             }
         }
 
+        /// <summary>
+        /// Gets the requested resource
+        /// The resource should be one of the public constants
+        /// </summary>
+        /// <param name="resourceName">Name of the resource to get</param>
+        /// <returns></returns>
         public int GetResource(String resourceName)
         {
             PrimaryResource resource = GetPrimaryResource(resourceName);
@@ -81,6 +92,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return -1;
         }
 
+        /// <summary>
+        /// Parses this PC to a string format suitable for saving
+        /// </summary>
+        /// <returns>The parsed PC</returns>
         public String ParseToString()
         {
             String parsed = "";
@@ -109,6 +124,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             throw new System.Exception("Not implemented");
         }
 
+        /// <summary>
+        /// Gets the resource from the dictionary
+        /// The resource should be one of the public constants if not returns null
+        /// </summary>
+        /// <param name="resourceName">The resource to get</param>
+        /// <returns>The primary resource requested</returns>
         private PrimaryResource GetPrimaryResource(String resourceName)
         {
             PrimaryResource resource;
@@ -116,6 +137,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return resource;
         }
 
+        /// <summary>
+        /// Gets the modifier from the dictionary
+        /// The resource should be one of the public constants if not returns null
+        /// </summary>
+        /// <param name="resourceName">The resource to get</param>
+        /// <returns>The modifier requested</returns>
         private float GetModifier(PrimaryResource resource)
         {
             float modifier;
@@ -123,6 +150,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return modifier;
         }
 
+        /// <summary>
+        /// Checks if a string is a valid PC string
+        /// </summary>
+        /// <param name="toTest">The string to test</param>
+        /// <returns>If the string is valid or invalid</returns>
         public static bool isValidPC(String toTest)
         {
             String[] resources = toTest.Split(',');
