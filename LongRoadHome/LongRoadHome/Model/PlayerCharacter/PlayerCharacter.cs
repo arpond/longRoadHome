@@ -69,11 +69,32 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             if (resource != null)
             {
                 int currentResounce = resource.GetAmount();
+                if (adjustment < 0)
+                {
+                    adjustment = ApplyModifier(resource, adjustment);
+                }
                 int result = currentResounce + adjustment;
 
                 resource.SetAmount(result);
                 primaryResources[resourceName] = resource;
             }
+        }
+
+        /// <summary>
+        /// Applies the modifier to the adjustment to a minimum of 1
+        /// </summary>
+        /// <param name="res">The resource to get the modifer for</param>
+        /// <param name="adjustment">The adjustment to make</param>
+        /// <returns></returns>
+        private int ApplyModifier(PrimaryResource res, int adjustment)
+        {
+            float mod = GetModifier(res);
+            adjustment = Convert.ToInt32(adjustment * mod);
+            if (Math.Abs(adjustment) < 1)
+            {
+                return -1;
+            }
+            return adjustment;
         }
 
         /// <summary>
@@ -119,9 +140,24 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return parsed;
         }
 
-        public void RecalculateModifers(ref List<PassiveMod> modifiers)
+        /// <summary>
+        /// Updates the modifiers with new modifiers
+        /// </summary>
+        /// <param name="modifiers">List of modifiers to be updated</param>
+        public void UpdateModifers(List<PassiveMod> modifiers)
         {
-            throw new System.Exception("Not implemented");
+            foreach(PassiveMod mod in modifiers)
+            {
+                PrimaryResource res = GetPrimaryResource(mod.GetResourceName());
+                if (res != null)
+                {
+                    float modifier;
+                    if (modifierMap.TryGetValue(res, out modifier))
+                    {
+                        modifierMap[res] = mod.GetModifier();
+                    }
+                }
+            }
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace UnitTests_LongRoadHome
 {
@@ -136,6 +137,76 @@ namespace UnitTests_LongRoadHome
             Assert.AreEqual(70, pc.GetResource(PlayerCharacter.THIRST), "Sanity Value Incorrect");
             Assert.AreEqual(50, pc.GetResource(PlayerCharacter.SANITY), "Thirst Value Incorrect");
 
+        }
+
+        [TestMethod]
+        public void PC_UpdateModifiers()
+        {
+            PlayerCharacter pc = new PlayerCharacter();
+            PassiveMod healthMod = new PassiveMod(PlayerCharacter.HEALTH, 1.2f);
+
+            List<PassiveMod> list = new List<PassiveMod>();
+            list.Add(healthMod);
+
+            pc.UpdateModifers(list);
+
+            String expected = PlayerCharacter.HEALTH + ":100:1.2," + PlayerCharacter.HUNGER + ":100:1,"
+                            + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.SANITY + ":100:1";
+            String result = pc.ParseToString();
+
+            Assert.AreEqual(expected, result, "Health modifier should be 1.2");
+        }
+
+        [TestMethod]
+        public void PC_ModifierApplied()
+        {
+            PlayerCharacter pc = new PlayerCharacter();
+            PassiveMod healthMod = new PassiveMod(PlayerCharacter.HEALTH, 0.8f);
+
+            List<PassiveMod> list = new List<PassiveMod>();
+            list.Add(healthMod);
+
+            pc.UpdateModifers(list);
+            pc.AdjustResource(PlayerCharacter.HEALTH, -20);
+            int expected = 100 - Convert.ToInt32(20*0.8);
+
+            int result = pc.GetResource(PlayerCharacter.HEALTH);
+            Assert.AreEqual(expected, result, "Health should be 84");
+        }
+
+        [TestMethod]
+        public void PC_AdjustmentMinimumIsOne()
+        {
+            PlayerCharacter pc = new PlayerCharacter();
+            PassiveMod healthMod = new PassiveMod(PlayerCharacter.HEALTH, 0.1f);
+
+            List<PassiveMod> list = new List<PassiveMod>();
+            list.Add(healthMod);
+
+            pc.UpdateModifers(list);
+            pc.AdjustResource(PlayerCharacter.HEALTH, -1);
+            int expected = 100 - 1;
+
+            int result = pc.GetResource(PlayerCharacter.HEALTH);
+            Assert.AreEqual(expected, result, "Health should be 99");
+        }
+
+        [TestMethod]
+        public void PC_ModifierNotAppliedToPositive()
+        {
+            PlayerCharacter pc = new PlayerCharacter();
+            PassiveMod healthMod = new PassiveMod(PlayerCharacter.HEALTH, 0.8f);
+
+            List<PassiveMod> list = new List<PassiveMod>();
+            list.Add(healthMod);
+
+            pc.UpdateModifers(list);
+            pc.AdjustResource(PlayerCharacter.HEALTH, -20);
+            pc.AdjustResource(PlayerCharacter.HEALTH, 10);
+            int expected = 100 - Convert.ToInt32(20 * 0.8) + 10;
+
+            int result = pc.GetResource(PlayerCharacter.HEALTH);
+            Assert.AreEqual(expected, result, "Health should be 94");
         }
     }
 }
