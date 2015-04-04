@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Controller
 {
     public class DifficultyController
@@ -7,7 +8,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         private int endLocationMinimum;
         private float eventModifier;
         private float eventChance;
-        private ArrayList<float> playerStatusTracker;
+        private List<float> playerStatusTracker;
         private float playerStatus;
 
         private void CalcEndLocationChance()
@@ -38,7 +39,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             return this.eventModifier;
         }
-        public ArrayList<float> GetPlayerStatusTracker()
+        public List<float> GetPlayerStatusTracker()
         {
             throw new System.Exception("Not implemented");
         }

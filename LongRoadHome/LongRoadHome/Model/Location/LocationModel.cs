@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
+using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
     public class LocationModel
     {
-        private ArrayList<Location> visitedLocation;
-        private ArrayList<DummyLocation> unvistedLocation;
+        private List<Location> visitedLocation;
+        private List<DummyLocation> unvistedLocation;
         private Location currentLocation;
         private Sublocation currentSublocation;
 
@@ -40,7 +42,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         {
             throw new System.Exception("Not implemented");
         }
-        public ArrayList<item> Scavenge()
+        public List<Item> Scavenge()
         {
             throw new System.Exception("Not implemented");
         }

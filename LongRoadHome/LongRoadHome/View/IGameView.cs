@@ -1,20 +1,24 @@
 using System;
+using System.Collections.Generic;
+using uk.ac.dundee.arpond.longRoadHome.Model.Discovery;
+using uk.ac.dundee.arpond.longRoadHome.Model.Location;
+using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 namespace uk.ac.dundee.arpond.longRoadHome.View
 {
     public interface IGameView
     {
         void DrawMainMenu();
-        void DrawDiscoveries(ref ArrayList<Discovery> discs);
-        void DrawWorldMap(ref ArrayList<Location> loc);
-        void DrawSublocationMap(ref ArrayList<Sublocation> subloc);
+        void DrawDiscoveries(ref List<Discovery> discs);
+        void DrawWorldMap(ref List<Location> loc);
+        void DrawSublocationMap(ref List<Sublocation> subloc);
         void DrawDialogueBox(ref String text);
-        Bool DrawYesNoOption(ref String text);
-        void DrawInventory(ref item[] inventory);
+        bool DrawYesNoOption(ref String text);
+        void DrawInventory(ref Item[] inventory);
         void DrawGameOver();
         void DrawVictory();
-        void DrawEvent(ref String eventText, ref ArrayList<String> options);
+        void DrawEvent(ref String eventText, ref List<String> options);
         void PlayAudio(ref String audioFile);
-        void Animate(ref ArrayList<String> imageFileNames);
+        void Animate(ref List<String> imageFileNames);
 
     }
 

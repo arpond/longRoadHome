@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using uk.ac.dundee.arpond.longRoadHome.Model.Discovery;
+using uk.ac.dundee.arpond.longRoadHome.Model.Location;
+using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 namespace uk.ac.dundee.arpond.longRoadHome.View
 {
     public class GameView : IGameView
@@ -62,7 +66,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new System.Exception("Not implemented");
         }
-        public void Animate(ref ArrayList<String> imageFileNames)
+        public void Animate(ref List<String> imageFileNames)
         {
             throw new System.Exception("Not implemented");
         }
@@ -70,7 +74,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new System.Exception("Not implemented");
         }
-        public void DrawEvent(ref String eventText, ref ArrayList<String> options)
+        public void DrawEvent(ref String eventText, ref List<String> options)
         {
             throw new System.Exception("Not implemented");
         }
@@ -82,11 +86,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new System.Exception("Not implemented");
         }
-        public void DrawInventory(ref item[] inventory)
+        public void DrawInventory(ref Item[] inventory)
         {
             throw new System.Exception("Not implemented");
         }
-        public Bool DrawYesNoOption(ref String text)
+        public bool DrawYesNoOption(ref String text)
         {
             throw new System.Exception("Not implemented");
         }
@@ -94,15 +98,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new System.Exception("Not implemented");
         }
-        public void DrawSublocationMap(ref ArrayList<Sublocation> subloc)
+        public void DrawSublocationMap(ref List<Sublocation> subloc)
         {
             throw new System.Exception("Not implemented");
         }
-        public void DrawWorldMap(ref ArrayList<Location> loc)
+        public void DrawWorldMap(ref List<Location> loc)
         {
             throw new System.Exception("Not implemented");
         }
-        public void DrawDiscoveries(ref ArrayList<Discovery> discs)
+        public void DrawDiscoveries(ref List<Discovery> discs)
         {
             throw new System.Exception("Not implemented");
         }

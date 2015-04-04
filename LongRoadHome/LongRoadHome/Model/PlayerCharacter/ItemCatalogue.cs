@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 {
     public class ItemCatalogue
     {
-        private ArrayList<Item> items;
+        private List<Item> items;
 
         public void ParseItemsFromFile()
         {

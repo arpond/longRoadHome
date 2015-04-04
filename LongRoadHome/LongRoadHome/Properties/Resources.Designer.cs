@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace uk.ac.dundee.arpond.LongRoadHome.Properties {
+namespace uk.ac.dundee.arpond.longRoadHome.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace uk.ac.dundee.arpond.LongRoadHome.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("uk.ac.dundee.arpond.LongRoadHome.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("uk.ac.dundee.arpond.longRoadHome.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

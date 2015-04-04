@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
     public class SubLocationFactory
     {
-        private HashMap<int, Sublocation> registeredSublocations;
+        private Dictionary<int, Sublocation> registeredSublocations;
 
         public Sublocation CreateSubLocation(ref int subTypeID)
         {

@@ -1,10 +1,14 @@
 using System;
+using uk.ac.dundee.arpond.longRoadHome.Model.Discovery;
+using uk.ac.dundee.arpond.longRoadHome.Model.Location;
+using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
+using uk.ac.dundee.arpond.longRoadHome.Model.Events;
 namespace uk.ac.dundee.arpond.longRoadHome.Model
 {
     public class GameState
     {
         private PCModel pcModel;
-        private uk.ac.dundee.arpond.longRoadHome.Model.Events.EventModel eventModel;
+        private EventModel eventModel;
         private LocationModel locationModel;
         private DiscoveryModel discoveryModel;
 
@@ -16,7 +20,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         {
             throw new System.Exception("Not implemented");
         }
-        public uk.ac.dundee.arpond.longRoadHome.Model.Events.EventModel GetEM()
+        public EventModel GetEM()
         {
             throw new System.Exception("Not implemented");
         }
@@ -32,10 +36,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         {
             throw new System.Exception("Not implemented");
         }
-
-        private PCModel pCModel;
-
-        private uk.ac.dundee.arpond.longRoadHome.Controller.MainController mainController;
 
     }
 

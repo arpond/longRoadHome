@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Discovery
 {
     public class DiscoveryModel
     {
-        private ArrayList<Discovery> discovered;
+        private List<Discovery> discovered;
 
         public String ParseToString()
         {
@@ -13,7 +14,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Discovery
         {
             throw new System.Exception("Not implemented");
         }
-        public ArrayList<String> GetDiscoveries()
+        public List<String> GetDiscoveries()
         {
             throw new System.Exception("Not implemented");
         }

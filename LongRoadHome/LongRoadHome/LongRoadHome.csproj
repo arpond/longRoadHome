@@ -7,7 +7,7 @@
     <ProjectGuid>{68FCF77B-39FB-4A4C-B94C-9AE756FAFF46}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uk.ac.dundee.arpond.LongRoadHome</RootNamespace>
+    <RootNamespace>uk.ac.dundee.arpond.longRoadHome</RootNamespace>
     <AssemblyName>LongRoadHome</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,14 +44,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\DifficultyController.cs" />
+    <Compile Include="Controller\FileReadWriter.cs" />
+    <Compile Include="Controller\MainController.cs" />
+    <Compile Include="Model\Events\Event.cs" />
+    <Compile Include="Model\Events\EventCatalogue.cs" />
+    <Compile Include="Model\Events\EventEffect.cs" />
+    <Compile Include="Model\Events\EventModel.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Events\ItemEventEffect.cs" />
+    <Compile Include="Model\Discovery\Discovery.cs" />
+    <Compile Include="Model\Discovery\DiscoveryCatalogue.cs" />
+    <Compile Include="Model\Discovery\DiscoveryModel.cs" />
+    <Compile Include="Model\Effect.cs" />
+    <Compile Include="Model\GameState.cs" />
+    <Compile Include="Model\Location\Civic.cs" />
+    <Compile Include="Model\Location\Commercial.cs" />
+    <Compile Include="Model\Location\DummyLocation.cs" />
+    <Compile Include="Model\Location\Location.cs" />
+    <Compile Include="Model\Location\LocationModel.cs" />
+    <Compile Include="Model\Location\Residential.cs" />
+    <Compile Include="Model\Location\Sublocation.cs" />
+    <Compile Include="Model\Location\SubLocationFactory.cs" />
+    <Compile Include="Model\ModelFacade.cs" />
+    <Compile Include="Model\Events\Option.cs" />
+    <Compile Include="Model\Events\PREventEffect.cs" />
+    <Compile Include="Model\PlayerCharacter\Inventory.cs" />
+    <Compile Include="Model\PlayerCharacter\Item.cs" />
+    <Compile Include="Model\PlayerCharacter\ItemCatalogue.cs" />
+    <Compile Include="Model\PlayerCharacter\ItemEffect.cs" />
+    <Compile Include="Model\PlayerCharacter\PassiveMod.cs" />
+    <Compile Include="Model\PlayerCharacter\PCModel.cs" />
+    <Compile Include="Model\PlayerCharacter\PlayerCharacter.cs" />
+    <Compile Include="Model\PlayerCharacter\PrimaryReource.cs" />
+    <Compile Include="Model\PlayerCharacter\Resource.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\Animation.cs" />
+    <Compile Include="View\Animator.cs" />
+    <Compile Include="View\AudioPlayer.cs" />
+    <Compile Include="View\GameView.cs" />
+    <Compile Include="View\IGameView.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
