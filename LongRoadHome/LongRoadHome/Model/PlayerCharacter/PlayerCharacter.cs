@@ -41,19 +41,25 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// Generates a PC based on the string input
         /// Check the string is valid before calling this function
         /// </summary>
-        /// <param name="input">String to be converted into a PC</param>
-        public PlayerCharacter(String input)
+        /// <param name="toParse">String to be converted into a PC</param>
+        public PlayerCharacter(String toParse)
         {
             this.primaryResources = new Dictionary<string, PrimaryResource>();
             this.modifierMap = new Dictionary<PrimaryResource, float>();
 
-            String[] resources = input.Split(',');
+            String[] resources = toParse.Split(',');
             foreach (String curr in resources)
             {
                 String[] resource = curr.Split(':');
-                PrimaryResource temp = new PrimaryResource(Convert.ToInt32(resource[1]), resource[0]);
-                primaryResources.Add(resource[0], temp);
-                modifierMap.Add(temp, Convert.ToSingle(resource[2]));
+                int amount;
+                float mod;
+                if (int.TryParse(resource[1], out amount) && float.TryParse(resource[2], out mod))
+                {
+                    PrimaryResource temp = new PrimaryResource(amount, resource[0]);
+                    primaryResources.Add(resource[0], temp);
+                    modifierMap.Add(temp, mod);
+                }
+                
             }
         }
 
@@ -144,9 +150,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// Updates the modifiers with new modifiers
         /// </summary>
         /// <param name="modifiers">List of modifiers to be updated</param>
-        public void UpdateModifers(List<PassiveMod> modifiers)
+        public void UpdateModifers(List<PassiveEffect> modifiers)
         {
-            foreach(PassiveMod mod in modifiers)
+            foreach(PassiveEffect mod in modifiers)
             {
                 PrimaryResource res = GetPrimaryResource(mod.GetResourceName());
                 if (res != null)
@@ -232,20 +238,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                             break;
                 }
 
-                try
+                int amount;
+                if (int.TryParse(resource[1], out amount))
                 {
-                    int amount = Convert.ToInt32(resource[1]);
-                    float mod = Convert.ToSingle(resource[2]);
-
                     if (amount > 100 || amount <= 0)
                     {
                         return false;
                     }
                 }
-                catch (FormatException fe)
+                else
                 {
                     return false;
                 }
+
+
+                float mod;
+                if (!float.TryParse(resource[2], out mod))
+                {
+                    return false;
+                }
+
             }
             return true;
         }

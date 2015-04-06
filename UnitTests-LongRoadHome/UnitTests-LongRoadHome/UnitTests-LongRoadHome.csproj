@@ -55,6 +55,9 @@
   <ItemGroup>
     <Compile Include="TPlayerCharacter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TItem.cs" />
+    <Compile Include="TActiveEffect.cs" />
+    <Compile Include="TPassiveEffect.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

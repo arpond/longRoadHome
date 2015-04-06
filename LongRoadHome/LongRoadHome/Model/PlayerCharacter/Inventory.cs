@@ -32,7 +32,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             throw new System.Exception("Not implemented");
         }
-        public List<PassiveMod> GetAllPassives()
+        public List<PassiveEffect> GetAllPassives()
         {
             throw new System.Exception("Not implemented");
         }

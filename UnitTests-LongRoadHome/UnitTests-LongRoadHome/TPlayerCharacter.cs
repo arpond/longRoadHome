@@ -8,7 +8,7 @@ namespace UnitTests_LongRoadHome
     [TestClass]
     public class TPlayerCharacter
     {
-        [TestMethod]
+        [TestCategory("PlayerCharacter"), TestCategory("PC"), TestMethod()]
         public void PC_CreatedWithCorrectValues()
         {
             PlayerCharacter pc = new PlayerCharacter();
@@ -18,7 +18,7 @@ namespace UnitTests_LongRoadHome
             Assert.AreEqual(100, pc.GetResource(PlayerCharacter.SANITY), "Thirst Value Incorrect");
         }
 
-        [TestMethod]
+        [TestCategory("PlayerCharacter"), TestCategory("PC"), TestMethod()]
         public void PC_HealthAdjustment()
         {
             PlayerCharacter pc = new PlayerCharacter();
@@ -50,7 +50,7 @@ namespace UnitTests_LongRoadHome
             Assert.AreEqual(expected4, result4, "Health at minimum 0");
         }
 
-        [TestMethod]
+        [TestCategory("PlayerCharacter"), TestCategory("PC"), TestMethod()]
         public void PC_ParseToString()
         {
             PlayerCharacter pc = new PlayerCharacter();
@@ -63,7 +63,7 @@ namespace UnitTests_LongRoadHome
             Assert.AreEqual(expected, result, "Parsed String does not match");
         }
 
-        [TestMethod]
+        [TestCategory("PlayerCharacter"), TestCategory("PC"), TestMethod()]
         public void PC_CheckStringIsValid()
         {
             String test1 = "";
@@ -123,7 +123,7 @@ namespace UnitTests_LongRoadHome
 
         }
 
-        [TestMethod]
+        [TestCategory("PlayerCharacter"), TestCategory("PC"), TestMethod()]
         public void PC_ParseFromString()
         {
             String creationString = PlayerCharacter.HEALTH + ":80:1.1," + PlayerCharacter.HUNGER + ":60:1,"
@@ -139,13 +139,13 @@ namespace UnitTests_LongRoadHome
 
         }
 
-        [TestMethod]
+        [TestCategory("PlayerCharacter"), TestCategory("PC"), TestMethod()]
         public void PC_UpdateModifiers()
         {
             PlayerCharacter pc = new PlayerCharacter();
-            PassiveMod healthMod = new PassiveMod(PlayerCharacter.HEALTH, 1.2f);
+            PassiveEffect healthMod = new PassiveEffect(PlayerCharacter.HEALTH, 1.2f);
 
-            List<PassiveMod> list = new List<PassiveMod>();
+            List<PassiveEffect> list = new List<PassiveEffect>();
             list.Add(healthMod);
 
             pc.UpdateModifers(list);
@@ -157,13 +157,13 @@ namespace UnitTests_LongRoadHome
             Assert.AreEqual(expected, result, "Health modifier should be 1.2");
         }
 
-        [TestMethod]
+        [TestCategory("PlayerCharacter"), TestCategory("PC"), TestMethod()]
         public void PC_ModifierApplied()
         {
             PlayerCharacter pc = new PlayerCharacter();
-            PassiveMod healthMod = new PassiveMod(PlayerCharacter.HEALTH, 0.8f);
+            PassiveEffect healthMod = new PassiveEffect(PlayerCharacter.HEALTH, 0.8f);
 
-            List<PassiveMod> list = new List<PassiveMod>();
+            List<PassiveEffect> list = new List<PassiveEffect>();
             list.Add(healthMod);
 
             pc.UpdateModifers(list);
@@ -174,13 +174,13 @@ namespace UnitTests_LongRoadHome
             Assert.AreEqual(expected, result, "Health should be 84");
         }
 
-        [TestMethod]
+        [TestCategory("PlayerCharacter"), TestCategory("PC"), TestMethod()]
         public void PC_AdjustmentMinimumIsOne()
         {
             PlayerCharacter pc = new PlayerCharacter();
-            PassiveMod healthMod = new PassiveMod(PlayerCharacter.HEALTH, 0.1f);
+            PassiveEffect healthMod = new PassiveEffect(PlayerCharacter.HEALTH, 0.1f);
 
-            List<PassiveMod> list = new List<PassiveMod>();
+            List<PassiveEffect> list = new List<PassiveEffect>();
             list.Add(healthMod);
 
             pc.UpdateModifers(list);
@@ -191,13 +191,13 @@ namespace UnitTests_LongRoadHome
             Assert.AreEqual(expected, result, "Health should be 99");
         }
 
-        [TestMethod]
+        [TestCategory("PlayerCharacter"), TestCategory("PC"), TestMethod()]
         public void PC_ModifierNotAppliedToPositive()
         {
             PlayerCharacter pc = new PlayerCharacter();
-            PassiveMod healthMod = new PassiveMod(PlayerCharacter.HEALTH, 0.8f);
+            PassiveEffect healthMod = new PassiveEffect(PlayerCharacter.HEALTH, 0.8f);
 
-            List<PassiveMod> list = new List<PassiveMod>();
+            List<PassiveEffect> list = new List<PassiveEffect>();
             list.Add(healthMod);
 
             pc.UpdateModifers(list);
