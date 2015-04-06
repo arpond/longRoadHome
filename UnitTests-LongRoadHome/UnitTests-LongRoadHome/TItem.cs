@@ -16,9 +16,9 @@ namespace UnitTests_LongRoadHome
             Assert.AreEqual("TestItem", item.GetName(), "Deafault name should be TestItem");
             Assert.AreEqual(1, item.GetAmount(), "Default amount should be 1");
             Assert.AreEqual("test item 1", item.GetDescription(), "Default description should be test item 1");
-            Assert.IsFalse(item.hasActiveEffect(), "Should not have any active effect");
-            Assert.IsFalse(item.hasPassiveEffect(), "Should not have any passive effect");
-            Assert.IsFalse(item.hasRequirements(), "Should not have any requirements");
+            Assert.IsFalse(item.HasActiveEffect(), "Should not have any active effect");
+            Assert.IsFalse(item.HasPassiveEffect(), "Should not have any passive effect");
+            Assert.IsFalse(item.HasRequirements(), "Should not have any requirements");
         }
 
         [TestCategory("PlayerCharacter"), TestCategory("Item"), TestMethod()]
@@ -116,7 +116,7 @@ namespace UnitTests_LongRoadHome
             Assert.IsFalse(Item.IsValidItem(test5a), "Active Effect should be valid");
 
             String test5b = PassiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "10";
-            Assert.AreEqual(Item.IsValidItem(test5a), ActiveEffect.isValidActiveEffect(test5b), "Invalid Active Effect should mean invalid Item");
+            Assert.AreEqual(Item.IsValidItem(test5a), ActiveEffect.IsValidActiveEffect(test5b), "Invalid Active Effect should mean invalid Item");
 
             String test6 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect:,Requirements";
             Assert.IsFalse(Item.IsValidItem(test6), "If passive effect has items it should have at least 1");
@@ -134,7 +134,7 @@ namespace UnitTests_LongRoadHome
             Assert.IsFalse(Item.IsValidItem(test10a), "Passive Effect should be valid");
 
             String test10b = ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "10";
-            Assert.AreEqual(Item.IsValidItem(test10a), PassiveEffect.isValidPassiveEffect(test10b), "Invalid Passive Effect should mean invalid Item");
+            Assert.AreEqual(Item.IsValidItem(test10a), PassiveEffect.IsValidPassiveEffect(test10b), "Invalid Passive Effect should mean invalid Item");
 
             String test11 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements:";
             Assert.IsFalse(Item.IsValidItem(test11), "If Requirements has items it should have at least 1");

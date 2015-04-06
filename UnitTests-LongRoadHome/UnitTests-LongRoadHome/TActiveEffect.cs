@@ -21,25 +21,25 @@ namespace UnitTests_LongRoadHome
         public void ActiveEffect_CheckStringIsValid()
         {
             String test1 = "";
-            Assert.IsFalse(ActiveEffect.isValidActiveEffect(test1), "Empty String is invalid");
+            Assert.IsFalse(ActiveEffect.IsValidActiveEffect(test1), "Empty String is invalid");
 
             String test2 = ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":0";
-            Assert.IsTrue(ActiveEffect.isValidActiveEffect(test2), "Basic Active Effect is valid");
+            Assert.IsTrue(ActiveEffect.IsValidActiveEffect(test2), "Basic Active Effect is valid");
 
             String test3 = ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH;
-            Assert.IsFalse(ActiveEffect.isValidActiveEffect(test3), "Should be at least 3 items in a resource");
+            Assert.IsFalse(ActiveEffect.IsValidActiveEffect(test3), "Should be at least 3 items in a resource");
 
             String test4 = ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":10:11";
-            Assert.IsFalse(ActiveEffect.isValidActiveEffect(test4), "Should be at most 3 items in a resource");
+            Assert.IsFalse(ActiveEffect.IsValidActiveEffect(test4), "Should be at most 3 items in a resource");
 
             String test5 = ActiveEffect.TAG + ":" + ":blah:10";
-            Assert.IsFalse(ActiveEffect.isValidActiveEffect(test5), "Should affect one of the 4 primary character resources");
+            Assert.IsFalse(ActiveEffect.IsValidActiveEffect(test5), "Should affect one of the 4 primary character resources");
 
             String test6 = ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + PlayerCharacter.HEALTH;
-            Assert.IsFalse(ActiveEffect.isValidActiveEffect(test6), "Third item should be an int");
+            Assert.IsFalse(ActiveEffect.IsValidActiveEffect(test6), "Third item should be an int");
 
             String test7 = "PE:" + PlayerCharacter.HEALTH + ":100";
-            Assert.IsFalse(ActiveEffect.isValidActiveEffect(test7), "First item should be AE");
+            Assert.IsFalse(ActiveEffect.IsValidActiveEffect(test7), "First item should be AE");
         }
 
         [TestCategory("PlayerCharacter"), TestCategory("ActiveEffect"), TestMethod()]

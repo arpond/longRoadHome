@@ -67,59 +67,59 @@ namespace UnitTests_LongRoadHome
         public void PC_CheckStringIsValid()
         {
             String test1 = "";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test1), "Empty String is invalid");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test1), "Empty String is invalid");
 
             String test2 = PlayerCharacter.HEALTH + ":100:1," + PlayerCharacter.HUNGER + ":100:1,"
                          + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.SANITY + ":100:1";
-            Assert.IsTrue(PlayerCharacter.isValidPC(test2), "Basic Character is valid");
+            Assert.IsTrue(PlayerCharacter.IsValidPC(test2), "Basic Character is valid");
 
             String test3 = PlayerCharacter.HEALTH + ":101:1," + PlayerCharacter.HUNGER + ":100:1,"
                          + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.SANITY + ":100:1";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test3), "Resources are capped at 100");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test3), "Resources are capped at 100");
 
             String test4 = PlayerCharacter.HEALTH + ":-1:1," + PlayerCharacter.HUNGER + ":100:1,"
                          + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.SANITY + ":100:1";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test4), "Resources cannot be negative");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test4), "Resources cannot be negative");
 
             String test5 = PlayerCharacter.HEALTH + ":100:1," + PlayerCharacter.HUNGER + ":100:1,"
                          + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.SANITY + ":100:1" + PlayerCharacter.SANITY + ":100:1";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test5), "There should only be 4 resources");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test5), "There should only be 4 resources");
 
             String test6 = PlayerCharacter.HEALTH + ":100:1," + PlayerCharacter.HUNGER + ":100:1,"
                          + PlayerCharacter.THIRST + ":100:1,";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test6), "There should be at least 4 resources");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test6), "There should be at least 4 resources");
 
             String test7 = PlayerCharacter.HEALTH + ":100:1," + PlayerCharacter.HUNGER + ":100:1,"
                          + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.THIRST + ":100:1,";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test7), "There should be no duplicate resources");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test7), "There should be no duplicate resources");
 
             String test8 = "Blah" + ":100:1," + PlayerCharacter.HUNGER + ":100:1,"
                          + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.THIRST + ":100:1,";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test8), "All resoureces should be one of the 4 satic values");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test8), "All resoureces should be one of the 4 satic values");
 
             String test9 = PlayerCharacter.HUNGER + ":100:1," + PlayerCharacter.HEALTH + ":100:1,"
                          + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.THIRST + ":100:1,";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test9), "Resources should be in the correct order");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test9), "Resources should be in the correct order");
 
             String test10 = PlayerCharacter.HEALTH + ":100," + PlayerCharacter.HUNGER + ":100:1,"
                           + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.THIRST + ":100:1,";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test10), "Resources should include a modifier");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test10), "Resources should include a modifier");
 
             String test11 = PlayerCharacter.HEALTH + "," + PlayerCharacter.HUNGER + ":100,"
                           + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.THIRST + ":100:1,";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test11), "Resources should include a value");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test11), "Resources should include a value");
 
             String test12 = PlayerCharacter.HEALTH + ":100:1:2," + PlayerCharacter.HUNGER + ":100,"
                           + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.THIRST + ":100:1,";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test12), "Resources should not have additional fields");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test12), "Resources should not have additional fields");
 
             String test13 = "100:" + PlayerCharacter.HEALTH + ":1," + PlayerCharacter.HUNGER + ":100,"
                           + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.THIRST + ":100:1,";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test13), "Resources should be pf the form String:Int:float");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test13), "Resources should be pf the form String:Int:float");
 
             String test14 = PlayerCharacter.HEALTH + ":1.2:100," + PlayerCharacter.HUNGER + ":100,"
               + PlayerCharacter.THIRST + ":100:1," + PlayerCharacter.THIRST + ":100:1,";
-            Assert.IsFalse(PlayerCharacter.isValidPC(test14), "Resources should be pf the form String:Int:float");
+            Assert.IsFalse(PlayerCharacter.IsValidPC(test14), "Resources should be pf the form String:Int:float");
 
         }
 

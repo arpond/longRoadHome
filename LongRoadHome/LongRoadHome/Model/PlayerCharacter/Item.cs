@@ -332,5 +332,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return true;
         }
 
+        /// <summary>
+        /// Two items are equal if they have the same item ID
+        /// </summary>
+        /// <param name="obj">The object to compare</param>
+        /// <returns>If the obj and this item are equal</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            Item i = (Item)obj;
+            return itemID == i.itemID;
+        }
+
     }
 }
