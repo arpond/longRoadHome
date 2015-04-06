@@ -77,8 +77,8 @@
     <Compile Include="Model\PlayerCharacter\Inventory.cs" />
     <Compile Include="Model\PlayerCharacter\Item.cs" />
     <Compile Include="Model\PlayerCharacter\ItemCatalogue.cs" />
-    <Compile Include="Model\PlayerCharacter\ItemEffect.cs" />
-    <Compile Include="Model\PlayerCharacter\PassiveMod.cs" />
+    <Compile Include="Model\PlayerCharacter\ActiveEffect.cs" />
+    <Compile Include="Model\PlayerCharacter\PassiveEffect.cs" />
     <Compile Include="Model\PlayerCharacter\PCModel.cs" />
     <Compile Include="Model\PlayerCharacter\PlayerCharacter.cs" />
     <Compile Include="Model\PlayerCharacter\PrimaryReource.cs" />
