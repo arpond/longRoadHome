@@ -5,44 +5,57 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
     {
         private PlayerCharacter currentPC;
         private ItemCatalogue itemCatalogue;
-        private Inventory inventory;
+        private Inventory currentInventory;
 
-        public PCModel(ref String pc, ref String catalogue)
+        public PCModel(String pc, String inventory, String catalogue)
         {
-            throw new System.Exception("Not implemented");
+            currentPC = new PlayerCharacter(pc);
+            currentInventory = new Inventory(inventory);
+            itemCatalogue = new ItemCatalogue(catalogue);
         }
-        public String ParseToString()
+        public String ParsePCToString()
         {
-            throw new System.Exception("Not implemented");
+            return currentPC.ParseToString();
         }
-        public void ModifyPrimaryResource(ref PrimaryResource resource, ref int amount)
+        public String ParseInventoryToString()
         {
-            throw new System.Exception("Not implemented");
+            return currentInventory.ParseToString();
         }
-        public void ModifyInventory(ref Item item, ref int amount)
+        public void ModifyPrimaryResource(PrimaryResource resource, int amount)
         {
-            throw new System.Exception("Not implemented");
+            currentPC.AdjustResource(resource.GetName(), amount);
+        }
+        public void ModifyInventory(Item item, int amount)
+        {
+            if(amount > 0)
+            {
+                item.SetAmount(amount);
+                currentInventory.AddItem(item);
+            }
+            else
+            {
+                for (int i = 0; i < amount; i++ )
+                {
+                    int invSlot = currentInventory.GetInventorySlot(item);
+                    currentInventory.RemoveItem(invSlot);
+                }    
+            }
         }
         public PlayerCharacter GetPC()
         {
-            throw new System.Exception("Not implemented");
+            return currentPC;
         }
-        public bool CheckForGameOver()
+        public bool IsGameOver()
         {
-            throw new System.Exception("Not implemented");
+            return currentPC.IsDead();
         }
-        public void UseItem(ref int invSlot)
+        public void UseItem(int invSlot)
         {
-            throw new System.Exception("Not implemented");
+            Item toUse = currentInventory.RemoveItem(invSlot);
         }
         public bool ItemUsable(ref int invSlot)
         {
             throw new System.Exception("Not implemented");
         }
-
-        private PlayerCharacter playerCharacter;
-
-        private uk.ac.dundee.arpond.longRoadHome.Model.GameState gameState;
-
     }
 }

@@ -37,7 +37,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public Item GetRandomItem()
         {
             int i = rnd.Next(items.Count);
-            return items[i];
+            return (Item)items[i].Clone();
         }
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                     id = ids[i];
                 }
             }
-            
-            return items[i];
+
+            return (Item)items[i].Clone();
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             {
                 if (item.GetID() == itemID)
                 {
-                    return item;
+                    return (Item)item.Clone();
                 }
             }
             return null;
