@@ -197,7 +197,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// </summary>
         /// <param name="toTest">The string to test</param>
         /// <returns>If the string is valid or invalid</returns>
-        public static bool isValidPC(String toTest)
+        public static bool IsValidPC(String toTest)
         {
             String[] resources = toTest.Split(',');
             if (resources.GetLength(0) != 4)

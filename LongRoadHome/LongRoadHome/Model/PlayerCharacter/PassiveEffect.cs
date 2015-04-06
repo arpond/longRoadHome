@@ -8,6 +8,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         private String resourceName;
         private float modifierVal;
 
+        /// <summary>
+        /// Constructor for a passive modifier which takes a string
+        /// </summary>
+        /// <param name="toParse">The string to parse to a passive effect</param>
         public PassiveEffect(String toParse)
         {
             String[] effectElements = toParse.Split(':');
@@ -46,13 +50,21 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return this.modifierVal;
         }
 
-
+        /// <summary>
+        /// Parses this Passive Effect to a string format suitable for saving
+        /// </summary>
+        /// <returns>The parsed Passive Effect</returns>
         public string ParseToString()
         {
             return String.Format("{0}:{1}:{2}", TAG, resourceName, modifierVal);
         }
 
-        public static bool isValidPassiveEffect(String toTest)
+        /// <summary>
+        /// Checks if a string is a valid Passive Effect string
+        /// </summary>
+        /// <param name="toTest">The string to test</param>
+        /// <returns>If the string is valid or invalid</returns>
+        public static bool IsValidPassiveEffect(String toTest)
         {
             String[] effectElements = toTest.Split(':');
 

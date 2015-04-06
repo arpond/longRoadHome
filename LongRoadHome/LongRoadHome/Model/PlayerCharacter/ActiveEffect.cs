@@ -14,6 +14,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             resource = new PrimaryResource(value,PlayerCharacter.HEALTH);
         }
 
+        // <summary>
+        /// Constructor for a active modifier which takes a string
+        /// </summary>
+        /// <param name="toParse">The string to parse to a activeeffect</param>
         public ActiveEffect(String toParse)
         {
             String[] effectElements = toParse.Split(':');
@@ -23,27 +27,48 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             }
         }
 
+        /// <summary>
+        /// Accessor method for value
+        /// </summary>
+        /// <returns>The value of the active effect</returns>
         public int GetValue()
         {
             return this.value;
         }
 
+        /// <summary>
+        /// Accessor method for the primary resource
+        /// </summary>
+        /// <returns>The primary resource of the active effect</returns>
         public PrimaryResource GetResource()
         {
             return this.resource;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="float_eventModifier"></param>
         public void ResolveEffect(ref object float_eventModifier)
         {
             throw new System.Exception("Not implemented");
         }
 
+        /// <summary>
+        /// Parses this Active Effect to a string format suitable for saving
+        /// </summary>
+        /// <returns>The parsed Active Effect</returns>
         public string ParseToString()
         {
             return String.Format("{0}:{1}:{2}", TAG, resource.GetName(), resource.GetAmount());
         }
 
-        public static bool isValidActiveEffect(String toTest)
+        /// <summary>
+        /// Checks if a string is a valid Active Effect string
+        /// </summary>
+        /// <param name="toTest">The string to test</param>
+        /// <returns>If the string is valid or invalid</returns>
+        public static bool IsValidActiveEffect(String toTest)
         {
             String[] effectElements = toTest.Split(':');
 

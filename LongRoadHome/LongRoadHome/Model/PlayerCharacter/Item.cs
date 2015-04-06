@@ -10,6 +10,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         private List<ActiveEffect> activeEffects;
         private List<PassiveEffect> passiveEffects;
 
+        /// <summary>
+        /// Standard Constructor for an Item
+        /// </summary>
         public Item()
         {
             itemID = 1;
@@ -21,6 +24,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             passiveEffects = new List<PassiveEffect>();
         }
 
+        /// <summary>
+        /// Generates an Item based on the string input
+        /// Check the string is valid before calling this function
+        /// </summary>
+        /// <param name="toParse">String to be converted into a PC</param>
         public Item(String toParse)
         {
             requirements = new HashSet<int>();
@@ -81,56 +89,101 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             }
         }
 
+        /// <summary>
+        /// Accessor method for amount
+        /// </summary>
+        /// <returns>Returns the amount</returns>
         public override int GetAmount()
         {
             return this.amount;
         }
         
+        /// <summary>
+        /// Mutator method for the amount
+        /// </summary>
+        /// <param name="amount">The value to set the amount to</param>
         public override void SetAmount(int amount)
         {
             this.amount = amount;
         }
         
+        /// <summary>
+        /// Accessor method for the item name
+        /// </summary>
+        /// <returns>The item name</returns>
         public override String GetName()
         {
             return this.name;
         }
 
+        /// <summary>
+        /// Accessor method for the item id
+        /// </summary>
+        /// <returns>The item ID</returns>
         public int GetID()
         {
             return this.itemID;
         }
 
+        /// <summary>
+        /// Accessor method for the Description
+        /// </summary>
+        /// <returns>The item description</returns>
         public String GetDescription()
         {
             return this.description;
         }
         
+        /// <summary>
+        /// Accessor method for the item's active effects
+        /// </summary>
+        /// <returns>List of the Item's Active effects</returns>
         public List<ActiveEffect> GetActiveEffects()
         {
             return this.activeEffects;
         }
 
+        /// <summary>
+        /// Accessor method for the item's passive effects
+        /// </summary>
+        /// <returns>List of the Item's Passive Effects</returns>
         public List<PassiveEffect> GetPassiveEffects()
         {
             return this.passiveEffects;
         }
 
-        public bool hasActiveEffect()
+        /// <summary>
+        /// Checks if the item has any active effects
+        /// </summary>
+        /// <returns>Bool representing if there are any active effects</returns>
+        public bool HasActiveEffect()
         {
             return activeEffects.Count > 0;
         }
 
-        public bool hasPassiveEffect()
+        /// <summary>
+        /// Checks if the item has any passive effects
+        /// </summary>
+        /// <returns>Bool representing if there are any passive effects</returns>
+        public bool HasPassiveEffect()
         {
             return passiveEffects.Count > 0;
         }
 
-        public bool hasRequirements()
+        /// <summary>
+        /// Checks if the item has any requirements
+        /// </summary>
+        /// <returns>Bool representing if there are any requirements</returns>
+        public bool HasRequirements()
         {
             return requirements.Count > 0;
         }
 
+        /// <summary>
+        /// Checks if the items IDs passed meet the requirements of this Item
+        /// </summary>
+        /// <param name="itemIDs">HashSet of item IDs</param>
+        /// <returns>If the requirements are met</returns>
         public bool CheckReqs(HashSet<int> itemIDs)
         {
             if (requirements.Count == 0)
@@ -141,6 +194,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return requirements.IsSubsetOf(itemIDs);
         }
 
+        /// <summary>
+        /// Parses this item to String suitable for saving
+        /// </summary>
+        /// <returns>String representing this item</returns>
         public override String ParseToString()
         {
             String parsed = "";
@@ -170,6 +227,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return parsed;
         }
 
+        /// <summary>
+        /// Checks if a string is a valid Item string
+        /// </summary>
+        /// <param name="toTest">The string to test</param>
+        /// <returns>If the string is valid or invalid</returns>
         public static bool IsValidItem(String toTest)
         {
             String[] itemElements = toTest.Split(',');
@@ -213,7 +275,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                             }
                             for (int i = 1; i < itemElement.Length; i = i + 3)
                             {
-                                if (!ActiveEffect.isValidActiveEffect(itemElement[i] + ":" + itemElement[i + 1] + ":" + itemElement[i + 2]))
+                                if (!ActiveEffect.IsValidActiveEffect(itemElement[i] + ":" + itemElement[i + 1] + ":" + itemElement[i + 2]))
                                 {
                                     return false;
                                 }
@@ -229,7 +291,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                             }
                             for (int i = 1; i < itemElement.Length; i = i + 3)
                             {
-                                if (!PassiveEffect.isValidPassiveEffect(itemElement[i] + ":" + itemElement[i + 1] + ":" + itemElement[i + 2]))
+                                if (!PassiveEffect.IsValidPassiveEffect(itemElement[i] + ":" + itemElement[i + 1] + ":" + itemElement[i + 2]))
                                 {
                                     return false;
                                 }
