@@ -46,12 +46,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
-        /// 
+        /// Adjusts the player character with this items effect
         /// </summary>
-        /// <param name="float_eventModifier"></param>
-        public void ResolveEffect(ref object float_eventModifier)
+        /// <param name="eventModifier">Not used</param>
+        /// <param name="pc">The player character to modify</param>
+        public void ResolveEffect(float eventModifier, PlayerCharacter pc)
         {
-            throw new System.Exception("Not implemented");
+            pc.AdjustResource(resource.GetName(), value);
         }
 
         /// <summary>

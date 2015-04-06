@@ -4,7 +4,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
 		private int minimum;
 		private int maximum;
 
-		public abstract void ResolveEffect(ref object float_eventModifier);
+        public abstract void ResolveEffect(float eventModifier, uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter.PlayerCharacter pc);
 
         public string ParseToString()
         {
