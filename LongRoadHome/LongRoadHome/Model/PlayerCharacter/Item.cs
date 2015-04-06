@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 {
-    public class Item : Resource
+    public class Item : Resource, ICloneable
     {
         private int itemID;
         private String description;
@@ -87,6 +87,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                     //default: throw new FormatException();
                 }
             }
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
 
         /// <summary>

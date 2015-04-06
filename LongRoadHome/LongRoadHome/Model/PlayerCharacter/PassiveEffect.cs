@@ -89,5 +89,36 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 
             return true;
         }
+
+        /// <summary>
+        /// Checks if two effects are the same type
+        /// </summary>
+        /// <param name="toCompare">The effect to compare this effect to</param>
+        /// <returns>If they are the same type</returns>
+        public bool SamePassiveType(PassiveEffect toCompare)
+        {
+            if (resourceName == toCompare.GetResourceName())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Merges two effects of the same type
+        /// If they are different types returns the orginal
+        /// </summary>
+        /// <param name="toMerge">The passiveEffect to merge with</param>
+        /// <returns>A new passive effect which is the two merged together</returns>
+        public PassiveEffect MergeEffect(PassiveEffect toMerge)
+        {
+            if (SamePassiveType(toMerge))
+            {
+                var temp = modifierVal * toMerge.GetModifier();
+                var merged = new PassiveEffect(resourceName, temp);
+                return merged;
+            }
+            return this;
+        }
     }
 }

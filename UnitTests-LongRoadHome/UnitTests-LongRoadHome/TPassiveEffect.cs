@@ -60,5 +60,37 @@ namespace UnitTests_LongRoadHome
 
             Assert.AreEqual(expected, pe.ParseToString(), "String should be " + expected);
         }
+
+        [TestCategory("PlayerCharacter"), TestCategory("PassiveEffect"), TestMethod()]
+        public void PassiveEffect_SamePassive()
+        {
+            String passive1 = PassiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":0.7";
+            String passive2 = PassiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":0.8";
+            String passive3 = PassiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":0.7";
+            PassiveEffect pe1 = new PassiveEffect(passive1);
+            PassiveEffect pe2 = new PassiveEffect(passive2);
+            PassiveEffect pe3 = new PassiveEffect(passive3);
+
+            Assert.IsTrue(pe1.SamePassiveType(pe1), "Passive Effect type should match itself");
+            Assert.IsTrue(pe1.SamePassiveType(pe2), "Passive Effect type should match another of the same type");
+            Assert.IsFalse(pe1.SamePassiveType(pe3), "Passive Effect type should not match another type");
+        }
+
+        [TestCategory("PlayerCharacter"), TestCategory("PassiveEffect"), TestMethod()]
+        public void PassiveEffect_MergePassive()
+        {
+            String passive1 = PassiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":0.7";
+            String passive2 = PassiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":0.8";
+            String passive3 = PassiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":0.7";
+            PassiveEffect pe1 = new PassiveEffect(passive1);
+            PassiveEffect pe2 = new PassiveEffect(passive2);
+            PassiveEffect pe3 = new PassiveEffect(passive3);
+
+            var merged1 = pe1.MergeEffect(pe2);
+            var merged2 = pe1.MergeEffect(pe3);
+
+            Assert.AreEqual(0.7 * 0.8, merged1.GetModifier(), 0.001,"After the merge modifier should be " + 0.7 * 0.8);
+            Assert.AreEqual(pe1, merged2, "Different type merged should leave orginal the same");
+        }
     }
 }
