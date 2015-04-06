@@ -159,8 +159,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// <returns>bool representing if the string is a valid inventory or not</returns>
         public static bool IsValidInventory(String toTest)
         {
+            List<int> idList = new List<int>();
             String[] inventoryElements = toTest.Split('#');
-            if (inventoryElements[0] != TAG)
+            if (inventoryElements[0] != TAG || inventoryElements.Length > 17)
             {
                 return false;
             }
@@ -172,6 +173,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                     {
                         return false;
                     }
+                    var itemElements = inventoryElements[i].Split(',');
+                    var idElements = itemElements[0].Split(':');
+                    int currID = Convert.ToInt32(idElements[1]);
+                    if (idList.Contains(currID))
+                    {
+                        return false;
+                    }
+                    idList.Add(currID);
                 }
             }
             return true;

@@ -273,6 +273,8 @@ namespace UnitTests_LongRoadHome
             String invalidItem = "ID:-1,Name:TestItem,Amount:3,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
 
             String expected = Inventory.TAG + "#" + itemStr4 + "#" + itemStr2 + "#" + itemStr3;
+            String nonUniqueID = ItemCatalogue.TAG + ";" + itemStr1 + ";" + itemStr2 + ";" + itemStr3 + ";" + itemStr1;
+
 
             Assert.IsTrue(Inventory.IsValidInventory(Inventory.TAG), "empty inventory should be valid");
             Assert.IsTrue(Inventory.IsValidInventory(expected), "Standard inventory should be valid");
@@ -282,6 +284,7 @@ namespace UnitTests_LongRoadHome
             Assert.IsFalse(Inventory.IsValidInventory(Inventory.TAG + itemStr1), "No # should be invalid");
             Assert.IsFalse(Inventory.IsValidInventory(Inventory.TAG + "#" + invalidItem), "Invalid item means invalid inventory");
             Assert.AreEqual(Inventory.IsValidInventory(Inventory.TAG + "#" + invalidItem), Item.IsValidItem(invalidItem), "Invalid item should match invalid inventory");
+            Assert.IsFalse(Inventory.IsValidInventory(nonUniqueID), "Each ID should be unique");
         }
 
         [TestCategory("PlayerCharacter"), TestCategory("Inventory"), TestMethod()]
