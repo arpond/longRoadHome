@@ -12,6 +12,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         private Random rnd = new Random();
         
         public abstract String ParseToString();
+        public abstract bool IsValidSublocation(String toTest);
         public abstract Sublocation CreateSublocation(int sublocID, int maxItems, int maxAmount);
         public abstract Sublocation CreateSublocation(String toParse);
 

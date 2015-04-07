@@ -46,6 +46,31 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             return String.Format("{0}:{1}:{2}:{3}:{4}:{5}", TYPE, sublocationID, scavenged, maxItems, maxAmount, imagePath); 
         }
 
+        public override bool IsValidSublocation(String toTest)
+        {
+            String[] slElem = toTest.Split(':');
+            int id, maxI, maxA;
+            bool scav;
+
+            if (slElem.Length != 6 || slElem[0] != TYPE)
+            {
+                return false;
+            }
+            if (!int.TryParse(slElem[1], out id) || !bool.TryParse(slElem[2], out scav) || !int.TryParse(slElem[3], out maxI) || !int.TryParse(slElem[4], out maxA))
+            {
+                return false;
+            }
+            if (id < 1 || maxI < 1 || maxA < 1)
+            {
+                return false;
+            }
+            if (slElem[5] == "")
+            {
+                return false;
+            }
+            return true;
+        }
+
         /// <summary>
         /// Creates a new Residential sublocation with the values passed
         /// </summary>

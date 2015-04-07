@@ -14,11 +14,23 @@ namespace UnitTests_LongRoadHome.LocationTests
         Civic civ;
         List<Item> items = new List<Item>();
         Random rnd = new Random();
+        String stdSubLoc;
+        List<Tuple<String, String>> invalid = new List<Tuple<String, String>>();
 
         [TestInitialize]
         public void Setup()
         {
-            
+            stdSubLoc = ":1:False:2:3:temp";
+            invalid.Add(new Tuple<String, String>(":1:False:2:3","String should have exactly 6 items"));
+            invalid.Add(new Tuple<String, String>(":1:False:2:3:temp:7", "String should have exactly 6 items"));
+            invalid.Add(new Tuple<String, String>(":dasdas:False:2:3", "ID should be an int"));
+            invalid.Add(new Tuple<String, String>(":1:blah:2:3:temp", "Scavenged should be a bool"));
+            invalid.Add(new Tuple<String, String>(":1:False:sada:3:temp", "Max Items should be an int"));
+            invalid.Add(new Tuple<String, String>(":1:False:2:blah:temp", "Max Amount should be an int"));
+            invalid.Add(new Tuple<String, String>("::False:2:3:temp", "ID should have a value"));
+            invalid.Add(new Tuple<String, String>(":1::2:3:temp", "Scav should have a value"));
+            invalid.Add(new Tuple<String, String>(":1:False::3:temp", "Max Items should have a value"));
+            invalid.Add(new Tuple<String, String>(":1:False:2::temp", "Max Amount should have a value"));
             res = new Residential(1, 3, 5);
             com = new Commercial(2, 4, 7);
             civ = new Civic(3, 6, 3);
@@ -36,6 +48,48 @@ namespace UnitTests_LongRoadHome.LocationTests
             Assert.AreEqual(1, res.GetSublocationID(), "ID should be 1");
             Assert.AreEqual(3, res.GetMaxItems(), "Max items should be 3");
             Assert.AreEqual(5, res.GetMaxAmount(), "Max amount should be 5");
+        }
+
+        [TestCategory("Location"), TestCategory("Sublocation"), TestCategory("Residential"), TestMethod()]
+        public void Residential_CheckStringIsValid()    
+        {
+            Assert.IsTrue(res.IsValidSublocation(Residential.TYPE + stdSubLoc), "Basic location should be valid");
+            Assert.IsFalse(res.IsValidSublocation(Civic.TYPE + stdSubLoc), "Wrong type of location should be invalid");
+            Assert.IsFalse(res.IsValidSublocation(Commercial.TYPE + stdSubLoc), "Wrong type of location should be invalid");
+            Assert.IsFalse(res.IsValidSublocation(stdSubLoc), "No type of location should be invalid");
+
+            foreach(Tuple<String,String> test in invalid)
+            {
+                Assert.IsFalse(res.IsValidSublocation(Residential.TYPE + test.Item1), test.Item2);
+            }
+        }
+
+        [TestCategory("Location"), TestCategory("Sublocation"), TestCategory("Commercial"), TestMethod()]
+        public void Commercial_CheckStringIsValid()
+        {
+            Assert.IsTrue(com.IsValidSublocation(Commercial.TYPE + stdSubLoc), "Basic location should be valid");
+            Assert.IsFalse(com.IsValidSublocation(Civic.TYPE + stdSubLoc), "Wrong type of location should be invalid");
+            Assert.IsFalse(com.IsValidSublocation(Residential.TYPE + stdSubLoc), "Wrong type of location should be invalid");
+            Assert.IsFalse(com.IsValidSublocation(stdSubLoc), "No type of location should be invalid");
+
+            foreach (Tuple<String, String> test in invalid)
+            {
+                Assert.IsFalse(com.IsValidSublocation(Commercial.TYPE + test.Item1), test.Item2);
+            }
+        }
+
+        [TestCategory("Location"), TestCategory("Sublocation"), TestCategory("Civic"), TestMethod()]
+        public void Civic_CheckStringIsValid()
+        {
+            Assert.IsTrue(civ.IsValidSublocation(Civic.TYPE + stdSubLoc), "Basic location should be valid");
+            Assert.IsFalse(civ.IsValidSublocation(Commercial.TYPE + stdSubLoc), "Wrong type of location should be invalid");
+            Assert.IsFalse(civ.IsValidSublocation(Residential.TYPE + stdSubLoc), "Wrong type of location should be invalid");
+            Assert.IsFalse(civ.IsValidSublocation(stdSubLoc), "No type of location should be invalid");
+
+            foreach (Tuple<String, String> test in invalid)
+            {
+                Assert.IsFalse(civ.IsValidSublocation(Civic.TYPE + test.Item1), test.Item2);
+            }
         }
 
         [TestCategory("Location"), TestCategory("Sublocation"), TestCategory("Commercial"), TestMethod()]
