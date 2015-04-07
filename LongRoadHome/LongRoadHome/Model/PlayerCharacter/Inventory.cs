@@ -51,6 +51,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return false;
         }
 
+        public int NumberOfUniqueItems()
+        {
+            return inventory.Count;
+        }
+
         /// <summary>
         /// Trys to add an item to the inventory
         /// </summary>
@@ -79,9 +84,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 
         /// <summary>
         /// Removes an item from the inventory
+        /// This is not complete remove if amount is more than 1
         /// </summary>
         /// <param name="invSlot">The inventory slot to remove an item from</param>
-        /// <returns>The item removed</returns>
+        /// <returns>A clone of the item removed with an amount of 1 (regardless of how many are stored)</returns>
         public Item RemoveItem(int invSlot)
         {
             if (invSlot >= inventory.Count)
@@ -114,6 +120,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
+        /// Gets the Item in the inventory slot
+        /// </summary>
+        /// <param name="invSlot">Inventory slot of the item to get</param>
+        /// <returns>Item to be gotten</returns>
+        public Item GetItemSlot(int invSlot)
+        {
+            if (invSlot >= inventory.Count)
+            {
+                return null;
+            }
+            return inventory[invSlot] as Item;
+        }
+
+        /// <summary>
         /// Gets the amount of an item in the inventory
         /// </summary>
         /// <param name="toGetAmount">The item to get the amount of</param>
@@ -139,6 +159,30 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public ArrayList GetInventory()
         {
             return this.inventory;
+        }
+
+        /// <summary>
+        /// Checks if the inventory contains the item
+        /// </summary>
+        /// <param name="toCheck">The item to check for</param>
+        /// <returns>Ifit contains it or not</returns>
+        public bool Contains(Item toCheck)
+        {
+            return inventory.Contains(toCheck);
+        }
+
+        /// <summary>
+        /// Gets the item IDs for all items in the inventory
+        /// </summary>
+        /// <returns>HashSet of IDs</returns>
+        public HashSet<int> GetItemIDs()
+        {
+            var ids = new HashSet<int>();
+            foreach(Item item in inventory)
+            {
+                ids.Add(item.GetID());
+            }
+            return ids;
         }
 
         /// <summary>

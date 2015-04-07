@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="TInventory.cs" />
     <Compile Include="TItemCatalogue.cs" />
+    <Compile Include="TPCModel.cs" />
     <Compile Include="TPlayerCharacter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TItem.cs" />

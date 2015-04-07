@@ -11,6 +11,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public const String HUNGER = "hunger";
         public const String THIRST = "thirst";
         public const String SANITY = "sanity";
+        public const String TAG = "PlayerChar";
 
         /// <summary>
         /// Generates a standard PC
@@ -260,6 +261,24 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 
             }
             return true;
+        }
+
+        /// <summary>
+        /// Tests if the character is dead
+        /// </summary>
+        /// <returns>bool representing if character is dead</returns>
+        public bool IsDead()
+        {
+            var resources = primaryResources.Values;
+
+            foreach(PrimaryResource res in resources)
+            {
+                if (res.GetAmount() <= 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

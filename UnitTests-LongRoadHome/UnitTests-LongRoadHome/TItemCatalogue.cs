@@ -12,10 +12,11 @@ namespace UnitTests_LongRoadHome
         [TestCategory("PlayerCharacter"), TestCategory("ItemCatalogue"), TestMethod()]
         public void ItemCatalogue_CheckStringIsValid()
         {
-            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
-            String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
+            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements";
+            String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements";
             String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
-            String invalidItem = "ID:-1,Name:TestItem,Amount:3,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
+            String invalidItem1 = "ID:-1,Name:TestItem,Amount:1,Description:test item -1,ActiveEffect,PassiveEffect,Requirements";
+            String invalidItemAmount1 = "ID:4,Name:TestItem,Amount:2,Description:test item 4,ActiveEffect,PassiveEffect,Requirements";
 
             String expected = ItemCatalogue.TAG + ";" + itemStr1 + ";" + itemStr2 + ";" + itemStr3;
             String nonUniqueID = ItemCatalogue.TAG + ";" + itemStr1 + ";" + itemStr2 + ";" + itemStr3 + ";" + itemStr1;
@@ -26,8 +27,9 @@ namespace UnitTests_LongRoadHome
             Assert.IsFalse(ItemCatalogue.IsValidItemCatalogue("NotaCatalogue;" + itemStr1), "Not an catalogue should be invalid");
             Assert.IsFalse(ItemCatalogue.IsValidItemCatalogue(";" + itemStr1), "No Tag should be invalid");
             Assert.IsFalse(ItemCatalogue.IsValidItemCatalogue(ItemCatalogue.TAG + itemStr1), "No # should be invalid");
-            Assert.IsFalse(ItemCatalogue.IsValidItemCatalogue(ItemCatalogue.TAG + ";" + invalidItem), "Invalid item means invalid catalogue");
-            Assert.AreEqual(ItemCatalogue.IsValidItemCatalogue(ItemCatalogue.TAG + ";" + invalidItem), Item.IsValidItem(invalidItem), "Invalid item should match invalid catalogue");
+            Assert.IsFalse(ItemCatalogue.IsValidItemCatalogue(ItemCatalogue.TAG + ";" + invalidItem1), "Invalid item means invalid catalogue");
+            Assert.AreEqual(ItemCatalogue.IsValidItemCatalogue(ItemCatalogue.TAG + ";" + invalidItem1), Item.IsValidItem(invalidItem1), "Invalid item should match invalid catalogue");
+            Assert.IsFalse(ItemCatalogue.IsValidItemCatalogue(ItemCatalogue.TAG + ";" + invalidItemAmount1), "Catalogue Items should only have amount of 1");
             Assert.IsFalse(ItemCatalogue.IsValidItemCatalogue(nonUniqueID), "Each ID should be unique");
         }
 
