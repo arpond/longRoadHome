@@ -39,21 +39,12 @@ namespace UnitTests_LongRoadHome
             item4 = new Item(itemStr4);
             for (int i = 1;  i<21; i++)
             {
-                Item tmp = new Item(makeItemStr(i));
+                Item tmp = new Item(StringMaker.makeItemStr(i));
                 items.Add(tmp);
             }
         }
 
-        private String makeItemStr(int id)
-        {
-            String item = "ID:" + id + ",Name:TestItem,Amount:1,Description:test item " + id + ",ActiveEffect,PassiveEffect,Requirements";
-            int requirements = rnd.Next(4);
-            for (int i = 0; i < requirements; i++ )
-            {
-                item += ":" + rnd.Next(1, 21);
-            }
-            return item;
-        }
+        
 
         [TestCategory("PlayerCharacter"), TestCategory("PCModel"), TestMethod()]
         public void PCModel_StandardConstructor()
