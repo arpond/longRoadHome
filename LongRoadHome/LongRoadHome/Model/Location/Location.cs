@@ -36,13 +36,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         {
             throw new System.Exception("Not implemented");
         }
-        public override void ParseFromString(ref String toParse)
-        {
-            throw new System.Exception("Not implemented");
-        }
-
-        private Sublocation sublocation;
-        private SubLocationFactory subLocationFactory;
 
     }
 }
