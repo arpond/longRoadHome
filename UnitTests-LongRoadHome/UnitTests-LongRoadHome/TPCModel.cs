@@ -13,9 +13,9 @@ namespace UnitTests_LongRoadHome
         PCModel std_pcm;
 
         String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements";
-        String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements:1";
+        String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":10" + ",PassiveEffect,Requirements:1";
         String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements:1:2";
-        String itemStr4 = "ID:4,Name:TestItem,Amount:1,Description:test item 4,ActiveEffect,PassiveEffect,Requirements:10";
+        String itemStr4 = "ID:4,Name:TestItem,Amount:1,Description:test item 4,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":30:" + ActiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":10" +",PassiveEffect,Requirements:10";
 
         String pcStr, invStr, catalogue;
         Item item1, item2, item3, item4;
@@ -177,6 +177,84 @@ namespace UnitTests_LongRoadHome
             Assert.IsTrue(pcm.ItemUsable(3), "Item requriement should now be met");
             pcm.ModifyInventory(items[9], -1);
             Assert.IsFalse(pcm.ItemUsable(3), "Item requriements should not be met");
+        }
+
+        [TestCategory("PlayerCharacter"), TestCategory("PCModel"), TestMethod()]
+        public void PCModel_UseItem()
+        {
+            var inventory = pcm.GetInventory();
+            var pc = pcm.GetPC();
+            int slot, amountBefore, amountAfter;
+
+            Assert.AreEqual(80, pc.GetResource(PlayerCharacter.HEALTH), "Health Value Incorrect");
+            Assert.AreEqual(50, pc.GetResource(PlayerCharacter.HUNGER), "Hunger Value Incorrect");
+            Assert.AreEqual(60, pc.GetResource(PlayerCharacter.THIRST), "Sanity Value Incorrect");
+            Assert.AreEqual(70, pc.GetResource(PlayerCharacter.SANITY), "Thirst Value Incorrect");
+            Assert.IsTrue(inventory.Contains(item1), "Item 1 should be in the inventory");
+
+            slot = inventory.GetInventorySlot(item1);
+            amountBefore = inventory.GetAmount(item1);
+            amountAfter = amountBefore - 1;
+            Assert.IsTrue(pcm.UseItem(slot), "Item should be succesfully used");
+            Assert.AreEqual(amountAfter, inventory.GetAmount(item1), "Should be one less of the item after use");
+            Assert.AreEqual(80, pc.GetResource(PlayerCharacter.HEALTH), "Health Value should be unchanged");
+            Assert.AreEqual(50, pc.GetResource(PlayerCharacter.HUNGER), "Hunger Value should be unchanged");
+            Assert.AreEqual(60, pc.GetResource(PlayerCharacter.THIRST), "Sanity Value should be unchanged");
+            Assert.AreEqual(70, pc.GetResource(PlayerCharacter.SANITY), "Thirst Value should be unchanged");
+
+            slot = inventory.GetInventorySlot(item2);
+            amountBefore = inventory.GetAmount(item2);
+            amountAfter = amountBefore;
+            Assert.IsFalse(pcm.UseItem(slot), "Item should not have been used");
+            Assert.AreEqual(amountAfter, inventory.GetAmount(item2), "Item should not have been used as requirements are not met");
+            Assert.AreEqual(80, pc.GetResource(PlayerCharacter.HEALTH), "Health Value should be unchanged");
+            Assert.AreEqual(50, pc.GetResource(PlayerCharacter.HUNGER), "Hunger Value should be unchanged");
+            Assert.AreEqual(60, pc.GetResource(PlayerCharacter.THIRST), "Sanity Value should be unchanged");
+            Assert.AreEqual(70, pc.GetResource(PlayerCharacter.SANITY), "Thirst Value should be unchanged");
+
+            pcm.ModifyInventory(item1, 3);
+            slot = inventory.GetInventorySlot(item2);
+            amountBefore = inventory.GetAmount(item2);
+            amountAfter = amountBefore - 1;
+            Assert.IsTrue(pcm.UseItem(slot), "Item should have been used");
+            Assert.AreEqual(amountAfter, inventory.GetAmount(item2), "Should be one less of the item after use");
+            Assert.AreEqual(90, pc.GetResource(PlayerCharacter.HEALTH), "Health Value should have increased by 10");
+            Assert.AreEqual(50, pc.GetResource(PlayerCharacter.HUNGER), "Hunger Value should be unchanged");
+            Assert.AreEqual(60, pc.GetResource(PlayerCharacter.THIRST), "Sanity Value should be unchanged");
+            Assert.AreEqual(70, pc.GetResource(PlayerCharacter.SANITY), "Thirst Value should be unchanged");
+
+            pcm.ModifyInventory(item2, 3);
+            slot = inventory.GetInventorySlot(item2);
+            amountBefore = inventory.GetAmount(item2);
+            amountAfter = amountBefore - 1;
+            Assert.IsTrue(pcm.UseItem(slot), "Item should have been used");
+            Assert.AreEqual(amountAfter, inventory.GetAmount(item2), "Should be one less of the item after use");
+            Assert.AreEqual(100, pc.GetResource(PlayerCharacter.HEALTH), "Health Value should increased by 10");
+            Assert.AreEqual(50, pc.GetResource(PlayerCharacter.HUNGER), "Hunger Value should be unchanged");
+            Assert.AreEqual(60, pc.GetResource(PlayerCharacter.THIRST), "Sanity Value should be unchanged");
+            Assert.AreEqual(70, pc.GetResource(PlayerCharacter.SANITY), "Thirst Value should be unchanged");
+
+            slot = inventory.GetInventorySlot(item2);
+            amountBefore = inventory.GetAmount(item2);
+            amountAfter = amountBefore - 1;
+            Assert.IsTrue(pcm.UseItem(slot), "Item should have been used");
+            Assert.AreEqual(amountAfter, inventory.GetAmount(item2), "Should be one less of the item after use");
+            Assert.AreEqual(100, pc.GetResource(PlayerCharacter.HEALTH), "Health Value should be capped at 100");
+            Assert.AreEqual(50, pc.GetResource(PlayerCharacter.HUNGER), "Hunger Value should be unchanged");
+            Assert.AreEqual(60, pc.GetResource(PlayerCharacter.THIRST), "Sanity Value should be unchanged");
+            Assert.AreEqual(70, pc.GetResource(PlayerCharacter.SANITY), "Thirst Value should be unchanged");
+
+            pcm.ModifyInventory(item4, 2);
+            pcm.ModifyInventory(items[9], 1);
+            slot = inventory.GetInventorySlot(item4);
+            amountBefore = inventory.GetAmount(item4);
+            amountAfter = amountBefore - 1;
+            Assert.IsTrue(pcm.UseItem(slot), "Item should have been used");
+            Assert.AreEqual(amountAfter, inventory.GetAmount(item4), "Should be one less of the item after use");
+            Assert.AreEqual(100, pc.GetResource(PlayerCharacter.HEALTH), "Health Value should be unchanged");
+            Assert.AreEqual(80, pc.GetResource(PlayerCharacter.HUNGER), "Hunger Value should be increased by 30");
+            Assert.AreEqual(60, pc.GetResource(PlayerCharacter.THIRST), "Sanity Value should be unchanged");
+            Assert.AreEqual(80, pc.GetResource(PlayerCharacter.SANITY), "Thirst Value should be increased by 10");
         }
 
         [TestCategory("PlayerCharacter"), TestCategory("PCModel"), TestMethod()]

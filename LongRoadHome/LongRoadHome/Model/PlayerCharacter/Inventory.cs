@@ -84,9 +84,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 
         /// <summary>
         /// Removes an item from the inventory
+        /// This is not complete remove if amount is more than 1
         /// </summary>
         /// <param name="invSlot">The inventory slot to remove an item from</param>
-        /// <returns>The item removed</returns>
+        /// <returns>A clone of the item removed with an amount of 1 (regardless of how many are stored)</returns>
         public Item RemoveItem(int invSlot)
         {
             if (invSlot >= inventory.Count)

@@ -4,7 +4,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
 	public class ItemEventEffect : EventEffect  {
 		private Item item;
 
-        public override void ResolveEffect(float eventModifier, uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter.PlayerCharacter pc)
+        public override void ResolveEffect(float eventModifier, PCModel pcm)
         {
 			throw new System.Exception("Not implemented");
 		}

@@ -160,7 +160,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             List<ActiveEffect> effects = toUse.GetActiveEffects();
             foreach (ActiveEffect effect in effects)
             {
-                effect.ResolveEffect(1.0f, currentPC);
+                effect.ResolveEffect(1.0f, this);
             }
             return true;
         }
