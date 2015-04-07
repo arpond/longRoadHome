@@ -130,8 +130,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                     }
                     var itemElements = catalogueElements[i].Split(',');
                     var idElements = itemElements[0].Split(':');
+                    var amountElements = itemElements[2].Split(':');
                     int currID = Convert.ToInt32(idElements[1]);
+                    int currAmount = Convert.ToInt32(amountElements[1]);
+
                     if (idList.Contains(currID))
+                    {
+                        return false;
+                    }
+                    else if (currAmount != 1)
                     {
                         return false;
                     }
