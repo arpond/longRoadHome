@@ -85,7 +85,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// </summary>
         /// <param name="toTest">The string to test</param>
         /// <returns>Bool if it is valid</returns>
-        public virtual bool IsValidDummyLocation(String toTest)
+        public static bool IsValidDummyLocation(String toTest)
         {
             HashSet<int> tempID = new HashSet<int>();
             int id = -1;
@@ -150,7 +150,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// Parses the connections
         /// </summary>
         /// <returns>String representing the parsed connections</returns>
-        private String ParseConnections()
+        protected String ParseConnections()
         {
             String parse = "";
             foreach(int connection in connections)

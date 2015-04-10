@@ -22,7 +22,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         {
             visited = false;
             sublocations = new Dictionary<int, Sublocation>();
-            var keys = SubLocationFactory.GetRegisteredSubLocations().ToList();
+            var keys = SubLocationFactory.GetRegisteredTypes().ToList();
             
             for (int i = 1; i < STD_SIZE+1; i++)
             {
@@ -96,7 +96,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             }
             visited = false;
             sublocations = new Dictionary<int, Sublocation>();
-            var keys = SubLocationFactory.GetRegisteredSubLocations().ToList();
+            var keys = SubLocationFactory.GetRegisteredTypes().ToList();
 
             for (int i = 1; i < size + 1; i++)
             {
@@ -129,7 +129,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             }
             visited = false;
             sublocations = new Dictionary<int, Sublocation>();
-            var keys = SubLocationFactory.GetRegisteredSubLocations().ToList();
+            var keys = SubLocationFactory.GetRegisteredTypes().ToList();
 
             for (int i = 1; i < size+1; i++)
             {
@@ -170,7 +170,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             }
             visited = false;
             sublocations = new Dictionary<int, Sublocation>();
-            var keys = SubLocationFactory.GetRegisteredSubLocations().ToList();
+            var keys = SubLocationFactory.GetRegisteredTypes().ToList();
 
             int size = rnd.Next(sizeMin, sizeMax + 1);
 
@@ -297,10 +297,111 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             return false;
         }
 
-        
+        public static bool IsValidLocation(String toTest)
+        {
+            HashSet<int> tempSubID = new HashSet<int>();
+            HashSet<int> tempID = new HashSet<int>();
+            bool visited;
+            int id = -1;
+            String[] lElems = toTest.Split(',');
+            if (lElems.Length != 6)
+            {
+                return false;
+            }
+            foreach (String elem in lElems)
+            {
+                String[] locElem = elem.Split(':');
+                switch (locElem[0])
+                {
+                    case "Type":
+                        if (locElem.Length != 2 || locElem[1] != TAG)
+                        {
+                            return false;
+                        }
+                        break;
+                    case "ID":
+                        if (locElem.Length != 2 || !int.TryParse(locElem[1], out id) || id <= 0)
+                        {
+                            return false;
+                        }
+                        
+                        break;
+                    case "Connections":
+                        for (int i = 1; i < locElem.Length; i++)
+                        {
+                            int loc;
+                            if (int.TryParse(locElem[i], out loc))
+                            {
+                                if (tempID.Contains(loc) || loc == id || loc <= 0)
+                                {
+                                    return false;
+                                }
+                                tempID.Add(loc);
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        break;
+                    case "Visited":
+                        if (locElem.Length != 2 || !bool.TryParse(locElem[1], out visited))
+                        {
+                            return false;
+                        }
+                        break;
+                    case "Sublocations":
+                        if (locElem.Length > 1)
+                        {
+                            if (locElem.Length % 6 != 1 || locElem[1] == "")
+                            {
+                                return false;
+                            }
+                            for (int i = 1; i < locElem.Length; i = i + 6)
+                            {
+                                int slid;
+                                Sublocation type = SubLocationFactory.GetRegisteredSub(locElem[i]);
+                                if (type == null || !int.TryParse(locElem[i + 1], out slid) || tempSubID.Contains(slid) || !type.IsValidSublocation(locElem[i] + ":" + locElem[i + 1] + ":" + locElem[i + 2] + ":" + locElem[i + 3] + ":" + locElem[i + 4] + ":" + locElem[i + 5]))
+                                {
+                                    return false;
+                                }
+                                tempSubID.Add(slid);
+                            }
+                        }
+                        break;
+                    case "CurrentSublocation":
+                        int currID;
+                        if (locElem.Length > 1)
+                        {
+                            if (locElem.Length != 2 || !int.TryParse(locElem[1], out currID) || currID <= 0 || !tempSubID.Contains(currID))
+                            {
+                                return false;
+                            }
+                        }
+                        break;
+                    default:
+                        return false;
+                }
+            }
+            return true;
+        }
+
         public override String ParseToString()
         {
-            throw new System.Exception("Not implemented");
+            String parsed, currentSubloc = "", sublocStr = "";
+
+            foreach (Sublocation subloc in sublocations.Values)
+            {
+                sublocStr += ":" + subloc.ParseToString();
+            }
+
+            if(currentSubLocation != null)
+            {
+                currentSubloc = ":" + currentSubLocation.GetSublocationID();
+            }
+
+            parsed = String.Format("Type:{0},ID:{1},Connections{2},Visited:{3},Sublocations{4},CurrentSublocation{5}",TAG,locationID,ParseConnections(),visited, sublocStr, currentSubloc);
+            return parsed;
         }
 
         public void TriggerEvent()

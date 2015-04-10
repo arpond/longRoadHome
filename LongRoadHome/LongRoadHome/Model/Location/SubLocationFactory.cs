@@ -22,9 +22,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// Gets the registered keys
         /// </summary>
         /// <returns>Key Collection of registered keys</returns>
-        public static Dictionary<String, Sublocation>.KeyCollection GetRegisteredSubLocations()
+        public static Dictionary<String, Sublocation>.KeyCollection GetRegisteredTypes()
         {
             return registeredSublocations.Keys;
+        }
+
+        public static Sublocation GetRegisteredSub(String subTypeID)
+        {
+            Sublocation temp;
+            registeredSublocations.TryGetValue(subTypeID, out temp);
+            return temp;
         }
 
         /// <summary>
