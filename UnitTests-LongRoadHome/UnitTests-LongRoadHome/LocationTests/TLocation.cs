@@ -19,6 +19,7 @@ namespace UnitTests_LongRoadHome.LocationTests
         [TestInitialize]
         public void Setup()
         {
+            l = new Location();
             //System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Civic).TypeHandle);
             //System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Residential).TypeHandle);
             //System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Commercial).TypeHandle);
@@ -91,7 +92,7 @@ namespace UnitTests_LongRoadHome.LocationTests
         [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
         public void Location_StandardConstructor()
         {
-            l = new Location();
+            l.GenerateSubLocations();
 
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
             Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
@@ -113,7 +114,7 @@ namespace UnitTests_LongRoadHome.LocationTests
         public void Location_SublocationSetGet()
         {
             Sublocation sl1, sl2, sl3;
-            l = new Location();
+            l.GenerateSubLocations();
 
             Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
             Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
@@ -151,10 +152,11 @@ namespace UnitTests_LongRoadHome.LocationTests
         }
 
         [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
-        public void Location_SizeConstructor()
+        public void Location_GenerateFixedSize()
         {
             int testSize = 6;
-            l = new Location(testSize);
+            l = new Location();
+            l.GenerateSubLocations(testSize);
             Sublocation last = new Residential();
 
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
@@ -177,51 +179,51 @@ namespace UnitTests_LongRoadHome.LocationTests
         }
 
         [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
-        public void Location_InvalidConstructor()
+        public void Location_GenerateInvalidSubLocations()
         {
-            l = new Location(0);
+            l.GenerateSubLocations(0);
             Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
             Assert.AreNotEqual(null, l, "Location should not be null");
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
             Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
             Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
 
-            l = new Location(0, 1, 1);
+            l.GenerateSubLocations(0,1,1);
             Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
             Assert.AreNotEqual(null, l, "Location should not be null");
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
             Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
             Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
 
-            l = new Location(1, -1, 1);
+            l.GenerateSubLocations(1, -1, 1);
             Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
             Assert.AreNotEqual(null, l, "Location should not be null");
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
             Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
             Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
 
-            l = new Location(1, 1, -1);
+            l.GenerateSubLocations(1,1,-1);
             Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
             Assert.AreNotEqual(null, l, "Location should not be null");
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
             Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
             Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
 
-            l = new Location(4, 1, 1, 1);
+            l.GenerateSubLocations(4,1,1,1);
             Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
             Assert.AreNotEqual(null, l, "Location should not be null");
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
             Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
             Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
 
-            l = new Location(-1, 1, 1, 1);
+            l.GenerateSubLocations(-1, 1, 1, 1);
             Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
             Assert.AreNotEqual(null, l, "Location should not be null");
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
             Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
             Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
 
-            l = new Location(1, -1, 1, 1);
+            l.GenerateSubLocations(1, -1, 1, 1);
             Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
             Assert.AreNotEqual(null, l, "Location should not be null");
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
@@ -231,12 +233,13 @@ namespace UnitTests_LongRoadHome.LocationTests
         }
 
         [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
-        public void Location_FullConstructor()
+        public void Location_GenerateValidSubLocations()
         {
             int testSize = 100;
             int maxItems = 10;
             int maxAmount = 5;
-            l = new Location(testSize, maxItems, maxAmount);
+
+            l.GenerateSubLocations(testSize, maxItems, maxAmount);
             Sublocation last = new Residential();
 
             Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
@@ -268,7 +271,7 @@ namespace UnitTests_LongRoadHome.LocationTests
                 int testSize = rnd.Next(10000);
                 int maxItems = rnd.Next(10000);
                 int maxAmount = rnd.Next(10000);
-                l = new Location(testSize, maxItems, maxAmount);
+                l.GenerateSubLocations(testSize, maxItems, maxAmount);
                 Sublocation last = new Residential();
 
                 Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
