@@ -19,6 +19,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             this.locationID = locationID;
         }
 
+        public DummyLocation(int locationID, HashSet<int> connections)
+        {
+            this.locationID = locationID;
+            this.connections = connections;
+        }
+
         /// <summary>
         /// Parses DummyLocation from a string
         /// </summary>
