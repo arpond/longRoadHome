@@ -4,6 +4,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
     public class SubLocationFactory
     {
+        public const int STD_MAX_ITEMS = 3;
+        public const int STD_MAX_AMOUNT = 4;
         private static Dictionary<String, Sublocation> registeredSublocations = new Dictionary<string,Sublocation>();
         
         /// <summary>
@@ -17,6 +19,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         }
 
         /// <summary>
+        /// Gets the registered keys
+        /// </summary>
+        /// <returns>Key Collection of registered keys</returns>
+        public static Dictionary<String, Sublocation>.KeyCollection GetRegisteredSubLocations()
+        {
+            return registeredSublocations.Keys;
+        }
+
+        /// <summary>
         /// Creates a sublcoation with the params passed
         /// </summary>
         /// <param name="subTypeID">The type of sublocation to create</param>
@@ -24,8 +35,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <param name="maxItems">Maximum number of items</param>
         /// <param name="maxAmount">Maximum amount of each item</param>
         /// <returns>The sublcoation created</returns>
-        public Sublocation CreateSubLocation(String subTypeID, int sublocID, int maxItems, int maxAmount)
+        public static Sublocation CreateSubLocation(String subTypeID, int sublocID, int maxItems, int maxAmount)
         {
+            if (maxItems <= 0)
+            {
+                maxItems = STD_MAX_ITEMS;
+            }
+            if (maxAmount <= 0)
+            {
+                maxAmount = STD_MAX_AMOUNT;
+            }
             Sublocation temp;
             registeredSublocations.TryGetValue(subTypeID, out temp);
             return temp.CreateSublocation(sublocID, maxItems, maxAmount);
@@ -36,7 +55,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// </summary>
         /// <param name="toParse">The string to parse into a sublcoation</param>
         /// <returns>The sublocation created</returns>
-        public Sublocation CreateSubLocation(String toParse)
+        public static Sublocation CreateSubLocation(String toParse)
         {
             Sublocation temp;
             String[] slElem = toParse.Split(':');

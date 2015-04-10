@@ -9,24 +9,38 @@ namespace UnitTests_LongRoadHome.LocationTests
     public class TLocation
     {
         DummyLocation dl;
-        List<Tuple<String, String>> valid = new List<Tuple<String, String>>();
-        List<Tuple<String, String>> invalid = new List<Tuple<String, String>>();
+        Location l;
+        List<Tuple<String, String>> validDummy = new List<Tuple<String, String>>();
+        List<Tuple<String, String>> invalidDummy = new List<Tuple<String, String>>();
+        List<Tuple<String, String>> validLoc = new List<Tuple<String, String>>();
+        List<Tuple<String, String>> invalidLoc = new List<Tuple<String, String>>();
+        Random rnd = new Random();
 
         [TestInitialize]
         public void Setup()
         {
-            valid.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:2:3", "Standard dummy location is valid"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,ID:1","Should be at least 3 components"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections,Connections","At most 3 components"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,blah:1,Connections", "Components should be valid"));
-            invalid.Add(new Tuple<String, String>("Type:sadas,ID:,Connections,", "Type should be DummyLocaiton"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,ID:sadas,Connections", "ID should be an int"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,ID:-1,Connections", "ID should be positive"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:", "If there are connections there should be at least one"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:1", "Can't connect to self"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:2:2", "Can't connect to locaiton more than once"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:2:3:4:-1", "Connections should all be positive"));
-            invalid.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:4:2::3", "Each should have a value"));
+            //System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Civic).TypeHandle);
+            //System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Residential).TypeHandle);
+            //System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Commercial).TypeHandle);
+            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:2:3", "Standard dummy location is valid"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1","Should be at least 3 components"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections,Connections","At most 3 components"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,blah:1,Connections", "Components should be valid"));
+            invalidDummy.Add(new Tuple<String, String>("Type:sadas,ID:,Connections,", "Type should be DummyLocaiton"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:sadas,Connections", "ID should be an int"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:-1,Connections", "ID should be positive"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:", "If there are connections there should be at least one"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:1", "Can't connect to self"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:2:2", "Can't connect to locaiton more than once"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:2:3:4:-1", "Connections should all be positive"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:4:2::3", "Each should have a value"));
+
+            Residential res = new Residential(1, 3, 5);
+            Commercial com = new Commercial(2, 4, 7);
+            Civic civ = new Civic(3, 6, 3);
+
+            validLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations,CurrentSublocation", "Standard location is valid"));
+            validLoc.Add(new Tuple<String, String>("Type:Location,ID:2,Connections:1:3,Visited:False,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1" , "Standard location is valid"));
         }
 
         [TestCategory("Location"), TestCategory("DummyLocation"), TestMethod()]
@@ -41,16 +55,238 @@ namespace UnitTests_LongRoadHome.LocationTests
         public void DummyLocation_CheckStringIsValid()
         {
             dl = new DummyLocation();
-            foreach(Tuple<String,String> test in valid)
+            foreach(Tuple<String,String> test in validDummy)
             {
                 Assert.IsTrue(dl.IsValidDummyLocation(test.Item1),test.Item2);
             }
 
-            foreach (Tuple<String,String> test in invalid)
+            foreach (Tuple<String,String> test in invalidDummy)
             {
                 Assert.IsFalse(dl.IsValidDummyLocation(test.Item1), test.Item2);
-            }
+            }   
+        }
+
+        [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
+        public void Location_StandardConstructor()
+        {
+            l = new Location();
+
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            Assert.AreNotEqual(null, l.GetSublocationByID(1), "There should be Sublocation 1");
+            Assert.AreNotEqual(null, l.GetSublocationByID(2), "There should be Sublocation 2");
+            Assert.AreNotEqual(null, l.GetSublocationByID(3), "There should be Sublocation 3");
+
+            Assert.AreEqual(null, l.GetSublocationByID(4), "There should be no Sublocation 4");
+            Assert.AreEqual(null, l.GetSublocationByID(5), "There should be no Sublocation 5");
+
+            Assert.IsInstanceOfType(l.GetSublocationByID(1), typeof(Sublocation), "1 should be a sublocation");
+            Assert.IsInstanceOfType(l.GetSublocationByID(2), typeof(Sublocation), "2 should be a sublocation");
+            Assert.IsInstanceOfType(l.GetSublocationByID(3), typeof(Sublocation), "3 should be a sublocation");
+        }
+
+        [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
+        public void Location_SublocationSetGet()
+        {
+            Sublocation sl1, sl2, sl3;
+            l = new Location();
+
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            Assert.IsTrue(l.SetCurrentSubLocation(1), "Setting to an id which exists (1) should be succesful");
+            Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+            sl1 = l.GetCurrentSubLocation();
+            Assert.AreEqual(1, sl1.GetSublocationID(), "IDs should match");
             
+            Assert.IsTrue(l.SetCurrentSubLocation(2), "Setting to an id which exists (2) should be succesful");
+            Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+            sl2 = l.GetCurrentSubLocation();
+            Assert.AreEqual(2, sl2.GetSublocationID(), "IDs should match");
+            
+            Assert.IsTrue(l.SetCurrentSubLocation(3), "Setting to an id which exists (3) should be succesful");
+            Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+            sl3 = l.GetCurrentSubLocation();
+            Assert.AreEqual(3, sl3.GetSublocationID(), "IDs should match");
+
+            Assert.IsFalse(l.SetCurrentSubLocation(4), "Setting to an id which does not exists (4) should be unsuccesful");
+            Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+            Assert.AreEqual(sl3, l.GetCurrentSubLocation(), "Current Sublocation should have remained the same");
+
+            Assert.IsTrue(l.SetCurrentSubLocation(1), "Setting to an id which exists (1) should be succesful");
+            Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+            Assert.AreEqual(sl1, l.GetCurrentSubLocation(), "Current Sublocation should be the same as when set to 1 before");
+
+            Assert.IsTrue(l.SetCurrentSubLocation(3), "Setting to an id which exists (3) should be succesful");
+            Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+            Assert.AreEqual(sl3, l.GetCurrentSubLocation(), "Current Sublocation should be the same as when set to 3 before");
+
+            Assert.IsTrue(l.SetCurrentSubLocation(2), "Setting to an id which exists (2) should be succesful");
+            Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+            Assert.AreEqual(sl2, l.GetCurrentSubLocation(), "Current Sublocation should be the same as when set to 1 before");
+        }
+
+        [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
+        public void Location_SizeConstructor()
+        {
+            int testSize = 6;
+            l = new Location(testSize);
+            Sublocation last = new Residential();
+
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            Assert.AreEqual(testSize, l.GetSize(), "Size should be "+ testSize);
+            for (int i = 1; i<testSize + 1; i++)
+            {
+                Assert.IsTrue(l.SetCurrentSubLocation(i), "Setting to an id which exists (" + i + ") should be succesful");
+                Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+
+                last = l.GetCurrentSubLocation();
+                Assert.AreEqual(i, last.GetSublocationID(), "IDs should match");
+            }
+
+            Assert.IsFalse(l.SetCurrentSubLocation(testSize+1), "Setting to an id which does not exists ("+ (testSize+1) +") should be unsuccesful");
+            Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+            Assert.AreEqual(last, l.GetCurrentSubLocation(), "Current Sublocation should have remained the same");
+        }
+
+        [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
+        public void Location_InvalidConstructor()
+        {
+            l = new Location(0);
+            Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
+            Assert.AreNotEqual(null, l, "Location should not be null");
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            l = new Location(0, 1, 1);
+            Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
+            Assert.AreNotEqual(null, l, "Location should not be null");
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            l = new Location(1, -1, 1);
+            Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
+            Assert.AreNotEqual(null, l, "Location should not be null");
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            l = new Location(1, 1, -1);
+            Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
+            Assert.AreNotEqual(null, l, "Location should not be null");
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            l = new Location(4, 1, 1, 1);
+            Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
+            Assert.AreNotEqual(null, l, "Location should not be null");
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            l = new Location(-1, 1, 1, 1);
+            Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
+            Assert.AreNotEqual(null, l, "Location should not be null");
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            l = new Location(1, -1, 1, 1);
+            Assert.IsInstanceOfType(l, typeof(Location), "It should be a location");
+            Assert.AreNotEqual(null, l, "Location should not be null");
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+        }
+
+        [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
+        public void Location_FullConstructor()
+        {
+            int testSize = 100;
+            int maxItems = 10;
+            int maxAmount = 5;
+            l = new Location(testSize, maxItems, maxAmount);
+            Sublocation last = new Residential();
+
+            Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+            Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+            Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+            Assert.AreEqual(testSize, l.GetSize(), "Size should be " + testSize);
+            for (int i = 1; i < testSize + 1; i++)
+            {
+                Assert.IsTrue(l.SetCurrentSubLocation(i), "Setting to an id which exists (" + i + ") should be succesful");
+                Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+
+                last = l.GetCurrentSubLocation();
+                Assert.AreEqual(i, last.GetSublocationID(), "IDs should match");
+                Assert.AreEqual(maxItems, last.GetMaxItems(), "Max items should match");
+                Assert.AreEqual(maxAmount, last.GetMaxAmount(), "Max amount should match");
+            }
+
+            Assert.IsFalse(l.SetCurrentSubLocation(testSize + 1), "Setting to an id which does not exists (" + (testSize + 1) + ") should be unsuccesful");
+            Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+            Assert.AreEqual(last, l.GetCurrentSubLocation(), "Current Sublocation should have remained the same");
+        }
+
+        [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
+        public void Location_RandomFullConstructor()
+        {
+            for (int j = 0; j < 100; j++)
+            {
+                int testSize = rnd.Next(10000);
+                int maxItems = rnd.Next(10000);
+                int maxAmount = rnd.Next(10000);
+                l = new Location(testSize, maxItems, maxAmount);
+                Sublocation last = new Residential();
+
+                Assert.IsFalse(l.GetVisited(), "New Location should not be visited");
+                Assert.IsTrue(l.IsCurrentSublocationNull(), "Current sublocation should be null");
+                Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
+
+                Assert.AreEqual(testSize, l.GetSize(), "Size should be " + testSize);
+                for (int i = 1; i < testSize + 1; i++)
+                {
+                    Assert.IsTrue(l.SetCurrentSubLocation(i), "Setting to an id which exists (" + i + ") should be succesful");
+                    Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+
+                    last = l.GetCurrentSubLocation();
+                    Assert.AreEqual(i, last.GetSublocationID(), "IDs should match");
+                    Assert.AreEqual(maxItems, last.GetMaxItems(), "Max items should match");
+                    Assert.AreEqual(maxAmount, last.GetMaxAmount(), "Max amount should match");
+                }
+
+                Assert.IsFalse(l.SetCurrentSubLocation(testSize + 1), "Setting to an id which does not exists (" + (testSize + 1) + ") should be unsuccesful");
+                Assert.IsFalse(l.IsCurrentSublocationNull(), "Current sublocation should not be null");
+                Assert.AreEqual(last, l.GetCurrentSubLocation(), "Current Sublocation should have remained the same");
+
+            }
+        }
+
+        [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
+        public void Location_ParseFromString()
+        {
+            l = new Location(validLoc[0].Item1);
+            l = new Location(validLoc[1].Item1);
+        }
+
+        [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
+        public void Location_ParseToString()
+        {
+        }
+
+        [TestCategory("Location"), TestCategory("LocationClass"), TestMethod()]
+        public void Location_CheckStringValid()
+        {
         }
     }
 }

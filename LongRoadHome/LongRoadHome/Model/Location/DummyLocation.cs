@@ -4,9 +4,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
     public class DummyLocation
     {
+        private const String TAG = "DummyLocation";
+
         protected HashSet<int> connections = new HashSet<int>();
-        private int locationID;
-        private String tag = "DummyLocation";
+        protected int locationID;
 
         public DummyLocation()
         {
@@ -99,7 +100,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 switch (locElem[0])
                 {
                     case "Type":
-                        if (locElem.Length != 2 || locElem[1] != tag)
+                        if (locElem.Length != 2 || locElem[1] != TAG)
                         {
                             return false;
                         }
@@ -142,7 +143,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <returns>the string representing the dummy location</returns>
         public virtual String ParseToString()
         {
-            return String.Format("Type:{0},ID:{1},Connections{2}",tag, locationID, ParseConnections());
+            return String.Format("Type:{0},ID:{1},Connections{2}",TAG, locationID, ParseConnections());
         }
         
         /// <summary>
