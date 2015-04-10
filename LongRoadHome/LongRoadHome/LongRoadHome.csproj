@@ -63,6 +63,9 @@
     <Compile Include="Model\Discovery\DiscoveryModel.cs" />
     <Compile Include="Model\Effect.cs" />
     <Compile Include="Model\GameState.cs" />
+    <Compile Include="Model\Graph\Arc.cs" />
+    <Compile Include="Model\Graph\Graph.cs" />
+    <Compile Include="Model\Graph\Node.cs" />
     <Compile Include="Model\Location\Civic.cs" />
     <Compile Include="Model\Location\Commercial.cs" />
     <Compile Include="Model\Location\DummyLocation.cs" />
