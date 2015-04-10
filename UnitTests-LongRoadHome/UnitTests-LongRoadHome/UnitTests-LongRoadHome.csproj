@@ -56,6 +56,7 @@
     <Compile Include="LocationTests\TSublocation.cs" />
     <Compile Include="LocationTests\TSublocationFactory.cs" />
     <Compile Include="LocationTests\TLocation.cs" />
+    <Compile Include="LocationTests\TLocationModel.cs" />
     <Compile Include="PlayerCharacterTests\TInventory.cs" />
     <Compile Include="PlayerCharacterTests\TItemCatalogue.cs" />
     <Compile Include="PlayerCharacterTests\TPCModel.cs" />
