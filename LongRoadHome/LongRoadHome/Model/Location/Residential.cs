@@ -6,6 +6,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
     {
         public const String TYPE = "Residential";
 
+        static Residential()
+        {
+            Residential.RegisterSublocation();
+        }
+
         public Residential()
         {
         }
