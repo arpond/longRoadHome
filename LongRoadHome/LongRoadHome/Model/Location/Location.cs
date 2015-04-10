@@ -18,16 +18,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <summary>
         /// Standard Constructor defaults to constant values
         /// </summary>
-        public Location()
+        public Location() : base()
         {
             visited = false;
             sublocations = new Dictionary<int, Sublocation>();
-            var keys = SubLocationFactory.GetRegisteredTypes().ToList();
-            
-            for (int i = 1; i < STD_SIZE+1; i++)
-            {
-                sublocations.Add(i, GenerateRandomSublocation(i, keys));
-            }
+            currentSubLocation = null;
+        }
+
+        public Location(int id, HashSet<int> connections) : base(id, connections)
+        {
+            visited = false;
+            sublocations = new Dictionary<int, Sublocation>();
             currentSubLocation = null;
         }
 
@@ -82,17 +83,39 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 }
             }
         }
+     
+
+
+        public static Location ConvertToLocation(DummyLocation dl)
+        {
+            return new Location(dl.GetLocationID(), dl.GetConnections());
+        }
 
         /// <summary>
-        /// Size constructor fefaults to constant values for everything except size
+        /// Generates Sub Location with default constants
+        /// </summary>
+        public void GenerateSubLocations()
+        {
+            sublocations = new Dictionary<int, Sublocation>();
+            var keys = SubLocationFactory.GetRegisteredTypes().ToList();
+
+            for (int i = 1; i < STD_SIZE + 1; i++)
+            {
+                sublocations.Add(i, GenerateRandomSublocation(i, keys));
+            }
+            currentSubLocation = null;
+        }
+
+        /// <summary>
+        /// Size constructor defaults to constant values for everything except size
         /// Invalid Size (size<=0) is set to STD_SIZE
         /// </summary>
         /// <param name="size">Size of the location (Number of sublocations)</param>
-        public Location(int size)
+        public void GenerateSubLocations(int size)
         {
             if (size <= 0)
             {
-                size = STD_SIZE;                
+                size = STD_SIZE;
             }
             visited = false;
             sublocations = new Dictionary<int, Sublocation>();
@@ -105,15 +128,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             currentSubLocation = null;
         }
 
-
         /// <summary>
-        /// Full constructor
+        /// Generates sub locations based on attibutes given
         /// Invalid params are set to standard values
         /// </summary>
         /// <param name="size">Size of the location (Number of sublocations)</param>
         /// <param name="maxItems">Max items to be found at each sublocation</param>
         /// <param name="maxAmount">Max amount of each item to be found at each sublocation</param>
-        public Location(int size, int maxItems, int maxAmount)
+        public void GenerateSubLocations(int size, int maxItems, int maxAmount)
         {
             if (size <= 0)
             {
@@ -131,7 +153,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             sublocations = new Dictionary<int, Sublocation>();
             var keys = SubLocationFactory.GetRegisteredTypes().ToList();
 
-            for (int i = 1; i < size+1; i++)
+            for (int i = 1; i < size + 1; i++)
             {
                 sublocations.Add(i, GenerateRandomSublocation(i, keys, maxItems, maxAmount));
             }
@@ -139,14 +161,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         }
 
         /// <summary>
-        /// Full Random constructor
+        /// Generates sub locations based on attibutes given
         /// Invalid params are set to standard values
         /// </summary>
         /// <param name="sizeMin">Minimum size</param>
         /// <param name="sizeMax">Maximum size</param>
         /// <param name="maxItems">Max items to be found at each sublocation</param>
         /// <param name="maxAmount">Max amount of each item to be found at each sublocation</param>
-        public Location(int sizeMin, int sizeMax, int maxItems, int maxAmount)
+        public void GenerateSubLocations(int sizeMin, int sizeMax, int maxItems, int maxAmount)
         {
             if (sizeMin <= 0)
             {
@@ -180,6 +202,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             }
             currentSubLocation = null;
         }
+
 
         /// <summary>
         /// Generates a standard sublocation
