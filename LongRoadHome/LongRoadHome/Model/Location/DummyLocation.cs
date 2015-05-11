@@ -77,6 +77,25 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             this.connections = connections;
         }
 
+        public void AddConnection(int idToAdd)
+        {
+            connections.Add(idToAdd);
+        }
+
+        public void RemoveConnection(DummyLocation toRemove)
+        {
+            int idToRemove = toRemove.GetLocationID();
+            if(connections.Contains(idToRemove))
+            {
+                connections.Remove(idToRemove);
+            }
+        }
+
+        public int NumberOfConnections()
+        {
+            return this.connections.Count;
+        }
+
         /// <summary>
         /// Gets the location ID
         /// </summary>
