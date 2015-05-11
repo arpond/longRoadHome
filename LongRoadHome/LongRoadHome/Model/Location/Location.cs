@@ -85,7 +85,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         }
      
 
-
         public static Location ConvertToLocation(DummyLocation dl)
         {
             return new Location(dl.GetLocationID(), dl.GetConnections());

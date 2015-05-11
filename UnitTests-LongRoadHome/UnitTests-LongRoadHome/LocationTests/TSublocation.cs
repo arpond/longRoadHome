@@ -9,9 +9,9 @@ namespace UnitTests_LongRoadHome.LocationTests
     [TestClass]
     public class TSublocation
     {
-        Residential res;
-        Commercial com;
-        Civic civ;
+        Residential res = new Residential();
+        Commercial com = new Commercial();
+        Civic civ = new Civic();
         List<Item> items = new List<Item>();
         Random rnd = new Random();
         String stdSubLoc;
