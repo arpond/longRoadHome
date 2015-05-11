@@ -59,5 +59,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Loc_Res_PlaceHolder {
+            get {
+                object obj = ResourceManager.GetObject("Loc_Res_PlaceHolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

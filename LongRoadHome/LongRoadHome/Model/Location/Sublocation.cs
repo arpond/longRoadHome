@@ -5,49 +5,103 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
     public abstract class Sublocation
     {
-        private bool scavenged;
-        private int sublocationID;
-        private String imagePath;
+        protected int sublocationID, maxItems, maxAmount;
+        protected String imagePath;
+        protected bool scavenged;
+        public const String TAG = "Sublocation";
+        private Random rnd = new Random();
+        
+        public abstract String ParseToString();
+        public abstract bool IsValidSublocation(String toTest);
+        public abstract Sublocation CreateSublocation(int sublocID, int maxItems, int maxAmount);
+        public abstract Sublocation CreateSublocation(String toParse);
 
-        public List<Item> Scavenge()
+        /// <summary>
+        /// Provides default implementation for scavange
+        /// </summary>
+        /// <param name="possibleItems">The items that can be found</param>
+        /// <returns>List of items found</returns>
+        public virtual List<Item> Scavenge(List<Item> possibleItems)
         {
-            throw new System.Exception("Not implemented");
+            int numOfItems, amount, itemIndex;
+            var itemsFound = new List<Item>();
+            if (!scavenged)
+            {
+                numOfItems = rnd.Next(1, maxItems);
+                for (int i = 0; i < numOfItems; i++)
+                {
+                    amount = rnd.Next(1, maxAmount);
+                    itemIndex = rnd.Next(possibleItems.Count);
+
+                    if (possibleItems.Count == 0)
+                    {
+                        break;
+                    }
+
+                    var selectedItem = possibleItems[itemIndex] as Item;
+                    var item = selectedItem.Clone() as Item;
+
+                    item.SetAmount(amount);
+                    possibleItems.Remove(selectedItem);
+                    itemsFound.Add(item);
+                }
+                scavenged = true;
+            }
+            return itemsFound;
         }
+
+        /// <summary>
+        /// Accessor method for scavenged status
+        /// </summary>
+        /// <returns>If scavenged is true or false</returns>
         public bool GetScavenged()
         {
             return this.scavenged;
         }
+        
+        /// <summary>
+        /// Mutator which sets scavenged to true
+        /// </summary>
         public void SetScavenged()
         {
-            throw new System.Exception("Not implemented");
+            scavenged = true;
         }
+        
+        /// <summary>
+        /// Accessor method for sub location ID
+        /// </summary>
+        /// <returns>The sublocation ID</returns>
         public int GetSublocationID()
         {
             return this.sublocationID;
         }
-        public void SetSublocationID(ref int sublocationID)
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public String ParseToString()
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public void ParseFromString(ref String toParse)
-        {
-            throw new System.Exception("Not implemented");
-        }
+        
+        /// <summary>
+        /// Accessor method for image path
+        /// </summary>
+        /// <returns>The image path</returns>
         public String GetImagePath()
         {
             return this.imagePath;
         }
-        public Sublocation CreateSublocation()
+
+        /// <summary>
+        /// Accessor method for max items
+        /// </summary>
+        /// <returns>The maximum number of items</returns>
+        public int GetMaxItems()
         {
-            throw new System.Exception("Not implemented");
+            return this.maxItems;
         }
 
-        private Location location;
-        private LocationModel locationModel;
+        /// <summary>
+        /// Accessor method for max amount of each item
+        /// </summary>
+        /// <returns>The maximum amount of each item</returns>
+        public int GetMaxAmount()
+        {
+            return this.maxAmount;
+        }
 
     }
 }
