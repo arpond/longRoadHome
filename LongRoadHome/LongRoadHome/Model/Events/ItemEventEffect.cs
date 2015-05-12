@@ -9,6 +9,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
 			throw new System.Exception("Not implemented");
 		}
 
+        public override string ParseToString()
+        {
+            throw new NotImplementedException();
+        }
 	}
 
 }

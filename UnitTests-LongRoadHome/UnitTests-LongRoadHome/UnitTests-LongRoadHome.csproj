@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EventTests\TEventEffect.cs" />
     <Compile Include="LocationTests\TSublocation.cs" />
     <Compile Include="LocationTests\TSublocationFactory.cs" />
     <Compile Include="LocationTests\TLocation.cs" />
