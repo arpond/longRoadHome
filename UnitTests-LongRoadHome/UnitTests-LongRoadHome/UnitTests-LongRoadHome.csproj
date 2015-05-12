@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EventTests\TEvent.cs" />
+    <Compile Include="EventTests\TEventCatalogue.cs" />
     <Compile Include="EventTests\TOption.cs" />
     <Compile Include="EventTests\TPREventEffect.cs" />
     <Compile Include="EventTests\TItemEventEffect.cs" />
