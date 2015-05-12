@@ -6,6 +6,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
     public class LocationModel
     {
+        public const String VISITED_TAG = "VisitedLocations";
+        public const String UNVISITED_TAG = "UnvisitedLocations";
+
         private const int STD_MIN_SIZE = 1, STD_MAX_SIZE = 5, STD_MAX_ITEMS = 5, STD_MAX_AMOUNT = 10;
         private const int MAX_CONNECTIONS = 4, MIN_CONNECTIONS = 2;
 
@@ -31,22 +34,30 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 
         }
 
+        public LocationModel(int numOfLocations)
+        {
+            visitedLocation = new SortedList<int, Location>();
+            unvisitedLocation = new SortedList<int, DummyLocation>();
+
+            InitializeLocationModel(numOfLocations);
+        }
+
         public LocationModel(String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc)
         {
             visitedLocation = new SortedList<int, Location>();
             unvisitedLocation = new SortedList<int, DummyLocation>();
 
             String[] visitedElem = visitedLocs.Split('#');
-            foreach(String loc in visitedElem)
+            for (int i = 1; i < visitedElem.Length; i++ )
             {
-                Location temp = new Location(loc);
+                Location temp = new Location(visitedElem[i]);
                 visitedLocation.Add(temp.GetLocationID(), temp);
             }
 
             String[] unvisitedElem = unvisitedLocs.Split('#');
-            foreach(String loc in unvisitedElem)
+            for(int j = 1; j < unvisitedElem.Length; j++ )
             {
-                DummyLocation temp = new DummyLocation(loc);
+                DummyLocation temp = new DummyLocation(unvisitedElem[j]);
                 unvisitedLocation.Add(temp.GetLocationID(), temp);
             }
 
@@ -59,8 +70,49 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             int currSub;
             if (int.TryParse(currSLoc, out currSub))
             {
-                currentLocation.GetSublocationByID(currSub);
+                if (currSub == 0)
+                {
+                    currentSublocation = null;
+                }
+                else
+                {
+                    currentSublocation = currentLocation.GetSublocationByID(currSub);
+                }
             }
+        }
+
+        public static bool IsValidVisitedLocations(String toTest)
+        {
+            String[] visitedElem = toTest.Split('#');
+            if (visitedElem[0] != VISITED_TAG)
+            {
+                return false;
+            }
+            for (int i = 1; i < visitedElem.Length; i++)
+            {
+                if(!Location.IsValidLocation(visitedElem[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static bool IsValidUnvisitedLocations(String toTest)
+        {
+            String[] visitedElem = toTest.Split('#');
+            if (visitedElem[0] != UNVISITED_TAG)
+            {
+                return false;
+            }
+            for (int i = 1; i < visitedElem.Length; i++)
+            {
+                if (!DummyLocation.IsValidDummyLocation(visitedElem[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>
@@ -105,6 +157,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <returns>The current sub location as a string</returns>
         public String ParseCurrSubLocToString()
         {
+            if (currentSublocation == null)
+            {
+                return "" + 0;
+            }
             return "" + currentSublocation.GetSublocationID();
         }
 
@@ -146,10 +202,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// Change the current sublocation
         /// </summary>
         /// <param name="subLocationID">The id of the sublocation to change to</param>
-        public void ChangeSubLocation(int subLocationID)
+        public bool ChangeSubLocation(int subLocationID)
         {
-            currentLocation.SetCurrentSubLocation(subLocationID);
-            currentSublocation = currentLocation.GetCurrentSubLocation();
+            if (currentLocation.SetCurrentSubLocation(subLocationID))
+            {
+                currentSublocation = currentLocation.GetCurrentSubLocation();
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -163,13 +223,48 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         }
 
         /// <summary>
+        /// Checks if the move to the locationID is valid
+        /// </summary>
+        /// <param name="locationID">The location ID to check</param>
+        /// <returns>If current is connected to the ID</returns>
+        public bool IsValidMove(int locationID)
+        {
+            HashSet<int> connections = currentLocation.GetConnections();
+            return connections.Contains(locationID);
+        }
+
+        /// <summary>
+        /// Moves from current location to the location ID
+        /// Will not move if move is invalid
+        /// </summary>
+        /// <param name="locationID">The location ID to move to</param>
+        /// <returns>If the move was successful</returns>
+        public bool MoveToLocation(int locationID)
+        {
+            if(!IsValidMove(locationID) || locationID < 0 || locationID == currentLocation.GetLocationID() || (!visitedLocation.ContainsKey(locationID) && !unvisitedLocation.ContainsKey(locationID)))
+            {
+                return false;
+            }
+
+            if (LocationVisited(locationID))
+            {
+                return MoveToVisitedLocation(locationID);
+            }
+            else
+            {
+                return MoveToUnvisitedLocation(locationID);
+            }
+        }
+
+        /// <summary>
         /// Moves from the current location to an unvisited location
         /// </summary>
         /// <param name="locationID">ID of the unvisited location</param>
-        private void MoveToUnvisitedLocation(int locationID)
+        /// <returns>If the move was successful</returns>
+        private bool MoveToUnvisitedLocation(int locationID)
         {
             DummyLocation toChangeTo;
-            if (unvisitedLocation.TryGetValue(locationID, out toChangeTo))
+            if (IsValidMove(locationID) && unvisitedLocation.TryGetValue(locationID, out toChangeTo))
             {
                 Location temp = Location.ConvertToLocation(toChangeTo);
 
@@ -179,29 +274,49 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 int maxAmount = rnd.Next(1, STD_MAX_AMOUNT+1);
 
                 temp.GenerateSubLocations(minSize, maxSize, maxItems, maxAmount);
+                temp.SetVisited();
                 unvisitedLocation.Remove(locationID);
                 visitedLocation.Add(locationID, temp);
                 currentLocation = temp;
+                currentSublocation = null;
+                return true;
             }
+            return false;
         }
 
         /// <summary>
         /// Moves from the current location to a visited location
         /// </summary>
         /// <param name="locationID">ID of the visited location</param>
-        private void MoveToVisitedLocation(int locationID)
+        /// <returns>If the move was successful</returns>
+        private bool MoveToVisitedLocation(int locationID)
         {
             Location toChangeTo;
-            if (visitedLocation.TryGetValue(locationID, out toChangeTo))
+            if (IsValidMove(locationID) && visitedLocation.TryGetValue(locationID, out toChangeTo))
             {
                 currentLocation = toChangeTo;
+                currentSublocation = null;
+                return true;
             }
+            return false;
         }
 
-
-        public List<Item> Scavenge()
+        /// <summary>
+        /// Scavenges the current sublocation
+        /// </summary>
+        /// <param name="possibleItems">Items that can be found here</param>
+        /// <returns>List of items found</returns>
+        public List<Item> Scavenge(List<Item> possibleItems)
         {
-            throw new System.Exception("Not implemented");
+            List<Item> itemsScavenged = new List<Item>();
+            if (currentSublocation == null || currentSublocation.GetScavenged())
+            {
+                return itemsScavenged;
+            }
+
+            itemsScavenged = currentSublocation.Scavenge(possibleItems);
+
+            return itemsScavenged;
         }
 
         /// <summary>
@@ -210,25 +325,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <param name="totalLocations">Total number of locations</param>
         public void InitializeLocationModel(int total)
         {
-            CreateDummyLocations(1024);
+            CreateDummyLocations(total);
             ConnectUnvisitedIntoGroupsOfFour();
             GenerateConnections();
             
             HashSet<int> tempConn = new HashSet<int>();
             tempConn.Add(1);
-            Location startLocation = new Location(-1, tempConn);
+            Location startLocation = new Location(0, tempConn);
 
             startLocation.SetVisited();
             startLocation.GenerateSubLocations();
-            visitedLocation.Add(-1, startLocation);
+            visitedLocation.Add(0, startLocation);
 
             DummyLocation dl1;
             if (unvisitedLocation.TryGetValue(1, out dl1))
             {
-                dl1.AddConnection(-1);
+                dl1.AddConnection(0);
             }
 
             currentLocation = startLocation;
+            currentSublocation = null;
         }
 
 
@@ -301,6 +417,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             }
         }
 
+        /// <summary>
+        /// Generates connections between unvisited locations
+        /// </summary>
         public void GenerateConnections()
         {
             List<DummyLocation> dls = new List<DummyLocation>(unvisitedLocation.Values);
