@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
 	public class EventCatalogue {
-		private ArrayList<Event> events;
+		private List<Event> events;
 
 		public void ParseFromString(ref String eventCatalogue) {
 			throw new System.Exception("Not implemented");

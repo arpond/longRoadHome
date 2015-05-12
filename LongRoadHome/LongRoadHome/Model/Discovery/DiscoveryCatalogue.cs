@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Discovery
 {
     public class DiscoveryCatalogue
     {
-        private ArrayList<Discovery> discoveries;
+        private List<Discovery> discoveries;
 
         public void ParseFromString(ref String discoveries)
         {

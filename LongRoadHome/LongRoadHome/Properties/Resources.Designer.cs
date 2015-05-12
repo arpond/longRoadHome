@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace uk.ac.dundee.arpond.LongRoadHome.Properties {
+namespace uk.ac.dundee.arpond.longRoadHome.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace uk.ac.dundee.arpond.LongRoadHome.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("uk.ac.dundee.arpond.LongRoadHome.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("uk.ac.dundee.arpond.longRoadHome.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,16 @@ namespace uk.ac.dundee.arpond.LongRoadHome.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Loc_Res_PlaceHolder {
+            get {
+                object obj = ResourceManager.GetObject("Loc_Res_PlaceHolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
