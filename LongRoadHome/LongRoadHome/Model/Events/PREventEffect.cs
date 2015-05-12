@@ -58,6 +58,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             return String.Format("{0}:{1}:{2}:{3}", PR_EFFECT_TAG, resource.GetName(), minimum, maximum);
         }
 
+        /// <summary>
+        /// Accessor method for the resource
+        /// </summary>
+        /// <returns>The resource</returns>
         public PrimaryResource GetResource()
         {
             return resource;
