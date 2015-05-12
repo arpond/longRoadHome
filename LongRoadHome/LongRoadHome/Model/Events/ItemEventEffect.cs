@@ -19,6 +19,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
             }
         }
 
+        /// <summary>
+        /// Resolves the IEE and applies it to the PC
+        /// </summary>
+        /// <param name="eventModifier">Event modifier for item amount</param>
+        /// <param name="pcm">The PC model to apply to</param>
         public override void ResolveEffect(float eventModifier, PCModel pcm)
         {
             int amount = item.GetAmount();
@@ -27,16 +32,29 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
             pcm.ModifyInventory(item, amount);
 		}
 
+        /// <summary>
+        /// Parses the IEE to a string
+        /// </summary>
+        /// <returns>The parsed IEE</returns>
         public override string ParseToString()
         {
             return String.Format("{0}#{1}", ITEM_EFFECT_TAG, item.ParseToString());
         }
 
+        /// <summary>
+        /// Accessor method for the item
+        /// </summary>
+        /// <returns>The item</returns>
         public Item GetItem()
         {
             return item;
         }
 
+        /// <summary>
+        /// Checks if the string is a valid IEE
+        /// </summary>
+        /// <param name="toTest">The string to test</param>
+        /// <returns>If the string is valid</returns>
         public static bool IsValidItemEventEffect(String toTest)
         {
             String[] effectElements = toTest.Split('#');
