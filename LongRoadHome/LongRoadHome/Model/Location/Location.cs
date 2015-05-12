@@ -85,7 +85,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         }
      
 
-
         public static Location ConvertToLocation(DummyLocation dl)
         {
             return new Location(dl.GetLocationID(), dl.GetConnections());
@@ -343,7 +342,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                         }
                         break;
                     case "ID":
-                        if (locElem.Length != 2 || !int.TryParse(locElem[1], out id) || id <= 0)
+                        if (locElem.Length != 2 || !int.TryParse(locElem[1], out id) || id < 0)
                         {
                             return false;
                         }
@@ -355,7 +354,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                             int loc;
                             if (int.TryParse(locElem[i], out loc))
                             {
-                                if (tempID.Contains(loc) || loc == id || loc <= 0)
+                                if (tempID.Contains(loc) || loc == id || loc < 0)
                                 {
                                     return false;
                                 }
@@ -396,7 +395,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                         int currID;
                         if (locElem.Length > 1)
                         {
-                            if (locElem.Length != 2 || !int.TryParse(locElem[1], out currID) || currID <= 0 || !tempSubID.Contains(currID))
+                            if (locElem.Length != 2 || !int.TryParse(locElem[1], out currID) || currID < 0 || !tempSubID.Contains(currID))
                             {
                                 return false;
                             }
