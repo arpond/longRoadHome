@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace UnitTests_LongRoadHome.EventTests
 {
     [TestClass]
-    public class TEventEffect
+    public class TPREventEffect
     {
         List<Tuple<String, String>> invalidStrings = new List<Tuple<String, String>>();
         List<Tuple<String, String>> validStrings = new List<Tuple<String, String>>();
