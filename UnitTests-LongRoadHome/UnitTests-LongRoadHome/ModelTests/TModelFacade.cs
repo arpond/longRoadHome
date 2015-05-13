@@ -248,12 +248,21 @@ namespace UnitTests_LongRoadHome.ModelTests
             Assert.AreNotEqual(workingInv.ParseToString(), temp.ParseToString(), "Inventory should have changed");
 
             int newTotal = 0;
-            foreach(Item item in workingInv.GetInventory())
+            foreach (Item item in workingInv.GetInventory())
             {
                 newTotal += item.GetAmount();
             }
 
-            Assert.IsTrue(oldTotal < newTotal, "There should be more items in teh inventory");
+            Assert.IsTrue(oldTotal < newTotal, "There should be more items in the inventory");
+            Assert.IsFalse(mf.ScavangeSubLocation(gs), "Scavenging should fail");
+
+            oldTotal = newTotal;
+            newTotal = 0;
+            foreach (Item item in workingInv.GetInventory())
+            {
+                newTotal += item.GetAmount();
+            }
+            Assert.AreEqual(oldTotal, newTotal, "no new items should have been added");
         }
     }
 }
