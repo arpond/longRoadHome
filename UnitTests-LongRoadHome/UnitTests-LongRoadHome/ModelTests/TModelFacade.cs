@@ -23,12 +23,19 @@ namespace UnitTests_LongRoadHome.ModelTests
         ModelFacade mf = new ModelFacade();
         List<Location> locations = new List<Location>();
         List<DummyLocation> dummyLocations = new List<DummyLocation>();
+        List<Item> items;
 
         [TestInitialize]
         public void Setup()
         {
             // PC Model
-            List<Item> items = new List<Item>();
+            items = new List<Item>();
+
+            String itemStr1 = "ID:21,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements";
+            String itemStr2 = "ID:22,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":10" + ",PassiveEffect,Requirements:1";
+            String itemStr3 = "ID:23,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements:1:2";
+            String itemStr4 = "ID:24,Name:TestItem,Amount:1,Description:test item 4,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":30:" + ActiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":10" + ",PassiveEffect,Requirements:10";
+
             itemCatalogue = ItemCatalogue.TAG;
             inventory = Inventory.TAG;
             pc = PlayerCharacter.HEALTH + ":80:1," + PlayerCharacter.HUNGER + ":50:1,"
@@ -40,7 +47,14 @@ namespace UnitTests_LongRoadHome.ModelTests
                 itemCatalogue += ";" + tmp.ParseToString();
             }
 
-            inventory += "#" + items[0].ParseToString() + "#" + items[3].ParseToString() + "#" + items[2].ParseToString() + "#" + items[5].ParseToString() + "#" + items[7].ParseToString();
+            itemCatalogue += ";" + itemStr1 + ";" + itemStr2 + ";" + itemStr3 + ";" + itemStr4;
+
+            items.Add(new Item(itemStr1));
+            items.Add(new Item(itemStr2));
+            items.Add(new Item(itemStr3));
+            items.Add(new Item(itemStr4));
+
+            inventory += "#" + items[0].ParseToString() + "#" + items[3].ParseToString() + "#" + items[2].ParseToString() + "#" + items[5].ParseToString() + "#" + items[7].ParseToString() + "#" + itemStr2 + "#" + itemStr4;
 
             pcm = new PCModel(pc, inventory, itemCatalogue);
 
@@ -263,6 +277,37 @@ namespace UnitTests_LongRoadHome.ModelTests
                 newTotal += item.GetAmount();
             }
             Assert.AreEqual(oldTotal, newTotal, "no new items should have been added");
+        }
+
+        [TestCategory("ModelFacade"), TestCategory("Model"), TestMethod()]
+        public void ModelFacade_UseItem()
+        {
+            PCModel pcm = gs.GetPCM();
+            PlayerCharacter workingPC = pcm.GetPC();
+            Inventory workingInv = pcm.GetInventory();
+            Assert.IsTrue(workingInv.Contains(items[21]), "Inventory should contain Item 22");
+            Assert.IsTrue(workingInv.Contains(items[23]), "Inventory should contain Item 24");
+
+            int invSlot = workingInv.GetInventorySlot(items[21]);
+
+            Assert.AreEqual(80, workingPC.GetResource(PlayerCharacter.HEALTH), "Health should be 80");
+            Assert.AreEqual(50, workingPC.GetResource(PlayerCharacter.HUNGER), "Hunger should be 50");
+            Assert.AreEqual(60, workingPC.GetResource(PlayerCharacter.THIRST), "Thirst should be 60");
+            Assert.AreEqual(70, workingPC.GetResource(PlayerCharacter.SANITY), "Sanity should be 70");
+
+            Assert.IsTrue(mf.UseItem(gs,invSlot), "Item 22 should be used");
+
+            Assert.AreEqual(90, workingPC.GetResource(PlayerCharacter.HEALTH), "Health should be 90");
+            Assert.AreEqual(50, workingPC.GetResource(PlayerCharacter.HUNGER), "Hunger should stay the same");
+            Assert.AreEqual(60, workingPC.GetResource(PlayerCharacter.THIRST), "Thirst should stay the same");
+            Assert.AreEqual(70, workingPC.GetResource(PlayerCharacter.SANITY), "Sanity should stay the same");
+
+            Assert.IsFalse(workingInv.Contains(items[21]), "Inventory should no longer contain Item 22");
+
+            Assert.IsFalse(mf.UseItem(gs, invSlot), "Should not be possible to use the empty slot");
+
+            invSlot = workingInv.GetInventorySlot(items[23]);
+            Assert.IsFalse(mf.UseItem(gs, invSlot), "Should not be possible to item 24 due to lack of prerequisites");
         }
     }
 }

@@ -68,15 +68,37 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             LocationModel lm = gs.GetLM();
             return lm.ChangeSubLocation(subLocationID);
         }
+
+        /// <summary>
+        /// Checks if the item in the inventory slot is useable
+        /// </summary>
+        /// <param name="gs">The games state to check</param>
+        /// <param name="invSlot">The inventory slot to check</param>
+        /// <returns>If the slot is useable</returns>
         public bool ItemUsable(GameState gs,  int invSlot)
         {
             throw new System.Exception("Not implemented");
         }
-        public void UseItem(GameState gs,  int invSlot)
+
+        /// <summary>
+        /// Uses the item in the inventory slot specified
+        /// </summary>
+        /// <param name="gs">The games state to use the item on</param>
+        /// <param name="invSlot">The inventory slot to use</param>
+        /// <returns>If the item was succesfully used</returns>
+        public bool UseItem(GameState gs,  int invSlot)
         {
-            throw new System.Exception("Not implemented");
+            PCModel pcm = gs.GetPCM();
+            return pcm.UseItem(invSlot);
         }
-        public void DiscardItem(GameState gs,  int invSlot)
+
+        /// <summary>
+        /// Discards an Item from an inventory slot
+        /// </summary>
+        /// <param name="gs">The game state to remove the item from</param>
+        /// <param name="invSlot">The inventory slot to remove the item from</param>
+        /// <returns>If the item was succesfully removed</returns>
+        public bool DiscardItem(GameState gs,  int invSlot)
         {
             throw new System.Exception("Not implemented");
         }
