@@ -83,7 +83,7 @@ namespace UnitTests_LongRoadHome.DiscoveryTests
                 Discovery dc = new Discovery(test.Item1);
                 String expected = test.Item1;
 
-                Assert.AreEqual(expected, dc.ParseToString(), "Strings should match for event " + i);
+                Assert.AreEqual(expected, dc.ParseToString(), "Strings should match for discovery " + i);
                 i++;
             }
         }

@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DiscoveryTests\TDiscovery.cs" />
+    <Compile Include="DiscoveryTests\TDiscoveryCatalogue.cs" />
     <Compile Include="EventTests\TEvent.cs" />
     <Compile Include="EventTests\TEventCatalogue.cs" />
     <Compile Include="EventTests\TEventModel.cs" />
