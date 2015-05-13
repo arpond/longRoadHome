@@ -6,6 +6,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Discovery
     {
         public const String TAG = "DiscoveryCatalogue";
         private SortedList<int, Discovery> discoveries;
+        private Random rnd = new Random();
 
         public DiscoveryCatalogue()
         {
@@ -30,6 +31,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Discovery
         public SortedList<int, Discovery> GetDiscoveries()
         {
             return discoveries;
+        }
+
+        /// <summary>
+        /// Gets a random discovery
+        /// </summary>
+        /// <returns>Random discovery</returns>
+        public Discovery GetRandomDiscovery()
+        {
+            int rand = rnd.Next(discoveries.Count);
+            var temp = discoveries.Values;
+            return temp[rand];
         }
 
         /// <summary>
