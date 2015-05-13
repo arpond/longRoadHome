@@ -85,7 +85,7 @@ namespace UnitTests_LongRoadHome.EventTests
         }
 
         [TestCategory("Event"), TestCategory("EventModel"), TestMethod()]
-        public void Event_ParseFromString()
+        public void EventCatalogue_ParseFromString()
         {
             String validCat = EventCatalogue.TAG;
             foreach (Tuple<String, String> eventTest in validEvents)
@@ -101,7 +101,7 @@ namespace UnitTests_LongRoadHome.EventTests
         }
 
         [TestCategory("Event"), TestCategory("EventModel"), TestMethod()]
-        public void Event_ParseToString()
+        public void EventCatalogue_ParseToString()
         {
             String validCat = EventCatalogue.TAG;
             foreach (Tuple<String, String> eventTest in validEvents)

@@ -4,24 +4,132 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Discovery
 {
     public class DiscoveryModel
     {
-        private List<Discovery> discovered;
+        public const String DISCOVERED_TAG = "Discovered";
+        private HashSet<int> discovered;
+        private DiscoveryCatalogue dc;
 
-        public String ParseToString()
+        public DiscoveryModel()
         {
-            throw new System.Exception("Not implemented");
-        }
-        public String GetNewDiscovery()
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public List<String> GetDiscoveries()
-        {
-            throw new System.Exception("Not implemented");
+            discovered = new HashSet<int>();
+            dc = new DiscoveryCatalogue();
         }
 
-        private DiscoveryCatalogue discoveryCatalogue;
+        public DiscoveryModel(String discovered, String catalogue)
+        {
+            this.discovered = new HashSet<int>();
+            dc = new DiscoveryCatalogue(catalogue);
 
-        private uk.ac.dundee.arpond.longRoadHome.Model.GameState gameState;
+            String[] discoveredElems = discovered.Split(':');
+            for (int i = 1; i < discoveredElems.Length; i++)
+            {
+                int id;
+                if (int.TryParse(discoveredElems[i], out id))
+                {
+                    this.discovered.Add(id);
+                }
+            }
+        }
 
+        /// <summary>
+        /// Parses discovered to String
+        /// </summary>
+        /// <returns>Discovered as a string</returns>
+        public String ParseDiscoveredToString()
+        {
+            String disc = DISCOVERED_TAG;
+            foreach (int id in discovered)
+            {
+                disc += ":" + id;
+            }
+            return disc;
+        }
+
+        /// <summary>
+        /// Parses the catalogue to a string
+        /// </summary>
+        /// <returns>The parsed catalogue</returns>
+        public String ParseCatalogueToString()
+        {
+            return dc.ParseToString();
+        }
+
+        /// <summary>
+        /// Gets a new discovery
+        /// </summary>
+        /// <param name="numOfVisited">Number of visited locations</param>
+        /// <returns>Discovery text if one is found (ie not previously found and requirements met)</returns>
+        public String GetNewDiscovery(int numOfVisited)
+        {
+            Discovery disc = dc.GetRandomDiscovery();
+            if (discovered.Contains(disc.GetDiscoveryID()) || !disc.IsDiscoverable(numOfVisited))
+            {
+                return "";
+            }
+
+            discovered.Add(disc.GetDiscoveryID());
+            return disc.GetDiscoveryText();
+        }
+
+        /// <summary>
+        /// Accessor method for discovered
+        /// </summary>
+        /// <returns>Discovered</returns>
+        public HashSet<int> GetDiscovered()
+        {
+            return discovered;
+        }
+
+        /// <summary>
+        /// Accessor method for discovery catalogue
+        /// </summary>
+        /// <returns>The discovery catalogue</returns>
+        public DiscoveryCatalogue GetDiscoveryCatalogue()
+        {
+            return dc;
+        }
+
+        /// <summary>
+        /// Checks if a string is a valid discovery catalogue
+        /// </summary>
+        /// <param name="toTest">String to check</param>
+        /// <returns>If it is valid or not</returns>
+        public static bool IsValidDiscoveryCatalogue(String toTest)
+        {
+            return DiscoveryCatalogue.IsValidDiscoveryCatalogue(toTest);
+        }
+
+        /// <summary>
+        /// Checks if a string is a valid set of discovered
+        /// </summary>
+        /// <param name="toTest">String to check</param>
+        /// <returns>If it is valid or not</returns>
+        public static bool IsValidDiscovered(String toTest)
+        {
+            HashSet<int> tempID = new HashSet<int>();
+            String[] discoveredElems = toTest.Split(':');
+            if (discoveredElems[0] != DISCOVERED_TAG)
+            {
+                return false;
+            }
+            for (int i = 1; i < discoveredElems.Length; i++)
+            {
+                int id;
+                if (int.TryParse(discoveredElems[i], out id))
+                {
+                    if (tempID.Contains(id) || id < 0)
+                    {
+                        return false;
+                    }
+                    tempID.Add(id);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        
     }
 }
