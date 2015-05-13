@@ -16,6 +16,23 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             eventCatalogue = new EventCatalogue();
         }
 
+        /// <summary>
+        /// Constructor for event model for new game
+        /// </summary>
+        /// <param name="catalogue">Event catalogue string</param>
+        public EventModel(String catalogue)
+        {
+            currentEvent = null;
+            usedEvents = new HashSet<int>();
+            eventCatalogue = new EventCatalogue(catalogue);
+        }
+
+        /// <summary>
+        /// Constructor for event model from save data
+        /// </summary>
+        /// <param name="usedEvents">String of used events</param>
+        /// <param name="catalogue">String for Event catalogue </param>
+        /// <param name="curEvent">String of current event</param>
         public EventModel(String usedEvents, String catalogue, String curEvent)
         {
             currentEvent = new Event(curEvent);

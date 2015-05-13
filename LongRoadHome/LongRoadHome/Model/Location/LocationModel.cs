@@ -34,6 +34,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 
         }
 
+        /// <summary>
+        /// Constructor for starting a new game
+        /// </summary>
+        /// <param name="numOfLocations">Number of locations to generate</param>
         public LocationModel(int numOfLocations)
         {
             visitedLocation = new SortedList<int, Location>();
@@ -42,6 +46,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             InitializeLocationModel(numOfLocations);
         }
 
+        /// <summary>
+        /// Constructor for loading a game from save data
+        /// </summary>
+        /// <param name="visitedLocs">Visisted locations string</param>
+        /// <param name="unvisitedLocs">Unvisited locations string</param>
+        /// <param name="currLoc">Current location string</param>
+        /// <param name="currSLoc">Current sublocation string</param>
         public LocationModel(String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc)
         {
             visitedLocation = new SortedList<int, Location>();

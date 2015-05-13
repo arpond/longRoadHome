@@ -118,7 +118,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// </summary>
         /// <param name="catalogue">String to check</param>
         /// <returns>If the string is a valid item catalogue</returns>
-        public bool IsValidItemCatalogue(String catalogue)
+        public static bool IsValidItemCatalogue(String catalogue)
         {
             return ItemCatalogue.IsValidItemCatalogue(catalogue);
         }
@@ -130,7 +130,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// <param name="inventory">Inventory string to check</param>
         /// <param name="catalogue">Item Catalogue string to check</param>
         /// <returns>If all the strings are valid</returns>
-        public bool IsValidPCModel(String pc, String inventory, String catalogue)
+        public static bool IsValidPCModel(String pc, String inventory, String catalogue)
         {
             return PlayerCharacter.IsValidPC(pc) && Inventory.IsValidInventory(inventory) && ItemCatalogue.IsValidItemCatalogue(catalogue);
         }
