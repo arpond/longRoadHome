@@ -1,19 +1,26 @@
 using System;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
-namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
+namespace uk.ac.dundee.arpond.longRoadHome.Model.Events 
+{
 	public abstract class EventEffect : uk.ac.dundee.arpond.longRoadHome.Model.Effect  {
-		private int minimum;
-		private int maximum;
+		protected int minimum;
+		protected int maximum;
+
+        public const String TAG = "EventEffect";
 
         public abstract void ResolveEffect(float eventModifier, PCModel pcm);
+        public abstract string ParseToString();
 
-        public string ParseToString()
+        public int GetMinimum()
         {
-            throw new System.Exception("Not implemented");
+            return minimum;
         }
 
-		private Option option;
-
+        public int GetMaximum()
+        {
+            return maximum;
+        }
+        
 	}
 
 }
