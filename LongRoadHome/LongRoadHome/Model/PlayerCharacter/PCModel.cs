@@ -62,6 +62,27 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
+        /// Modifies a primary resource of the current PC
+        /// </summary>
+        /// <param name="resourceName">Primary resource name to modify</param>
+        /// <param name="amount">Amount to modify the resource by</param>
+        public void ModifyPrimaryResource(String resourceName, int amount)
+        {
+            currentPC.AdjustResource(resourceName, amount);
+        }
+
+        /// <summary>
+        /// Checks if the current player can make a move
+        /// </summary>
+        /// <param name="hungerCost">Cost in hunger</param>
+        /// <param name="thirstCost">Cost in thirst</param>
+        /// <returns>If the current player can afford to move</returns>
+        public bool CanAffordToMove(int hungerCost, int thirstCost)
+        {
+            return currentPC.CanAffordToMove(hungerCost, thirstCost);
+        }
+
+        /// <summary>
         /// Modifies the inventory
         /// </summary>
         /// <param name="item">The item to modify</param>

@@ -92,6 +92,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             }
         }
 
+        /// <summary>
+        /// Checks if string is valid visited locations list
+        /// </summary>
+        /// <param name="toTest">String to test</param>
+        /// <returns>If they are valid</returns>
         public static bool IsValidVisitedLocations(String toTest)
         {
             String[] visitedElem = toTest.Split('#');
@@ -109,6 +114,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             return true;
         }
 
+        /// <summary>
+        /// Checks if string is a valid unvisited locations list
+        /// </summary>
+        /// <param name="toTest">String to check</param>
+        /// <returns>If they are valid</returns>
         public static bool IsValidUnvisitedLocations(String toTest)
         {
             String[] visitedElem = toTest.Split('#');
@@ -367,6 +377,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         public bool IsScavenged()
         {
             return currentSublocation.GetScavenged();
+        }
+
+        /// <summary>
+        /// Checks if sublocation passed is scavenged
+        /// </summary>
+        /// <param name="id">ID of the sublocation to check</param>
+        /// <returns>If the sublocation is scavenged</returns>
+        public bool IsScavenged(int id)
+        {
+            return currentLocation.GetSublocationByID(id).GetScavenged();
         }
 
         /// <summary>

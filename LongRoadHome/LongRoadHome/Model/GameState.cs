@@ -210,7 +210,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
                     int.TryParse(currLoc, out currID) &&
                     int.TryParse(currSLoc, out currSub);
         }
-
     }
 
 }

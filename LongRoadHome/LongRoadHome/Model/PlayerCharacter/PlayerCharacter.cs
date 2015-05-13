@@ -280,5 +280,25 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             }
             return false;
         }
+
+        /// <summary>
+        /// Checks if the player can make a move
+        /// </summary>
+        /// <param name="hungerCost">Cost in hunger</param>
+        /// <param name="thirstCost">Cost in thirst</param>
+        /// <returns>If the player can afford to move</returns>
+        public bool CanAffordToMove(int hungerCost, int thirstCost)
+        {
+            PrimaryResource hunger, thirst;
+            if (primaryResources.TryGetValue(PlayerCharacter.HUNGER, out hunger) && primaryResources.TryGetValue(PlayerCharacter.THIRST, out thirst))
+            {
+                if (hunger.GetAmount() <= hungerCost || thirst.GetAmount() <= thirstCost)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
     }
 }
