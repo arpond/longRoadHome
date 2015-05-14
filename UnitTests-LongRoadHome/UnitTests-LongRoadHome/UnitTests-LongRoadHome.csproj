@@ -53,27 +53,29 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="DiscoveryTests\TDiscovery.cs" />
-    <Compile Include="DiscoveryTests\TDiscoveryCatalogue.cs" />
-    <Compile Include="DiscoveryTests\TDiscoveryModel.cs" />
-    <Compile Include="EventTests\TEvent.cs" />
-    <Compile Include="EventTests\TEventCatalogue.cs" />
-    <Compile Include="EventTests\TEventModel.cs" />
-    <Compile Include="EventTests\TOption.cs" />
-    <Compile Include="EventTests\TPREventEffect.cs" />
-    <Compile Include="EventTests\TItemEventEffect.cs" />
-    <Compile Include="LocationTests\TSublocation.cs" />
-    <Compile Include="LocationTests\TSublocationFactory.cs" />
-    <Compile Include="LocationTests\TLocation.cs" />
-    <Compile Include="LocationTests\TLocationModel.cs" />
-    <Compile Include="PlayerCharacterTests\TInventory.cs" />
-    <Compile Include="PlayerCharacterTests\TItemCatalogue.cs" />
-    <Compile Include="PlayerCharacterTests\TPCModel.cs" />
-    <Compile Include="PlayerCharacterTests\TPlayerCharacter.cs" />
+    <Compile Include="ModelTests\DiscoveryTests\TDiscovery.cs" />
+    <Compile Include="ModelTests\DiscoveryTests\TDiscoveryCatalogue.cs" />
+    <Compile Include="ModelTests\DiscoveryTests\TDiscoveryModel.cs" />
+    <Compile Include="ModelTests\EventTests\TEvent.cs" />
+    <Compile Include="ModelTests\EventTests\TEventCatalogue.cs" />
+    <Compile Include="ModelTests\EventTests\TEventModel.cs" />
+    <Compile Include="ModelTests\EventTests\TOption.cs" />
+    <Compile Include="ModelTests\EventTests\TPREventEffect.cs" />
+    <Compile Include="ModelTests\EventTests\TItemEventEffect.cs" />
+    <Compile Include="ModelTests\LocationTests\TSublocation.cs" />
+    <Compile Include="ModelTests\LocationTests\TSublocationFactory.cs" />
+    <Compile Include="ModelTests\LocationTests\TLocation.cs" />
+    <Compile Include="ModelTests\LocationTests\TLocationModel.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TInventory.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TItemCatalogue.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TPCModel.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TPlayerCharacter.cs" />
+    <Compile Include="ModelTests\TGameState.cs" />
+    <Compile Include="ModelTests\TModelFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PlayerCharacterTests\TItem.cs" />
-    <Compile Include="PlayerCharacterTests\TActiveEffect.cs" />
-    <Compile Include="PlayerCharacterTests\TPassiveEffect.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TItem.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TActiveEffect.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TPassiveEffect.cs" />
     <Compile Include="StringMaker.cs" />
   </ItemGroup>
   <Choose>
