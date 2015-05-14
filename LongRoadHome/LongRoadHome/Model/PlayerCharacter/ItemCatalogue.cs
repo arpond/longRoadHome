@@ -30,6 +30,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             }
         }
 
+        public String ParseToString()
+        {
+            String parsed = TAG;
+            foreach(Item item in items)
+            {
+                parsed += ";" + item.ParseToString();
+            }
+            return parsed;
+        }
+
         /// <summary>
         /// Get any random item from item catalogue
         /// </summary>
