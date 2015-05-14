@@ -82,7 +82,7 @@ namespace UnitTests_LongRoadHome.ModelTests
                 eventCatalogue += "^" + evt;
             }
 
-            usedEvents = EventModel.USED_TAG + ":1:2:6";
+            usedEvents = EventModel.USED_TAG + ":1:2:8";
             currentEvent = events[7].ParseToString();
             em = new EventModel(usedEvents, eventCatalogue, currentEvent);
 
@@ -304,10 +304,124 @@ namespace UnitTests_LongRoadHome.ModelTests
 
             Assert.IsFalse(workingInv.Contains(items[21]), "Inventory should no longer contain Item 22");
 
-            Assert.IsFalse(mf.UseItem(gs, invSlot), "Should not be possible to use the empty slot");
-
             invSlot = workingInv.GetInventorySlot(items[23]);
             Assert.IsFalse(mf.UseItem(gs, invSlot), "Should not be possible to item 24 due to lack of prerequisites");
+        }
+
+        [TestCategory("ModelFacade"), TestCategory("Model"), TestMethod()]
+        public void ModelFacade_DiscardItem()
+        {
+            PCModel pcm = gs.GetPCM();
+            PlayerCharacter workingPC = pcm.GetPC();
+            Inventory workingInv = pcm.GetInventory();
+
+            Assert.IsTrue(workingInv.Contains(items[0]), "Inventory should contain Item 1");
+            Assert.IsTrue(workingInv.Contains(items[2]), "Inventory should contain Item 3");
+            Assert.IsTrue(workingInv.Contains(items[3]), "Inventory should contain Item 4");
+            Assert.IsTrue(workingInv.Contains(items[5]), "Inventory should contain Item 6");
+            Assert.IsTrue(workingInv.Contains(items[7]), "Inventory should contain Item 8");
+            Assert.IsTrue(workingInv.Contains(items[21]), "Inventory should contain Item 22");
+            Assert.IsTrue(workingInv.Contains(items[23]), "Inventory should contain Item 24");
+
+            int invSlot = workingInv.GetInventorySlot(items[2]);
+            Assert.IsTrue(mf.DiscardItem(gs, invSlot), "Should be possible to discard Item 3");
+            Assert.IsFalse(workingInv.Contains(items[2]), "Inventory should not contain Item 3");
+
+            invSlot = workingInv.GetInventorySlot(items[7]);
+            Assert.IsTrue(workingInv.Contains(items[7]), "Inventory should contain Item 8");
+            Assert.IsTrue(mf.DiscardItem(gs, invSlot), "Should be possible to discard Item 8");
+            Assert.IsFalse(workingInv.Contains(items[7]), "Inventory should not contain Item 8");
+
+            Assert.IsFalse(mf.DiscardItem(gs, 10), "Should not be possible to discard empty slot");
+        }
+
+        [TestCategory("ModelFacade"), TestCategory("Model"), TestMethod()]
+        public void ModelFacade_ItemUsable()
+        {
+            PCModel pcm = gs.GetPCM();
+            PlayerCharacter workingPC = pcm.GetPC();
+            Inventory workingInv = pcm.GetInventory();
+
+            Assert.IsTrue(workingInv.Contains(items[21]), "Inventory should contain Item 22");
+            Assert.IsTrue(workingInv.Contains(items[23]), "Inventory should contain Item 24");
+
+            int invSlot = workingInv.GetInventorySlot(items[21]);
+            Assert.IsTrue(mf.ItemUsable(gs, invSlot), "Item 22 should be usable");
+
+            invSlot = workingInv.GetInventorySlot(items[23]);
+            Assert.IsFalse(mf.ItemUsable(gs, invSlot), "Item 24 should not be usable");
+
+            Assert.IsFalse(mf.ItemUsable(gs, 10), "Should not be possible to use empty slot");
+        }
+
+        [TestCategory("ModelFacade"), TestCategory("Model"), TestMethod()]
+        public void ModelFacade_GetNewRandomEvent()
+        {
+            EventModel em = gs.GetEM();
+
+            Event curr = em.GetCurrentEvent();
+            Assert.AreEqual(curr.GetEventID(), em.GetCurrentEventID(), "Event ID should be the same");
+
+            Event newEvent = mf.GetNewRandomEvent(gs);
+
+            Assert.AreEqual(newEvent.GetEventID(), em.GetCurrentEventID(), "Event ID should be the same");
+            Assert.AreNotEqual(curr.GetEventID(), em.GetCurrentEventID(), "Event ID should be different");
+        }
+
+        [TestCategory("ModelFacade"), TestCategory("Model"), TestMethod()]
+        public void ModelFacade_GetNewSpecificEvent()
+        {
+            EventModel em = gs.GetEM();
+
+            Event curr = em.GetCurrentEvent();
+            Assert.AreEqual(curr.GetEventID(), em.GetCurrentEventID(), "Event ID should be the same");
+
+            Event newEvent = mf.GetNewSpecificEvent(gs, 2);
+
+            Assert.AreEqual(2, em.GetCurrentEventID(), "Event ID should be 2");
+            newEvent = mf.GetNewSpecificEvent(gs, 50);
+            Assert.IsNull(newEvent, "Event should be null after fetching an event that doesn't exist");
+        }
+
+        [TestCategory("ModelFacade"), TestCategory("Model"), TestMethod()]
+        public void ModelFacade_ResolveEvent()
+        {
+            EventModel em = gs.GetEM();
+            PCModel pcm = gs.GetPCM();
+            PlayerCharacter workingPC = pcm.GetPC();
+            Inventory workingInv = pcm.GetInventory();
+            int optionSelected = 1;
+            float eventModifier = 1.0f;
+
+            Assert.AreEqual(80, workingPC.GetResource(PlayerCharacter.HEALTH), "Health should be 80");
+            Assert.AreEqual(50, workingPC.GetResource(PlayerCharacter.HUNGER), "Hunger should be 50");
+            Assert.AreEqual(60, workingPC.GetResource(PlayerCharacter.THIRST), "Thirst should be 60");
+            Assert.AreEqual(70, workingPC.GetResource(PlayerCharacter.SANITY), "Sanity should be 70");
+
+            Assert.IsFalse(workingInv.Contains(items[1]), "Inventory should contain Item 2");
+
+            mf.ResolveEvent(gs, optionSelected, eventModifier);
+
+            int newHealth = workingPC.GetResource(PlayerCharacter.HEALTH);
+            int currentHealth = newHealth;
+            Assert.IsTrue(newHealth >= 90 && newHealth <= 100, "Health should be increased by somewhere between 10 to 20");
+            Assert.IsTrue(workingInv.Contains(items[1]), "Inventory should contain Item 2");
+            Assert.AreEqual(1, workingInv.GetAmount(items[1]), "Should be one of Item 2");
+
+            optionSelected = 10;
+            mf.ResolveEvent(gs, optionSelected, eventModifier);
+            newHealth = workingPC.GetResource(PlayerCharacter.HEALTH);
+            Assert.AreEqual(currentHealth, newHealth, "Health should be the same as you can't select a non existent option");
+            Assert.IsTrue(workingInv.Contains(items[1]), "Inventory should contain Item 2");
+            Assert.AreEqual(1, workingInv.GetAmount(items[1]), "Should only be one of Item 2");
+
+            em.FetchSpecificEvent(100);
+            mf.ResolveEvent(gs, optionSelected, eventModifier);
+            newHealth = workingPC.GetResource(PlayerCharacter.HEALTH);
+            Assert.AreEqual(currentHealth, newHealth, "Health should be the same as you can't select an option of a null event");
+            Assert.IsTrue(workingInv.Contains(items[1]), "Inventory should contain Item 2");
+            Assert.AreEqual(1, workingInv.GetAmount(items[1]), "Should only be one of Item 2");
+
         }
     }
 }

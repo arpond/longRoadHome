@@ -107,6 +107,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             }
         }
 
+
         /// <summary>
         /// Accessor method for current PC
         /// </summary>
@@ -194,11 +195,21 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public bool ItemUsable(int invSlot)
         {
             Item toCheck = currentInventory.GetItemSlot(invSlot);
-            if (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs()))
+            if (toCheck == null || (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs())))
             {
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Discards an item from the inventory
+        /// </summary>
+        /// <param name="invSlot">The inventory slot to discard from</param>
+        /// <returns>If the item was discarded succesfully</returns>
+        public bool DiscardItem(int invSlot)
+        {
+            return currentInventory.DiscardItem(invSlot);
         }
     }
 }

@@ -60,6 +60,23 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         {
             return this.options;
         }
+
+        /// <summary>
+        /// Accessor Method for a single option
+        /// </summary>
+        /// <param name="optionNum">The option number to get</param>
+        /// <returns>The option</returns>
+        public Option GetEventOption(int optionNum)
+        {
+            if (optionNum <0 || optionNum >= options.Count)
+            {
+                return null;
+            }
+            else
+            {
+                return options[optionNum];
+            }
+        }
         
         /// <summary>
         /// Accessor Method for event ID

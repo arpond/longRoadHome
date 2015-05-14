@@ -120,6 +120,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
+        /// Discards an item from the inventory
+        /// </summary>
+        /// <param name="invSlot">The inventory slot to discard from</param>
+        /// <returns>If the item was discarded succesfully</returns>
+        public bool DiscardItem(int invSlot)
+        {
+            if (invSlot >= inventory.Count)
+            {
+                return false;
+            }
+            Item stored = inventory[invSlot] as Item;
+            if (stored != null)
+            {
+                inventory.RemoveAt(invSlot);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Gets the Item in the inventory slot
         /// </summary>
         /// <param name="invSlot">Inventory slot of the item to get</param>

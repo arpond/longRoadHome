@@ -10,17 +10,71 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
     {
         private const int MOVE_COST = 10;
 
-        public void TriggerNewEvent(GameState gs,  float eventModifier)
+        
+        /// <summary>
+        /// Sets a new random event as the current event and returns it
+        /// </summary>
+        /// <param name="gs">The current game state</param>
+        /// <returns>The new current event</returns>
+        public Event GetNewRandomEvent(GameState gs)
         {
-            throw new System.Exception("Not implemented");
+            EventModel em = gs.GetEM();
+            em.FetchNewCurrentEvent();
+            return em.GetCurrentEvent();
         }
-        public void TriggerEvent(GameState gs,  int eventID)
+
+        /// <summary>
+        /// Sets a specific event as the current event
+        /// </summary>
+        /// <param name="gs">The current game state</param>
+        /// <param name="eventID">The event ID of the specific event</param>
+        /// <returns>The new current event</returns>
+        public Event GetNewSpecificEvent(GameState gs,  int eventID)
         {
-            throw new System.Exception("Not implemented");
+            EventModel em = gs.GetEM();
+            em.FetchSpecificEvent(eventID);
+            return em.GetCurrentEvent();
         }
-        public void ResolveEvent(GameState gs,  int optionSelected)
+
+        /// <summary>
+        /// Gets ths current event text
+        /// </summary>
+        /// <param name="gs">Current Game state</param>
+        /// <returns>The current event text</returns>
+        public String GetCurrentEventText(GameState gs)
         {
-            throw new System.Exception("Not implemented");
+            EventModel em = gs.GetEM();
+            return em.GetCurrentEventText();
+        }
+        
+        /// <summary>
+        /// Gets the current option text
+        /// </summary>
+        /// <param name="gs">Current game state</param>
+        /// <returns>The curren event option text</returns>
+        public List<String> GetCurrentEventOptionText(GameState gs)
+        {
+            EventModel em = gs.GetEM();
+            return em.GetCurrentEventOptionsText();
+        }
+
+        /// <summary>
+        /// Resolve the current event with the option selected and the event modififer passed
+        /// </summary>
+        /// <param name="gs">Current Game state</param>
+        /// <param name="optionSelected">The selected option</param>
+        /// <param name="eventModifier">The event modifier</param>
+        public void ResolveEvent(GameState gs,  int optionSelected,  float eventModifier)
+        {
+            EventModel em = gs.GetEM();
+            PCModel pcm = gs.GetPCM();
+
+            List<EventEffect> effects = em.GetOptionEffects(optionSelected); 
+            
+            foreach (EventEffect effect in effects)
+            {
+                effect.ResolveEffect(eventModifier, pcm);
+            }
         }
 
         /// <summary>
@@ -77,7 +131,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         /// <returns>If the slot is useable</returns>
         public bool ItemUsable(GameState gs,  int invSlot)
         {
-            throw new System.Exception("Not implemented");
+            PCModel pcm = gs.GetPCM();
+            return pcm.ItemUsable(invSlot);
         }
 
         /// <summary>
@@ -100,7 +155,19 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         /// <returns>If the item was succesfully removed</returns>
         public bool DiscardItem(GameState gs,  int invSlot)
         {
-            throw new System.Exception("Not implemented");
+            PCModel pcm = gs.GetPCM();
+            return pcm.DiscardItem(invSlot);
+        }
+
+        /// <summary>
+        /// Checks if game is over
+        /// </summary>
+        /// <param name="gs">The current game state</param>
+        /// <returns>If the game is over</returns>
+        public bool IsGameOver(GameState gs)
+        {
+            PCModel pcm = gs.GetPCM();
+            return pcm.IsGameOver(); 
         }
 
         /// <summary>

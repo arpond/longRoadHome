@@ -63,6 +63,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
                 i++;
             } while (usedEvents.Contains(temp.GetEventID()) && i <100);
             currentEvent = temp;
+            if (!usedEvents.Contains(temp.GetEventID()))
+            {
+                usedEvents.Add(currentEvent.GetEventID());
+            }
         }
 
         /// <summary>
@@ -79,6 +83,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
                 i++;
             } while (usedEvents.Contains(temp.GetEventID()) && i < 100);
             currentEvent = temp;
+            if (!usedEvents.Contains(temp.GetEventID()))
+            {
+                usedEvents.Add(currentEvent.GetEventID());
+            }
         }
 
         /// <summary>
@@ -88,6 +96,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         public void FetchSpecificEvent(int eventID)
         {
             currentEvent = eventCatalogue.GetEvent(eventID);
+            if (!usedEvents.Contains(eventID) && currentEvent != null)
+            {
+                usedEvents.Add(currentEvent.GetEventID());
+            }
         }
         
         /// <summary>
@@ -134,9 +146,23 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             return eventCatalogue;
         }
         
-        public uk.ac.dundee.arpond.longRoadHome.Model.Effect GetOptionEffect(ref int optionNumber)
+        /// <summary>
+        /// Gets the effects for the option number provided
+        /// </summary>
+        /// <param name="optionNumber">The option number to get effects for</param>
+        /// <returns>A list of event effects</returns>
+        public List<EventEffect> GetOptionEffects(int optionNumber)
         {
-            throw new System.Exception("Not implemented");
+            if (currentEvent == null)
+            {
+                return new List<EventEffect>();
+            }
+            Option option = currentEvent.GetEventOption(optionNumber);
+            if (option == null)
+            {
+                return new List<EventEffect>();
+            }
+            return option.GetOptionEffects();
         }
 
         /// <summary>
