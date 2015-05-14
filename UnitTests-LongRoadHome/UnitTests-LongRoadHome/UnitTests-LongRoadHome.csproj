@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ControllerTests\TFileReadWriter.cs" />
     <Compile Include="ModelTests\DiscoveryTests\TDiscovery.cs" />
     <Compile Include="ModelTests\DiscoveryTests\TDiscoveryCatalogue.cs" />
     <Compile Include="ModelTests\DiscoveryTests\TDiscoveryModel.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="ModelTests\PlayerCharacterTests\TPassiveEffect.cs" />
     <Compile Include="StringMaker.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
