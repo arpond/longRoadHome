@@ -62,6 +62,27 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
+        /// Modifies a primary resource of the current PC
+        /// </summary>
+        /// <param name="resourceName">Primary resource name to modify</param>
+        /// <param name="amount">Amount to modify the resource by</param>
+        public void ModifyPrimaryResource(String resourceName, int amount)
+        {
+            currentPC.AdjustResource(resourceName, amount);
+        }
+
+        /// <summary>
+        /// Checks if the current player can make a move
+        /// </summary>
+        /// <param name="hungerCost">Cost in hunger</param>
+        /// <param name="thirstCost">Cost in thirst</param>
+        /// <returns>If the current player can afford to move</returns>
+        public bool CanAffordToMove(int hungerCost, int thirstCost)
+        {
+            return currentPC.CanAffordToMove(hungerCost, thirstCost);
+        }
+
+        /// <summary>
         /// Modifies the inventory
         /// </summary>
         /// <param name="item">The item to modify</param>
@@ -85,6 +106,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                 }    
             }
         }
+
 
         /// <summary>
         /// Accessor method for current PC
@@ -118,7 +140,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// </summary>
         /// <param name="catalogue">String to check</param>
         /// <returns>If the string is a valid item catalogue</returns>
-        public bool IsValidItemCatalogue(String catalogue)
+        public static bool IsValidItemCatalogue(String catalogue)
         {
             return ItemCatalogue.IsValidItemCatalogue(catalogue);
         }
@@ -130,7 +152,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// <param name="inventory">Inventory string to check</param>
         /// <param name="catalogue">Item Catalogue string to check</param>
         /// <returns>If all the strings are valid</returns>
-        public bool IsValidPCModel(String pc, String inventory, String catalogue)
+        public static bool IsValidPCModel(String pc, String inventory, String catalogue)
         {
             return PlayerCharacter.IsValidPC(pc) && Inventory.IsValidInventory(inventory) && ItemCatalogue.IsValidItemCatalogue(catalogue);
         }
@@ -173,11 +195,21 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public bool ItemUsable(int invSlot)
         {
             Item toCheck = currentInventory.GetItemSlot(invSlot);
-            if (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs()))
+            if (toCheck == null || (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs())))
             {
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Discards an item from the inventory
+        /// </summary>
+        /// <param name="invSlot">The inventory slot to discard from</param>
+        /// <returns>If the item was discarded succesfully</returns>
+        public bool DiscardItem(int invSlot)
+        {
+            return currentInventory.DiscardItem(invSlot);
         }
     }
 }

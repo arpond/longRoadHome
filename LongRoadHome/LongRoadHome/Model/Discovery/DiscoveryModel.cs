@@ -14,6 +14,21 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Discovery
             dc = new DiscoveryCatalogue();
         }
 
+        /// <summary>
+        /// Constructor for new game
+        /// </summary>
+        /// <param name="catalogue">Discovery Catalogue string</param>
+        public DiscoveryModel(String catalogue)
+        {
+            discovered = new HashSet<int>();
+            dc = new DiscoveryCatalogue(catalogue);
+        }
+
+        /// <summary>
+        /// Constructor for loading from save game
+        /// </summary>
+        /// <param name="discovered">Discovered string</param>
+        /// <param name="catalogue">Discovery catalogue string</param>
         public DiscoveryModel(String discovered, String catalogue)
         {
             this.discovered = new HashSet<int>();

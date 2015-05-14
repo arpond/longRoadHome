@@ -8,8 +8,6 @@ namespace UnitTests_LongRoadHome.DiscoveryTests
     [TestClass]
     public class TDiscoveryCatalogue
     {
-        DiscoveryCatalogue dc;
-
         List<Tuple<String, String>> invalidDiscoveries = new List<Tuple<String, String>>();
         List<Tuple<String, String>> validDiscoveries = new List<Tuple<String, String>>();
         List<Tuple<String, String>> invalidStrings = new List<Tuple<String, String>>();

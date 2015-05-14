@@ -54,7 +54,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         public Event GetRandomEvent()
         {
             int index = rnd.Next(events.Count);
-            return events[index];
+            IList<Event> temp = events.Values;
+            return temp[index];
         }
 
         /// <summary>
