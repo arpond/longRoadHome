@@ -228,6 +228,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
+        /// Calculates the value of this item
+        /// </summary>
+        /// <returns>The items value</returns>
+        public int CalculateItemValue()
+        {
+            int sum=0;
+            foreach (ActiveEffect effect in activeEffects)
+            {
+                sum += effect.GetValue();
+            }
+            return sum;
+        }
+
+        /// <summary>
         /// Parses this item to String suitable for saving
         /// </summary>
         /// <returns>String representing this item</returns>

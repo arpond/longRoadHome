@@ -107,6 +107,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             }
         }
 
+        /// <summary>
+        /// Gets the total value of the inventory
+        /// </summary>
+        /// <returns>The total value of the inventory</returns>
+        public int GetInventoryValue()
+        {
+            return currentInventory.CalculateInventoryValue();
+        }
 
         /// <summary>
         /// Accessor method for current PC
