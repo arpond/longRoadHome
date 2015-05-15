@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Threading;
 using uk.ac.dundee.arpond.longRoadHome.Model;
 using uk.ac.dundee.arpond.longRoadHome.View;
@@ -8,10 +9,29 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
     {
         private DifficultyController dc;
         private GameState gs;
+        private ModelFacade mf;
         private IGameView gameView;
         private AutoResetEvent difficultyEvent;
         private AutoResetEvent guiEvent;
         private AutoResetEvent modelEvent;
+
+        public MainController()
+        {
+            gameView = new GameView();
+        }
+
+        public MainController(int mode)
+        {
+            switch (mode)
+            {
+                case 0:
+                    gameView = new DebugView();
+                    break;
+                case 1:
+                    gameView = new GameView();
+                    break;
+            }
+        }
 
         /// <summary>
         /// Initialises the game state of a new game
@@ -84,11 +104,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 
             return saveSucessful;
         }
-        public void ChangeLocation(ref int locationID)
+        public void ChangeLocation(int locationID)
         {
             throw new System.Exception("Not implemented");
         }
-        public void ChangeSubLocation(ref int sublocationID)
+        public void ChangeSubLocation(int sublocationID)
         {
             throw new System.Exception("Not implemented");
         }
@@ -104,18 +124,44 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             throw new System.Exception("Not implemented");
         }
+
+        /// <summary>
+        /// Opens and draws the inventory
+        /// </summary>
         public void OpenInventory()
         {
-            throw new System.Exception("Not implemented");
+            ArrayList inv = mf.GetInventory(gs);
+            gameView.DrawInventory(inv);
         }
-        public void UseItem(ref int inventorySlot)
+
+        /// <summary>
+        /// Attempts to use the item in the inventory slot 
+        /// </summary>
+        /// <param name="inventorySlot">The inventory slot number</param>
+        /// <returns>If the item was used sucessfully</returns>
+        public bool UseItem(int inventorySlot)
         {
-            throw new System.Exception("Not implemented");
+            if (mf.ItemUsable(gs, inventorySlot))
+            {
+                gameView.DrawDialogueBox("Item is not usable");
+                return false;
+            }
+            else
+            {
+                return mf.UseItem(gs, inventorySlot);
+            }
         }
-        public void DiscardItem(ref int inventorySlot)
+
+        /// <summary>
+        /// Attempts to discard the item
+        /// </summary>
+        /// <param name="inventorySlot">The inventory slot to discard items from</param>
+        /// <returns>If it was sucessfully discarded</returns>
+        public bool DiscardItem(int inventorySlot)
         {
-            throw new System.Exception("Not implemented");
+            return mf.DiscardItem(gs, inventorySlot);
         }
+
         public void DisplayDiscoveries()
         {
             throw new System.Exception("Not implemented");

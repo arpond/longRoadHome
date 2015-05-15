@@ -1,14 +1,19 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using uk.ac.dundee.arpond.longRoadHome.Controller;
 using uk.ac.dundee.arpond.longRoadHome.Model.Discovery;
 using uk.ac.dundee.arpond.longRoadHome.Model.Location;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
+
 namespace uk.ac.dundee.arpond.longRoadHome.View
 {
-    public class GameView : IGameView
+    public class DebugView : IGameView
     {
-        private uk.ac.dundee.arpond.longRoadHome.Controller.MainController controller;
+        private MainController controller;
         private int currentDisplay;
 
         private void BtnStartGame(object object_, object eventArgs)
@@ -115,9 +120,5 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new System.Exception("Not implemented");
         }
-
-        private uk.ac.dundee.arpond.longRoadHome.Controller.MainController mainController;
-
     }
-
 }

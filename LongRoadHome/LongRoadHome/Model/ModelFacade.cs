@@ -4,6 +4,7 @@ using uk.ac.dundee.arpond.longRoadHome.Model.Location;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 using uk.ac.dundee.arpond.longRoadHome.Model.Events;
 using System.Collections.Generic;
+using System.Collections;
 namespace uk.ac.dundee.arpond.longRoadHome.Model
 {
     public class ModelFacade
@@ -221,6 +222,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             return lm.IsScavenged(subLocID);
         }
 
+
+        public ArrayList GetInventory(GameState gs)
+        {
+            return gs.GetPCM().GetInventory().GetInventory();
+        }
     }
 
 }
