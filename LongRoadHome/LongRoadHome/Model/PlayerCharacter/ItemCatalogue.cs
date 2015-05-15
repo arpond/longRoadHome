@@ -157,5 +157,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             }
             return true;
         }
+
+        public List<Item> GetItems()
+        {
+            return items;
+        }
     }
 }

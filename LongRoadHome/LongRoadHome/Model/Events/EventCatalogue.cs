@@ -135,6 +135,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             }
             return true;
         }
+
+        public IList<Event> GetEvents()
+        {
+            return events.Values;
+        }
     }
 
 }

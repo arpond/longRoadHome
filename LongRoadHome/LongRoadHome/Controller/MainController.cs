@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using uk.ac.dundee.arpond.longRoadHome.Model;
+using uk.ac.dundee.arpond.longRoadHome.Model.Location;
+using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 using uk.ac.dundee.arpond.longRoadHome.View;
 namespace uk.ac.dundee.arpond.longRoadHome.Controller
 {
@@ -14,23 +17,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         private AutoResetEvent difficultyEvent;
         private AutoResetEvent guiEvent;
         private AutoResetEvent modelEvent;
+        private Random rnd;
 
         public MainController()
         {
-            gameView = new GameView();
+            mf = new ModelFacade();
+            dc = new DifficultyController();
+            //gameView = new GameView();
         }
 
-        public MainController(int mode)
+        public MainController(IGameView gameView)
         {
-            switch (mode)
-            {
-                case 0:
-                    gameView = new DebugView();
-                    break;
-                case 1:
-                    gameView = new GameView();
-                    break;
-            }
+            mf = new ModelFacade();
+            dc = new DifficultyController();
+            this.gameView = gameView;
         }
 
         /// <summary>
@@ -104,25 +104,203 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 
             return saveSucessful;
         }
-        public void ChangeLocation(int locationID)
+
+        /// <summary>
+        /// Change location to location provided
+        /// </summary>
+        /// <param name="locationID">Id of the location to change to</param>
+        /// <returns>If the move was sucessful</returns>
+        public bool ChangeLocation(int locationID)
         {
-            throw new System.Exception("Not implemented");
+            if (!mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
+            {
+                int risk = rnd.Next(1, 101);
+                if(risk <= 25)
+                {
+                    PerformMove(locationID);
+                }
+                else
+                {
+                    mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+                    return false;
+                }
+            }
+            else if (mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST))
+            {
+                mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+                PerformMove(locationID);
+            }
+            else
+            {
+                return false;
+            }
+
+            //Check if event happens
+            if (CheckIfEventTriggered())
+            {
+                TriggerEvent();
+                // Check if game over
+                if (mf.IsGameOver(gs))
+                {
+                    // Display the Game over screen
+                    // Clean Up save files etc
+                    return false;
+                }
+                // Check if discovery is made
+                if (CheckIfDiscoveryTriggered())
+                {
+                    // Thread 1
+                    // Update discovery
+                    // Save Game
+                    // Thread 2
+                    // Display discovery
+                }
+            }
+            return true;
         }
-        public void ChangeSubLocation(int sublocationID)
+
+        /// <summary>
+        /// Changes the current location dependant on if the new location has been visisted previously or not
+        /// </summary>
+        /// <param name="locationID">The location to move to</param>
+        private void PerformMove(int locationID)
         {
-            throw new System.Exception("Not implemented");
+            if (mf.LocationVisited(gs, locationID))
+            {
+                // Thread 1
+                // Recalculate Difficulty
+                // Thread 2
+                mf.ChangeLocation(gs, locationID);
+                // Thread 3
+                //gameView.Animate();
+            }
+            else
+            {
+                // Thread 1
+                mf.ChangeLocation(gs, locationID);
+                // Thread 2
+                //gameView.Animate();
+            }
         }
+
+        /// <summary>
+        /// Change sublocation to sublocation provided
+        /// </summary>
+        /// <param name="sublocationID">ID of the sublocation to move to</param>
+        /// <returns>If the move was sucessful</returns>
+        public bool ChangeSubLocation(int sublocationID)
+        {
+            if(mf.CanAffordMove(gs, ModelFacade.SUBLOCATION_MOVE_COST))
+            {
+                mf.ReduceResourcesByMoveCost(gs, ModelFacade.SUBLOCATION_MOVE_COST);
+
+                // Thread 1
+                mf.ChangeSubLocation(gs, sublocationID);
+                // Recalculate Difficulty Values
+                // Thread 2
+                // gameView.Animate();
+                return true;
+            }
+            else
+            {
+                if (gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
+                {
+                    int risk = rnd.Next(1, 101);
+                    if (risk <= 25)
+                    {
+                        // Thread 1
+                        mf.ChangeSubLocation(gs, sublocationID);
+                        // Recalculate Difficulty Values
+                        // Thread 2
+                        // gameView.Animate();
+                        return true;
+                    }
+                    mf.ReduceResourcesByMoveCost(gs, ModelFacade.SUBLOCATION_MOVE_COST);
+                    return false;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Checks if an event is triggered
+        /// </summary>
+        /// <returns>If the event is triggered</returns>
+        private bool CheckIfEventTriggered()
+        {
+            float chance = 1.0f;
+            //chance = dc.GetEventChance();
+            int triggerpoint = Convert.ToInt32(chance * 100);
+            int eventTrigger = rnd.Next(1, 101);
+            return eventTrigger >= triggerpoint;
+        }
+
+        /// <summary>
+        /// Checks if a Discovery is triggered
+        /// </summary>
+        /// <returns>If the discovery is triggered</returns>
+        private bool CheckIfDiscoveryTriggered()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Triggers a new event
+        /// </summary>
         private void TriggerEvent()
         {
-            throw new System.Exception("Not implemented");
+            mf.GetNewRandomEvent(gs);
+            int selected = gameView.DrawEvent(mf.GetCurrentEventText(gs), mf.GetCurrentEventOptionText(gs));
+            ResolveEvent(selected);
         }
-        public void ResolveEvent(ref object int_optionSelected)
+
+        /// <summary>
+        /// Resolves the event based on the option selected
+        /// </summary>
+        /// <param name="optionSelected">The selected option</param>
+        public void ResolveEvent(int optionSelected)
         {
-            throw new System.Exception("Not implemented");
+            float eventMod = 1.0f;
+            //eventMod = dc.GetEventModifier();
+            //Thread 1
+            mf.ResolveEvent(gs, optionSelected, eventMod);
+            //Save Game
+            //WriteSaveData();
+
+            //Thread 2
+            DisplayEventResults(optionSelected);
         }
-        public void ScavangeLocation()
+
+        /// <summary>
+        /// Displays the results of the event based on the option selected
+        /// </summary>
+        /// <param name="optionSelected">The selected option</param>
+        public void DisplayEventResults(int optionSelected)
         {
-            throw new System.Exception("Not implemented");
+            String optionResult = mf.GetOptionResult(gs, optionSelected);
+            List<String> effectResults = mf.GetOptionEffectResults(gs, optionSelected);
+            gameView.DrawEventResult(optionResult, effectResults);
+        }
+
+        public bool ScavangeLocation()
+        {
+            if(CheckIfEventTriggered())
+            {
+                TriggerEvent();
+                if (mf.IsGameOver(gs))
+                {
+                    // Display the Game over screen
+                    // Clean Up save files etc
+                    return false;
+                }
+            }
+
+            List<Item> scavenged = mf.ScavangeSubLocation(gs);
+            // Thread 1
+            // Save Game
+            // Thread 2
+            gameView.DrawScavengeResults(scavenged);
+            return true;
         }
 
         /// <summary>
@@ -166,18 +344,42 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             throw new System.Exception("Not implemented");
         }
-        public void DisplaySubLocations()
+
+        /// <summary>
+        /// Draws the sublocations map
+        /// </summary>
+        public void DisplaySubLocationsMap()
         {
-            throw new System.Exception("Not implemented");
+            List<Sublocation> sublocations = mf.GetCurrentSublocations(gs);
+            gameView.DrawSublocationMap(sublocations);
         }
+
+        /// <summary>
+        /// Draws the world map
+        /// </summary>
         public void DisplayLocations()
         {
-            throw new System.Exception("Not implemented");
+            List<Location> visited = mf.GetVisitedLocations(gs);
+            List<DummyLocation> unvisited = mf.GetUnvisitedLocations(gs);
+
+            gameView.DrawWorldMap(visited, unvisited);
         }
+
+        /// <summary>
+        /// Draws the end of game screen
+        /// </summary>
         public void DisplayEndGameScreen()
         {
-            throw new System.Exception("Not implemented");
+            if (mf.IsGameOver(gs))
+            {
+                gameView.DrawGameOver();
+            }
+            else
+            {
+                gameView.DrawVictory();
+            }
         }
+
         public void ExitGame()
         {
             throw new System.Exception("Not implemented");
@@ -186,6 +388,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public GameState GetGameState()
         {
             return gs;
+        }
+
+        public SortedList<string,int> GetPlayerResources()
+        {
+            return mf.GetPlayerCharacterResources(gs);
         }
 
     }

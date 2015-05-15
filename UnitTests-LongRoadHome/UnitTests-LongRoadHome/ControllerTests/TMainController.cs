@@ -44,12 +44,12 @@ namespace UnitTests_LongRoadHome.ControllerTests
             pcm = new PCModel(pc, inventory, itemCatalogue);
 
             // Event Model
-            String validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20";
-            String validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + items[1].ParseToString();
-            String validOption1 = Option.TAG + ";" + "1;TestText1;EventEffects|" + validPREE + "|" + validIEE;
-            String validOption2 = Option.TAG + ";" + "2;TestText2;EventEffects|" + validPREE + "|" + validIEE;
-            String validOption3 = Option.TAG + ";" + "3;TestText3;EventEffects|" + validPREE + "|" + validIEE;
-            String validOption4 = Option.TAG + ";" + "4;TestText4;EventEffects|" + validPREE + "|" + validIEE;
+            String validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20:Test Result";
+            String validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + items[1].ParseToString() + "#Test Result";
+            String validOption1 = Option.TAG + ";" + "1;TestText1;TestResult;EventEffects|" + validPREE + "|" + validIEE;
+            String validOption2 = Option.TAG + ";" + "2;TestText2;TestResult;EventEffects|" + validPREE + "|" + validIEE;
+            String validOption3 = Option.TAG + ";" + "3;TestText3;TestResult;EventEffects|" + validPREE + "|" + validIEE;
+            String validOption4 = Option.TAG + ";" + "4;TestText4;TestResult;EventEffects|" + validPREE + "|" + validIEE;
 
             List<Event> events = new List<Event>();
             eventCatalogue = EventCatalogue.TAG;
