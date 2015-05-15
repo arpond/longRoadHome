@@ -38,7 +38,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         public override void ResolveEffect(float eventModifier, PCModel pcm)
         {
             int value = rnd.Next(minimum, maximum);
-            value = Convert.ToInt32(value * eventModifier);
+
+            if (minimum < 0)
+            {
+                value = Convert.ToInt32(value * (2 - eventModifier));
+            }
+            else
+            {
+                value = Convert.ToInt32(value * eventModifier);
+            }
             if(value < minimum)
             {
                 value = minimum;

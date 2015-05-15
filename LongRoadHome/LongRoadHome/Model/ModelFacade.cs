@@ -328,6 +328,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             }
             return locations;
         }
+
+        /// <summary>
+        /// Gets the value of the inventory in this game state
+        /// </summary>
+        /// <param name="gs">The game state to get the inventory value from</param>
+        /// <returns>The total value of the inventory in the game state</returns>
+        public int GetValueOfInventory(GameState gs)
+        {
+            PCModel pcm = gs.GetPCM();
+            return pcm.GetInventoryValue();
+        }
     }
 
 }
