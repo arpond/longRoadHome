@@ -180,6 +180,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         /// <returns>The parsed current event</returns>
         public String ParseCurrentEventToString()
         {
+            if (currentEvent == null)
+            {
+                return "";
+            }
             return currentEvent.ParseToString();
         }
         
@@ -265,6 +269,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         public static bool IsValidCurrentEvent(String toTest)
         {
             return Event.IsValidEvent(toTest);
+        }
+
+        public string GetOptionResult(int optionSelected)
+        {
+            return currentEvent.GetOptionResult(optionSelected);
         }
     }
 

@@ -5,8 +5,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 {
     public class FileReadWriter
     {
-        public const String CATALOGUE_PATH = ".\\catalogues\\";
-        public const String SAVE_PATH = ".\\saveData\\";
+        public const String 
+            CATALOGUE_PATH = ".\\catalogues\\", SAVE_PATH = ".\\saveData\\", 
+            EVENT_CATALOGUE = "eventCatalogue", ITEM_CATALOGUE = "itemCatalogue", 
+            DISCOVERY_CATALOGUE = "discoveryCatalogue", 
+            PLAYER_CHARACTER = "playerCharacter", INVENTORY = "inventory", USED_EVENTS = "usedEvents",
+            CURRENT_EVENT = "currentEvent", DISCOVERED = "discovered", VISITED = "visited", UNVISISTED = "unvisited",
+            CURRENT_LOCATION = "currentLocation", CURRENT_SUBLOCATION = "currentSublocation";
 
         static FileReadWriter()
         {

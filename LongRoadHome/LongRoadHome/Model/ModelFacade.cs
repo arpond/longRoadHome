@@ -4,12 +4,13 @@ using uk.ac.dundee.arpond.longRoadHome.Model.Location;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 using uk.ac.dundee.arpond.longRoadHome.Model.Events;
 using System.Collections.Generic;
+using System.Collections;
 namespace uk.ac.dundee.arpond.longRoadHome.Model
 {
     public class ModelFacade
     {
-        private const int MOVE_COST = 10;
-
+        public const int LOCATION_MOVE_COST = 10;
+        public const int SUBLOCATION_MOVE_COST = 2;
         
         /// <summary>
         /// Sets a new random event as the current event and returns it
@@ -59,6 +60,33 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         }
 
         /// <summary>
+        /// Gets the result of the option selected
+        /// </summary>
+        /// <param name="gs">Current games state</param>
+        /// <param name="optionSelected">The selected option</param>
+        /// <returns>The string of the main option result</returns>
+        public String GetOptionResult(GameState gs, int optionSelected)
+        {
+            EventModel em = gs.GetEM();
+
+            String optionResult = em.GetOptionResult(optionSelected);
+            return optionResult;
+        }
+
+        public List<String> GetOptionEffectResults(GameState gs, int optionSelected)
+        {
+            EventModel em = gs.GetEM();
+            List<EventEffect> effects = em.GetOptionEffects(optionSelected);
+            List<String> effectsResults = new List<string>();
+
+            foreach (EventEffect effect in effects)
+            {
+                effectsResults.Add(effect.GetResult());
+            }
+            return effectsResults;
+        }
+
+        /// <summary>
         /// Resolve the current event with the option selected and the event modififer passed
         /// </summary>
         /// <param name="gs">Current Game state</param>
@@ -82,21 +110,27 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         /// </summary>
         /// <param name="gs">The game state to check</param>
         /// <returns>If the player can afford to move</returns>
-        public bool CanAffordMove(GameState gs)
+        public bool CanAffordMove(GameState gs, int cost)
         {
             PCModel pcm = gs.GetPCM();
-            return pcm.CanAffordToMove(MOVE_COST, MOVE_COST);
+            return pcm.CanAffordToMove(cost, cost);
         }
 
         /// <summary>
         /// Reduces the player in this game states resources (hunger and thirst) by the move cost 
         /// </summary>
         /// <param name="gs">Games State to alter</param>
-        public void ReduceResourcesByMoveCost(GameState gs)
+        public void ReduceResourcesByMoveCost(GameState gs, int cost)
         {
             PCModel pcm = gs.GetPCM();
-            pcm.ModifyPrimaryResource(PlayerCharacter.PlayerCharacter.HUNGER, -MOVE_COST);
-            pcm.ModifyPrimaryResource(PlayerCharacter.PlayerCharacter.THIRST, -MOVE_COST);
+            pcm.ModifyPrimaryResource(PlayerCharacter.PlayerCharacter.HUNGER, -cost);
+            pcm.ModifyPrimaryResource(PlayerCharacter.PlayerCharacter.THIRST, -cost);
+        }
+
+        public bool LocationVisited(GameState gs, int locationID)
+        {
+            LocationModel lm = gs.GetLM();
+            return lm.LocationVisited(locationID);
         }
 
         /// <summary>
@@ -174,28 +208,29 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         /// Scavenges a sublocation putting found items into the inventory of this PC
         /// </summary>
         /// <param name="gs">The game state to modify</param>
-        /// <returns>If scavenging was succesful</returns>
-        public bool ScavangeSubLocation(GameState gs)
+        /// <returns>List of scavenged items</returns>
+        public List<Item> ScavangeSubLocation(GameState gs)
         {
             LocationModel lm = gs.GetLM();
             PCModel pcm = gs.GetPCM();
             ItemCatalogue ic = pcm.GetItemCatalogue();
+            List<Item> scavengedItems = new List<Item>();
 
             if (lm.IsScavenged() || pcm.GetInventory().IsInventoryFull())
             {
-                return false;
+                return scavengedItems;
             }
             List<Item> itemSelection = new List<Item>();
             for (int i = 0; i < 100; i++ )
             {
                 itemSelection.Add(ic.GetRandomItem());
             }
-            List<Item> scavengedItems = lm.Scavenge(itemSelection);
+            scavengedItems = lm.Scavenge(itemSelection);
             foreach(Item item in scavengedItems)
             {
                 pcm.ModifyInventory(item, item.GetAmount());
             }
-            return true;
+            return scavengedItems;
         }
 
         /// <summary>
@@ -221,6 +256,78 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             return lm.IsScavenged(subLocID);
         }
 
+        /// <summary>
+        /// Gets the inventory as an arraylist of items
+        /// </summary>
+        /// <param name="gs">The current gamestate</param>
+        /// <returns>Arraylist of the items</returns>
+        public ArrayList GetInventory(GameState gs)
+        {
+            return gs.GetPCM().GetInventory().GetInventory();
+        }
+
+        /// <summary>
+        /// Gets a list of current character resources
+        /// </summary>
+        /// <param name="gs">The current gamestate</param>
+        /// <returns>List of current chracter resources</returns>
+        public SortedList<string,int> GetPlayerCharacterResources(GameState gs)
+        {
+            PCModel pcm = gs.GetPCM();
+            return pcm.GetPlayerCharacterResources();
+        }
+
+        /// <summary>
+        /// Gets a list of current sublocations
+        /// </summary>
+        /// <param name="gs">The current gamestate</param>
+        /// <returns>All sublocations at this location</returns>
+        public List<Sublocation> GetCurrentSublocations(GameState gs)
+        {
+            LocationModel lm = gs.GetLM();
+            var subs = lm.GetCurentLocation().GetSublocations().Values;
+            List<Sublocation> sublocations = new List<Sublocation>();
+            foreach(Sublocation sub in subs)
+            {
+                sublocations.Add(sub);
+            }
+
+            return sublocations;
+        }
+
+        /// <summary>
+        /// Gets all the visited locations
+        /// </summary>
+        /// <param name="gs">The current gamestate</param>
+        /// <returns>All visited locations</returns>
+        public List<Location.Location> GetVisitedLocations(GameState gs)
+        {
+            LocationModel lm = gs.GetLM();
+            IList<Location.Location> locs = lm.GetVisited().Values;
+            var locations = new List<Location.Location>();
+            foreach (Location.Location loc in locs)
+            {
+                locations.Add(loc);
+            }
+            return locations;
+        }
+
+        /// <summary>
+        /// Gets all the unvisited locations
+        /// </summary>
+        /// <param name="gs">the current gamestate</param>
+        /// <returns>All unvisited locations</returns>
+        public List<DummyLocation> GetUnvisitedLocations(GameState gs)
+        {
+            LocationModel lm = gs.GetLM();
+            IList<DummyLocation> locs = lm.GetUnvisited().Values;
+            var locations = new List<DummyLocation>();
+            foreach (Location.Location loc in locs)
+            {
+                locations.Add(loc);
+            }
+            return locations;
+        }
     }
 
 }

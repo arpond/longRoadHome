@@ -21,28 +21,28 @@ namespace UnitTests_LongRoadHome.EventTests
         public void Setup()
         {
             String basicItem1 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements";
-            validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20";
-            invalidPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":0";
-            validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1;
+            validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20:Test Result";
+            invalidPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":0:20";
+            validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1 + "#Test Result";
             invalidIEE = ItemEventEffect.ITEM_EFFECT_TAG;
 
-            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;EventEffects" ,"Standard Option should be valid"));
-            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "2;TestText;EventEffects|" + validPREE, "Option with valid PREE should be valid"));
-            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "3;TestText;EventEffects|" + validPREE + "|" + validPREE, "Option with multiple PREEs should be valid"));
-            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "4;TestText;EventEffects|" + validIEE, "Option with valid IEE should be valid"));
-            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "5;TestText;EventEffects|" + validIEE + "|" + validIEE, "Option with multiple IEEs should be valid"));
-            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "6;TestText;EventEffects|" + validIEE + "|" + validPREE, "Option with valid IEE and PREE should be valid"));
-            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "7;TestText;EventEffects|" + validPREE + "|" + validIEE, "Option with valid PREE and IEE should be valid"));
+            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;TestResult;EventEffects" ,"Standard Option should be valid"));
+            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "2;TestText;TestResult;EventEffects|" + validPREE, "Option with valid PREE should be valid"));
+            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "3;TestText;TestResult;EventEffects|" + validPREE + "|" + validPREE, "Option with multiple PREEs should be valid"));
+            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "4;TestText;TestResult;EventEffects|" + validIEE, "Option with valid IEE should be valid"));
+            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "5;TestText;TestResult;EventEffects|" + validIEE + "|" + validIEE, "Option with multiple IEEs should be valid"));
+            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "6;TestText;TestResult;EventEffects|" + validIEE + "|" + validPREE, "Option with valid IEE and PREE should be valid"));
+            validStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "7;TestText;TestResult;EventEffects|" + validPREE + "|" + validIEE, "Option with valid PREE and IEE should be valid"));
 
             invalidStrings.Add(new Tuple<string, string>("", "Empty String should be invalid"));
-            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText", "Should be at least 4 items"));
-            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;EventEffects;blah", "Should be at most 4 items"));
-            invalidStrings.Add(new Tuple<string, string>("blah;" + "1;TestText;EventEffects", "Should start with " + Option.TAG));
-            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "blah;TestText;EventEffects", "Option number should be an int"));
-            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "-1;TestText;EventEffects", "Option number should be positive"));
-            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;EventEffects|", "If there is an event effect there should be at least one"));
-            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;EventEffects|" + invalidIEE, "Invalid IEE should mean invalid option"));
-            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;EventEffects|" + invalidPREE, "Invalid PREE should mean invalid option"));
+            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;TestResult", "Should be at least 5 items"));
+            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;TestResult;EventEffects;blah", "Should be at most 5 items"));
+            invalidStrings.Add(new Tuple<string, string>("blah;" + "1;TestText;TestResult;EventEffects", "Should start with " + Option.TAG));
+            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "blah;TestText;TestResult;EventEffects", "Option number should be an int"));
+            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "-1;TestText;TestResult;EventEffects", "Option number should be positive"));
+            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;TestResult;EventEffects|", "If there is an event effect there should be at least one"));
+            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;TestResult;EventEffects|" + invalidIEE, "Invalid IEE should mean invalid option"));
+            invalidStrings.Add(new Tuple<string, string>(Option.TAG + ";" + "1;TestText;TestResult;EventEffects|" + invalidPREE, "Invalid PREE should mean invalid option"));
             invalidStrings.Add(new Tuple<string, string>("", ""));
             invalidStrings.Add(new Tuple<string, string>("", ""));
         }

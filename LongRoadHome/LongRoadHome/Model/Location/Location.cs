@@ -425,5 +425,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             parsed = String.Format("Type:{0},ID:{1},Connections{2},Visited:{3},Sublocations{4},CurrentSublocation{5}",TAG,locationID,ParseConnections(),visited, sublocStr, currentSubloc);
             return parsed;
         }
+
+        public Dictionary<int, Sublocation> GetSublocations()
+        {
+            return sublocations;
+        }
     }
 }

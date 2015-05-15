@@ -105,6 +105,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             return this.eventType;
         }
 
+        public String GetOptionResult(int selectedOption)
+        {
+            return options[selectedOption - 1].GetOptionResult();
+        }
+
         /// <summary>
         /// Parses the event to a string
         /// </summary>

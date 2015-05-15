@@ -211,5 +211,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             return currentInventory.DiscardItem(invSlot);
         }
+
+        public SortedList<string, int> GetPlayerCharacterResources()
+        {
+            int health = currentPC.GetResource(PlayerCharacter.HEALTH);
+            int hunger = currentPC.GetResource(PlayerCharacter.HUNGER);
+            int thirst = currentPC.GetResource(PlayerCharacter.THIRST);
+            int sanity = currentPC.GetResource(PlayerCharacter.SANITY);
+
+            SortedList<string, int> resources = new SortedList<string, int>();
+            resources.Add(PlayerCharacter.HEALTH, health);
+            resources.Add(PlayerCharacter.HUNGER, hunger);
+            resources.Add(PlayerCharacter.THIRST, thirst);
+            resources.Add(PlayerCharacter.SANITY, sanity);
+            return resources;
+        }
     }
 }

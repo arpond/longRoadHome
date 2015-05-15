@@ -47,15 +47,27 @@
     <Compile Include="Controller\DifficultyController.cs" />
     <Compile Include="Controller\FileReadWriter.cs" />
     <Compile Include="Controller\MainController.cs" />
+    <Compile Include="Debug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debug.Designer.cs">
+      <DependentUpon>Debug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventDialog.Designer.cs">
+      <DependentUpon>EventDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Events\Event.cs" />
     <Compile Include="Model\Events\EventCatalogue.cs" />
     <Compile Include="Model\Events\EventEffect.cs" />
     <Compile Include="Model\Events\EventModel.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Game.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Game.Designer.cs">
+      <DependentUpon>Game.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Events\ItemEventEffect.cs" />
     <Compile Include="Model\Discovery\Discovery.cs" />
@@ -90,8 +102,14 @@
     <Compile Include="View\AudioPlayer.cs" />
     <Compile Include="View\GameView.cs" />
     <Compile Include="View\IGameView.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Debug.resx">
+      <DependentUpon>Debug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventDialog.resx">
+      <DependentUpon>EventDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Game.resx">
+      <DependentUpon>Game.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

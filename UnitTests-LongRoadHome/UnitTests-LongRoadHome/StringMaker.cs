@@ -13,11 +13,11 @@ namespace UnitTests_LongRoadHome
         public static String makeItemStr(int id)
         {
             String item = "ID:" + id + ",Name:TestItem,Amount:1,Description:test item " + id + ",ActiveEffect,PassiveEffect,Requirements";
-            int requirements = rnd.Next(4);
-            for (int i = 0; i < requirements; i++)
-            {
-                item += ":" + rnd.Next(1, 21);
-            }
+            //int requirements = rnd.Next(4);
+            //for (int i = 0; i < requirements; i++)
+            //{
+            //    item += ":" + rnd.Next(1, 21);
+            //}
             return item;
         }
     }

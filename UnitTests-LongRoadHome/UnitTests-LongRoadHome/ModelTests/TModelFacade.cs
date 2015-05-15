@@ -59,12 +59,12 @@ namespace UnitTests_LongRoadHome.ModelTests
             pcm = new PCModel(pc, inventory, itemCatalogue);
 
             // Event Model
-            String validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20";
-            String validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + items[1].ParseToString();
-            String validOption1 = Option.TAG + ";" + "1;TestText1;EventEffects|" + validPREE + "|" + validIEE;
-            String validOption2 = Option.TAG + ";" + "2;TestText2;EventEffects|" + validPREE + "|" + validIEE;
-            String validOption3 = Option.TAG + ";" + "3;TestText3;EventEffects|" + validPREE + "|" + validIEE;
-            String validOption4 = Option.TAG + ";" + "4;TestText4;EventEffects|" + validPREE + "|" + validIEE;
+            String validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20:Test Result";
+            String validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + items[1].ParseToString() + "#Test Result";
+            String validOption1 = Option.TAG + ";" + "1;TestText1;TestResult;EventEffects|" + validPREE + "|" + validIEE;
+            String validOption2 = Option.TAG + ";" + "2;TestText2;TestResult;EventEffects|" + validPREE + "|" + validIEE;
+            String validOption3 = Option.TAG + ";" + "3;TestText3;TestResult;EventEffects|" + validPREE + "|" + validIEE;
+            String validOption4 = Option.TAG + ";" + "4;TestText4;TestResult;EventEffects|" + validPREE + "|" + validIEE;
 
             List<Event> events = new List<Event>();
             eventCatalogue = EventCatalogue.TAG;
@@ -171,7 +171,7 @@ namespace UnitTests_LongRoadHome.ModelTests
             Assert.AreEqual(60, workingPC.GetResource(PlayerCharacter.THIRST), "Thirst should be 60");
             Assert.AreEqual(70, workingPC.GetResource(PlayerCharacter.SANITY), "Sanity should be 70");
 
-            mf.ReduceResourcesByMoveCost(gs);
+            mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
 
             Assert.AreEqual(80, workingPC.GetResource(PlayerCharacter.HEALTH), "Health should stay the same");
             Assert.AreEqual(40, workingPC.GetResource(PlayerCharacter.HUNGER), "Hunger should be 40");
@@ -189,17 +189,17 @@ namespace UnitTests_LongRoadHome.ModelTests
             Assert.AreEqual(50, workingPC.GetResource(PlayerCharacter.HUNGER), "Hunger should be 50");
             Assert.AreEqual(60, workingPC.GetResource(PlayerCharacter.THIRST), "Thirst should be 60");
             Assert.AreEqual(70, workingPC.GetResource(PlayerCharacter.SANITY), "Sanity should be 70");
-            Assert.IsTrue(mf.CanAffordMove(gs), "Move should be possible");
+            Assert.IsTrue(mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST), "Move should be possible");
 
-            mf.ReduceResourcesByMoveCost(gs);
-            Assert.IsTrue(mf.CanAffordMove(gs), "Move should be possible");
-            mf.ReduceResourcesByMoveCost(gs);
-            Assert.IsTrue(mf.CanAffordMove(gs), "Move should be possible");
-            mf.ReduceResourcesByMoveCost(gs);
-            Assert.IsTrue(mf.CanAffordMove(gs), "Move should be possible");
-            mf.ReduceResourcesByMoveCost(gs);
+            mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+            Assert.IsTrue(mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST), "Move should be possible");
+            mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+            Assert.IsTrue(mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST), "Move should be possible");
+            mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+            Assert.IsTrue(mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST), "Move should be possible");
+            mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
 
-            Assert.IsFalse(mf.CanAffordMove(gs), "Move should not be possible");
+            Assert.IsFalse(mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST), "Move should not be possible");
             Assert.AreEqual(80, workingPC.GetResource(PlayerCharacter.HEALTH), "Health should be 80");
             Assert.AreEqual(10, workingPC.GetResource(PlayerCharacter.HUNGER), "Hunger should be 10");
             Assert.AreEqual(20, workingPC.GetResource(PlayerCharacter.THIRST), "Thirst should be 20");
