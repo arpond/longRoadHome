@@ -54,16 +54,24 @@
             this.startNewGameBtn = new System.Windows.Forms.Button();
             this.loadGameBtn = new System.Windows.Forms.Button();
             this.dcGroupBox = new System.Windows.Forms.GroupBox();
-            this.endLocLabel = new System.Windows.Forms.Label();
-            this.eventModifierLabel = new System.Windows.Forms.Label();
-            this.playerStatusLabel = new System.Windows.Forms.Label();
-            this.eventChanceLabel = new System.Windows.Forms.Label();
-            this.trackerListBox = new System.Windows.Forms.ListBox();
             this.bestFitLine = new System.Windows.Forms.ListBox();
+            this.trackerListBox = new System.Windows.Forms.ListBox();
+            this.eventChanceLabel = new System.Windows.Forms.Label();
+            this.playerStatusLabel = new System.Windows.Forms.Label();
+            this.eventModifierLabel = new System.Windows.Forms.Label();
+            this.endLocLabel = new System.Windows.Forms.Label();
+            this.animationGroupBox = new System.Windows.Forms.GroupBox();
+            this.startAnimBtn = new System.Windows.Forms.Button();
+            this.stopAnimBtn = new System.Windows.Forms.Button();
+            this.backgroundPB = new System.Windows.Forms.PictureBox();
+            this.animationBox = new System.Windows.Forms.PictureBox();
             this.pcGroupBox.SuspendLayout();
             this.locationGroupBox.SuspendLayout();
             this.eventGroupBox.SuspendLayout();
             this.dcGroupBox.SuspendLayout();
+            this.animationGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.backgroundPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.animationBox)).BeginInit();
             this.SuspendLayout();
             // 
             // healthLabel
@@ -246,7 +254,7 @@
             this.eventGroupBox.Controls.Add(this.currentEventLabel);
             this.eventGroupBox.Location = new System.Drawing.Point(430, 474);
             this.eventGroupBox.Name = "eventGroupBox";
-            this.eventGroupBox.Size = new System.Drawing.Size(577, 224);
+            this.eventGroupBox.Size = new System.Drawing.Size(577, 262);
             this.eventGroupBox.TabIndex = 7;
             this.eventGroupBox.TabStop = false;
             this.eventGroupBox.Text = "Event";
@@ -322,41 +330,13 @@
             this.dcGroupBox.TabStop = false;
             this.dcGroupBox.Text = "Difficulty Controller";
             // 
-            // endLocLabel
+            // bestFitLine
             // 
-            this.endLocLabel.AutoSize = true;
-            this.endLocLabel.Location = new System.Drawing.Point(7, 79);
-            this.endLocLabel.Name = "endLocLabel";
-            this.endLocLabel.Size = new System.Drawing.Size(110, 13);
-            this.endLocLabel.TabIndex = 0;
-            this.endLocLabel.Text = "End Location Chance";
-            // 
-            // eventModifierLabel
-            // 
-            this.eventModifierLabel.AutoSize = true;
-            this.eventModifierLabel.Location = new System.Drawing.Point(6, 56);
-            this.eventModifierLabel.Name = "eventModifierLabel";
-            this.eventModifierLabel.Size = new System.Drawing.Size(75, 13);
-            this.eventModifierLabel.TabIndex = 1;
-            this.eventModifierLabel.Text = "Event Modifier";
-            // 
-            // playerStatusLabel
-            // 
-            this.playerStatusLabel.AutoSize = true;
-            this.playerStatusLabel.Location = new System.Drawing.Point(6, 27);
-            this.playerStatusLabel.Name = "playerStatusLabel";
-            this.playerStatusLabel.Size = new System.Drawing.Size(69, 13);
-            this.playerStatusLabel.TabIndex = 2;
-            this.playerStatusLabel.Text = "Player Status";
-            // 
-            // eventChanceLabel
-            // 
-            this.eventChanceLabel.AutoSize = true;
-            this.eventChanceLabel.Location = new System.Drawing.Point(7, 104);
-            this.eventChanceLabel.Name = "eventChanceLabel";
-            this.eventChanceLabel.Size = new System.Drawing.Size(75, 13);
-            this.eventChanceLabel.TabIndex = 4;
-            this.eventChanceLabel.Text = "Event Chance";
+            this.bestFitLine.FormattingEnabled = true;
+            this.bestFitLine.Location = new System.Drawing.Point(12, 267);
+            this.bestFitLine.Name = "bestFitLine";
+            this.bestFitLine.Size = new System.Drawing.Size(144, 121);
+            this.bestFitLine.TabIndex = 6;
             // 
             // trackerListBox
             // 
@@ -368,19 +348,100 @@
             this.trackerListBox.Size = new System.Drawing.Size(144, 121);
             this.trackerListBox.TabIndex = 5;
             // 
-            // bestFitLine
+            // eventChanceLabel
             // 
-            this.bestFitLine.FormattingEnabled = true;
-            this.bestFitLine.Location = new System.Drawing.Point(12, 267);
-            this.bestFitLine.Name = "bestFitLine";
-            this.bestFitLine.Size = new System.Drawing.Size(144, 121);
-            this.bestFitLine.TabIndex = 6;
+            this.eventChanceLabel.AutoSize = true;
+            this.eventChanceLabel.Location = new System.Drawing.Point(7, 104);
+            this.eventChanceLabel.Name = "eventChanceLabel";
+            this.eventChanceLabel.Size = new System.Drawing.Size(75, 13);
+            this.eventChanceLabel.TabIndex = 4;
+            this.eventChanceLabel.Text = "Event Chance";
+            // 
+            // playerStatusLabel
+            // 
+            this.playerStatusLabel.AutoSize = true;
+            this.playerStatusLabel.Location = new System.Drawing.Point(6, 27);
+            this.playerStatusLabel.Name = "playerStatusLabel";
+            this.playerStatusLabel.Size = new System.Drawing.Size(69, 13);
+            this.playerStatusLabel.TabIndex = 2;
+            this.playerStatusLabel.Text = "Player Status";
+            // 
+            // eventModifierLabel
+            // 
+            this.eventModifierLabel.AutoSize = true;
+            this.eventModifierLabel.Location = new System.Drawing.Point(6, 56);
+            this.eventModifierLabel.Name = "eventModifierLabel";
+            this.eventModifierLabel.Size = new System.Drawing.Size(75, 13);
+            this.eventModifierLabel.TabIndex = 1;
+            this.eventModifierLabel.Text = "Event Modifier";
+            // 
+            // endLocLabel
+            // 
+            this.endLocLabel.AutoSize = true;
+            this.endLocLabel.Location = new System.Drawing.Point(7, 79);
+            this.endLocLabel.Name = "endLocLabel";
+            this.endLocLabel.Size = new System.Drawing.Size(110, 13);
+            this.endLocLabel.TabIndex = 0;
+            this.endLocLabel.Text = "End Location Chance";
+            // 
+            // animationGroupBox
+            // 
+            this.animationGroupBox.Controls.Add(this.backgroundPB);
+            this.animationGroupBox.Controls.Add(this.animationBox);
+            this.animationGroupBox.Controls.Add(this.stopAnimBtn);
+            this.animationGroupBox.Controls.Add(this.startAnimBtn);
+            this.animationGroupBox.Location = new System.Drawing.Point(1013, 474);
+            this.animationGroupBox.Name = "animationGroupBox";
+            this.animationGroupBox.Size = new System.Drawing.Size(169, 414);
+            this.animationGroupBox.TabIndex = 11;
+            this.animationGroupBox.TabStop = false;
+            this.animationGroupBox.Text = "Animation";
+            // 
+            // startAnimBtn
+            // 
+            this.startAnimBtn.Location = new System.Drawing.Point(9, 357);
+            this.startAnimBtn.Name = "startAnimBtn";
+            this.startAnimBtn.Size = new System.Drawing.Size(68, 51);
+            this.startAnimBtn.TabIndex = 12;
+            this.startAnimBtn.Text = "Start Animation";
+            this.startAnimBtn.UseVisualStyleBackColor = true;
+            this.startAnimBtn.Click += new System.EventHandler(this.startAnimBtn_Click);
+            // 
+            // stopAnimBtn
+            // 
+            this.stopAnimBtn.Location = new System.Drawing.Point(84, 357);
+            this.stopAnimBtn.Name = "stopAnimBtn";
+            this.stopAnimBtn.Size = new System.Drawing.Size(72, 51);
+            this.stopAnimBtn.TabIndex = 13;
+            this.stopAnimBtn.Text = "Stop Animation";
+            this.stopAnimBtn.UseVisualStyleBackColor = true;
+            this.stopAnimBtn.Click += new System.EventHandler(this.stopAnimBtn_Click);
+            // 
+            // backgroundPB
+            // 
+            this.backgroundPB.InitialImage = null;
+            this.backgroundPB.Location = new System.Drawing.Point(10, 19);
+            this.backgroundPB.Name = "backgroundPB";
+            this.backgroundPB.Size = new System.Drawing.Size(147, 323);
+            this.backgroundPB.TabIndex = 12;
+            this.backgroundPB.TabStop = false;
+            // 
+            // animationBox
+            // 
+            this.animationBox.BackColor = System.Drawing.Color.Transparent;
+            this.animationBox.Image = global::uk.ac.dundee.arpond.longRoadHome.Properties.Resources.Character_stand;
+            this.animationBox.Location = new System.Drawing.Point(10, 19);
+            this.animationBox.Name = "animationBox";
+            this.animationBox.Size = new System.Drawing.Size(147, 323);
+            this.animationBox.TabIndex = 11;
+            this.animationBox.TabStop = false;
             // 
             // Debug
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1216, 837);
+            this.ClientSize = new System.Drawing.Size(1216, 900);
+            this.Controls.Add(this.animationGroupBox);
             this.Controls.Add(this.dcGroupBox);
             this.Controls.Add(this.loadGameBtn);
             this.Controls.Add(this.startNewGameBtn);
@@ -397,6 +458,9 @@
             this.eventGroupBox.PerformLayout();
             this.dcGroupBox.ResumeLayout(false);
             this.dcGroupBox.PerformLayout();
+            this.animationGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.backgroundPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.animationBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -435,5 +499,10 @@
         private System.Windows.Forms.ListBox bestFitLine;
         private System.Windows.Forms.ListBox trackerListBox;
         private System.Windows.Forms.Label eventChanceLabel;
+        private System.Windows.Forms.PictureBox animationBox;
+        private System.Windows.Forms.GroupBox animationGroupBox;
+        private System.Windows.Forms.Button stopAnimBtn;
+        private System.Windows.Forms.Button startAnimBtn;
+        private System.Windows.Forms.PictureBox backgroundPB;
     }
 }

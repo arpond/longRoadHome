@@ -137,6 +137,48 @@
   <ItemGroup>
     <None Include="Resources\Loc_Res_PlaceHolder.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Character-stand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-mountains.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-trees.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-foreground-trees.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-montain-far.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

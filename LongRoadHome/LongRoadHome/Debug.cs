@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using uk.ac.dundee.arpond.longRoadHome.Controller;
 using uk.ac.dundee.arpond.longRoadHome.Model;
@@ -17,15 +18,27 @@ using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 
 namespace uk.ac.dundee.arpond.longRoadHome.View
 {
+    public delegate void NextFrame(object source, ElapsedEventArgs e);
+
     public partial class Debug : Form, IGameView
     {
         private MainController mc;
+        private Animator ani, bck;
+        private NextFrame nf;
         //private int currentDisplay;
+        //value for moving the image in X direction
+        private float translateX = 0;
 
         public Debug()
         {
             InitializeComponent();
             mc = new MainController(this);
+            nf = new NextFrame(DrawNextFrame);
+            backgroundPB.Controls.Add(animationBox);
+            backgroundPB.Paint += new PaintEventHandler(Background_Paint);
+            List<Image> background = new List<Image>();
+            background.Add(Properties.Resources.parallax_mountain_trees);
+            bck = new Animator(background, new NextFrame(TranslateImage), 10);
         }
 
         private void startNewGameBtn_Click(object sender, EventArgs e)
@@ -48,7 +61,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             int newLocationID = 0;
             int.TryParse(locationTextBox.Text, out newLocationID);
             mc.handleAction(MainController.CHANGE_LOC, newLocationID);
-            
+
             DrawLocations();
             DrawCharacterResources();
             DrawDifficultyController();
@@ -77,7 +90,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <param name="e"></param>
         private void drawEventBtn_Click(object sender, EventArgs e)
         {
-            int result = DrawEvent(mc.GetGameState().GetEM().GetCurrentEventText(), 
+            int result = DrawEvent(mc.GetGameState().GetEM().GetCurrentEventText(),
                 mc.GetGameState().GetEM().GetCurrentEventOptionsText());
             mc.DisplayEventResults(result);
             DrawDifficultyController();
@@ -138,8 +151,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <param name="inventory">The inventory</param>
         public void DrawInventory(ArrayList inventory)
         {
-            List<String> temp =  new List<string>();
-            foreach(Item item in inventory)
+            List<String> temp = new List<string>();
+            foreach (Item item in inventory)
             {
                 temp.Add(item.ToPrettyString());
             }
@@ -155,7 +168,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             PCModel pcm = gs.GetPCM();
             List<Item> items = pcm.GetItemCatalogue().GetItems();
             List<string> temp = new List<string>();
-            foreach(Item item in items)
+            foreach (Item item in items)
             {
                 temp.Add(item.ToPrettyString());
             }
@@ -187,7 +200,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             IList<Event> events = em.GetEventCatalogue().GetEvents();
             List<String> temp = new List<string>();
 
-            foreach(Event evt in events)
+            foreach (Event evt in events)
             {
                 temp.Add(evt.ParseToString());
             }
@@ -236,7 +249,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
             HashSet<int> cons = lm.GetCurentLocation().GetConnections();
 
-            foreach(int con in cons)
+            foreach (int con in cons)
             {
                 connections += con + ", ";
             }
@@ -254,12 +267,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             List<String> vis = new List<string>();
             List<String> unvis = new List<string>();
 
-            foreach(Location lc in visited)
+            foreach (Location lc in visited)
             {
                 vis.Add(lc.ParseToString());
             }
 
-            foreach(DummyLocation dl in unvisited)
+            foreach (DummyLocation dl in unvisited)
             {
                 unvis.Add(dl.ParseToString());
             }
@@ -325,7 +338,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new System.Exception("Not implemented");
         }
-        
+
         /// <summary>
         /// Draw Dialogue box with Yes No option and text supplied
         /// </summary>
@@ -334,7 +347,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         public bool DrawYesNoOption(String text)
         {
             DialogResult result = MessageBox.Show(text, "", MessageBoxButtons.YesNo);
-            if(result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
                 return true;
             }
@@ -369,13 +382,67 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
         public void DrawScavengeResults(List<Item> scavanged)
         {
-            
+
         }
 
         public void DrawDiscovery(String discovery)
         {
             DrawDialogueBox(discovery);
         }
-       
+
+        private void startAnimBtn_Click(object sender, EventArgs e)
+        {
+            List<Image> images = new List<Image>();
+            images.Add(Properties.Resources.CharacterWalk_1);
+            images.Add(Properties.Resources.CharacterWalk_2);
+            images.Add(Properties.Resources.CharacterWalk_3);
+            images.Add(Properties.Resources.CharacterWalk_4);
+            images.Add(Properties.Resources.CharacterWalk_5);
+            images.Add(Properties.Resources.CharacterWalk_6);
+            images.Add(Properties.Resources.CharacterWalk_7);
+            images.Add(Properties.Resources.CharacterWalk_8);
+            ani = new Animator(images, nf, 70);
+            ani.StartAnimation();
+
+            
+            bck.StartAnimation();
+        }
+
+        private void DrawNextFrame(object source, ElapsedEventArgs e)
+        {
+            animationBox.Image = ani.GetCurrentFrame();
+        }
+
+        private void TranslateImage(object sender, ElapsedEventArgs e)
+        {
+            int width = backgroundPB.Width;
+
+            if(Math.Abs(translateX) > bck.GetCurrentFrame().Width)
+            {
+                translateX = 0;
+            }
+            else
+            {
+                translateX--;
+            }
+        }
+
+        private void Background_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.TranslateTransform(translateX, 0);
+
+            g.DrawImage(bck.GetCurrentFrame(), 0, 50);
+        }
+
+        private void stopAnimBtn_Click(object sender, EventArgs e)
+        {
+            ani.StopAnimation();
+            bck.StopAnimation();
+            animationBox.Image = Properties.Resources.Character_stand;
+        }
+
+
+        
     }
 }
