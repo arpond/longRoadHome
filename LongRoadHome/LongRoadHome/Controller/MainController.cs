@@ -10,6 +10,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 {
     public class MainController
     {
+        public const String NEW_GAME = "New Game", CONTINUE = "Continue", VIEW_LOC_MAP = "View Location Map", VIEW_SUB_MAP = "View Sublocation Map",
+            VIEW_INVENTORY = "View Inventory", CHANGE_LOC = "Change Location", CHANGE_SUB = "Change Sublocation", USE_ITEM = "Use Item", 
+            DISCARD_ITEM = "Discard Item", SCAVENGE = "Scavenge", GAME_OVER = "Game Over", QUIT = "Quit";
+
         private DifficultyController dc;
         private GameState gs;
         private ModelFacade mf;
@@ -25,16 +29,19 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             mf = new ModelFacade();
             dc = new DifficultyController();
             //gameView = new GameView();
-            commandMap.Add("New Game", 0);
-            commandMap.Add("Continue", 1);
-            commandMap.Add("View Location Map", 2);
-            commandMap.Add("View Sublocation Map", 3);
-            commandMap.Add("View Inventory", 4);
-            commandMap.Add("Change Location", 5);
-            commandMap.Add("Change Sublocation", 6);
-
-            commandMap.Add("Game Over", 10);
-            commandMap.Add("Quit", 11);
+            commandMap.Add(NEW_GAME, 0);
+            commandMap.Add(CONTINUE, 1);
+            commandMap.Add(VIEW_LOC_MAP, 2);
+            commandMap.Add(VIEW_SUB_MAP, 3);
+            commandMap.Add(VIEW_INVENTORY, 4);
+            commandMap.Add(CHANGE_LOC, 5);
+            commandMap.Add(CHANGE_SUB, 6);
+            commandMap.Add(USE_ITEM, 7);
+            commandMap.Add(DISCARD_ITEM, 8);
+            commandMap.Add(SCAVENGE, 9);
+            commandMap.Add(GAME_OVER, 10);
+            commandMap.Add(QUIT, 11);
+            
         }
 
         public MainController(IGameView gameView)
@@ -43,16 +50,18 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             dc = new DifficultyController();
             this.gameView = gameView;
 
-            commandMap.Add("New Game", 0);
-            commandMap.Add("Continue", 1);
-            commandMap.Add("View Location Map", 2);
-            commandMap.Add("View Sublocation Map", 3);
-            commandMap.Add("View Inventory", 4);
-            commandMap.Add("Change Location", 5);
-            commandMap.Add("Change Sublocation", 6);
-
-            commandMap.Add("Game Over", 10);
-            commandMap.Add("Quit", 11);
+            commandMap.Add(NEW_GAME, 0);
+            commandMap.Add(CONTINUE, 1);
+            commandMap.Add(VIEW_LOC_MAP, 2);
+            commandMap.Add(VIEW_SUB_MAP, 3);
+            commandMap.Add(VIEW_INVENTORY, 4);
+            commandMap.Add(CHANGE_LOC, 5);
+            commandMap.Add(CHANGE_SUB, 6);
+            commandMap.Add(USE_ITEM, 7);
+            commandMap.Add(DISCARD_ITEM, 8);
+            commandMap.Add(SCAVENGE, 9);
+            commandMap.Add(GAME_OVER, 10);
+            commandMap.Add(QUIT, 11);
         }
 
         /// <summary>
@@ -200,9 +209,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     case 6:
                         ChangeSubLocation(variable);
                         break;
+                    // Use Item
                     case 7:
                         UseItem(variable);
                         break;
+                    // Discard Item
                     case 8:
                         DiscardItem(variable);
                         break;

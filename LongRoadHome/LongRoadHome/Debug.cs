@@ -47,8 +47,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             int newLocationID = 0;
             int.TryParse(locationTextBox.Text, out newLocationID);
-
-            mc.ChangeLocation(newLocationID);
+            mc.handleAction(MainController.CHANGE_LOC, newLocationID);
+            
             DrawLocations();
             DrawCharacterResources();
             DrawDifficultyController();
@@ -63,8 +63,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             int newSubLocID = 0;
             int.TryParse(sublocTextBox.Text, out newSubLocID);
+            mc.handleAction(MainController.CHANGE_SUB, newSubLocID);
 
-            mc.ChangeSubLocation(newSubLocID);
             DrawLocations();
             DrawCharacterResources();
             DrawDifficultyController();
@@ -88,9 +88,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void StartNewGame()
         {
-            mc.InitialiseNewGame();
+            mc.handleAction(MainController.NEW_GAME);
             DrawCharacterResources();
-            mc.DisplayInventory();
+            mc.handleAction(MainController.VIEW_INVENTORY);
             DrawItemCatalogue();
             DrawEvents();
             DrawEventCatalogue();
@@ -103,9 +103,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void LoadGame()
         {
-            mc.InitialiseGameFromSave();
+            mc.handleAction(MainController.CONTINUE);
             DrawCharacterResources();
-            mc.DisplayInventory();
+            mc.handleAction(MainController.VIEW_INVENTORY);
             DrawItemCatalogue();
             DrawEvents();
             DrawEventCatalogue();
