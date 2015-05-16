@@ -5,7 +5,7 @@ using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 using uk.ac.dundee.arpond.longRoadHome.Model.Events;
 namespace uk.ac.dundee.arpond.longRoadHome.Model
 {
-    public class GameState
+    public class GameState : ICloneable
     {
         private PCModel pcm;
         private EventModel em;
@@ -209,6 +209,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
                     LocationModel.IsValidVisitedLocations(visitedLocs) &&
                     int.TryParse(currLoc, out currID) &&
                     int.TryParse(currSLoc, out currSub);
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 

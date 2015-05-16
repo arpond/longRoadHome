@@ -15,7 +15,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         private List<double> playerStatusTracker;
         private double playerStatus;
         private ModelFacade mf;
-        private const double smoothing = 0.75f;
+        private const double smoothing = 0.75d;
         private Random rnd = new Random();
 
         public DifficultyController()
@@ -56,7 +56,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 
         public void CalcEventChance()
         {
-            eventChance = rnd.Next(40,80) / 100;
+            eventChance = (double) rnd.Next(40,80) / 100;
         }
 
         /// <summary>
@@ -98,17 +98,23 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public void UpdatePlayerStatus(GameState gs)
         {
             var stats = mf.GetPlayerCharacterResources(gs).Values;
-            int statsSum = 0;
+            int statsSum = stats.Sum(value => value/100);
 
-            foreach(var stat in stats)
-            {
-                statsSum += stat;
-            }
+            double invValue = mf.GetValueOfInventory(gs);
 
-            int invValue = mf.GetValueOfInventory(gs);
-            double invStatus = invValue / 400;
+            double newPlayerStatus = (double) statsSum / 4 + invValue;
+            playerStatus = smoothing * playerStatus + (1 - smoothing) * newPlayerStatus;
+            CalcEventModifier();
+        }
 
-            double newPlayerStatus = statsSum / 400 + invStatus;
+        /// <summary>
+        /// For testing only
+        /// </summary>
+        /// <param name="statsSum"></param>
+        /// <param name="invValue"></param>
+        public void UpdatePlayerStatus(int statsSum, double invValue)
+        {
+            double newPlayerStatus = (double) statsSum / 400 + invValue;
             playerStatus = smoothing * playerStatus + (1 - smoothing) * newPlayerStatus;
         }
 
@@ -118,6 +124,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public void UpdateStatusTracker()
         {
             playerStatusTracker.Add(playerStatus);
+            CalcEndLocationChance();
         }
 
         /// <summary>
@@ -155,26 +162,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         /// <returns></returns>
         public List<Tuple<int, double>> GenerateBestFitLine()
         {
-            int numberOfLocations = playerStatusTracker.Count;
+            int numPoints = playerStatusTracker.Count;
             List<Tuple<int, double>> xyValues = new List<Tuple<int,double>>();
-            for (int i = 1; i< numberOfLocations; i++)
+            for (int i = 0; i< numPoints; i++)
             {
-                xyValues.Add(new Tuple<int, double>(i, playerStatusTracker[i-1]));
+                xyValues.Add(new Tuple<int, double>(i, playerStatusTracker[i]));
             }
 
             double meanX = xyValues.Average(value => value.Item1);
-            double meanStatus = xyValues.Average(value => value.Item2);
+            double meanY = xyValues.Average(value => value.Item2);
 
             double sumXSquared = xyValues.Sum(value => value.Item1 * value.Item1);
             double sumXY = xyValues.Sum(value => value.Item1 * value.Item2);
 
-            double a = (sumXY / numberOfLocations - meanX * meanStatus) / (sumXSquared / numberOfLocations - meanX * meanX);
-            double b = (a * meanX - meanStatus);
+            double a = (sumXY / numPoints - meanX * meanY) / (sumXSquared / numPoints - meanX * meanX);
+            double b = (a * meanX - meanY);
 
             double a1 = a;
             double b1 = b;
 
-            return xyValues.Select(value => new Tuple<int,double>(value.Item1, a1 * value.Item2 - b1)).ToList();
+            return xyValues.Select(value => new Tuple<int, double>(value.Item1, a1 * value.Item1 - b1)).ToList();
         }
 
         /// <summary>
@@ -246,7 +253,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             {
                 return false;
             }
-            if (!double.TryParse(dcElements[1], out temp))
+            if (!double.TryParse(dcElements[1], out temp) || temp < 0)
             {
                 return false;
             }
@@ -259,7 +266,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             {
                 for (int i = 1; i < trackerElements.Length; i++)
                 {
-                    if (!double.TryParse(trackerElements[i], out temp))
+                    if (!double.TryParse(trackerElements[i], out temp) || temp < 0)
                     {
                         return false;
                     }

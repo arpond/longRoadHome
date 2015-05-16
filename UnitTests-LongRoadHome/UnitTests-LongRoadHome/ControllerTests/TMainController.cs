@@ -18,10 +18,11 @@ namespace UnitTests_LongRoadHome.ControllerTests
         PCModel pcm;
         DiscoveryModel dm;
         GameState gs;
+        DifficultyController dc;
         String pc, inventory, itemCatalogue,
                 usedEvents, currentEvent, eventCatalogue,
                 discovered, discoveryCatalogue,
-                visitedLocs, unvisitedLocs, currLoc, currSLoc;
+                visitedLocs, unvisitedLocs, currLoc, currSLoc, difficultyController;
 
         [TestInitialize]
         public void Setup()
@@ -142,6 +143,10 @@ namespace UnitTests_LongRoadHome.ControllerTests
                 usedEvents, currentEvent, eventCatalogue,
                 discovered, discoveryCatalogue,
                 visitedLocs, unvisitedLocs, currLoc, currSLoc);
+
+            // Difficulty Controller
+            difficultyController = DifficultyController.TAG + ":1.1:Tracker|1.1|1|0.9|0.7|1.1|1|1.075|0.9|0.85|0.7|0.6|0.8|1|0.9|1.1|1.05|1|1.05|1.1|0.9|1.1";
+            dc = new DifficultyController(difficultyController);
         }
 
         [TestCategory("MainController"), TestCategory("Controller"), TestMethod()]
@@ -177,6 +182,7 @@ namespace UnitTests_LongRoadHome.ControllerTests
         public void MainController_IntialiseGameFromSave()
         {
             //FileReadWriter frw = new FileReadWriter();
+            //frw.WriteSaveDataFile(FileReadWriter.DIFFICULTY_CONTROLLER, dc.ParseToString());
             //frw.WriteSaveDataFile(FileReadWriter.PLAYER_CHARACTER, pc);
             //frw.WriteSaveDataFile(FileReadWriter.INVENTORY, inventory);
             //frw.WriteSaveDataFile(FileReadWriter.USED_EVENTS, usedEvents);

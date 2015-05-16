@@ -35,7 +35,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         /// </summary>
         /// <param name="eventModifier">Modifier for this event</param>
         /// <param name="pcm">The player character model to modify with</param>
-        public override void ResolveEffect(float eventModifier, PCModel pcm)
+        public override void ResolveEffect(double eventModifier, PCModel pcm)
         {
             int value = rnd.Next(minimum, maximum);
 

@@ -175,5 +175,35 @@ namespace UnitTests_LongRoadHome
 
             Assert.AreEqual(expected, item.ParseToString(), "String should be the same as the string constructed with");
         }
+
+        [TestCategory("PlayerCharacter"), TestCategory("Item"), TestMethod()]
+        public void Item_ItemValue()
+        {
+            String expected = "ID:1,Name:TestItem,Amount:1,Description:test item 1,"
+                            + "ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "10"
+                            + ":" + ActiveEffect.TAG + ":" + PlayerCharacter.THIRST + ":" + "10"
+                            + ",PassiveEffect,Requirements:2";
+            Item item =new Item(expected);
+            Assert.AreEqual(0.05d, item.CalculateItemValue(),0.00001, "Item value should be 0.05");
+
+            expected = "ID:1,Name:TestItem,Amount:1,Description:test item 1,"
+                            + "ActiveEffect"
+                            + ",PassiveEffect:" + PassiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "0.8"
+                            + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":" + "0.9"
+                            + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":" + "0.8"
+                            + ",Requirements:2";
+            item = new Item(expected);
+            Assert.AreEqual(0.06d, item.CalculateItemValue(), 0.00001, "Item value should be 0.06d");
+            
+            expected = "ID:1,Name:TestItem,Amount:1,Description:test item 1,"
+                            + "ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "10"
+                            + ":" + ActiveEffect.TAG + ":" + PlayerCharacter.THIRST + ":" + "10"
+                            + ",PassiveEffect:" + PassiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "0.8"
+                            + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":" + "0.9"
+                            + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":" + "0.8"
+                            + ",Requirements:2";
+            item = new Item(expected);
+            Assert.AreEqual(0.11d, item.CalculateItemValue(), 0.00001, "Item value should be 0.11");
+        }
     }
 }

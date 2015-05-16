@@ -50,7 +50,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// </summary>
         /// <param name="eventModifier">Not used</param>
         /// <param name="pc">The player character to modify</param>
-        public void ResolveEffect(float eventModifier, PCModel pcm)
+        public void ResolveEffect(double eventModifier, PCModel pcm)
         {
             pcm.ModifyPrimaryResource(resource, value);
         }
