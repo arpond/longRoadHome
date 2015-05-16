@@ -107,6 +107,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             }
         }
 
+        /// <summary>
+        /// Gets the total value of the inventory
+        /// </summary>
+        /// <returns>The total value of the inventory</returns>
+        public double GetInventoryValue()
+        {
+            return currentInventory.CalculateInventoryValue();
+        }
 
         /// <summary>
         /// Accessor method for current PC
@@ -210,6 +218,21 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public bool DiscardItem(int invSlot)
         {
             return currentInventory.DiscardItem(invSlot);
+        }
+
+        public SortedList<string, int> GetPlayerCharacterResources()
+        {
+            int health = currentPC.GetResource(PlayerCharacter.HEALTH);
+            int hunger = currentPC.GetResource(PlayerCharacter.HUNGER);
+            int thirst = currentPC.GetResource(PlayerCharacter.THIRST);
+            int sanity = currentPC.GetResource(PlayerCharacter.SANITY);
+
+            SortedList<string, int> resources = new SortedList<string, int>();
+            resources.Add(PlayerCharacter.HEALTH, health);
+            resources.Add(PlayerCharacter.HUNGER, hunger);
+            resources.Add(PlayerCharacter.THIRST, thirst);
+            resources.Add(PlayerCharacter.SANITY, sanity);
+            return resources;
         }
     }
 }

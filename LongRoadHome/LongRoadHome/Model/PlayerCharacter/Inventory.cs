@@ -39,6 +39,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
+        /// Calculates the value of the inventory
+        /// </summary>
+        /// <returns>The total value of the items in the inventory</returns>
+        public double CalculateInventoryValue()
+        {
+            double totalValue = 0d;
+            foreach (Item item in inventory)
+            {
+                totalValue += item.CalculateItemValue() * item.GetAmount();
+            }
+            return totalValue;
+        }
+
+        /// <summary>
         /// Checks if inventory is full
         /// </summary>
         /// <returns>bool of whether it is full or not</returns>

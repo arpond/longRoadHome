@@ -27,14 +27,14 @@ namespace UnitTests_LongRoadHome.EventTests
             String invalidItem1 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect:,PassiveEffect,Requirements";
 
             invalidStrings.Add(new Tuple<String, String>("", "Empty String is invalid"));
-            invalidStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG, "Should be at least 2 fields in string"));
-            invalidStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1 + "#10", "Should be at most 2 fields in string"));
-            invalidStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + invalidItem1, "Invalid item means invalid effect"));
-            invalidStrings.Add(new Tuple<String, String>("InvalidTag#" + basicItem1, "Should start with" + ItemEventEffect.ITEM_EFFECT_TAG));
+            invalidStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1, "Should be at least 3 fields in string"));
+            invalidStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1 + "#Test Result#12", "Should be at most 3 fields in string"));
+            invalidStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + invalidItem1 + "#Test Result", "Invalid item means invalid effect"));
+            invalidStrings.Add(new Tuple<String, String>("InvalidTag#" + basicItem1 + "#Test Result", "Should start with" + ItemEventEffect.ITEM_EFFECT_TAG));
 
-            validStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1, "Basic effect should be valid"));
-            validStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem2, "Basic effect should be valid"));
-            validStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + complexItem, "Complex effect should be valid"));
+            validStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1 + "#Test Result", "Basic effect should be valid"));
+            validStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem2 + "#Test Result", "Basic effect should be valid"));
+            validStrings.Add(new Tuple<String, String>(ItemEventEffect.ITEM_EFFECT_TAG + "#" + complexItem + "#Test Result", "Complex effect should be valid"));
         }
 
         [TestCategory("ItemEventEffect"), TestCategory("EventModel"), TestMethod()]
@@ -71,7 +71,7 @@ namespace UnitTests_LongRoadHome.EventTests
         [TestCategory("ItemEventEffect"), TestCategory("EventModel"), TestMethod()]
         public void ItemEventEffect_ParseToString()
         {
-            String expected = ItemEventEffect.ITEM_EFFECT_TAG + "#ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements"; ;
+            String expected = ItemEventEffect.ITEM_EFFECT_TAG + "#ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements#Test Result";
             ItemEventEffect iee = new ItemEventEffect(expected);
             String expectedItem = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements";
 

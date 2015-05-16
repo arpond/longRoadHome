@@ -199,6 +199,50 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return requirements.IsSubsetOf(itemIDs);
         }
 
+        public String ToPrettyString()
+        {
+            String pretty, activeEffect, passiveEffect, reqs;
+            activeEffect = "";
+            foreach (Effect active in activeEffects)
+            {
+                activeEffect += ":" + active.ParseToString();
+            }
+
+            passiveEffect = "";
+
+            foreach (PassiveEffect passive in passiveEffects)
+            {
+                passiveEffect += ":" + passive.ParseToString();
+            }
+
+            reqs = "";
+
+            foreach (int id in requirements)
+            {
+                reqs += ":" + id;
+            }
+
+            pretty = String.Format("ID:{0} Name:{1} Amount:{2} Description:{3} Active Effects:{4} Passive Effects:{5} Requirements:{6}", itemID, name, amount, description, activeEffect, passiveEffect, reqs);
+
+            return pretty;
+        }
+
+        /// <summary>
+        /// Calculates the value of this item
+        /// </summary>
+        /// <returns>The items value</returns>
+        public double CalculateItemValue()
+        {
+            int sum=0;
+            foreach (ActiveEffect effect in activeEffects)
+            {
+                sum += effect.GetValue();
+            }
+            double value = (double)sum / 400;
+            value += 0.02d * passiveEffects.Count;
+            return value;
+        }
+
         /// <summary>
         /// Parses this item to String suitable for saving
         /// </summary>
@@ -352,5 +396,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return itemID == i.itemID;
         }
 
+        
     }
 }

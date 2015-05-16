@@ -8,6 +8,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         private int optionNumber;
         private String optionText;
         private List<EventEffect> effects;
+        private String optionResult;
 
         public Option()
         {
@@ -23,7 +24,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             if (int.TryParse(optionElements[1], out optionNumber))
             {
                 optionText = optionElements[2];
-                String[] effectElements = optionElements[3].Split('|');
+                optionResult = optionElements[3];
+                String[] effectElements = optionElements[4].Split('|');
                 if(effectElements.Length > 1)
                 {
                     for(int i=1; i < effectElements.Length; i++)
@@ -59,6 +61,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             return this.optionNumber;
         }
 
+        public String GetOptionResult()
+        {
+            return this.optionResult;
+        }
+
         /// <summary>
         /// Accessor method for option effects
         /// </summary>
@@ -80,7 +87,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
                 effectsString += "|" + ee.ParseToString();
             }
 
-            return String.Format("{0};{1};{2};{3}", TAG, optionNumber, optionText, effectsString);
+            return String.Format("{0};{1};{2};{3};{4}", TAG, optionNumber, optionText, optionResult, effectsString);
         }
 
         /// <summary>
@@ -92,7 +99,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         {
             int optionNum;
             String[] optionElements = toTest.Split(';');
-            if (optionElements[0] != TAG || optionElements.Length != 4)
+            if (optionElements[0] != TAG || optionElements.Length != 5)
             {
                 return false;
             }
@@ -100,7 +107,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             {
                 return false;
             }
-            String[] effectElements = optionElements[3].Split('|');
+            String[] effectElements = optionElements[4].Split('|');
             if (effectElements.Length > 1)
             {
                 for (int i=1; i < effectElements.Length; i++)
