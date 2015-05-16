@@ -62,6 +62,27 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
+        /// Modifies a primary resource of the current PC
+        /// </summary>
+        /// <param name="resourceName">Primary resource name to modify</param>
+        /// <param name="amount">Amount to modify the resource by</param>
+        public void ModifyPrimaryResource(String resourceName, int amount)
+        {
+            currentPC.AdjustResource(resourceName, amount);
+        }
+
+        /// <summary>
+        /// Checks if the current player can make a move
+        /// </summary>
+        /// <param name="hungerCost">Cost in hunger</param>
+        /// <param name="thirstCost">Cost in thirst</param>
+        /// <returns>If the current player can afford to move</returns>
+        public bool CanAffordToMove(int hungerCost, int thirstCost)
+        {
+            return currentPC.CanAffordToMove(hungerCost, thirstCost);
+        }
+
+        /// <summary>
         /// Modifies the inventory
         /// </summary>
         /// <param name="item">The item to modify</param>
@@ -84,6 +105,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                     }
                 }    
             }
+        }
+
+        /// <summary>
+        /// Gets the total value of the inventory
+        /// </summary>
+        /// <returns>The total value of the inventory</returns>
+        public double GetInventoryValue()
+        {
+            return currentInventory.CalculateInventoryValue();
         }
 
         /// <summary>
@@ -118,7 +148,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// </summary>
         /// <param name="catalogue">String to check</param>
         /// <returns>If the string is a valid item catalogue</returns>
-        public bool IsValidItemCatalogue(String catalogue)
+        public static bool IsValidItemCatalogue(String catalogue)
         {
             return ItemCatalogue.IsValidItemCatalogue(catalogue);
         }
@@ -130,7 +160,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// <param name="inventory">Inventory string to check</param>
         /// <param name="catalogue">Item Catalogue string to check</param>
         /// <returns>If all the strings are valid</returns>
-        public bool IsValidPCModel(String pc, String inventory, String catalogue)
+        public static bool IsValidPCModel(String pc, String inventory, String catalogue)
         {
             return PlayerCharacter.IsValidPC(pc) && Inventory.IsValidInventory(inventory) && ItemCatalogue.IsValidItemCatalogue(catalogue);
         }
@@ -173,11 +203,36 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public bool ItemUsable(int invSlot)
         {
             Item toCheck = currentInventory.GetItemSlot(invSlot);
-            if (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs()))
+            if (toCheck == null || (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs())))
             {
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Discards an item from the inventory
+        /// </summary>
+        /// <param name="invSlot">The inventory slot to discard from</param>
+        /// <returns>If the item was discarded succesfully</returns>
+        public bool DiscardItem(int invSlot)
+        {
+            return currentInventory.DiscardItem(invSlot);
+        }
+
+        public SortedList<string, int> GetPlayerCharacterResources()
+        {
+            int health = currentPC.GetResource(PlayerCharacter.HEALTH);
+            int hunger = currentPC.GetResource(PlayerCharacter.HUNGER);
+            int thirst = currentPC.GetResource(PlayerCharacter.THIRST);
+            int sanity = currentPC.GetResource(PlayerCharacter.SANITY);
+
+            SortedList<string, int> resources = new SortedList<string, int>();
+            resources.Add(PlayerCharacter.HEALTH, health);
+            resources.Add(PlayerCharacter.HUNGER, hunger);
+            resources.Add(PlayerCharacter.THIRST, thirst);
+            resources.Add(PlayerCharacter.SANITY, sanity);
+            return resources;
         }
     }
 }

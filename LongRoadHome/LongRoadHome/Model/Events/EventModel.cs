@@ -16,6 +16,23 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             eventCatalogue = new EventCatalogue();
         }
 
+        /// <summary>
+        /// Constructor for event model for new game
+        /// </summary>
+        /// <param name="catalogue">Event catalogue string</param>
+        public EventModel(String catalogue)
+        {
+            currentEvent = null;
+            usedEvents = new HashSet<int>();
+            eventCatalogue = new EventCatalogue(catalogue);
+        }
+
+        /// <summary>
+        /// Constructor for event model from save data
+        /// </summary>
+        /// <param name="usedEvents">String of used events</param>
+        /// <param name="catalogue">String for Event catalogue </param>
+        /// <param name="curEvent">String of current event</param>
         public EventModel(String usedEvents, String catalogue, String curEvent)
         {
             currentEvent = new Event(curEvent);
@@ -46,6 +63,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
                 i++;
             } while (usedEvents.Contains(temp.GetEventID()) && i <100);
             currentEvent = temp;
+            if (!usedEvents.Contains(temp.GetEventID()))
+            {
+                usedEvents.Add(currentEvent.GetEventID());
+            }
         }
 
         /// <summary>
@@ -62,6 +83,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
                 i++;
             } while (usedEvents.Contains(temp.GetEventID()) && i < 100);
             currentEvent = temp;
+            if (!usedEvents.Contains(temp.GetEventID()))
+            {
+                usedEvents.Add(currentEvent.GetEventID());
+            }
         }
 
         /// <summary>
@@ -71,6 +96,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         public void FetchSpecificEvent(int eventID)
         {
             currentEvent = eventCatalogue.GetEvent(eventID);
+            if (!usedEvents.Contains(eventID) && currentEvent != null)
+            {
+                usedEvents.Add(currentEvent.GetEventID());
+            }
         }
         
         /// <summary>
@@ -117,9 +146,23 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             return eventCatalogue;
         }
         
-        public uk.ac.dundee.arpond.longRoadHome.Model.Effect GetOptionEffect(ref int optionNumber)
+        /// <summary>
+        /// Gets the effects for the option number provided
+        /// </summary>
+        /// <param name="optionNumber">The option number to get effects for</param>
+        /// <returns>A list of event effects</returns>
+        public List<EventEffect> GetOptionEffects(int optionNumber)
         {
-            throw new System.Exception("Not implemented");
+            if (currentEvent == null)
+            {
+                return new List<EventEffect>();
+            }
+            Option option = currentEvent.GetEventOption(optionNumber);
+            if (option == null)
+            {
+                return new List<EventEffect>();
+            }
+            return option.GetOptionEffects();
         }
 
         /// <summary>
@@ -137,6 +180,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         /// <returns>The parsed current event</returns>
         public String ParseCurrentEventToString()
         {
+            if (currentEvent == null)
+            {
+                return "";
+            }
             return currentEvent.ParseToString();
         }
         
@@ -222,6 +269,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         public static bool IsValidCurrentEvent(String toTest)
         {
             return Event.IsValidEvent(toTest);
+        }
+
+        public string GetOptionResult(int optionSelected)
+        {
+            return currentEvent.GetOptionResult(optionSelected);
         }
     }
 

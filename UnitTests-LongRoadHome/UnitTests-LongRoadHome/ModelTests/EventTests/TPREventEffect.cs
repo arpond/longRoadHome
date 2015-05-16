@@ -16,17 +16,17 @@ namespace UnitTests_LongRoadHome.EventTests
         public void Setup()
         {
             invalidStrings.Add(new Tuple<String, String>("", "Empty String is invalid"));
-            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":0", "Should be at least 4 items in a resource"));
-            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:11:12", "Should be at most 4 items in a resource"));
-            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + ":blah:10:12", "Should affect one of the 4 primary character resources"));
-            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":" + PlayerCharacter.HEALTH + ":10", "Third item should be an int"));
-            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":" + "10:" + PlayerCharacter.HEALTH, "Fourth item should be an int"));
-            invalidStrings.Add(new Tuple<String, String>("PE:" + PlayerCharacter.HEALTH + ":100", "First item should be " + PREventEffect.PR_EFFECT_TAG));
-            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":20:11", "Minimum should be less than maximum"));
+            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":0:10", "Should be at least 5 items in a resource"));
+            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20:Test Result:blah", "Should be at most 5 items in a resource"));
+            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + ":blah:10:12:Test Result", "Should affect one of the 4 primary character resources"));
+            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":" + PlayerCharacter.HEALTH + ":10:Test Result", "Third item should be an int"));
+            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":" + "10:" + PlayerCharacter.HEALTH + ":Test Result", "Fourth item should be an int"));
+            invalidStrings.Add(new Tuple<String, String>("PE:" + PlayerCharacter.HEALTH + ":10:20:Test Result", "First item should be " + PREventEffect.PR_EFFECT_TAG));
+            invalidStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":20:11:Test Result", "Minimum should be less than maximum"));
             invalidStrings.Add(new Tuple<String, String>("", "Empty String is invalid"));
 
-            validStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":0:0", "Basic Active Effect is valid"));
-            validStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20", "Should be valid Active Effect"));
+            validStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":0:0:Test Result", "Basic Active Effect is valid"));
+            validStrings.Add(new Tuple<String, String>(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20:Test Result", "Should be valid Active Effect"));
         }
 
         [TestCategory("PREventEffect"), TestCategory("EventModel"), TestMethod()]
@@ -57,7 +57,7 @@ namespace UnitTests_LongRoadHome.EventTests
         [TestCategory("PREventEffect"), TestCategory("EventModel"), TestMethod()]
         public void PREventEffect_ParseFromString()
         {
-            PREventEffect pree = new PREventEffect(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":0:0");
+            PREventEffect pree = new PREventEffect(PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":0:0:Test Result");
             String expectedPR = PlayerCharacter.HEALTH + ":0";
 
             Assert.AreEqual(0, pree.GetMinimum(), "The min should be 0");
@@ -68,7 +68,7 @@ namespace UnitTests_LongRoadHome.EventTests
         [TestCategory("PREventEffect"), TestCategory("EventModel"), TestMethod()]
         public void PREventEffect_ParseToString()
         {
-            String expected = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20";
+            String expected = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20:Test Result";
             PREventEffect pree = new PREventEffect(expected);
             String expectedPR = PlayerCharacter.HEALTH + ":10";
 

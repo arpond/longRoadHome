@@ -23,14 +23,14 @@ namespace UnitTests_LongRoadHome.EventTests
         public void Setup()
         {
             String basicItem1 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements";
-            validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20";
-            validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1;
-            validOption = Option.TAG + ";" + "7;TestText;EventEffects|" + validPREE + "|" + validIEE;
-            invalidOption = Option.TAG + ";" + "-1;TestText;EventEffects";
+            validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20:Test Result";
+            validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1 + "#Test Result";
+            validOption = Option.TAG + ";" + "7;TestText;TestResult;EventEffects|" + validPREE + "|" + validIEE;
+            invalidOption = Option.TAG + ";" + "-1;TestText;TestResult;EventEffects";
 
-            validOptions.Add(Option.TAG + ";" + "1;TestText;EventEffects|" + validIEE);
-            validOptions.Add(Option.TAG + ";" + "2;TestText;EventEffects|" + validIEE + "|" + validIEE);
-            validOptions.Add(Option.TAG + ";" + "3;TestText;EventEffects|" + validIEE + "|" + validPREE);
+            validOptions.Add(Option.TAG + ";" + "1;TestText;TestResult;EventEffects|" + validIEE);
+            validOptions.Add(Option.TAG + ";" + "2;TestText;TestResult;EventEffects|" + validIEE + "|" + validIEE);
+            validOptions.Add(Option.TAG + ";" + "3;TestText;TestResult;EventEffects|" + validIEE + "|" + validPREE);
             validOptions.Add(validOption);            
 
             validStrings.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text_EventOptions", "Basic Event is valid"));

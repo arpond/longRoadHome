@@ -27,6 +27,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             {
                 resource = new PrimaryResource(minimum, effectElemnts[1]);
             }
+            result = effectElemnts[4];
         }
 
         /// <summary>
@@ -34,10 +35,18 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         /// </summary>
         /// <param name="eventModifier">Modifier for this event</param>
         /// <param name="pcm">The player character model to modify with</param>
-        public override void ResolveEffect(float eventModifier, PCModel pcm)
+        public override void ResolveEffect(double eventModifier, PCModel pcm)
         {
             int value = rnd.Next(minimum, maximum);
-            value = Convert.ToInt32(value * eventModifier);
+
+            if (minimum < 0)
+            {
+                value = Convert.ToInt32(value * (2 - eventModifier));
+            }
+            else
+            {
+                value = Convert.ToInt32(value * eventModifier);
+            }
             if(value < minimum)
             {
                 value = minimum;
@@ -55,7 +64,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         /// <returns>The parsed event effect</returns>
         public override string ParseToString()
         {
-            return String.Format("{0}:{1}:{2}:{3}", PR_EFFECT_TAG, resource.GetName(), minimum, maximum);
+            return String.Format("{0}:{1}:{2}:{3}:{4}", PR_EFFECT_TAG, resource.GetName(), minimum, maximum, result);
         }
 
         /// <summary>
@@ -76,7 +85,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         {
             String[] effectElements = toTest.Split(':');
 
-            if (effectElements.Length != 4)
+            if (effectElements.Length != 5)
             {
                 return false;
             }

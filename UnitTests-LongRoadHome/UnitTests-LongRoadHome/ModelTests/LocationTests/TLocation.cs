@@ -268,9 +268,9 @@ namespace UnitTests_LongRoadHome.LocationTests
         {
             for (int j = 0; j < 100; j++)
             {
-                int testSize = rnd.Next(10000);
-                int maxItems = rnd.Next(10000);
-                int maxAmount = rnd.Next(10000);
+                int testSize = rnd.Next(1,10000);
+                int maxItems = rnd.Next(1,10000);
+                int maxAmount = rnd.Next(1,10000);
                 l.GenerateSubLocations(testSize, maxItems, maxAmount);
                 Sublocation last = new Residential();
 

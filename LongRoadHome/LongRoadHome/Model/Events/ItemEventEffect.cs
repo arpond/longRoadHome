@@ -17,6 +17,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
             {
                 item = new Item(effectElemnts[1]);
             }
+            result = effectElemnts[2];
         }
 
         /// <summary>
@@ -24,7 +25,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
         /// </summary>
         /// <param name="eventModifier">Event modifier for item amount</param>
         /// <param name="pcm">The PC model to apply to</param>
-        public override void ResolveEffect(float eventModifier, PCModel pcm)
+        public override void ResolveEffect(double eventModifier, PCModel pcm)
         {
             int amount = item.GetAmount();
             amount = Convert.ToInt32(amount*eventModifier);
@@ -38,7 +39,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
         /// <returns>The parsed IEE</returns>
         public override string ParseToString()
         {
-            return String.Format("{0}#{1}", ITEM_EFFECT_TAG, item.ParseToString());
+            return String.Format("{0}#{1}#{2}", ITEM_EFFECT_TAG, item.ParseToString(), result);
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
         {
             String[] effectElements = toTest.Split('#');
 
-            if (effectElements.Length != 2)
+            if (effectElements.Length != 3)
             {
                 return false;
             }
