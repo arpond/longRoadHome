@@ -42,9 +42,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// Calculates the value of the inventory
         /// </summary>
         /// <returns>The total value of the items in the inventory</returns>
-        public int CalculateInventoryValue()
+        public double CalculateInventoryValue()
         {
-            int totalValue = 0;
+            double totalValue = 0d;
             foreach (Item item in inventory)
             {
                 totalValue += item.CalculateItemValue() * item.GetAmount();

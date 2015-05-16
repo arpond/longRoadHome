@@ -92,7 +92,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         /// <param name="gs">Current Game state</param>
         /// <param name="optionSelected">The selected option</param>
         /// <param name="eventModifier">The event modifier</param>
-        public void ResolveEvent(GameState gs,  int optionSelected,  float eventModifier)
+        public void ResolveEvent(GameState gs,  int optionSelected,  double eventModifier)
         {
             EventModel em = gs.GetEM();
             PCModel pcm = gs.GetPCM();
@@ -334,10 +334,19 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         /// </summary>
         /// <param name="gs">The game state to get the inventory value from</param>
         /// <returns>The total value of the inventory in the game state</returns>
-        public int GetValueOfInventory(GameState gs)
+        public double GetValueOfInventory(GameState gs)
         {
             PCModel pcm = gs.GetPCM();
             return pcm.GetInventoryValue();
+        }
+
+        public string TryToMakeNewDiscovery(GameState gs)
+        {
+            LocationModel lm = gs.GetLM();
+            DiscoveryModel dm = gs.GetDM();
+
+            string discoveryText = dm.GetNewDiscovery(lm.GetVisited().Count);
+            return discoveryText;
         }
     }
 

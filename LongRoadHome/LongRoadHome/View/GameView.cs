@@ -141,6 +141,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
 
         }
+
+        public void DrawDiscovery(String discovery)
+        {
+
+        }
     }
 
 }

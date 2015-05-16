@@ -257,7 +257,7 @@ namespace UnitTests_LongRoadHome.ModelTests
             Assert.AreEqual(workingInv.ParseToString(), temp.ParseToString(), "Inventory should match");
             Assert.IsFalse(workingLM.IsScavenged(), "Current sublocation should not be scavenged");
             Assert.IsFalse(workingInv.IsInventoryFull(), "Inventody should not be full");
-            Assert.IsTrue(mf.ScavangeSubLocation(gs), "Scavenging should be succesful");
+            Assert.IsTrue(mf.ScavangeSubLocation(gs).Count > 0, "Scavenging should be succesful");
             Assert.IsTrue(workingLM.IsScavenged(), "Current sublocation should now be scavenged");
             Assert.AreNotEqual(workingInv.ParseToString(), temp.ParseToString(), "Inventory should have changed");
 
@@ -268,7 +268,8 @@ namespace UnitTests_LongRoadHome.ModelTests
             }
 
             Assert.IsTrue(oldTotal < newTotal, "There should be more items in the inventory");
-            Assert.IsFalse(mf.ScavangeSubLocation(gs), "Scavenging should fail");
+            var tempScav = mf.ScavangeSubLocation(gs);
+            Assert.IsTrue(tempScav.Count == 0, "Scavenging should fail");
 
             oldTotal = newTotal;
             newTotal = 0;

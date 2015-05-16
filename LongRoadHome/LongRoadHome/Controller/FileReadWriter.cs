@@ -11,7 +11,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             DISCOVERY_CATALOGUE = "discoveryCatalogue", 
             PLAYER_CHARACTER = "playerCharacter", INVENTORY = "inventory", USED_EVENTS = "usedEvents",
             CURRENT_EVENT = "currentEvent", DISCOVERED = "discovered", VISITED = "visited", UNVISISTED = "unvisited",
-            CURRENT_LOCATION = "currentLocation", CURRENT_SUBLOCATION = "currentSublocation";
+            CURRENT_LOCATION = "currentLocation", CURRENT_SUBLOCATION = "currentSublocation", DIFFICULTY_CONTROLLER= "difficultyController";
 
         static FileReadWriter()
         {

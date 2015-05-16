@@ -24,6 +24,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         void PlayAudio(String audioFile);
         void Animate(List<String> imageFileNames);
         void DrawScavengeResults(List<Item> scavenged);
+        void DrawDiscovery(string discovery);
     }
 
 }

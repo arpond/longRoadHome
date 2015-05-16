@@ -231,14 +231,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// Calculates the value of this item
         /// </summary>
         /// <returns>The items value</returns>
-        public int CalculateItemValue()
+        public double CalculateItemValue()
         {
             int sum=0;
             foreach (ActiveEffect effect in activeEffects)
             {
                 sum += effect.GetValue();
             }
-            return sum;
+            double value = (double)sum / 400;
+            value += 0.02d * passiveEffects.Count;
+            return value;
         }
 
         /// <summary>

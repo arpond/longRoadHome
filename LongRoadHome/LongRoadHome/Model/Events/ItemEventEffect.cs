@@ -25,7 +25,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
         /// </summary>
         /// <param name="eventModifier">Event modifier for item amount</param>
         /// <param name="pcm">The PC model to apply to</param>
-        public override void ResolveEffect(float eventModifier, PCModel pcm)
+        public override void ResolveEffect(double eventModifier, PCModel pcm)
         {
             int amount = item.GetAmount();
             amount = Convert.ToInt32(amount*eventModifier);

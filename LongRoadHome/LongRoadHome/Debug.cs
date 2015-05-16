@@ -47,10 +47,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             int newLocationID = 0;
             int.TryParse(locationTextBox.Text, out newLocationID);
-
-            mc.ChangeLocation(newLocationID);
+            mc.handleAction(MainController.CHANGE_LOC, newLocationID);
+            
             DrawLocations();
             DrawCharacterResources();
+            DrawDifficultyController();
         }
 
         /// <summary>
@@ -62,10 +63,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             int newSubLocID = 0;
             int.TryParse(sublocTextBox.Text, out newSubLocID);
+            mc.handleAction(MainController.CHANGE_SUB, newSubLocID);
 
-            mc.ChangeSubLocation(newSubLocID);
             DrawLocations();
             DrawCharacterResources();
+            DrawDifficultyController();
         }
 
         /// <summary>
@@ -78,6 +80,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             int result = DrawEvent(mc.GetGameState().GetEM().GetCurrentEventText(), 
                 mc.GetGameState().GetEM().GetCurrentEventOptionsText());
             mc.DisplayEventResults(result);
+            DrawDifficultyController();
         }
 
         /// <summary>
@@ -85,13 +88,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void StartNewGame()
         {
-            mc.InitialiseNewGame();
+            mc.handleAction(MainController.NEW_GAME);
             DrawCharacterResources();
-            mc.OpenInventory();
+            mc.handleAction(MainController.VIEW_INVENTORY);
             DrawItemCatalogue();
             DrawEvents();
             DrawEventCatalogue();
             DrawLocations();
+            DrawDifficultyController();
         }
 
         /// <summary>
@@ -99,13 +103,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void LoadGame()
         {
-            mc.InitialiseGameFromSave();
+            mc.handleAction(MainController.CONTINUE);
             DrawCharacterResources();
-            mc.OpenInventory();
+            mc.handleAction(MainController.VIEW_INVENTORY);
             DrawItemCatalogue();
             DrawEvents();
             DrawEventCatalogue();
             DrawLocations();
+            DrawDifficultyController();
         }
 
         /// <summary>
@@ -187,6 +192,33 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 temp.Add(evt.ParseToString());
             }
             eventCatalogue.DataSource = temp;
+        }
+
+        /// <summary>
+        /// Updates the dc
+        /// </summary>
+        public void DrawDifficultyController()
+        {
+            DifficultyController dc = mc.GetDifficultyController();
+            playerStatusLabel.Text = "Player Status " + dc.GetPlayerStatus();
+            eventModifierLabel.Text = "Event Modifier " + dc.GetEventModifier();
+            endLocLabel.Text = "End Location Chance " + dc.GetEndLocationChance();
+            eventChanceLabel.Text = "Event Chance " + dc.GetEventChance();
+
+            List<double> tracker = dc.GetPlayerStatusTracker();
+
+            trackerListBox.DataSource = tracker.ToArray();
+
+            if (tracker.Count > 0)
+            {
+                var bestFit = dc.GenerateBestFitLine();
+                List<double> yValues = new List<double>();
+                foreach (var fit in bestFit)
+                {
+                    yValues.Add(fit.Item2);
+                }
+                bestFitLine.DataSource = yValues;
+            }
         }
 
         /// <summary>
@@ -338,6 +370,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         public void DrawScavengeResults(List<Item> scavanged)
         {
             
+        }
+
+        public void DrawDiscovery(String discovery)
+        {
+            DrawDialogueBox(discovery);
         }
        
     }

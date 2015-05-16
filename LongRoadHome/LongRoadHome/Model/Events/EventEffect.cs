@@ -9,7 +9,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
 
         public const String TAG = "EventEffect";
 
-        public abstract void ResolveEffect(float eventModifier, PCModel pcm);
+        public abstract void ResolveEffect(double eventModifier, PCModel pcm);
         public abstract string ParseToString();
 
         public int GetMinimum()
