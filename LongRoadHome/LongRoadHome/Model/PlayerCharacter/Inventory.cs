@@ -214,7 +214,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             var ids = new HashSet<int>();
             foreach(Item item in inventory)
             {
-                ids.Add(item.GetID());
+                ids.Add(item.itemID);
             }
             return ids;
         }

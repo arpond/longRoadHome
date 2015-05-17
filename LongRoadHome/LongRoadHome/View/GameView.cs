@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using uk.ac.dundee.arpond.longRoadHome.Controller;
 using uk.ac.dundee.arpond.longRoadHome.Model.Discovery;
 using uk.ac.dundee.arpond.longRoadHome.Model.Location;
@@ -12,12 +12,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
     {
         private MainController controller;
         private int currentDisplay;
-        private Debug debugForm;
+        //private Debug debugForm;
 
-        public GameView(Debug debugForm)
-        {
-            this.debugForm = debugForm;
-        }
+        //public GameView(Debug debugForm)
+        //{
+        //    this.debugForm = debugForm;
+        //}
 
 
         public void StartNewGame()
@@ -96,8 +96,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         }
         public void DrawEventResult(String optionResult, List<String> results)
         {
-            EventDialog ed = new EventDialog(optionResult, results, true);
-            ed.ShowDialog();
+            //EventDialog ed = new EventDialog(optionResult, results, true);
+            //ed.ShowDialog();
         }
         public void DrawVictory()
         {

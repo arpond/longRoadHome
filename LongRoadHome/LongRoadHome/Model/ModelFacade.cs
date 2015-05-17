@@ -322,7 +322,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             LocationModel lm = gs.GetLM();
             IList<DummyLocation> locs = lm.GetUnvisited().Values;
             var locations = new List<DummyLocation>();
-            foreach (Location.Location loc in locs)
+            foreach (Location.DummyLocation loc in locs)
             {
                 locations.Add(loc);
             }

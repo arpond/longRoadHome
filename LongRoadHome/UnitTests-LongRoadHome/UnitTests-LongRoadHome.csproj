@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F22C85A9-48F6-47E2-9E20-9342907A7246}</ProjectGuid>
+    <ProjectGuid>{3B7E5376-62B4-42F8-B19B-A6E7CAC79F82}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnitTests_LongRoadHome</RootNamespace>
@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LongRoadHome">
-      <HintPath>..\..\LongRoadHome\LongRoadHome\bin\Debug\LongRoadHome.exe</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -54,34 +51,39 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ControllerTests\TDifficultyController.cs" />
-    <Compile Include="ControllerTests\TMainController.cs" />
     <Compile Include="ControllerTests\TFileReadWriter.cs" />
+    <Compile Include="ControllerTests\TMainController.cs" />
     <Compile Include="ModelTests\DiscoveryTests\TDiscovery.cs" />
     <Compile Include="ModelTests\DiscoveryTests\TDiscoveryCatalogue.cs" />
     <Compile Include="ModelTests\DiscoveryTests\TDiscoveryModel.cs" />
     <Compile Include="ModelTests\EventTests\TEvent.cs" />
     <Compile Include="ModelTests\EventTests\TEventCatalogue.cs" />
     <Compile Include="ModelTests\EventTests\TEventModel.cs" />
+    <Compile Include="ModelTests\EventTests\TItemEventEffect.cs" />
     <Compile Include="ModelTests\EventTests\TOption.cs" />
     <Compile Include="ModelTests\EventTests\TPREventEffect.cs" />
-    <Compile Include="ModelTests\EventTests\TItemEventEffect.cs" />
-    <Compile Include="ModelTests\LocationTests\TSublocation.cs" />
-    <Compile Include="ModelTests\LocationTests\TSublocationFactory.cs" />
     <Compile Include="ModelTests\LocationTests\TLocation.cs" />
     <Compile Include="ModelTests\LocationTests\TLocationModel.cs" />
+    <Compile Include="ModelTests\LocationTests\TSublocation.cs" />
+    <Compile Include="ModelTests\LocationTests\TSublocationFactory.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TActiveEffect.cs" />
     <Compile Include="ModelTests\PlayerCharacterTests\TInventory.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TItem.cs" />
     <Compile Include="ModelTests\PlayerCharacterTests\TItemCatalogue.cs" />
+    <Compile Include="ModelTests\PlayerCharacterTests\TPassiveEffect.cs" />
     <Compile Include="ModelTests\PlayerCharacterTests\TPCModel.cs" />
     <Compile Include="ModelTests\PlayerCharacterTests\TPlayerCharacter.cs" />
     <Compile Include="ModelTests\TGameState.cs" />
     <Compile Include="ModelTests\TModelFacade.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ModelTests\PlayerCharacterTests\TItem.cs" />
-    <Compile Include="ModelTests\PlayerCharacterTests\TActiveEffect.cs" />
-    <Compile Include="ModelTests\PlayerCharacterTests\TPassiveEffect.cs" />
     <Compile Include="StringMaker.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\LongRoadHome\LongRoadHome.csproj">
+      <Project>{583f53dc-bf7d-47e2-81f0-a22f79f48474}</Project>
+      <Name>LongRoadHome</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

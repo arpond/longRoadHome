@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRoadHome", "LongRoadHome\LongRoadHome.csproj", "{68FCF77B-39FB-4A4C-B94C-9AE756FAFF46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests-LongRoadHome", "UnitTests-LongRoadHome\UnitTests-LongRoadHome.csproj", "{3B7E5376-62B4-42F8-B19B-A6E7CAC79F82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRoadHome", "LongRoadHome\LongRoadHome.csproj", "{583F53DC-BF7D-47E2-81F0-A22F79F48474}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{68FCF77B-39FB-4A4C-B94C-9AE756FAFF46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68FCF77B-39FB-4A4C-B94C-9AE756FAFF46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68FCF77B-39FB-4A4C-B94C-9AE756FAFF46}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68FCF77B-39FB-4A4C-B94C-9AE756FAFF46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B7E5376-62B4-42F8-B19B-A6E7CAC79F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B7E5376-62B4-42F8-B19B-A6E7CAC79F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B7E5376-62B4-42F8-B19B-A6E7CAC79F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B7E5376-62B4-42F8-B19B-A6E7CAC79F82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{583F53DC-BF7D-47E2-81F0-A22F79F48474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{583F53DC-BF7D-47E2-81F0-A22F79F48474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{583F53DC-BF7D-47E2-81F0-A22F79F48474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{583F53DC-BF7D-47E2-81F0-A22F79F48474}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

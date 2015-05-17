@@ -25,7 +25,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                 {
                     Item temp = new Item(catalogueElements[i]);
                     items.Add(temp);
-                    ids.Add(temp.GetID());
+                    ids.Add(temp.itemID);
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             foreach(Item item in items)
             {
-                if (item.GetID() == itemID)
+                if (item.itemID == itemID)
                 {
                     return (Item)item.Clone();
                 }

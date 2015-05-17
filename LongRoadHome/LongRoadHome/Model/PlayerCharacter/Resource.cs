@@ -4,8 +4,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 
     public abstract class Resource
     {
-        protected int amount;
-        protected String name;
+        public int amount { get; set; }
+        public string name { get; set; }
 
         public abstract int GetAmount();
         public abstract void SetAmount(int amount);
