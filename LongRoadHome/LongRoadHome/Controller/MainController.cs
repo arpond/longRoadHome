@@ -164,7 +164,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                         }
                         else
                         {
-                            handleAction("View Location Map");
+                            //handleAction("View Location Map");
                         }
                         break;
                     // View location Map

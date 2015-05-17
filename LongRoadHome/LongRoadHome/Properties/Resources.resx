@@ -118,7 +118,49 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CharacterWalk_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterWalk-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CharacterWalk_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterWalk-2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CharacterWalk_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterWalk-3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CharacterWalk_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterWalk-4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CharacterWalk_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterWalk-5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CharacterWalk_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterWalk-6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CharacterWalk_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterWalk-7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CharacterWalk_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterWalk-8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Character_stand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Character-stand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Loc_Res_PlaceHolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Loc_Res_PlaceHolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\resources\loc_res_placeholder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_foreground_trees" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-foreground-trees.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_montain_far" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-montain-far.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_mountains" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-mountains.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_trees" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-trees.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

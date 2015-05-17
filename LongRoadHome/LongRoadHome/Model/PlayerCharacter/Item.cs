@@ -4,11 +4,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
 {
     public class Item : Resource, ICloneable
     {
-        private int itemID;
-        private String description;
-        private HashSet<int> requirements;
-        private List<ActiveEffect> activeEffects;
-        private List<PassiveEffect> passiveEffects;
+        public int itemID { get; set; }
+        public String description { get; set; }
+        public HashSet<int> requirements { get; set; }
+        public List<ActiveEffect> activeEffects { get; set; }
+        public List<PassiveEffect> passiveEffects { get; set; }
 
         /// <summary>
         /// Standard Constructor for an Item
@@ -122,21 +122,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
-        /// Accessor method for the item id
-        /// </summary>
-        /// <returns>The item ID</returns>
-        public int GetID()
-        {
-            return this.itemID;
-        }
-
-        /// <summary>
         /// Accessor method for the Description
         /// </summary>
         /// <returns>The item description</returns>
         public String GetDescription()
         {
             return this.description;
+        }
+
+        public int GetID()
+        {
+            return itemID;
         }
         
         /// <summary>
