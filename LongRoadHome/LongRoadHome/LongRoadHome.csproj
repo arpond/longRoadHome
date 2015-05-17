@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -157,6 +158,48 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Character-stand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-foreground-trees.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-montain-far.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-mountains.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parallax-mountain-trees.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

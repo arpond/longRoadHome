@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 using uk.ac.dundee.arpond.longRoadHome.Controller;
 using uk.ac.dundee.arpond.longRoadHome.Model;
 using uk.ac.dundee.arpond.longRoadHome.Model.Discovery;
@@ -20,23 +21,37 @@ using uk.ac.dundee.arpond.longRoadHome.Model.Events;
 using uk.ac.dundee.arpond.longRoadHome.Model.Location;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 using uk.ac.dundee.arpond.longRoadHome.View;
+using System.Drawing;
+using System.Windows.Threading;
+using System.Timers;
 
 namespace LongRoadHome
 {
+
+
     /// <summary>
     /// Interaction logic for Debug.xaml
     /// </summary>
     public partial class Debug : Page, IGameView
     {
-        MainController mc;
+        private static Action EmptyDelegate = delegate() { };
 
+        MainController mc;
+        int current = 0;
+        int current2 = 0;
         public Debug()
         {
             InitializeComponent();
             this.ShowsNavigationUI = false;
             mc = new MainController(this);
+            ImageBrush temp = new ImageBrush(System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                      LongRoadHome.Properties.Resources.parallax_mountain_mountains.GetHbitmap(),
+                      IntPtr.Zero,
+                      Int32Rect.Empty,
+                      BitmapSizeOptions.FromEmptyOptions()));
+            //temp.TileMode = TileMode.Tile;
+            rectBck.Fill = temp;
         }
-
 
         /// <summary>
         /// Starts a new game
@@ -368,6 +383,86 @@ namespace LongRoadHome
             DrawLocations();
             DrawCharacterResources();
             DrawDifficultyController();
+        }
+
+        private void TranslateX()
+        {
+            
+        }
+
+        private void DoubleAnimation_Completed(object sender, EventArgs e)
+        {
+            ShowImage();	// Display Image
+            TranslateX();
+            testDA.BeginAnimation(System.Windows.Controls.Image.WidthProperty, testDA);	// Start Animation
+        }
+
+        private void ShowImage()
+        {
+            List<Bitmap> images = new List<Bitmap>();
+            images.Add(LongRoadHome.Properties.Resources.CharacterWalk_1);
+            images.Add(LongRoadHome.Properties.Resources.CharacterWalk_2);
+            images.Add(LongRoadHome.Properties.Resources.CharacterWalk_3);
+            images.Add(LongRoadHome.Properties.Resources.CharacterWalk_4);
+            images.Add(LongRoadHome.Properties.Resources.CharacterWalk_5);
+            images.Add(LongRoadHome.Properties.Resources.CharacterWalk_6);
+            images.Add(LongRoadHome.Properties.Resources.CharacterWalk_7);
+            images.Add(LongRoadHome.Properties.Resources.CharacterWalk_8);
+
+            testAnimation.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                      images[current].GetHbitmap(),
+                      IntPtr.Zero,
+                      Int32Rect.Empty,
+                      BitmapSizeOptions.FromEmptyOptions());
+
+
+            current++;
+            if (current >= images.Count)
+            {
+                current = 0;
+            }
+        }
+
+
+        private void startAnimationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ImageBrush temp = new ImageBrush(System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                      LongRoadHome.Properties.Resources.parallax_mountain_mountains.GetHbitmap(),
+                      IntPtr.Zero,
+                      Int32Rect.Empty,
+                      BitmapSizeOptions.FromEmptyOptions()));
+            temp.TileMode = TileMode.Tile;
+            //temp.ViewportUnits = BrushMappingMode.Absolute;
+            temp.Viewport = new Rect(0, 0, 1, 1);
+            rectBck.Fill = temp;
+
+            DoubleAnimation da = new DoubleAnimation();
+            da.From = -current2;
+            da.To = -current2 - 1;
+            da.Duration = new Duration(TimeSpan.FromMilliseconds(10));
+            da.Completed += TranslateX;
+            TranslateTransform transform = new TranslateTransform();
+            rectBck.RenderTransform = transform;
+            //testBackground.RenderTransform = transform;
+            transform.BeginAnimation(TranslateTransform.XProperty, da);
+            current2++;
+            //var transform = new TranslateTransform(0 - current2, 0);
+            //testBackground.RenderTransform = transform;
+            //testBackground.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
+            //current2++;
+        }
+
+        private void TranslateX(object sender, EventArgs e)
+        {
+            DoubleAnimation da = new DoubleAnimation();
+            da.From = -current2;
+            da.To = -current2 - 1;
+            da.Duration = new Duration(TimeSpan.FromMilliseconds(10));
+            da.Completed += TranslateX;
+            TranslateTransform transform = new TranslateTransform();
+            rectBck.RenderTransform = transform;
+            transform.BeginAnimation(TranslateTransform.XProperty, da);
+            current2++;
         }
     }
 }

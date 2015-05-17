@@ -250,7 +250,41 @@
                 <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Height="30" Padding="2" Background="#4E87D4">
                     <Label VerticalAlignment="Center" Foreground="White">Animation</Label>
                 </Border>
-                <Button x:Name="startAnimationBtn" Grid.Column="0" Grid.Row="2"  Width="125" Height="25">
+                <Image Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="testAnimation" Margin="12" VerticalAlignment="Bottom">
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="Window.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Name="testDA" Storyboard.TargetName="testAnimation" 
+                               Storyboard.TargetProperty="Width" From="200" To="200" 
+                               Duration="0:0:0.1" Completed="DoubleAnimation_Completed"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Image.Triggers>
+                </Image>
+
+                <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="testBackground" Margin="12" Panel.ZIndex="-1" HorizontalAlignment="Center" VerticalAlignment="Bottom" IsManipulationEnabled="True">
+                    <Rectangle.RenderTransform>
+                        <TranslateTransform x:Name="transTransform" X="0" Y="0"/>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Window.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="transTransform"
+                                         Storyboard.TargetProperty="X"
+                                         From="0" To="-100" Duration="0:0:2"
+                                         AutoReverse="False" RepeatBehavior="Forever" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+
+                <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="500" Height="160" Panel.ZIndex="-1" Name="rectBck" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+                <Button x:Name="startAnimationBtn" Grid.Column="0" Grid.Row="2"  Width="125" Height="25" Click="startAnimationBtn_Click">
                     Start Animation
                 </Button>
                 <Button x:Name="stopAnimationBtn" Grid.Column="1" Grid.Row="2"  Width="125" Height="25">
