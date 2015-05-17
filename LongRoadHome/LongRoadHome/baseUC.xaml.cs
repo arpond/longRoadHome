@@ -16,25 +16,13 @@ using System.Windows.Shapes;
 namespace LongRoadHome
 {
     /// <summary>
-    /// Interaction logic for MainMenu.xaml
+    /// Interaction logic for baseUC.xaml
     /// </summary>
-    public partial class MainMenu : Page
+    public partial class BaseUC : UserControl
     {
-        public MainMenu()
+        public BaseUC()
         {
             InitializeComponent();
-            this.ShowsNavigationUI = false;
-        }
-
-        private void debugBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Debug debug = new Debug();
-            this.NavigationService.Navigate(debug);
-        }
-
-        private void newGameBtn_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

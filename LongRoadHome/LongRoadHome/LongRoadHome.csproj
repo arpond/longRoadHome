@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,11 +55,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BaseUC.xaml.cs">
+      <DependentUpon>BaseUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Debug.xaml.cs">
       <DependentUpon>Debug.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventDialog.xaml.cs">
       <DependentUpon>EventDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory.xaml.cs">
+      <DependentUpon>Inventory.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
@@ -68,11 +75,19 @@
     <Compile Include="View\AudioPlayer.cs" />
     <Compile Include="View\GameView.cs" />
     <Compile Include="View\IGameView.cs" />
+    <Page Include="BaseUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Debug.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EventDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Inventory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,9 +199,6 @@
     <None Include="Resources\CharacterWalk-8.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Character-stand.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\parallax-mountain-bg.png" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +212,51 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\parallax-mountain-trees.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LocMap-Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LocMap-Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SubMap-Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SubMap-Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Inv-Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Inv-Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\hunger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sanity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\thirst.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\health.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\inventoryBck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\itemBck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Character-stand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Character-stand-Reverse.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
