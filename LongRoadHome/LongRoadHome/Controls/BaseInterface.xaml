@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="LongRoadHome.Controls.BaseInterface"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uControl="clr-namespace:LongRoadHome.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="728" d:DesignWidth="1024"
+             Name="baseUserInterface">
+    <UserControl.Resources>
+        <BitmapImage x:Key="background" UriSource="../Resources/background.png" />
+        <BitmapImage x:Key="health" UriSource="../Resources/health.png" />
+        <BitmapImage x:Key="hunger" UriSource="../Resources/hunger.png" />
+        <BitmapImage x:Key="thirst" UriSource="../Resources/thirst.png" />
+        <BitmapImage x:Key="sanity" UriSource="../Resources/sanity.png" />
+        <BitmapImage x:Key="disabledLocMap" UriSource="../Resources/LocMap-Active.png" />
+        <BitmapImage x:Key="enabledLocMap" UriSource="../Resources/LocMap-Inactive.png" />
+        <BitmapImage x:Key="disabledInventory" UriSource="../Resources/Inv-Active.png" />
+        <BitmapImage x:Key="enabledInventory" UriSource="../Resources/Inv-Inactive.png" />
+        <BitmapImage x:Key="disabledSubMap" UriSource="../Resources/SubMap-Active.png" />
+        <BitmapImage x:Key="enabledSubMap" UriSource="../Resources/SubMap-Inactive.png" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="{StaticResource background}"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="141" />
+            <RowDefinition Height="251*" />
+            <RowDefinition Height="336*" />
+        </Grid.RowDefinitions>
+
+        <!-- Health -->
+        <uControl:ResourceBar
+                        Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                        Resource="{Binding ElementName=baseUserInterface, Path=Health, UpdateSourceTrigger=PropertyChanged}"
+                        ImgSource="{StaticResource health}"/>
+
+        <!-- Hunger -->
+        <uControl:ResourceBar
+                        Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" 
+                        Resource="{Binding ElementName=baseUserInterface, Path=Hunger, UpdateSourceTrigger=PropertyChanged}"
+                        ImgSource="{StaticResource hunger}"/>
+        <!-- Thirst -->
+        <uControl:ResourceBar
+                        Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" 
+                        Resource="{Binding ElementName=baseUserInterface, Path=Thirst, UpdateSourceTrigger=PropertyChanged}"
+                        ImgSource="{StaticResource thirst}"/>
+        <!-- Sanity -->
+        <uControl:ResourceBar
+                        Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" 
+                        Resource="{Binding ElementName=baseUserInterface, Path=Sanity, UpdateSourceTrigger=PropertyChanged}"
+                        ImgSource="{StaticResource sanity}"/>
+        <!-- NavBar -->
+        <Grid Grid.Column="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="95*" />
+                <ColumnDefinition Width="15*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="1" Grid.Row="0" Background="Black" BorderBrush="Gainsboro" BorderThickness="1" Margin="5">
+                <Grid Margin="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition Height="1"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Column="0" Grid.Row="0" Background="Gray"  BorderThickness="1" Margin="2 2 2 0">
+                        <uControl:ImageButton 
+                                        x:Name="worldMapBtn"
+                                        Enabled="true"
+                                        Click="changeUI_Click"
+                                        EnabledImage="{StaticResource enabledLocMap}"
+                                        DisabledImage="{StaticResource disabledLocMap}"
+                                        />
+                    </Border>
+                    <Border Grid.Column="0" Grid.Row="1" Background="Gray"  BorderThickness="1" Margin="2 0">
+                        <uControl:ImageButton
+                                        x:Name="subMapBtn"
+                                        Enabled="true"
+                                        Click="changeUI_Click"
+                                        EnabledImage="{StaticResource enabledSubMap}"
+                                        DisabledImage="{StaticResource disabledSubMap}"
+                                        />
+                    </Border>
+                    <Border Grid.Column="0" Grid.Row="2" Background="Gray"  BorderThickness="1" Margin="2 0">
+                        <uControl:ImageButton
+                                        x:Name="inventoryBtn"
+                                        Enabled="true"
+                                        Click="changeUI_Click"
+                                        EnabledImage="{StaticResource enabledInventory}"
+                                        DisabledImage="{StaticResource disabledInventory}"
+                                        />
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+        <Border Name="GameSpace" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
+            <uControl:SublocationMap 
+                CurrentSublocation="2"
+                />
+        </Border>
+    </Grid>
+</UserControl>

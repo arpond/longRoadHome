@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongRoadHome
+namespace LongRoadHome.Controls
 {
     /// <summary>
     /// Interaction logic for Inventory.xaml
     /// </summary>
-    public partial class Inventory : Page
+    public partial class Inventory : UserControl
     {
         public Inventory()
         {

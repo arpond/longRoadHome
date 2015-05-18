@@ -34,7 +34,10 @@ namespace LongRoadHome
 
         private void newGameBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            GameView gv = new GameView();
+            this.NavigationService.Navigate(gv);
+
+
         }
     }
 }

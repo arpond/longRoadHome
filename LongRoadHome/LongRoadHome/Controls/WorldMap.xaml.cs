@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongRoadHome
+namespace LongRoadHome.Controls
 {
     /// <summary>
-    /// Interaction logic for SubLocationMap.xaml
+    /// Interaction logic for WorldMap.xaml
     /// </summary>
-    public partial class SubLocationMap : Page
+    public partial class WorldMap : UserControl
     {
-        public SubLocationMap()
+        public WorldMap()
         {
             InitializeComponent();
         }
