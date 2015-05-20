@@ -1,11 +1,10 @@
-﻿<UserControl x:Class="LongRoadHome.Controls.ImageButton"
+﻿<UserControl x:Class="uk.ac.dundee.arpond.longRoadHome.View.Controls.SublocationButton"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-             Name="ImageButtonUC">
+             d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="NoChromeButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
@@ -35,10 +34,10 @@
         <Button x:Name="button"  
                 Click="button_Click"
                 Style="{DynamicResource NoChromeButton}"
-                IsEnabled="{Binding ElementName=ImageButtonUC, Path=Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                IsEnabled="{Binding Path=EnabledButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <Image 
                 x:Name="image" 
-                Source="{Binding ElementName=ImageButtonUC, Path=EnabledImage, UpdateSourceTrigger=PropertyChanged}" 
+                Source="{Binding Path=DisplayedImage, UpdateSourceTrigger=PropertyChanged}" 
                 Margin="3" />
         </Button>
     </Border>

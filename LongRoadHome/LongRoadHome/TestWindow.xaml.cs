@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace LongRoadHome
+namespace uk.ac.dundee.arpond.longRoadHome.View
 {
     /// <summary>
     /// Interaction logic for TestWindow.xaml

@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongRoadHome.Controls
+namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
 {
     /// <summary>
     /// Interaction logic for ResourceBar.xaml

@@ -13,7 +13,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         void DrawMainMenu();
         void DrawDiscoveries(List<Discovery> discs);
         void DrawWorldMap(List<Location> visited, List<DummyLocation> unvisited);
-        void DrawSublocationMap(List<Sublocation> subloc);
+        void DrawSublocationMap(List<Sublocation> subloc, int currentSubLocation);
         void DrawDialogueBox(String text);
         bool DrawYesNoOption(String text);
         void DrawInventory(ArrayList inventory);

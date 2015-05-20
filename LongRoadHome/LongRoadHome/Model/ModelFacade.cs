@@ -105,6 +105,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             }
         }
 
+        public int GetCurrentSublocation(GameState gs)
+        {
+            LocationModel lm = gs.GetLM();
+            Sublocation sub = lm.GetSubLocation();
+            if (sub != null)
+            {
+                return sub.GetSublocationID();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         /// <summary>
         /// Checks if the Player in this game state can afford to move
         /// </summary>

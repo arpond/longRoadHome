@@ -7,7 +7,7 @@
     <ProjectGuid>{583F53DC-BF7D-47E2-81F0-A22F79F48474}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LongRoadHome</RootNamespace>
+    <RootNamespace>uk.ac.dundee.arpond.longRoadHome.View</RootNamespace>
     <AssemblyName>LongRoadHome</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -55,37 +55,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\BaseInterface.xaml.cs">
-      <DependentUpon>BaseInterface.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DemoTextBox.xaml.cs">
+    <Compile Include="View\Controls\DemoTextBox.xaml.cs">
       <DependentUpon>DemoTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ImageButton.xaml.cs">
+    <Compile Include="View\Controls\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Inventory.xaml.cs">
-      <DependentUpon>Inventory.xaml</DependentUpon>
+    <Compile Include="View\Controls\InventoryControl.xaml.cs">
+      <DependentUpon>InventoryControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ResourceBar.xaml.cs">
+    <Compile Include="View\Controls\ResourceBar.xaml.cs">
       <DependentUpon>ResourceBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SublocationMap.xaml.cs">
-      <DependentUpon>SublocationMap.xaml</DependentUpon>
+    <Compile Include="View\Controls\SublocationButton.xaml.cs">
+      <DependentUpon>SublocationButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WorldMap.xaml.cs">
+    <Compile Include="View\Controls\WorldMap.xaml.cs">
       <DependentUpon>WorldMap.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Debug.xaml.cs">
+    <Compile Include="View\Debug.xaml.cs">
       <DependentUpon>Debug.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventDialog.xaml.cs">
       <DependentUpon>EventDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameView.xaml.cs">
+    <Compile Include="View\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainMenu.xaml.cs">
+    <Compile Include="View\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestWindow.xaml.cs">
@@ -94,37 +91,38 @@
     <Compile Include="View\Animation.cs" />
     <Compile Include="View\Animator.cs" />
     <Compile Include="View\AudioPlayer.cs" />
-    <Compile Include="View\GameView.cs" />
     <Compile Include="View\IGameView.cs" />
-    <Page Include="Controls\BaseInterface.xaml">
+    <Compile Include="View\UIObjects\UIImageButton.cs" />
+    <Compile Include="View\UIObjects\UIInvetory.cs" />
+    <Compile Include="View\UIObjects\UIItem.cs" />
+    <Compile Include="View\UIObjects\UIModel.cs" />
+    <Compile Include="View\UIObjects\UIPlayer.cs" />
+    <Compile Include="View\UIObjects\UISublocations.cs" />
+    <Page Include="View\Controls\DemoTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\DemoTextBox.xaml">
+    <Page Include="View\Controls\ImageButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ImageButton.xaml">
+    <Page Include="View\Controls\InventoryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Inventory.xaml">
+    <Page Include="View\Controls\ResourceBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ResourceBar.xaml">
+    <Page Include="View\Controls\SublocationButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\SublocationMap.xaml">
+    <Page Include="View\Controls\WorldMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\WorldMap.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Debug.xaml">
+    <Page Include="View\Debug.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,11 +130,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GameView.xaml">
+    <Page Include="View\GameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainMenu.xaml">
+    <Page Include="View\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

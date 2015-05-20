@@ -151,8 +151,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     case 0:
                         // Thread 1 - Start new game
                         InitialiseNewGame();
-                        // Thread 2 - Display Instructions
 
+                        // Thread 2 - Display Instructions
+                        gameView.StartNewGame();
+                        handleAction(VIEW_SUB_MAP);
                         // When both done display location Map
                         break;
                     // Continue
@@ -164,6 +166,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                         }
                         else
                         {
+                           
                             //handleAction("View Location Map");
                         }
                         break;
@@ -477,7 +480,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public void DisplaySubLocationsMap()
         {
             List<Sublocation> sublocations = mf.GetCurrentSublocations(gs);
-            gameView.DrawSublocationMap(sublocations);
+            int currentSub = mf.GetCurrentSublocation(gs);
+            gameView.DrawSublocationMap(sublocations, currentSub);
         }
 
         /// <summary>
