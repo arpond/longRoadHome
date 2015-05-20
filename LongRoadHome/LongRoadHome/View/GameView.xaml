@@ -26,6 +26,7 @@
         <BitmapImage x:Key="invBck" UriSource="../Resources/inventoryBck.png" />
         <BitmapImage x:Key="itemBck" UriSource="../Resources/itemBck.png" />
         <BitmapImage x:Key="charStandLeft" UriSource="../Resources/Character-stand-Reverse.png" />
+        <BitmapImage x:Key="itemIcon" UriSource="../Resources/item_placeholder.png" />
     </Page.Resources>
     <Grid>
         <Grid.Background>
@@ -180,7 +181,7 @@
                     </Grid.RowDefinitions>
                     <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"  Source="{StaticResource invBck}" Margin="0" Panel.ZIndex="-1">
                     </Image>
-                    <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Grid Name="InventoryGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="15"/>
                             <ColumnDefinition Width="130*" />
@@ -197,70 +198,7 @@
                             <RowDefinition Height="145*" />
                             <RowDefinition Height="57" />
                         </Grid.RowDefinitions>
-                        <Border Grid.Column="1" Grid.Row="1" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="1" Grid.Row="2" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="1" Grid.Row="3" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="1" Grid.Row="4" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="2" Grid.Row="1" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="2" Grid.Row="2" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="2" Grid.Row="3" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="2" Grid.Row="4" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="3" Grid.Row="1" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="3" Grid.Row="2" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="3" Grid.Row="3" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="3" Grid.Row="4" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="4" Grid.Row="1" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="4" Grid.Row="2" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="4" Grid.Row="3" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
-                        <Border Grid.Column="4" Grid.Row="4" Background="Black"  BorderThickness="1" Margin="5">
-                            <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource invBck}" Margin="1" >
-                            </Image>
-                        </Border>
+                        
                     </Grid>
                     <Image Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Source="{StaticResource charStandLeft}" Margin="100 100 100 0" VerticalAlignment="Bottom" >
                     </Image>

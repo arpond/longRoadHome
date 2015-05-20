@@ -81,17 +81,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             }
             else if (clicked.Name == "subMapBtn" && screenState != SUB_MAP)
             {
-                mc.DisplaySubLocationsMap();
+                mc.handleAction(MainController.VIEW_SUB_MAP);
 
             }
             else if (clicked.Name == "inventoryBtn" && screenState != INVENTORY)
             {
-                screenState = INVENTORY;
-                worldMapBtn.EnabledButton = true;
-                subMapBtn.EnabledButton = true;
-                inventoryBtn.EnabledButton = false;
-                SublocationMapView.Visibility = Visibility.Hidden;
-                InventoryView.Visibility = Visibility.Visible;
+                mc.handleAction(MainController.VIEW_INVENTORY);
                 //InventoryControl inv = new InventoryControl();
                 //GameSpace.Child = inv;
             }
@@ -212,7 +207,55 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         }
         public void DrawInventory(ArrayList inventory)
         {
-            throw new NotImplementedException();
+            screenState = INVENTORY;
+            worldMapBtn.EnabledButton = true;
+            subMapBtn.EnabledButton = true;
+            inventoryBtn.EnabledButton = false;
+            SublocationMapView.Visibility = Visibility.Hidden;
+            InventoryView.Visibility = Visibility.Visible;
+            List<UIItem> inv = new List<UIItem>();
+
+            InventoryGrid.Children.Clear();
+
+            List<Item> dummy = new List<Item>();
+            dummy.Add(new Item("ID:3,Name:TestItem,Amount:3,Description:test item 3,ActiveEffect,PassiveEffect,Requirements"));
+            dummy.Add(new Item("ID:23,Name:TestItem,Amount:1,Description:test item 23,ActiveEffect,PassiveEffect,Requirements"));
+            dummy.Add(new Item("ID:33,Name:TestItem,Amount:4,Description:test item 33,ActiveEffect,PassiveEffect,Requirements"));
+            dummy.Add(new Item("ID:31,Name:TestItem,Amount:1,Description:test item 31,ActiveEffect,PassiveEffect,Requirements"));
+            dummy.Add(new Item("ID:5,Name:TestItem,Amount:2,Description:test item 5,ActiveEffect,PassiveEffect,Requirements"));
+            dummy.Add(new Item("ID:8,Name:TestItem,Amount:1,Description:test item 8,ActiveEffect,PassiveEffect,Requirements"));
+            dummy.Add(new Item("ID:16,Name:TestItem,Amount:6,Description:test item 16,ActiveEffect,PassiveEffect,Requirements"));
+            dummy.Add(new Item("ID:20,Name:TestItem,Amount:1,Description:test item 20,ActiveEffect,PassiveEffect,Requirements"));
+            dummy.Add(new Item("ID:99,Name:TestItem,Amount:1,Description:test item 9,ActiveEffect,PassiveEffect,Requirements"));
+
+            for (int i = 0; i < dummy.Count; i++ )
+            {
+                ItemButton button = new ItemButton();
+                BitmapImage temp = new BitmapImage();
+                temp.BeginInit();
+                //temp.UriSource = new Uri("pack://application:,,,/LongRoadHome;Resources/" + inventory[i].GetImagePath());
+                temp.UriSource = new Uri("pack://application:,,,/Resources/item_placeholder.png");
+                temp.EndInit();
+                button.ItemIcon = temp;
+                button.Description = dummy[i].description;
+
+                Grid.SetRow(button, i/4 + 1);
+                Grid.SetColumn(button, (i % 4) + 1 );
+
+                InventoryGrid.Children.Add(button);
+            }
+
+            //foreach (item i in inventory)
+            //{
+            //    uiitem t = new uiitem()
+            //    {
+            //        id = i.itemid,
+            //        description = i.description,
+            //        iconpath = "item_placeholder.png"
+            //        iconpath = i.iconpath
+            //    };
+            //}
+            //_uimodel.uiinventory = new uiinventory() { inventory = inv };
         }
         public void DrawGameOver()
         {
