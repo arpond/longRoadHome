@@ -119,7 +119,7 @@
         </Grid>
         <Border Name="SublocationMapView" DataContext="{Binding SublocationModel}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
             <Grid>
-                <Grid Name="Sublocations">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -135,7 +135,16 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding Path=CurrentSublocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Name="Sublocations">
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
                     <Image Grid.Column="{Binding Path=CurrentSublocation, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"  Source="{StaticResource charStand}" Margin="10 10 10 0" VerticalAlignment="Bottom" >
                     </Image>
                 </Grid>
@@ -258,5 +267,7 @@
                 </Grid>
             </Grid>
         </Border>
+        <Grid Name="popUpArea"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
+        </Grid>
     </Grid>
 </Page>

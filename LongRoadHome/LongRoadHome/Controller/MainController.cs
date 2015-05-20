@@ -184,7 +184,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                         break;
                     // Scavenge
                     case 9:
-                        ScavangeLocation();
+                        ScavangeSublocation();
                         break;
                     // Game Over
                     case 10:
@@ -329,6 +329,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 dc.UpdatePlayerStatus(gs.Clone() as GameState);
                 // Thread 2 - Animate movement
                 // gameView.Animate();
+
+                gameView.DrawSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
                 return true;
             }
             else
@@ -411,7 +413,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             gameView.DrawEventResult(optionResult, effectResults);
         }
 
-        public bool ScavangeLocation()
+        public bool ScavangeSublocation()
         {
             if(CheckIfEventTriggered())
             {
@@ -428,6 +430,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             // Thread 1
             // Save Game
             // Thread 2
+            gameView.DrawSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
             gameView.DrawScavengeResults(scavenged);
             return true;
         }

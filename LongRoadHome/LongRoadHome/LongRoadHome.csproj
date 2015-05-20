@@ -67,6 +67,10 @@
     <Compile Include="View\Controls\ResourceBar.xaml.cs">
       <DependentUpon>ResourceBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Controls\SimpleMessageBoxView.xaml.cs">
+      <DependentUpon>SimpleMessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\SimpleMessageBox.cs" />
     <Compile Include="View\Controls\SublocationButton.xaml.cs">
       <DependentUpon>SublocationButton.xaml</DependentUpon>
     </Compile>
@@ -111,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Controls\ResourceBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\SimpleMessageBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -304,6 +312,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Character-stand-Reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Loc_Res_PlaceHolder_Scavenged.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

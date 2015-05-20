@@ -55,8 +55,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             mc.handleAction(MainController.NEW_GAME);
         }
 
-
-
         private void changeUI_Click(object sender, RoutedEventArgs e)
         {
             ImageButton clicked = sender as ImageButton;
@@ -71,6 +69,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 InventoryView.Visibility = Visibility.Hidden;
                 //WorldMap wm = new WorldMap();
                 //GameSpace.Child = wm;
+                if (DrawYesNoOption("Yes or No?"))
+                {
+                    DrawDialogueBox("YES!");
+                }
+                else
+                {
+                    DrawDialogueBox("No :(");
+                }
+
             }
             else if (clicked.Name == "subMapBtn" && screenState != SUB_MAP)
             {
@@ -171,26 +178,37 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 //temp.UriSource = new Uri("pack://application:,,,/LongRoadHome;Resources/" + subloc[i].GetImagePath());
                 temp.UriSource = new Uri("pack://application:,,,/Resources/Loc_Res_PlaceHolder.png");
                 temp.EndInit();
+                BitmapImage temp2 = new BitmapImage();
+                temp2.BeginInit();
+                temp2.UriSource = new Uri("pack://application:,,,/Resources/Loc_Res_PlaceHolder_Scavenged.png");
+                temp2.EndInit();
                 //Image image = new Image();
                 //image.Source = temp;
-                ImageButton imageButton = new ImageButton();
-                //imageButton.Enabled = false;
-                //imageButton.EnabledImage = temp;
-                //imageButton.DisabledImage = temp;             
+                SublocationButton button = new SublocationButton();
+                button.EnabledImage = temp;
+                button.DisabledImage = temp2;
+                button.DisplayedImage = temp;
+                button.Scavenged = scavenged[i];
+                button.Click += new RoutedEventHandler(SublocationClicked);
 
-                Grid.SetRow(imageButton, 0);
-                Grid.SetColumn(imageButton, i + 1);
-                Grid.SetRowSpan(imageButton, 2);
-                Sublocations.Children.Add(imageButton);
+                Grid.SetRow(button, 0);
+                Grid.SetColumn(button, i);
+                Grid.SetRowSpan(button, 2);
+                Sublocations.Children.Add(button);
             }
         }
         public void DrawDialogueBox(String text)
         {
-            throw new NotImplementedException();
+            SimpleMessageBox.Show(text, string.Empty, MessageBoxButton.OK, Window.GetWindow(this));
         }
         public bool DrawYesNoOption(String text)
         {
-            throw new NotImplementedException();
+            MessageBoxResult result = SimpleMessageBox.Show(text, string.Empty, MessageBoxButton.YesNo, Window.GetWindow(this));
+            if(result == MessageBoxResult.Yes)
+            {
+                return true;
+            }
+            return false;
         }
         public void DrawInventory(ArrayList inventory)
         {
@@ -206,11 +224,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         }
         public int DrawEvent(String eventText, List<String> options)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return 1;
         }
         public void DrawEventResult(String optionResult, List<String> results)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
         public void PlayAudio(String audioFile)
         {
@@ -222,11 +241,36 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         }
         public void DrawScavengeResults(List<Item> scavenged)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
         public void DrawDiscovery(string discovery)
         {
             throw new NotImplementedException();
+        }
+
+        private void SublocationClicked(object sender, RoutedEventArgs e)
+        {
+            SublocationButton sbtn = sender as SublocationButton;
+            if(sbtn != null)
+            {
+                int index = Sublocations.Children.IndexOf(sbtn);
+                if (index+1 == _UIModel.SublocationModel.CurrentSublocation)
+                {
+                    if (!_UIModel.SublocationModel.Scavenged[index] && DrawYesNoOption("Do you wish to scavenge the location?"))
+                    {
+                        mc.ScavangeSublocation();
+                    }
+                    else if (!_UIModel.SublocationModel.Scavenged[index])
+                    {
+                        DrawDialogueBox("You are already at that location");
+                    }
+                }
+                else if (DrawYesNoOption("Are you sure you wish to move to that location?"))
+                {
+                    mc.ChangeSubLocation(index + 1);
+                    UpdatePlayer();
+                }
+            }
         }
     }
 }
