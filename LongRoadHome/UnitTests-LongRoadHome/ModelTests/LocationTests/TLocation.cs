@@ -304,21 +304,18 @@ namespace UnitTests_LongRoadHome.LocationTests
             HashSet<int> temp = new HashSet<int>();
             temp.Add(2);
             temp.Add(3);
-            HashSet<int> connections = l.GetConnections();
 
             Assert.AreEqual(1, l.GetLocationID(), "ID should be 1");
-            Assert.IsTrue(temp.IsSubsetOf(connections), "Connections should be 2,3");
+
             Assert.IsFalse(l.GetVisited(), "Should not have been visited");
             Assert.AreEqual(0, l.GetSize(), "Should have size of 0");
             Assert.AreEqual(null, l.GetCurrentSubLocation(), "Current Sublocation should be null");
 
             l = new Location(validLoc[1].Item1);
-            connections = l.GetConnections();
             temp.Clear();
             temp.Add(1);
             temp.Add(3);
             Assert.AreEqual(2, l.GetLocationID(), "ID should be 2");
-            Assert.IsTrue(temp.IsSubsetOf(connections), "Connections should be 1,3");
             Assert.IsTrue(l.GetVisited(), "Should have been visited");
             Assert.AreEqual(2, l.GetSize(), "Should have size of 2");
             Assert.AreEqual(l.GetSublocationByID(1), l.GetCurrentSubLocation(), "Current Sublocation should be sub location 1");

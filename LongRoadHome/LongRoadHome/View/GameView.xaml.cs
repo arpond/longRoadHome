@@ -40,7 +40,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         private Inventory _CurrentInventory;
         //private WorldMap wm;
         private SortedList<int, TransparentButton> worldMapButtons;
-        private List<Tuple<System.Windows.Point, int>> buttonAreas;
+        private SortedList<int, System.Windows.Point> buttonAreas;
         private System.Drawing.Bitmap worldMapBM;
 
         public GameView()
@@ -59,7 +59,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             mc.handleAction(MainController.NEW_GAME);
         }
 
-        public void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, List<Tuple<System.Windows.Point, int>> buttonAreas)
+        public void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, SortedList<int, System.Windows.Point> buttonAreas)
         {
             this.worldMapBM = worldMapBM;
             this.buttonAreas = buttonAreas;
@@ -76,20 +76,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             visitedBMI.UriSource = new Uri("pack://application:,,,/Resources/visited_location.png");
             visitedBMI.EndInit();
 
-            foreach (var tuple in buttonAreas)
+            foreach (var kvpair in buttonAreas)
             {
                 TransparentButton tb = new TransparentButton();
                 tb.EnabledImage = unvisitedBMI;
                 tb.DisabledImage = visitedBMI;
                 tb.DisplayedImage = unvisitedBMI;
-                tb.data = tuple.Item2;
+                tb.data = kvpair.Key;
                 tb.ImageSwitch = false;
                 tb.Click += location_Click;
 
-                Canvas.SetLeft(tb, tuple.Item1.X - 5);
-                Canvas.SetTop(tb, tuple.Item1.Y - 4);
+                Canvas.SetLeft(tb, kvpair.Value.X - 5);
+                Canvas.SetTop(tb, kvpair.Value.Y - 4);
                 worldMap.Children.Add(tb);
-                worldMapButtons.Add(tuple.Item2, tb);
+                worldMapButtons.Add(kvpair.Key, tb);
 
             }
             mapView.Source = Bitmap2BitmapSource(worldMapBM);

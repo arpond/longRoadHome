@@ -173,12 +173,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             String connections = "";
             String subloc = "";
 
-            HashSet<int> cons = lm.GetCurentLocation().GetConnections();
-
-            foreach (int con in cons)
-            {
-                connections += con + ", ";
-            }
 
             var subs = lm.GetCurentLocation().GetSublocations();
 
@@ -423,7 +417,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             }
         }
 
-        public void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, List<Tuple<System.Windows.Point, int>> buttonAreas)
+        public void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, SortedList<int, System.Windows.Point> buttonAreas)
         {
             throw new NotImplementedException();
         }

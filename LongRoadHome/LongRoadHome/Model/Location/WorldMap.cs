@@ -13,7 +13,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
     public class WorldMap
     {
-        public List<Tuple<System.Windows.Point, int>> buttonAreas { get; set; }
+        public SortedList<int, System.Windows.Point> buttonAreas { get; set; }
         public List<Tile> tileList { get; set; }
         public Bitmap tmpBitmap { get; set; }
         private const int HEIGHT = 125;
@@ -27,7 +27,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         public WorldMap(IList<DummyLocation> locations)
         {
             tileList = new List<Tile>();
-            buttonAreas = new List<Tuple<System.Windows.Point, int>>();
+            buttonAreas = new SortedList<int, System.Windows.Point>();
             CreateMap();
             NewBiome(41, 400); // Tree
             NewBiome(1, 200); // Water
@@ -184,8 +184,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 {
                     Point position = tileList[i].Position;
 
-                    var temp = new Tuple<System.Windows.Point, int>(new System.Windows.Point(position.X, position.Y), tileList[i].LocationID);
-                    buttonAreas.Add(temp);
+                    //var temp = new Tuple<System.Windows.Point, int>(new System.Windows.Point(position.X, position.Y), tileList[i].LocationID);
+                    buttonAreas.Add(tileList[i].LocationID, new System.Windows.Point(position.X, position.Y));
                 }
             }
             graph.Dispose();

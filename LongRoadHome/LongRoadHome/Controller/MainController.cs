@@ -239,12 +239,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public bool ChangeLocation(int locationID)
         {
             bool visited = true;
-            if (gameView.DrawYesNoOption("Do you wish to move to this location? It will cost you..."))
+
+            var cost = Convert.ToInt32(mf.CalculateMoveCost(gs, locationID));
+            if (gameView.DrawYesNoOption("Do you wish to move to this location? It will cost you..." + cost))
             {
                 return false;
             }
 
-            if (!mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
+            if (!mf.CanAffordMove(gs, cost) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
             {
                 int risk = rnd.Next(1, 101);
                 if(risk <= 25)
@@ -253,13 +255,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 }
                 else
                 {
-                    mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+                    mf.ReduceResourcesByMoveCost(gs, cost);
                     return false;
                 }
             }
-            else if (mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST))
+            else if (mf.CanAffordMove(gs, cost))
             {
-                mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+                mf.ReduceResourcesByMoveCost(gs, cost);
                 visited = PerformMove(locationID);
             }
             else

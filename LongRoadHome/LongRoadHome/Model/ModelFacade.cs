@@ -119,6 +119,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             }
         }
 
+        public double CalculateMoveCost(GameState gs, int locationID)
+        {
+            LocationModel lm = gs.GetLM();
+            int current = lm.GetCurentLocation().GetLocationID();
+            var buttonAreas = lm.GetButtonAreas();
+            
+            System.Windows.Point source;
+            System.Windows.Point target;
+            if(buttonAreas.TryGetValue(current, out source) && buttonAreas.TryGetValue(locationID, out target))
+            {
+                double xDistance = source.X - target.X;
+                double yDistance = source.Y - target.Y;
+                double distance = Math.Sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                return distance;
+            }
+
+            return 0;
+        }
+
         /// <summary>
         /// Checks if the Player in this game state can afford to move
         /// </summary>
@@ -363,7 +383,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             return discoveryText;
         }
 
-        public List<Tuple<System.Windows.Point, int>> GetButtonAreas(GameState gs)
+        public SortedList<int, System.Windows.Point> GetButtonAreas(GameState gs)
         {
             return gs.GetLM().GetButtonAreas();
         }

@@ -111,7 +111,6 @@
     <Compile Include="View\UIObjects\UIModel.cs" />
     <Compile Include="View\UIObjects\UIPlayer.cs" />
     <Compile Include="View\UIObjects\UISublocations.cs" />
-    <Compile Include="View\WorldMap.cs" />
     <Page Include="View\Controls\DemoTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
