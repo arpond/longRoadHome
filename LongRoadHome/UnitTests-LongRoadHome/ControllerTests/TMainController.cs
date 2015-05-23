@@ -175,7 +175,7 @@ namespace UnitTests_LongRoadHome.ControllerTests
             Assert.AreEqual(eventCatalogue, workingEventCat, "Event catalogues should match");
             Assert.AreEqual(discoveryCatalogue, workingDiscCat, "Discovery catalogues should match");
             Assert.AreEqual(itemCatalogue, workingItemCat, "Item catalogues should match");
-            Assert.AreEqual(1024, workingLM.GetUnvisited().Count, "Should be 1024 unvisited nodes");
+            Assert.AreEqual(512, workingLM.GetUnvisited().Count, "Should be 1024 unvisited nodes");
         }
 
         [TestCategory("MainController"), TestCategory("Controller"), TestMethod()]

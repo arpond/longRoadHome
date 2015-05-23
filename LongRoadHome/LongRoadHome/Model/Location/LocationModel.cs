@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Windows;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
@@ -19,6 +21,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         private Sublocation currentSublocation;
 
         private Random rnd = new Random();
+
+        private Bitmap worldMap;
+        private List<Tuple<System.Windows.Point, int>> buttonAreas;
 
         static LocationModel()
         {
@@ -44,6 +49,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             unvisitedLocation = new SortedList<int, DummyLocation>();
 
             InitializeLocationModel(numOfLocations);
+            var wm = new WorldMap(unvisitedLocation.Values);
+            worldMap = wm.tmpBitmap;
+            buttonAreas = wm.buttonAreas;
         }
 
         /// <summary>
@@ -346,9 +354,39 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <param name="totalLocations">Total number of locations</param>
         public void InitializeLocationModel(int total)
         {
-            CreateDummyLocations(total);
-            ConnectUnvisitedIntoGroupsOfFour();
-            GenerateConnections();
+            List<DummyLocation> newLocations = CreateDummyLocations(total);
+            List<DummyLocation> connected = ConnectIntoGroupsOfFour(newLocations);
+            int group = 32;
+            int divisor = connected.Count / group;
+            //List<DummyLocation> unvisited = new List<DummyLocation>(unvisitedLocation.Values);
+
+            List<DummyLocation> complete = new List<DummyLocation>();
+            List<DummyLocation> current = new List<DummyLocation>();
+            List<DummyLocation> previous =  null;
+            for(int  i = 0; i < divisor; i++)
+            {
+                current = new List<DummyLocation>();
+                if (i * group + group <= connected.Count)
+                {
+                    current = connected.GetRange(i * group, group);
+                }
+                else
+                {
+                    int diff = i * group + group - connected.Count;
+                    current = connected.GetRange(i * group, diff);
+                }
+                current = GenerateConnections(current);
+                if(previous != null)
+                {
+                    DummyLocation last = previous[previous.Count - 1];
+                    DummyLocation first = current[0];
+                    last.AddConnection(first.GetLocationID());
+                    first.AddConnection(last.GetLocationID());
+                    complete.AddRange(previous);
+                }
+                previous = current;
+            }
+            complete.AddRange(current);
             
             HashSet<int> tempConn = new HashSet<int>();
             tempConn.Add(1);
@@ -358,10 +396,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             startLocation.GenerateSubLocations();
             visitedLocation.Add(0, startLocation);
 
-            DummyLocation dl1;
-            if (unvisitedLocation.TryGetValue(1, out dl1))
+            DummyLocation dl1 = connected[0];
+            dl1.AddConnection(0);
+
+            for (int i = 1; i < complete.Count + 1; i++)
             {
-                dl1.AddConnection(0);
+                DummyLocation temp = complete[i-1];
+                unvisitedLocation.Add(i,temp);
             }
 
             currentLocation = startLocation;
@@ -408,8 +449,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// Always rounds these to the next multiple of 4.
         /// </summary>
         /// <param name="numberOfLocations">Number of locations to generate (rounded to the next multiple of 4)</param>
-        public void CreateDummyLocations(int numberOfLocations)
+        public List<DummyLocation> CreateDummyLocations(int numberOfLocations)
         {
+            List<DummyLocation> newLocations = new List<DummyLocation>();
             if (numberOfLocations % 4 != 0)
             {
                 numberOfLocations = numberOfLocations + (4 - numberOfLocations % 4); 
@@ -417,23 +459,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             for(int i = 1; i<numberOfLocations+1; i++)
             {
                 DummyLocation temp = new DummyLocation(i);
-                unvisitedLocation.Add(i,temp);
+                newLocations.Add(temp);
+                //unvisitedLocation.Add(i,temp);
             }
+            return newLocations;
         }
 
         /// <summary>
         /// Connects all unvisited locations into randomly connected groups of 4 
         /// </summary>
-        public void ConnectUnvisitedIntoGroupsOfFour()
+        public List<DummyLocation> ConnectIntoGroupsOfFour(List<DummyLocation> toConnect)
         {
-            for(int i = 1; i<unvisitedLocation.Count+1; i = i+4)
+            for(int i = 0; i<toConnect.Count; i = i+4)
             {
                 List<DummyLocation> tempDLs = new List<DummyLocation>();
                 for (int j = 0; j<4; j++)
                 {
                     DummyLocation tempDL;
-                    if(unvisitedLocation.TryGetValue(i+j, out tempDL))
+                    if (toConnect.Count > i + j)
                     {
+                        tempDL = toConnect[i + j];
                         tempDLs.Add(tempDL);
                     }
                 }
@@ -446,35 +491,72 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 rand3 = rnd.Next(1, 101);
                 RemoveConnections(tempDLs[0], tempDLs[1], tempDLs[2], tempDLs[3], removalCase, rand1, rand2, rand3);
             }
+            return toConnect;
         }
 
         /// <summary>
         /// Generates connections between unvisited locations
         /// </summary>
-        public void GenerateConnections()
+        public List<DummyLocation> GenerateConnections(List<DummyLocation> toGenerate)
         {
-            List<DummyLocation> dls = new List<DummyLocation>(unvisitedLocation.Values);
+            //List<DummyLocation> dls = new List<DummyLocation>(unvisitedLocation.Values);
+            List<DummyLocation> dls = toGenerate;
 
             int groupSize = 16;
-            int powerOfFour = Convert.ToInt32(Math.Ceiling(Math.Log(unvisitedLocation.Count) / Math.Log(4)));
+            int powerOfFour = Convert.ToInt32(Math.Ceiling(Math.Log(dls.Count) / Math.Log(4)));
 
             for (int i = 1; i <= powerOfFour; i++)
             {
                 groupSize = Convert.ToInt32(Math.Pow(4, i));
-                int numOfReps = unvisitedLocation.Count / groupSize;
+                int numOfReps = dls.Count / groupSize;
 
                 for (int j = 0; j < numOfReps; j++)
                 {
                     int start = j * groupSize;
                     int count = groupSize;
-                    if (start + groupSize > unvisitedLocation.Count)
+                    if (start + groupSize > dls.Count)
                     {
-                        count = unvisitedLocation.Count - start;
+                        count = dls.Count - start;
                     }
                     List<DummyLocation> group = dls.GetRange(start, count);
                     ConnectByGroupsOfFour(group);
                 }
+
+                if (numOfReps == 0)
+                {
+                    int size = Convert.ToInt32(Math.Pow(4, i - 1));
+                    var group1 = dls.GetRange(0, size);
+                    var group2 = dls.GetRange(size, dls.Count - size);
+                    DummyLocation source = null, target = null;
+                    for (int j = 1; j < 4; j++)
+                    {
+                        if (source != null && target != null)
+                        {
+                            break;
+                        }
+
+                        var group1Connectors = GroupByConnectionNumber(j, group1);
+                        var group2Connectors = GroupByConnectionNumber(j, group2);
+
+                        if (group1Connectors.Count > 0 && source == null)
+                        {
+                            int index1 = rnd.Next(group1Connectors.Count);
+                            source = group1Connectors[index1];
+                        }
+
+                        if (group2Connectors.Count > 0 && target == null)
+                        {
+                            int index2 = rnd.Next(group2Connectors.Count);
+                            target = group2Connectors[index2];
+                        }
+
+                    }
+
+                    source.AddConnection(target.GetLocationID());
+                    target.AddConnection(source.GetLocationID());
+                }
             }
+            return dls;
         }
 
         /// <summary>
@@ -628,7 +710,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         {
             // Remove a,d
             RemoveConnection(a, d);
-            if (rand1 > 80)
+            if (rand1 > 0)
             {
                 RemoveTwoExterior(a, b, c, d, rand2, rand3);
             }
@@ -712,6 +794,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         public Location GetCurentLocation()
         {
             return currentLocation;
+        }
+
+        public Bitmap GetWorldMap()
+        {
+            return worldMap;
+        }
+
+        public List<Tuple<System.Windows.Point, int>> GetButtonAreas()
+        {
+            return buttonAreas;
         }
     }
 }

@@ -38,6 +38,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         private int _CurrentSublocation;
         private Location _CurrentLocation;
         private Inventory _CurrentInventory;
+        //private WorldMap wm;
+        private SortedList<int, TransparentButton> worldMapButtons;
+        private List<Tuple<System.Windows.Point, int>> buttonAreas;
+        private System.Drawing.Bitmap worldMapBM;
 
         public GameView()
         {
@@ -55,29 +59,76 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             mc.handleAction(MainController.NEW_GAME);
         }
 
+        public void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, List<Tuple<System.Windows.Point, int>> buttonAreas)
+        {
+            this.worldMapBM = worldMapBM;
+            this.buttonAreas = buttonAreas;
+
+            worldMapButtons = new SortedList<int, TransparentButton>();
+
+            BitmapImage unvisitedBMI = new BitmapImage();
+            unvisitedBMI.BeginInit();
+            unvisitedBMI.UriSource = new Uri("pack://application:,,,/Resources/unvisited_location.png");
+            unvisitedBMI.EndInit();
+
+            BitmapImage visitedBMI = new BitmapImage();
+            visitedBMI.BeginInit();
+            visitedBMI.UriSource = new Uri("pack://application:,,,/Resources/visited_location.png");
+            visitedBMI.EndInit();
+
+            foreach (var tuple in buttonAreas)
+            {
+                TransparentButton tb = new TransparentButton();
+                tb.EnabledImage = unvisitedBMI;
+                tb.DisabledImage = visitedBMI;
+                tb.DisplayedImage = unvisitedBMI;
+                tb.data = tuple.Item2;
+                tb.ImageSwitch = false;
+                tb.Click += location_Click;
+
+                Canvas.SetLeft(tb, tuple.Item1.X - 5);
+                Canvas.SetTop(tb, tuple.Item1.Y - 4);
+                worldMap.Children.Add(tb);
+                worldMapButtons.Add(tuple.Item2, tb);
+
+            }
+            mapView.Source = Bitmap2BitmapSource(worldMapBM);
+            worldMap.Height = mapView.Source.Height * 1.65;
+            worldMap.Width = mapView.Source.Width * 1.65;
+        }
+
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
+
+
+        private BitmapSource Bitmap2BitmapSource(System.Drawing.Bitmap bitmap)
+        {
+            IntPtr hBitmap = bitmap.GetHbitmap();
+            BitmapSource retval;
+
+            try
+            {
+                retval = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                             hBitmap,
+                             IntPtr.Zero,
+                             Int32Rect.Empty,
+                             BitmapSizeOptions.FromEmptyOptions());
+            }
+            finally
+            {
+                DeleteObject(hBitmap);
+            }
+
+            return retval;
+        }
+
         private void changeUI_Click(object sender, RoutedEventArgs e)
         {
             ImageButton clicked = sender as ImageButton;
 
             if (clicked == worldMapBtn && screenState != WORLD_MAP)
             {
-                screenState = WORLD_MAP;
-                worldMapBtn.EnabledButton = false;
-                subMapBtn.EnabledButton = true;
-                inventoryBtn.EnabledButton = true;
-                SublocationMapView.Visibility = Visibility.Hidden;
-                InventoryView.Visibility = Visibility.Hidden;
-                //WorldMap wm = new WorldMap();
-                //GameSpace.Child = wm;
-                if (DrawYesNoOption("Yes or No?"))
-                {
-                    DrawDialogueBox("YES!");
-                }
-                else
-                {
-                    DrawDialogueBox("No :(");
-                }
-
+                mc.handleAction(MainController.VIEW_LOC_MAP);
             }
             else if (clicked.Name == "subMapBtn" && screenState != SUB_MAP)
             {
@@ -143,11 +194,23 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new NotImplementedException();
         }
+
         public void DrawWorldMap(List<Location> visited, List<DummyLocation> unvisited)
         {
-            throw new NotImplementedException();
+            screenState = WORLD_MAP;
+            worldMapBtn.EnabledButton = false;
+            subMapBtn.EnabledButton = true;
+            inventoryBtn.EnabledButton = true;
+            SublocationMapView.Visibility = Visibility.Hidden;
+            InventoryView.Visibility = Visibility.Hidden;
+            WorldMapView.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Draws the sublocation map
+        /// </summary>
+        /// <param name="subloc">The list of sublocations to draw</param>
+        /// <param name="currentSubLocation">The current sublocation</param>
         public void DrawSublocationMap(List<Sublocation> subloc, int currentSubLocation)
         {
             screenState = SUB_MAP;
@@ -156,6 +219,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             inventoryBtn.EnabledButton = true;
             SublocationMapView.Visibility = Visibility.Visible;
             InventoryView.Visibility = Visibility.Hidden;
+            WorldMapView.Visibility = Visibility.Hidden;
 
             List<String> imagePaths = subloc.Select(value => value.GetImagePath()).ToList();
             List<bool> scavenged = subloc.Select(value => value.GetScavenged()).ToList();
@@ -179,11 +243,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 temp2.EndInit();
                 //Image image = new Image();
                 //image.Source = temp;
-                SublocationButton button = new SublocationButton();
+                TransparentButton button = new TransparentButton();
                 button.EnabledImage = temp;
                 button.DisabledImage = temp2;
                 button.DisplayedImage = temp;
-                button.Scavenged = scavenged[i];
+                button.ImageSwitch = scavenged[i];
                 button.Click += new RoutedEventHandler(SublocationClicked);
 
                 Grid.SetRow(button, 0);
@@ -192,19 +256,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 Sublocations.Children.Add(button);
             }
         }
-        public void DrawDialogueBox(String text)
-        {
-            SimpleMessageBox.Show(text, string.Empty, MessageBoxButton.OK, Window.GetWindow(this));
-        }
-        public bool DrawYesNoOption(String text)
-        {
-            MessageBoxResult result = SimpleMessageBox.Show(text, string.Empty, MessageBoxButton.YesNo, Window.GetWindow(this));
-            if(result == MessageBoxResult.Yes)
-            {
-                return true;
-            }
-            return false;
-        }
+
+        /// <summary>
+        /// Draws the inventory passed
+        /// </summary>
+        /// <param name="inventory">The inventory to draw</param>
         public void DrawInventory(ArrayList inventory)
         {
             screenState = INVENTORY;
@@ -213,23 +269,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             inventoryBtn.EnabledButton = false;
             SublocationMapView.Visibility = Visibility.Hidden;
             InventoryView.Visibility = Visibility.Visible;
+            WorldMapView.Visibility = Visibility.Hidden;
             List<UIItem> inv = new List<UIItem>();
 
             InventoryGrid.Children.Clear();
 
-            List<Item> dummy = new List<Item>();
-            dummy.Add(new Item("ID:3,Name:TestItem,Amount:3,Description:test item 3,ActiveEffect,PassiveEffect,Requirements"));
-            dummy.Add(new Item("ID:23,Name:TestItem,Amount:1,Description:test item 23,ActiveEffect,PassiveEffect,Requirements"));
-            dummy.Add(new Item("ID:33,Name:TestItem,Amount:4,Description:test item 33,ActiveEffect,PassiveEffect,Requirements"));
-            dummy.Add(new Item("ID:31,Name:TestItem,Amount:1,Description:test item 31,ActiveEffect,PassiveEffect,Requirements"));
-            dummy.Add(new Item("ID:5,Name:TestItem,Amount:2,Description:test item 5,ActiveEffect,PassiveEffect,Requirements"));
-            dummy.Add(new Item("ID:8,Name:TestItem,Amount:1,Description:test item 8,ActiveEffect,PassiveEffect,Requirements"));
-            dummy.Add(new Item("ID:16,Name:TestItem,Amount:6,Description:test item 16,ActiveEffect,PassiveEffect,Requirements"));
-            dummy.Add(new Item("ID:20,Name:TestItem,Amount:1,Description:test item 20,ActiveEffect,PassiveEffect,Requirements"));
-            dummy.Add(new Item("ID:99,Name:TestItem,Amount:1,Description:test item 9,ActiveEffect,PassiveEffect,Requirements"));
-
-            for (int i = 0; i < dummy.Count; i++ )
+            for (int i = 0; i < inventory.Count; i++ )
             {
+                Item item = inventory[i] as Item;
+
                 ItemButton button = new ItemButton();
                 BitmapImage temp = new BitmapImage();
                 temp.BeginInit();
@@ -237,7 +285,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 temp.UriSource = new Uri("pack://application:,,,/Resources/item_placeholder.png");
                 temp.EndInit();
                 button.ItemIcon = temp;
-                button.Description = dummy[i].description;
+                button.Description = item.description;
+                button.ItemSlot = i;
+                button.Amount = item.amount;
+                button.UseClick += new RoutedEventHandler(UseItemClicked);
+                button.DiscardClick += new RoutedEventHandler(DiscardItemClicked);
 
                 Grid.SetRow(button, i/4 + 1);
                 Grid.SetColumn(button, (i % 4) + 1 );
@@ -265,15 +317,107 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Draws a simple dialogue box with the text supplied
+        /// </summary>
+        /// <param name="text">The text to display</param>
+        public void DrawDialogueBox(String text)
+        {
+            SimpleMessageBox.Show(text, string.Empty, MessageBoxButton.OK, Window.GetWindow(this));
+        }
+
+        /// <summary>
+        /// Draws a Yes No dialogue box with the text supplied
+        /// </summary>
+        /// <param name="text">The text to display</param>
+        /// <returns>If yes was selected</returns>
+        public bool DrawYesNoOption(String text)
+        {
+            MessageBoxResult result = SimpleMessageBox.Show(text, string.Empty, MessageBoxButton.YesNo, Window.GetWindow(this));
+            if (result == MessageBoxResult.Yes)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Creates a dialogue box for the event and displays it
+        /// </summary>
+        /// <param name="eventText">The main text for the event</param>
+        /// <param name="options">The text for each option</param>
+        /// <returns>The selected option</returns>
         public int DrawEvent(String eventText, List<String> options)
         {
-            //throw new NotImplementedException();
-            return 1;
+            List<String> buttonText = new List<string>(){ "Option 1", "Option 2", "Option 3", "Option 4"};
+
+            string optionsText = "";
+            for(int i = 1; i<=options.Count; i++)
+            {
+                optionsText += i + ". " + options[i-1] + "\n";
+            }
+
+            MessageBoxResult result = MessageBoxResult.None;
+            switch (options.Count)
+            {
+                case 1:
+                    SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OK, Window.GetWindow(this));
+                    result = MessageBoxResult.Yes;
+                    break;
+                case 2:
+                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNo, buttonText, Window.GetWindow(this));
+                    break;
+                case 3:
+                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNoCancel, buttonText, Window.GetWindow(this));
+                    break;
+                case 4:
+                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OKCancel, buttonText, Window.GetWindow(this));
+                    break;
+            }
+
+            int selected = 1;
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    selected = 1;
+                    break;
+                case MessageBoxResult.No:
+                    selected = 2;
+                    break;
+                case MessageBoxResult.OK:
+                    selected = 4;
+                    break;
+                case MessageBoxResult.Cancel:
+                    if (options.Count == 3)
+                    {
+                        selected = 3;
+                    }
+                    else
+                    {
+                        selected = 4;
+                    }
+                    break;
+            }
+            return selected;
         }
+
+        /// <summary>
+        /// Displays the results of the event based on the option chosen
+        /// </summary>
+        /// <param name="optionResult">The Main option result</param>
+        /// <param name="results">The text from the effects of the result</param>
         public void DrawEventResult(String optionResult, List<String> results)
         {
-            //throw new NotImplementedException();
+            String effectResults = "";
+            foreach (String result in results)
+            {
+                effectResults += result + "\n";
+            }
+
+            SimpleMessageBox.Show(optionResult, effectResults, MessageBoxButton.OK, Window.GetWindow(this));
         }
+
         public void PlayAudio(String audioFile)
         {
             throw new NotImplementedException();
@@ -282,18 +426,54 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Displays the results from scavenging
+        /// </summary>
+        /// <param name="scavenged">The items scavenged</param>
         public void DrawScavengeResults(List<Item> scavenged)
         {
-            //throw new NotImplementedException();
+            String results = "You scavenged the following:\n";
+            foreach(Item item in scavenged)
+            {
+                results += String.Format("{0} x {1}\n", item.name, item.amount);
+            }
+            SimpleMessageBox.Show("Scavenging Results", results, Window.GetWindow(this));
         }
+
         public void DrawDiscovery(string discovery)
         {
             throw new NotImplementedException();
         }
 
+        private void UseItemClicked(object sender, RoutedEventArgs e)
+        {
+            ItemButton itemBtn = sender as ItemButton;
+            if (itemBtn != null)
+            {
+                mc.handleAction(MainController.USE_ITEM, itemBtn.ItemSlot);
+            }
+        }
+
+        private void DiscardItemClicked(object sender, RoutedEventArgs e)
+        {
+            ItemButton itemBtn = sender as ItemButton;
+            if (itemBtn != null)
+            {
+                mc.handleAction(MainController.DISCARD_ITEM, itemBtn.ItemSlot);
+            }
+        }
+
+        void location_Click(object sender, RoutedEventArgs e)
+        {
+            TransparentButton tb = sender as TransparentButton;
+            int id = tb.data;
+            mc.handleAction(MainController.CHANGE_LOC, id);
+        }
+
         private void SublocationClicked(object sender, RoutedEventArgs e)
         {
-            SublocationButton sbtn = sender as SublocationButton;
+            TransparentButton sbtn = sender as TransparentButton;
             if(sbtn != null)
             {
                 int index = Sublocations.Children.IndexOf(sbtn);
@@ -301,7 +481,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 {
                     if (!_UIModel.SublocationModel.Scavenged[index] && DrawYesNoOption("Do you wish to scavenge the location?"))
                     {
-                        mc.ScavangeSublocation();
+                        mc.handleAction(MainController.SCAVENGE);
                     }
                     else if (!_UIModel.SublocationModel.Scavenged[index])
                     {
@@ -310,12 +490,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 }
                 else if (DrawYesNoOption("Are you sure you wish to move to that location?"))
                 {
-                    mc.ChangeSubLocation(index + 1);
+                    mc.handleAction(MainController.CHANGE_SUB, index + 1);
                     UpdatePlayer();
                 }
             }
         }
     }
+
+
 }
 
 

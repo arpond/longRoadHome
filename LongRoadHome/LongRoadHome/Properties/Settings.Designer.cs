@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace uk.ac.dundee.arpond.longRoadHome.View.Properties {
+namespace uk.ac.dundee.arpond.longRoadHome.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

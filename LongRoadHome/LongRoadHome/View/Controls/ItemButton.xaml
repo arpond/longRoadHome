@@ -63,14 +63,10 @@
     <Grid x:Name="outline">
         <Image Source="{StaticResource itemBck}" />
         <Border Grid.Column="0" Grid.Row="0" Background="Transparent"  BorderThickness="1" >
-            <Button x:Name="button"  
-                Click="button_Click"
-                Style="{DynamicResource NoChromeButton}">
-                <Image 
+            <Image 
                 x:Name="image" 
                 Source="{Binding ElementName=itemBtn, Path=ItemIcon, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                 Margin="3" />
-            </Button>
         </Border>
         <DockPanel 
             x:Name="hoverDock" Grid.Column="0" Grid.Row="0" Style="{DynamicResource hoverDock}"
@@ -101,6 +97,7 @@
                     Height="25"
                     Width="44"
                     Margin="4 5 2 8"
+                    Click="UseButton_Click"
                     />
                 <Button
                     Grid.Column="1"
@@ -112,6 +109,7 @@
                     Height="25"
                     Width="44"
                     Margin="2 5 4 8"
+                    Click="DiscardButton_Click"
                     />
             </Grid>
         </DockPanel>

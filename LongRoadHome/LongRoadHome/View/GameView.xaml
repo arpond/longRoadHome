@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:uk.ac.dundee.arpond.longRoadHome.View"
       xmlns:uControl="clr-namespace:uk.ac.dundee.arpond.longRoadHome.View.Controls"
+      xmlns:panZoom="clr-namespace:PanAndZoom"
       mc:Ignorable="d" 
       d:DesignHeight="728" d:DesignWidth="1024"
       Name="game"
@@ -118,6 +119,15 @@
                 </Grid>
             </Border>
         </Grid>
+
+        <Border Name="WorldMapView" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="0" Panel.ZIndex="-1">
+            <panZoom:ZoomBorder ClipToBounds="True" x:Name="zoomBorder">
+                <Canvas Name="worldMap">
+                    <Image Name="mapView"/>
+                </Canvas>
+            </panZoom:ZoomBorder>
+        </Border>
+        
         <Border Name="SublocationMapView" DataContext="{Binding SublocationModel}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
             <Grid>
                 <Grid>

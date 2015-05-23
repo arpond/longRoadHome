@@ -7,7 +7,7 @@
     <ProjectGuid>{583F53DC-BF7D-47E2-81F0-A22F79F48474}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uk.ac.dundee.arpond.longRoadHome.View</RootNamespace>
+    <RootNamespace>uk.ac.dundee.arpond.longRoadHome</RootNamespace>
     <AssemblyName>LongRoadHome</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GraphSharp.Contracts">
+      <HintPath>Libraries\GraphSharp.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Contracts">
+      <HintPath>Libraries\Microsoft.Contracts.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -55,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Location\WorldMap.cs" />
     <Compile Include="View\Controls\DemoTextBox.xaml.cs">
       <DependentUpon>DemoTextBox.xaml</DependentUpon>
     </Compile>
@@ -74,12 +81,11 @@
       <DependentUpon>SimpleMessageBoxView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controls\SimpleMessageBox.cs" />
-    <Compile Include="View\Controls\SublocationButton.xaml.cs">
-      <DependentUpon>SublocationButton.xaml</DependentUpon>
+    <Compile Include="View\Controls\TransparentButton.xaml.cs">
+      <DependentUpon>TransparentButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controls\WorldMap.xaml.cs">
-      <DependentUpon>WorldMap.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="View\Controls\Tuple.cs" />
+    <Compile Include="View\Controls\ZoomBorder.cs" />
     <Compile Include="View\Debug.xaml.cs">
       <DependentUpon>Debug.xaml</DependentUpon>
     </Compile>
@@ -105,6 +111,7 @@
     <Compile Include="View\UIObjects\UIModel.cs" />
     <Compile Include="View\UIObjects\UIPlayer.cs" />
     <Compile Include="View\UIObjects\UISublocations.cs" />
+    <Compile Include="View\WorldMap.cs" />
     <Page Include="View\Controls\DemoTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,11 +136,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controls\SublocationButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Controls\WorldMap.xaml">
+    <Page Include="View\Controls\TransparentButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -325,6 +328,28 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\item_placeholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Libraries\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\boy.ico" />
+    <Resource Include="Images\girl.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\t.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\worldTile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\visited_location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\unvisited_location.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

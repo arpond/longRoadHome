@@ -86,8 +86,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
                 case MessageBoxButton.OKCancel:
                     btnOk.Visibility = Visibility.Visible;
                     btnCancel.Visibility = Visibility.Visible;
-                    btnYes.Visibility = Visibility.Collapsed;
-                    btnNo.Visibility = Visibility.Collapsed;
+                    btnYes.Visibility = Visibility.Visible;
+                    btnNo.Visibility = Visibility.Visible;
                     break;
                 case MessageBoxButton.YesNo:
                     btnOk.Visibility = Visibility.Collapsed;
@@ -97,12 +97,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
                     break;
                 case MessageBoxButton.YesNoCancel:
                     btnOk.Visibility = Visibility.Collapsed;
-                    btnCancel.Visibility = Visibility.Visible;
-                    btnYes.Visibility = Visibility.Visible;
-                    btnNo.Visibility = Visibility.Visible;
-                    break;
-                default :
-                    btnOk.Visibility = Visibility.Visible;
                     btnCancel.Visibility = Visibility.Visible;
                     btnYes.Visibility = Visibility.Visible;
                     btnNo.Visibility = Visibility.Visible;

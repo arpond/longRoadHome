@@ -8,6 +8,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 
         protected HashSet<int> connections = new HashSet<int>();
         protected int locationID;
+        protected bool visited;
 
         public DummyLocation()
         {
@@ -17,12 +18,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         public DummyLocation(int locationID)
         {
             this.locationID = locationID;
+            visited = false;
         }
 
         public DummyLocation(int locationID, HashSet<int> connections)
         {
             this.locationID = locationID;
             this.connections = connections;
+            visited = false;
         }
 
         /// <summary>
@@ -38,7 +41,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 switch (locElem[0])
                 {
                     case "ID":
-                        int.TryParse(locElem[1], out locationID);
+                        int tempID;
+                        int.TryParse(locElem[1], out tempID);
+                        locationID = tempID;
                         break;
                     case "Connections":
                         for (int i = 1; i < locElem.Length; i++ )
@@ -52,6 +57,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                         break;
                 }
             }
+            visited = false;
         }
 
         /// <summary>

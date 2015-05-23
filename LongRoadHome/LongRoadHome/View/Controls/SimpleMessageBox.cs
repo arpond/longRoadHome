@@ -57,10 +57,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
                     }
                     break;
                 case MessageBoxButton.OKCancel:
-                    if (buttonsText.Count >= 2)
+                    if (buttonsText.Count >= 4)
                     {
-                        simpleMessageBox.btnOk.Content = buttonsText[0];
-                        simpleMessageBox.btnCancel.Content = buttonsText[1];
+                        simpleMessageBox.btnYes.Content = buttonsText[0];
+                        simpleMessageBox.btnNo.Content = buttonsText[1];
+                        simpleMessageBox.btnOk.Content = buttonsText[2];
+                        simpleMessageBox.btnCancel.Content = buttonsText[3];
                     }
                     break;
                 case MessageBoxButton.YesNo:

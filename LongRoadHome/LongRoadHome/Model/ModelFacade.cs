@@ -362,6 +362,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             string discoveryText = dm.GetNewDiscovery(lm.GetVisited().Count);
             return discoveryText;
         }
+
+        public List<Tuple<System.Windows.Point, int>> GetButtonAreas(GameState gs)
+        {
+            return gs.GetLM().GetButtonAreas();
+        }
+
+        public System.Drawing.Bitmap GetWorldMap(GameState gs)
+        {
+            return gs.GetLM().GetWorldMap();
+        }
     }
 
 }

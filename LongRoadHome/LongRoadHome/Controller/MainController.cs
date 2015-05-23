@@ -79,6 +79,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             {
                 gs = new GameState(itemCatalogue, eventCatalogue, discoveryCatalogue);
                 dc = new DifficultyController();
+                var worldMap = mf.GetWorldMap(gs);
+                var buttonAreas = mf.GetButtonAreas(gs);
+                gameView.InitialiseWorldMap(worldMap, buttonAreas);
                 return true;
             }
             return false;
@@ -154,7 +157,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 
                         // Thread 2 - Display Instructions
                         gameView.StartNewGame();
-                        handleAction(VIEW_SUB_MAP);
+                        handleAction(VIEW_LOC_MAP);
                         // When both done display location Map
                         break;
                     // Continue
@@ -166,8 +169,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                         }
                         else
                         {
-                           
-                            //handleAction("View Location Map");
+                            handleAction(VIEW_LOC_MAP);
                         }
                         break;
                     // View location Map
@@ -211,14 +213,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     // Change Sublocation
                     case 6:
                         ChangeSubLocation(variable);
+                        DisplaySubLocationsMap();
                         break;
                     // Use Item
                     case 7:
                         UseItem(variable);
+                        DisplayInventory();
                         break;
                     // Discard Item
                     case 8:
                         DiscardItem(variable);
+                        DisplayInventory();
                         break;
                 }
                 // Write Save Data
@@ -234,6 +239,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public bool ChangeLocation(int locationID)
         {
             bool visited = true;
+            if (gameView.DrawYesNoOption("Do you wish to move to this location? It will cost you..."))
+            {
+                return false;
+            }
+
             if (!mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
             {
                 int risk = rnd.Next(1, 101);
@@ -329,8 +339,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 dc.UpdatePlayerStatus(gs.Clone() as GameState);
                 // Thread 2 - Animate movement
                 // gameView.Animate();
-
-                gameView.DrawSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
                 return true;
             }
             else
@@ -532,7 +540,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             return mf.GetPlayerCharacterResources(gs);
         }
-
     }
 
 }

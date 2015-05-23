@@ -10,7 +10,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         private const int STD_MAX_ITEMS = SubLocationFactory.STD_MAX_ITEMS;
         private const int STD_MAX_AMOUNT = SubLocationFactory.STD_MAX_AMOUNT;
 
-        private bool visited;
         private Dictionary<int, Sublocation> sublocations;
         private Sublocation currentSubLocation;
         private Random rnd = new Random();
@@ -27,14 +26,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 
         public Location(int id, HashSet<int> connections) : base(id, connections)
         {
-            visited = false;
+            visited = true;
             sublocations = new Dictionary<int, Sublocation>();
             currentSubLocation = null;
         }
 
         public Location(String toParse)
         {
-            visited = false;
+            visited = true;
             sublocations = new Dictionary<int, Sublocation>();
             String[] lElems = toParse.Split(',');
             foreach (String elem in lElems)
@@ -43,7 +42,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 switch (locElem[0])
                 {
                     case "ID":
-                        int.TryParse(locElem[1], out locationID);
+                        int tempID;
+                        int.TryParse(locElem[1], out tempID);
+                        locationID = tempID;
                         break;
                     case "Connections":
                         for (int i = 1; i < locElem.Length; i++)
@@ -56,7 +57,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                         }
                         break;
                     case "Visited":
-                        bool.TryParse(locElem[1], out visited);
+                        bool tempVis;
+                        bool.TryParse(locElem[1], out tempVis);
+                        visited = tempVis;
                         break;
                     case "Sublocations":
                         if (locElem.Length > 1)

@@ -45,7 +45,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             this.ShowsNavigationUI = false;
             mc = new MainController(this);
             ImageBrush temp = new ImageBrush(System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                      uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.parallax_mountain_mountains.GetHbitmap(),
+                      uk.ac.dundee.arpond.longRoadHome.Properties.Resources.parallax_mountain_mountains.GetHbitmap(),
                       IntPtr.Zero,
                       Int32Rect.Empty,
                       BitmapSizeOptions.FromEmptyOptions()));
@@ -400,14 +400,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         private void ShowImage()
         {
             List<Bitmap> images = new List<Bitmap>();
-            images.Add(uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.CharacterWalk_1);
-            images.Add(uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.CharacterWalk_2);
-            images.Add(uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.CharacterWalk_3);
-            images.Add(uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.CharacterWalk_4);
-            images.Add(uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.CharacterWalk_5);
-            images.Add(uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.CharacterWalk_6);
-            images.Add(uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.CharacterWalk_7);
-            images.Add(uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.CharacterWalk_8);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_1);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_2);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_3);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_4);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_5);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_6);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_7);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_8);
 
             testAnimation.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                       images[current].GetHbitmap(),
@@ -423,11 +423,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             }
         }
 
+        public void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, List<Tuple<System.Windows.Point, int>> buttonAreas)
+        {
+            throw new NotImplementedException();
+        }
 
         private void startAnimationBtn_Click(object sender, RoutedEventArgs e)
         {
             ImageBrush temp = new ImageBrush(System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                      uk.ac.dundee.arpond.longRoadHome.View.Properties.Resources.parallax_mountain_mountains.GetHbitmap(),
+                      uk.ac.dundee.arpond.longRoadHome.Properties.Resources.parallax_mountain_mountains.GetHbitmap(),
                       IntPtr.Zero,
                       Int32Rect.Empty,
                       BitmapSizeOptions.FromEmptyOptions()));

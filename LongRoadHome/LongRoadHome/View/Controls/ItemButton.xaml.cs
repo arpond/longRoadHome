@@ -25,13 +25,22 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
             InitializeComponent();
         }
 
-        public event RoutedEventHandler Click;
+        public event RoutedEventHandler DiscardClick;
+        public event RoutedEventHandler UseClick;
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void DiscardButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.Click != null)
+            if (this.DiscardClick != null)
             {
-                this.Click(this, e);
+                this.DiscardClick(this, e);
+            }
+        }
+
+        private void UseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.UseClick != null)
+            {
+                this.UseClick(this, e);
             }
         }
 

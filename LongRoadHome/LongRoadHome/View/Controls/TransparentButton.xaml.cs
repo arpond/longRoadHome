@@ -20,9 +20,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
     /// <summary>
     /// Interaction logic for SublocationButton.xaml
     /// </summary>
-    public partial class SublocationButton : UserControl
+    public partial class TransparentButton : UserControl
     {
-        public SublocationButton()
+        public TransparentButton()
         {
             InitializeComponent();
         }
@@ -37,61 +37,63 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
             }
         }
 
-        public bool Scavenged
+        public int data { get; set; }
+
+        public bool ImageSwitch
         {
-            get { return (bool)GetValue(SublocationButton.EnabledButtonProperty); }
-            set { SetValue(SublocationButton.EnabledButtonProperty, value); }
+            get { return (bool)GetValue(TransparentButton.ImageSwitchProperty); }
+            set { SetValue(TransparentButton.ImageSwitchProperty, value); }
         }
 
         public BitmapImage EnabledImage
         {
-            get { return (BitmapImage)GetValue(SublocationButton.EnabledImageProperty); }
-            set { SetValue(SublocationButton.EnabledImageProperty, value); }
+            get { return (BitmapImage)GetValue(TransparentButton.EnabledImageProperty); }
+            set { SetValue(TransparentButton.EnabledImageProperty, value); }
         }
 
         public BitmapImage DisabledImage
         {
-            get { return (BitmapImage)GetValue(SublocationButton.DisabledImageProperty); }
-            set { SetValue(SublocationButton.DisabledImageProperty, value); }
+            get { return (BitmapImage)GetValue(TransparentButton.DisabledImageProperty); }
+            set { SetValue(TransparentButton.DisabledImageProperty, value); }
         }
 
         public BitmapImage DisplayedImage
         {
-            get { return (BitmapImage)GetValue(SublocationButton.DisplayedImageProperty); }
-            set { SetValue(SublocationButton.DisplayedImageProperty, value); }
+            get { return (BitmapImage)GetValue(TransparentButton.DisplayedImageProperty); }
+            set { SetValue(TransparentButton.DisplayedImageProperty, value); }
         }
 
         /// <summary>
         /// Identifies the Enabled Image Dependency Property
         /// </summary>
-        public static readonly DependencyProperty EnabledButtonProperty =
-            DependencyProperty.Register("EnabledButton", typeof(bool), typeof(SublocationButton),
+        public static readonly DependencyProperty ImageSwitchProperty =
+            DependencyProperty.Register("ImageSwitch", typeof(bool), typeof(TransparentButton),
              new PropertyMetadata(OnEnabledChanged));
 
         /// <summary>
         /// Identifies the Enabled Image Dependency Property
         /// </summary>
         public static readonly DependencyProperty EnabledImageProperty =
-            DependencyProperty.Register("EnabledImage", typeof(BitmapImage), typeof(SublocationButton));
+            DependencyProperty.Register("EnabledImage", typeof(BitmapImage), typeof(TransparentButton));
 
         /// <summary>
         /// Identifies the Disabled Image Dependency Property
         /// </summary>
         public static readonly DependencyProperty DisabledImageProperty =
-            DependencyProperty.Register("DisabledImage", typeof(BitmapImage), typeof(SublocationButton));
+            DependencyProperty.Register("DisabledImage", typeof(BitmapImage), typeof(TransparentButton));
 
         /// <summary>
         /// Identifies the Disabled Image Dependency Property
         /// </summary>
         public static readonly DependencyProperty DisplayedImageProperty =
-            DependencyProperty.Register("DisplayedImage", typeof(BitmapImage), typeof(SublocationButton));
+            DependencyProperty.Register("DisplayedImage", typeof(BitmapImage), typeof(TransparentButton));
 
         private static void OnEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            SublocationButton imgBtn = sender as SublocationButton;
+            TransparentButton imgBtn = sender as TransparentButton;
             if (imgBtn != null)
             {
-                if (imgBtn.Scavenged)
+                if (imgBtn.ImageSwitch)
                 {
                     imgBtn.DisplayedImage = imgBtn.DisabledImage;
                 }

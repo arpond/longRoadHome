@@ -25,6 +25,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         void Animate(List<String> imageFileNames);
         void DrawScavengeResults(List<Item> scavenged);
         void DrawDiscovery(string discovery);
+
+        void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, List<Tuple<System.Windows.Point, int>> buttonAreas);
     }
 
 }

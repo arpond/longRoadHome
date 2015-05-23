@@ -22,7 +22,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         {
             pcm = new PCModel(itemCatalogue);
             em = new EventModel(eventCatalogue);
-            lm = new LocationModel(1024);
+            lm = new LocationModel(512);
             dm = new DiscoveryModel(discoveryCatalogue);
         }
 
