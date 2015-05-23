@@ -139,10 +139,10 @@ namespace UnitTests_LongRoadHome.ControllerTests
             dm = new DiscoveryModel(discovered, discoveryCatalogue);
 
             // Game State
-            gs = new GameState(pc, inventory, itemCatalogue,
-                usedEvents, currentEvent, eventCatalogue,
-                discovered, discoveryCatalogue,
-                visitedLocs, unvisitedLocs, currLoc, currSLoc);
+            //gs = new GameState(pc, inventory, itemCatalogue,
+            //    usedEvents, currentEvent, eventCatalogue,
+            //    discovered, discoveryCatalogue,
+            //    visitedLocs, unvisitedLocs, currLoc, currSLoc);
 
             // Difficulty Controller
             difficultyController = DifficultyController.TAG + ":1.1:Tracker|1.1|1|0.9|0.7|1.1|1|1.075|0.9|0.85|0.7|0.6|0.8|1|0.9|1.1|1.05|1|1.05|1.1|0.9|1.1";

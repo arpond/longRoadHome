@@ -106,7 +106,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             String unvisitedLocs = frw.ReadSaveDataFile(FileReadWriter.UNVISISTED);
             String currLoc = frw.ReadSaveDataFile(FileReadWriter.CURRENT_LOCATION);
             String currSLoc = frw.ReadSaveDataFile(FileReadWriter.CURRENT_SUBLOCATION);
+            String buttonAreas = frw.ReadSaveDataFile(FileReadWriter.BUTTONS_AREA);
             String difficultyController = frw.ReadSaveDataFile(FileReadWriter.DIFFICULTY_CONTROLLER);
+
+            System.Drawing.Bitmap worldMap = frw.ReadBitmap(FileReadWriter.WORLD_MAP);
 
             if  (GameState.IsValidGameState(pc, inventory, itemCatalogue, usedEvents, currentEvent, eventCatalogue,discovered,
                 discoveryCatalogue, visitedLocs, unvisitedLocs, currLoc, currSLoc) && DifficultyController.IsValidDifficultyController(difficultyController))
@@ -114,7 +117,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 gs = new GameState(pc, inventory, itemCatalogue,
                 usedEvents, currentEvent, eventCatalogue,
                 discovered, discoveryCatalogue,
-                visitedLocs, unvisitedLocs, currLoc, currSLoc);
+                visitedLocs, unvisitedLocs, currLoc, currSLoc, buttonAreas, worldMap);
                 dc = new DifficultyController(difficultyController);
                 return true;
             }
@@ -139,6 +142,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.CURRENT_LOCATION, gs.ParseCurrLocationToString());
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.CURRENT_SUBLOCATION, gs.ParseCurrSublocationToString());
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.DIFFICULTY_CONTROLLER, dc.ParseToString());
+            saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.BUTTONS_AREA, gs.ParseButtonAreasToString());
+            saveSucessful &= frw.WriteBitmap(FileReadWriter.WORLD_MAP, gs.GetLM().GetWorldMap());
 
             return saveSucessful;
         }
@@ -209,6 +214,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     // Change location
                     case 5:
                         ChangeLocation(variable);
+                        DisplayLocations();
                         break;
                     // Change Sublocation
                     case 6:
@@ -228,6 +234,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 }
                 // Write Save Data
                 // Check if Game over
+                gameView.UpdatePlayer();
             }
         }
 
@@ -241,12 +248,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             bool visited = true;
 
             var cost = Convert.ToInt32(mf.CalculateMoveCost(gs, locationID));
-            if (gameView.DrawYesNoOption("Do you wish to move to this location? It will cost you..." + cost))
+            if (!gameView.DrawYesNoOption("Are you sure you wish to move to this location? It will cost you " + cost + " hunger and thirst"))
             {
                 return false;
             }
-
-            if (!mf.CanAffordMove(gs, cost) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
+            else if (!mf.CanAffordMove(gs, cost) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
             {
                 int risk = rnd.Next(1, 101);
                 if(risk <= 25)
@@ -503,9 +509,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public void DisplayLocations()
         {
             List<Location> visited = mf.GetVisitedLocations(gs);
-            List<DummyLocation> unvisited = mf.GetUnvisitedLocations(gs);
-
-            gameView.DrawWorldMap(visited, unvisited);
+            int currentID = mf.GetCurrentLocation(gs);
+            gameView.DrawWorldMap(visited, currentID);
         }
 
         /// <summary>

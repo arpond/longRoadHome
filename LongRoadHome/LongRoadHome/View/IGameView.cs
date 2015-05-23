@@ -12,7 +12,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         void StartNewGame();
         void DrawMainMenu();
         void DrawDiscoveries(List<Discovery> discs);
-        void DrawWorldMap(List<Location> visited, List<DummyLocation> unvisited);
+        void DrawWorldMap(List<Location> visited, int currentID);
         void DrawSublocationMap(List<Sublocation> subloc, int currentSubLocation);
         void DrawDialogueBox(String text);
         bool DrawYesNoOption(String text);
@@ -27,6 +27,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         void DrawDiscovery(string discovery);
 
         void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, SortedList<int, System.Windows.Point> buttonAreas);
+
+        void UpdatePlayer();
+
+        
     }
 
 }

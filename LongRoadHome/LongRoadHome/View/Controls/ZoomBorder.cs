@@ -16,6 +16,7 @@ namespace PanAndZoom
         private UIElement child = null;
         private Point origin;
         private Point start;
+        public Point charLoc { get; set; }
 
         private TranslateTransform GetTranslateTransform(UIElement element)
         {
@@ -72,10 +73,21 @@ namespace PanAndZoom
                 st.ScaleX = 2.0;
                 st.ScaleY = 2.0;
 
-                // reset pan
-                var tt = GetTranslateTransform(child);
-                tt.X = 0.0;
-                tt.Y = 0.0;
+                if (charLoc != null)
+                {
+                    var tt = GetTranslateTransform(child);
+                    tt.X = 0.0;
+                    tt.Y = 0.0;
+                    tt.X = charLoc.X;
+                    tt.Y = charLoc.Y;
+                }
+                else
+                {
+                    // reset pan
+                    var tt = GetTranslateTransform(child);
+                    tt.X = 0.0;
+                    tt.Y = 0.0;
+                }
             }
         }
 
@@ -99,10 +111,10 @@ namespace PanAndZoom
                 abosuluteX = relative.X * st.ScaleX + tt.X;
                 abosuluteY = relative.Y * st.ScaleY + tt.Y;
 
-                if (st.ScaleX + zoom < 2)
+                if (st.ScaleX + zoom < 1)
                 {
-                    st.ScaleX = 2;
-                    st.ScaleY = 2;
+                    st.ScaleX = 1;
+                    st.ScaleY = 1;
                 }
                 else if (st.ScaleX + zoom > 4)
                 {

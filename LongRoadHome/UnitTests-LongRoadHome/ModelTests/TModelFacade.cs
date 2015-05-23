@@ -152,10 +152,10 @@ namespace UnitTests_LongRoadHome.ModelTests
             dm = new DiscoveryModel(discovered, discoveryCatalogue);
 
             // Game State
-            gs = new GameState(pc, inventory, itemCatalogue,
-                usedEvents, currentEvent, eventCatalogue,
-                discovered, discoveryCatalogue,
-                visitedLocs, unvisitedLocs, currLoc, currSLoc);
+            //gs = new GameState(pc, inventory, itemCatalogue,
+            //    usedEvents, currentEvent, eventCatalogue,
+            //    discovered, discoveryCatalogue,
+            //    visitedLocs, unvisitedLocs, currLoc, currSLoc);
         }
 
 

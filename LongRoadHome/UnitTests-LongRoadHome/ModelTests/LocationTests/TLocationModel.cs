@@ -88,12 +88,12 @@ namespace UnitTests_LongRoadHome.LocationTests
             String currentLoc = lm.ParseCurrLocationToString();
             String currentSub = lm.ParseCurrSubLocToString();
 
-            LocationModel temp = new LocationModel(visited, unvisited, currentLoc, currentSub);
-            Assert.AreEqual(visited, temp.ParseVisitedToString(), "Visited strings should be the same");
-            Assert.AreEqual(unvisited, temp.ParseUnvisitedToString(), "Unvisited strings should be the same");
-            Assert.AreEqual(currentLoc, temp.ParseCurrLocationToString(), "Current Location strings should be the same");
-            Assert.AreEqual(currentSub, temp.ParseCurrSubLocToString(), "Current Sublocation strings should be the same");
-
+            //LocationModel temp = new LocationModel(visited, unvisited, currentLoc, currentSub);
+            //Assert.AreEqual(visited, temp.ParseVisitedToString(), "Visited strings should be the same");
+            //Assert.AreEqual(unvisited, temp.ParseUnvisitedToString(), "Unvisited strings should be the same");
+            //Assert.AreEqual(currentLoc, temp.ParseCurrLocationToString(), "Current Location strings should be the same");
+            //Assert.AreEqual(currentSub, temp.ParseCurrSubLocToString(), "Current Sublocation strings should be the same");
+            Assert.Fail();
         }
 
         [TestCategory("Location"), TestCategory("LocationModel"), TestMethod()]

@@ -41,12 +41,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         /// <param name="unvisitedLocs">unvisited locations string</param>
         /// <param name="currLoc">current location string</param>
         /// <param name="currSLoc">current sublocation string</param>
-        public GameState(String pc, String inventory, String itemCatalogue, String usedEvents, String currentEvent, String eventCatalogue, String discovered, String discoveryCatalogue, String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc)
+        public GameState(String pc, String inventory, String itemCatalogue, String usedEvents, String currentEvent, String eventCatalogue, 
+            String discovered, String discoveryCatalogue, String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc, String buttonArea, System.Drawing.Bitmap worldMap)
         {
             pcm = new PCModel(pc, inventory, itemCatalogue);
             em = new EventModel(usedEvents, eventCatalogue, currentEvent);
             dm = new DiscoveryModel(discovered, discoveryCatalogue);
-            lm = new LocationModel(visitedLocs, unvisitedLocs, currLoc, currSLoc);
+            lm = new LocationModel(visitedLocs, unvisitedLocs, currLoc, currSLoc, buttonArea, worldMap);
         }
 
         /// <summary>
@@ -214,6 +215,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         public object Clone()
         {
             return this.MemberwiseClone();
+        }
+
+        internal string ParseButtonAreasToString()
+        {
+            throw new NotImplementedException();
         }
     }
 

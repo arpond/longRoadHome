@@ -10,6 +10,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
     {
         public const String VISITED_TAG = "VisitedLocations";
         public const String UNVISITED_TAG = "UnvisitedLocations";
+        public const String BUTTONS_AREAS_TAG = "ButtonAreas";
 
         private const int STD_MIN_SIZE = 1, STD_MAX_SIZE = 5, STD_MAX_ITEMS = 5, STD_MAX_AMOUNT = 10;
         private const int MAX_CONNECTIONS = 4, MIN_CONNECTIONS = 2;
@@ -50,12 +51,47 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 
             InitializeLocationModel(numOfLocations);
 
-            DummyLocation loc0 = new DummyLocation(0);
-            unvisitedLocation.Add(0, loc0);
-            var wm = new WorldMap(unvisitedLocation.Values);
-            worldMap = wm.tmpBitmap;
-            buttonAreas = wm.buttonAreas;
-            unvisitedLocation.Remove(0);
+            
+        }
+
+        public LocationModel(String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc)
+        {
+            visitedLocation = new SortedList<int, Location>();
+            unvisitedLocation = new SortedList<int, DummyLocation>();
+            this.buttonAreas = new SortedList<int, System.Windows.Point>();
+
+            String[] visitedElem = visitedLocs.Split('#');
+            for (int i = 1; i < visitedElem.Length; i++)
+            {
+                Location temp = new Location(visitedElem[i]);
+                visitedLocation.Add(temp.GetLocationID(), temp);
+            }
+
+            String[] unvisitedElem = unvisitedLocs.Split('#');
+            for (int j = 1; j < unvisitedElem.Length; j++)
+            {
+                DummyLocation temp = new DummyLocation(unvisitedElem[j]);
+                unvisitedLocation.Add(temp.GetLocationID(), temp);
+            }
+
+            int currID;
+            if (int.TryParse(currLoc, out currID))
+            {
+                visitedLocation.TryGetValue(currID, out currentLocation);
+            }
+
+            int currSub;
+            if (int.TryParse(currSLoc, out currSub))
+            {
+                if (currSub == 0)
+                {
+                    currentSublocation = null;
+                }
+                else
+                {
+                    currentSublocation = currentLocation.GetSublocationByID(currSub);
+                }
+            }
         }
 
         /// <summary>
@@ -65,10 +101,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <param name="unvisitedLocs">Unvisited locations string</param>
         /// <param name="currLoc">Current location string</param>
         /// <param name="currSLoc">Current sublocation string</param>
-        public LocationModel(String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc)
+        public LocationModel(String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc, String buttonAreas, Bitmap worldMap)
         {
             visitedLocation = new SortedList<int, Location>();
             unvisitedLocation = new SortedList<int, DummyLocation>();
+            this.buttonAreas = new SortedList<int, System.Windows.Point>();
+            this.worldMap = worldMap;
 
             String[] visitedElem = visitedLocs.Split('#');
             for (int i = 1; i < visitedElem.Length; i++ )
@@ -82,6 +120,19 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             {
                 DummyLocation temp = new DummyLocation(unvisitedElem[j]);
                 unvisitedLocation.Add(temp.GetLocationID(), temp);
+            }
+
+            String[] areasElem = unvisitedLocs.Split('#');
+            for (int k = 1; k < areasElem.Length; k++)
+            {
+                String[] kvPair = areasElem[k].Split(':');
+                double xCoord, yCoord;
+                int id;
+                if (int.TryParse(kvPair[0], out id) && double.TryParse(kvPair[1], out xCoord) && double.TryParse(kvPair[2], out yCoord))
+                {
+                    var point = new System.Windows.Point(xCoord,yCoord);
+                    this.buttonAreas.Add(id, point);
+                }
             }
 
             int currID;
@@ -102,6 +153,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                     currentSublocation = currentLocation.GetSublocationByID(currSub);
                 }
             }
+
+
         }
 
         /// <summary>
@@ -146,6 +199,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 }
             }
             return true;
+        }
+
+        public String ParseButtonArea()
+        {
+            String parsed = BUTTONS_AREAS_TAG;
+            foreach (var buttonArea in buttonAreas)
+            {
+                parsed += "#" + buttonArea.Key + ":" + buttonArea.Value.X + ":" + buttonArea.Value.Y;
+            }
+            return parsed;
         }
 
         /// <summary>
@@ -353,6 +416,18 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             {
                 unvisitedLocation.Add(loc.GetLocationID(), loc);
             }
+
+            DummyLocation loc0 = new DummyLocation(0);
+            unvisitedLocation.Add(0, loc0);
+            var wm = new WorldMap(unvisitedLocation.Values);
+            worldMap = wm.tmpBitmap;
+            buttonAreas = wm.buttonAreas;
+            unvisitedLocation.Remove(0);
+
+            Location startLocation = new Location(0);
+            visitedLocation.Add(0, startLocation);
+            currentLocation = startLocation;
+            currentSublocation = null;
         }
 
 

@@ -116,7 +116,6 @@ namespace UnitTests_LongRoadHome.ModelTests
 
             currLoc = "4";
             currSLoc = "1";
-
             lm = new LocationModel(visitedLocs, unvisitedLocs, currLoc, currSLoc);
 
 
@@ -137,10 +136,10 @@ namespace UnitTests_LongRoadHome.ModelTests
             dm = new DiscoveryModel(discovered, discoveryCatalogue);
 
             // Game State
-            gs = new GameState(pc, inventory, itemCatalogue,
-                usedEvents, currentEvent, eventCatalogue,
-                discovered, discoveryCatalogue,
-                visitedLocs, unvisitedLocs, currLoc, currSLoc);
+            //gs = new GameState(pc, inventory, itemCatalogue,
+            //    usedEvents, currentEvent, eventCatalogue,
+            //    discovered, discoveryCatalogue,
+            //    visitedLocs, unvisitedLocs, currLoc, currSLoc);
         }
 
         [TestCategory("GameState"), TestCategory("Model"), TestMethod()]

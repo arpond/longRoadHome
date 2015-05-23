@@ -123,6 +123,7 @@
         <Border Name="WorldMapView" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="0" Panel.ZIndex="-1">
             <panZoom:ZoomBorder ClipToBounds="True" x:Name="zoomBorder">
                 <Canvas Name="worldMap">
+                    <Image Name="characterPointer"/>
                     <Image Name="mapView"/>
                 </Canvas>
             </panZoom:ZoomBorder>

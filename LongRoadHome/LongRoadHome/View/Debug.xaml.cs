@@ -83,6 +83,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             DrawDifficultyController();
         }
 
+        public void UpdatePlayer()
+        {
+
+        }
         /// <summary>
         /// Updates the character resources
         /// </summary>
@@ -241,7 +245,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new NotImplementedException();
         }
-        public void DrawWorldMap(List<Location> visited, List<DummyLocation> unvisited)
+        public void DrawWorldMap(List<Location> visited, int currentLoc)
         {
             throw new NotImplementedException();
         }

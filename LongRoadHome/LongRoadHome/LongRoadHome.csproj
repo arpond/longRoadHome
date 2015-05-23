@@ -84,7 +84,6 @@
     <Compile Include="View\Controls\TransparentButton.xaml.cs">
       <DependentUpon>TransparentButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controls\Tuple.cs" />
     <Compile Include="View\Controls\ZoomBorder.cs" />
     <Compile Include="View\Debug.xaml.cs">
       <DependentUpon>Debug.xaml</DependentUpon>

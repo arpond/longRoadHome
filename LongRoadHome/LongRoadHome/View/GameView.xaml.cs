@@ -195,7 +195,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             throw new NotImplementedException();
         }
 
-        public void DrawWorldMap(List<Location> visited, List<DummyLocation> unvisited)
+        public void DrawWorldMap(List<Location> visited, int currentLoc)
         {
             screenState = WORLD_MAP;
             worldMapBtn.EnabledButton = false;
@@ -204,6 +204,32 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             SublocationMapView.Visibility = Visibility.Hidden;
             InventoryView.Visibility = Visibility.Hidden;
             WorldMapView.Visibility = Visibility.Visible;
+            foreach(Location vist in visited)
+            {
+                TransparentButton tb;
+                if(worldMapButtons.TryGetValue(vist.GetLocationID(), out tb))
+                {
+                    tb.ImageSwitch = true;
+                }
+            }
+            Point point;
+            if (buttonAreas.TryGetValue(currentLoc, out point))
+            {
+                worldMap.Children.Remove(characterPointer);
+                //zoomBorder.charLoc = point;
+                BitmapImage temp = new BitmapImage();
+                temp.BeginInit();
+                temp.UriSource = new Uri("pack://application:,,,/Resources/Character-stand.png");
+                temp.EndInit();
+                characterPointer.Source = temp;
+                characterPointer.Height = 35;
+                characterPointer.Width = 10;
+                Canvas.SetLeft(characterPointer, point.X + 4);
+                Canvas.SetTop(characterPointer, point.Y - 20);
+                worldMap.Children.Add(characterPointer);
+            }
+            
+
         }
 
         /// <summary>
