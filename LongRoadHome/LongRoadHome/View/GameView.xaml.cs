@@ -42,6 +42,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         private SortedList<int, TransparentButton> worldMapButtons;
         private SortedList<int, System.Windows.Point> buttonAreas;
         private System.Drawing.Bitmap worldMapBM;
+        private MainMenu mainMenu;
 
         public GameView()
         {
@@ -56,7 +57,24 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             this.DataContext = _UIModel;
 
             mc = new MainController(this);
-            mc.handleAction(MainController.NEW_GAME);
+            mc.handlePotentAction(MainController.NEW_GAME, 0);
+        }
+
+        public GameView(MainMenu mainMenu)
+        {
+            this.mainMenu = mainMenu;
+            InitializeComponent();
+            _UIModel = new UIModel()
+            {
+                PlayerModel = new UIPlayer { Health = 90, Hunger = 90, Sanity = 90, Thirst = 90 },
+                SublocationModel = new UISublocations { CurrentSublocation = 1, ImagePaths = new List<string>(), Scavenged = new List<bool>() },
+                UIInventory = new UIInventory { Inventory = new List<UIItem>() }
+            };
+
+            this.DataContext = _UIModel;
+
+            mc = new MainController(this);
+            mc.handlePotentAction(MainController.NEW_GAME, 0);
         }
 
         public void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, SortedList<int, System.Windows.Point> buttonAreas)
@@ -128,16 +146,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
             if (clicked == worldMapBtn && screenState != WORLD_MAP)
             {
-                mc.handleAction(MainController.VIEW_LOC_MAP);
+                mc.handleIdepotentAction(MainController.VIEW_LOC_MAP);
             }
             else if (clicked.Name == "subMapBtn" && screenState != SUB_MAP)
             {
-                mc.handleAction(MainController.VIEW_SUB_MAP);
+                mc.handleIdepotentAction(MainController.VIEW_SUB_MAP);
 
             }
             else if (clicked.Name == "inventoryBtn" && screenState != INVENTORY)
             {
-                mc.handleAction(MainController.VIEW_INVENTORY);
+                mc.handleIdepotentAction(MainController.VIEW_INVENTORY);
                 //InventoryControl inv = new InventoryControl();
                 //GameSpace.Child = inv;
             }
@@ -182,7 +200,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void LoadGame()
         {
-            mc.handleAction(MainController.CONTINUE);
+            mc.handlePotentAction(MainController.CONTINUE, 0);
         }
 
         public void DrawMainMenu()
@@ -334,13 +352,21 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             //}
             //_uimodel.uiinventory = new uiinventory() { inventory = inv };
         }
+
+        /// <summary>
+        /// Draws the game over dialogue
+        /// </summary>
         public void DrawGameOver()
         {
-            throw new NotImplementedException();
+            SimpleMessageBox.Show("Game Over", "I'm sorry you did not manage to make your way home.", Window.GetWindow(this));
         }
+
+        /// <summary>
+        /// Draws the victory dialogue
+        /// </summary>
         public void DrawVictory()
         {
-            throw new NotImplementedException();
+            SimpleMessageBox.Show("Congradulations", "You made it home.", Window.GetWindow(this));
         }
 
         /// <summary>
@@ -349,7 +375,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <param name="text">The text to display</param>
         public void DrawDialogueBox(String text)
         {
-            SimpleMessageBox.Show(text, string.Empty, MessageBoxButton.OK, Window.GetWindow(this));
+            SimpleMessageBox.Show(string.Empty, text, MessageBoxButton.OK, Window.GetWindow(this));
         }
 
         /// <summary>
@@ -476,7 +502,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             ItemButton itemBtn = sender as ItemButton;
             if (itemBtn != null)
             {
-                mc.handleAction(MainController.USE_ITEM, itemBtn.ItemSlot);
+                mc.handlePotentAction(MainController.USE_ITEM, itemBtn.ItemSlot);
             }
         }
 
@@ -485,7 +511,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             ItemButton itemBtn = sender as ItemButton;
             if (itemBtn != null)
             {
-                mc.handleAction(MainController.DISCARD_ITEM, itemBtn.ItemSlot);
+                mc.handlePotentAction(MainController.DISCARD_ITEM, itemBtn.ItemSlot);
             }
         }
 
@@ -493,7 +519,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             TransparentButton tb = sender as TransparentButton;
             int id = tb.data;
-            mc.handleAction(MainController.CHANGE_LOC, id);
+            mc.handlePotentAction(MainController.CHANGE_LOC, id);
         }
 
         private void SublocationClicked(object sender, RoutedEventArgs e)
@@ -506,7 +532,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 {
                     if (!_UIModel.SublocationModel.Scavenged[index] && DrawYesNoOption("Do you wish to scavenge the location?"))
                     {
-                        mc.handleAction(MainController.SCAVENGE);
+                        mc.handlePotentAction(MainController.SCAVENGE, 0);
                     }
                     else if (!_UIModel.SublocationModel.Scavenged[index])
                     {
@@ -515,7 +541,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 }
                 else if (DrawYesNoOption("Are you sure you wish to move to that location?"))
                 {
-                    mc.handleAction(MainController.CHANGE_SUB, index + 1);
+                    mc.handlePotentAction(MainController.CHANGE_SUB, index + 1);
                     UpdatePlayer();
                 }
             }
@@ -524,6 +550,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         private void game_Loaded(object sender, RoutedEventArgs e)
         {
             zoomBorder.Reset();
+        }
+
+        public void ReturnToMainMenu()
+        {
+            mainMenu.ReturnToMainMenu();
         }
     }
 

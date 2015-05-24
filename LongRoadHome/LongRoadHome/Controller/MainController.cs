@@ -12,7 +12,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
     {
         public const String NEW_GAME = "New Game", CONTINUE = "Continue", VIEW_LOC_MAP = "View Location Map", VIEW_SUB_MAP = "View Sublocation Map",
             VIEW_INVENTORY = "View Inventory", CHANGE_LOC = "Change Location", CHANGE_SUB = "Change Sublocation", USE_ITEM = "Use Item", 
-            DISCARD_ITEM = "Discard Item", SCAVENGE = "Scavenge", GAME_OVER = "Game Over", QUIT = "Quit";
+            DISCARD_ITEM = "Discard Item", SCAVENGE = "Scavenge", EVENT="Event", GAME_OVER = "Game Over", QUIT = "Quit";
 
         private DifficultyController dc;
         private GameState gs;
@@ -29,18 +29,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             mf = new ModelFacade();
             dc = new DifficultyController();
             //gameView = new GameView();
-            commandMap.Add(NEW_GAME, 0);
-            commandMap.Add(CONTINUE, 1);
-            commandMap.Add(VIEW_LOC_MAP, 2);
-            commandMap.Add(VIEW_SUB_MAP, 3);
-            commandMap.Add(VIEW_INVENTORY, 4);
-            commandMap.Add(CHANGE_LOC, 5);
-            commandMap.Add(CHANGE_SUB, 6);
-            commandMap.Add(USE_ITEM, 7);
-            commandMap.Add(DISCARD_ITEM, 8);
-            commandMap.Add(SCAVENGE, 9);
-            commandMap.Add(GAME_OVER, 10);
-            commandMap.Add(QUIT, 11);
+            IntializeCommandMap();
             
         }
 
@@ -49,7 +38,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             mf = new ModelFacade();
             dc = new DifficultyController();
             this.gameView = gameView;
+            IntializeCommandMap();
+        }
 
+
+        private void IntializeCommandMap()
+        {
             commandMap.Add(NEW_GAME, 0);
             commandMap.Add(CONTINUE, 1);
             commandMap.Add(VIEW_LOC_MAP, 2);
@@ -60,10 +54,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             commandMap.Add(USE_ITEM, 7);
             commandMap.Add(DISCARD_ITEM, 8);
             commandMap.Add(SCAVENGE, 9);
-            commandMap.Add(GAME_OVER, 10);
-            commandMap.Add(QUIT, 11);
+            commandMap.Add(EVENT, 10);
+            commandMap.Add(GAME_OVER, 11);
+            commandMap.Add(QUIT, 12);
         }
 
+        
         /// <summary>
         /// Initialises the game state of a new game
         /// </summary>
@@ -148,7 +144,37 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             return saveSucessful;
         }
 
-        public void handleAction(string command)
+        public void handleIdepotentAction(string command)
+        {
+            int action;
+            if (commandMap.TryGetValue(command, out action))
+            {
+                switch (action)
+                {
+                    // View location Map
+                    case 2:
+                        DisplayLocations();
+                        break;
+                    // View sublocation Map
+                    case 3:
+                        DisplaySubLocationsMap();
+                        break;
+                    // View Inventory
+                    case 4:
+                        DisplayInventory();
+                        break;
+                        // Game Over
+                    case 11:
+                        DisplayEndGameScreen();
+                        break;
+                    // Quit
+                    case 12:
+                        break;
+                }
+            }
+        }
+
+        public void handlePotentAction(string command, int variable)
         {
             int action;
             if (commandMap.TryGetValue(command, out action))
@@ -162,80 +188,65 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 
                         // Thread 2 - Display Instructions
                         gameView.StartNewGame();
-                        handleAction(VIEW_LOC_MAP);
+                        handleIdepotentAction(VIEW_LOC_MAP);
                         // When both done display location Map
                         break;
                     // Continue
                     case 1:
                         // Load game from save
-                        if(!InitialiseGameFromSave())
+                        if (!InitialiseGameFromSave())
                         {
                             InitialiseNewGame();
                         }
                         else
                         {
-                            handleAction(VIEW_LOC_MAP);
+                            handleIdepotentAction(VIEW_LOC_MAP);
                         }
                         break;
-                    // View location Map
-                    case 2:
-                        DisplayLocations();
-                        break;
-                    // View sublocation Map
-                    case 3:
-                        DisplaySubLocationsMap();
-                        break;
-                    // View Inventory
-                    case 4:
-                        DisplayInventory();
-                        break;
-                    // Scavenge
-                    case 9:
-                        ScavangeSublocation();
-                        break;
-                    // Game Over
-                    case 10:
-                        DisplayEndGameScreen();
-                        break;
-                    // Quit
-                    case 11:
-                        break;
-                }
-            }
-        }
-
-        public void handleAction(string command, int variable)
-        {
-            int action;
-            if (commandMap.TryGetValue(command, out action))
-            {
-                switch (action)
-                {
                     // Change location
                     case 5:
                         ChangeLocation(variable);
-                        DisplayLocations();
+                        handleIdepotentAction(VIEW_LOC_MAP);
                         break;
                     // Change Sublocation
                     case 6:
                         ChangeSubLocation(variable);
-                        DisplaySubLocationsMap();
+                        handleIdepotentAction(VIEW_SUB_MAP);
                         break;
                     // Use Item
                     case 7:
                         UseItem(variable);
-                        DisplayInventory();
+                        handleIdepotentAction(VIEW_INVENTORY);
                         break;
                     // Discard Item
                     case 8:
                         DiscardItem(variable);
-                        DisplayInventory();
+                        handleIdepotentAction(VIEW_INVENTORY);
+                        break;
+                    // Scavenge
+                    case 9:
+                        ScavangeSublocation();
+                        handleIdepotentAction(VIEW_INVENTORY);
+                        break;
+                    case 10:
+                        TriggerEvent();
                         break;
                 }
-                // Write Save Data
-                // Check if Game over
-                gameView.UpdatePlayer();
+                PostAction();
             }
+        }
+
+        private void PostAction()
+        {
+            //Update Player
+            gameView.UpdatePlayer();
+            //WriteSaveData
+            //Check if Game Over
+            if (mf.IsGameOver(gs) || IsEndLocation())
+            {
+                handleIdepotentAction(GAME_OVER);
+            }
+            
         }
 
         /// <summary>
@@ -278,14 +289,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             //Check if event happens
             if (!visited && CheckIfEventTriggered())
             {
-                TriggerEvent();
-                // Check if game over
-                if (mf.IsGameOver(gs))
-                {
-                    // Display the Game over screen
-                    // Clean Up save files etc
-                    return false;
-                }
+                handlePotentAction(EVENT, 0);
                 // Check if discovery is made
                 if (CheckIfDiscoveryTriggered())
                 {
@@ -433,13 +437,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             if(CheckIfEventTriggered())
             {
-                TriggerEvent();
-                if (mf.IsGameOver(gs))
-                {
-                    // Display the Game over screen
-                    // Clean Up save files etc
-                    return false;
-                }
+                handlePotentAction(EVENT, 0);
             }
 
             List<Item> scavenged = mf.ScavangeSubLocation(gs);
@@ -521,10 +519,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             if (mf.IsGameOver(gs))
             {
                 gameView.DrawGameOver();
+                // Save Game
+                gameView.ReturnToMainMenu();
             }
             else
             {
                 gameView.DrawVictory();
+                // Save Game
+                gameView.ReturnToMainMenu();
             }
         }
 
@@ -546,6 +548,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public SortedList<string,int> GetPlayerResources()
         {
             return mf.GetPlayerCharacterResources(gs);
+        }
+
+        private bool IsEndLocation()
+        {
+            return dc.IsEndLocation();
         }
     }
 

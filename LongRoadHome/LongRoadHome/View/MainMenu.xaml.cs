@@ -34,8 +34,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
         private void newGameBtn_Click(object sender, RoutedEventArgs e)
         {
-            GameView gv = new GameView();
+            GameView gv = new GameView(this);
             this.NavigationService.Navigate(gv);
+        }
+
+        public void ReturnToMainMenu()
+        {
+            this.NavigationService.Navigate(this);
         }
     }
 }

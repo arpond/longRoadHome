@@ -58,9 +58,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void StartNewGame()
         {
-            mc.handleAction(MainController.NEW_GAME);
+            mc.handlePotentAction(MainController.NEW_GAME, 0);
             DrawCharacterResources();
-            mc.handleAction(MainController.VIEW_INVENTORY);
+            mc.handleIdepotentAction(MainController.VIEW_INVENTORY);
             DrawItemCatalogue();
             DrawEvents();
             DrawEventCatalogue();
@@ -73,9 +73,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void LoadGame()
         {
-            mc.handleAction(MainController.CONTINUE);
+            mc.handlePotentAction(MainController.CONTINUE, 0);
             DrawCharacterResources();
-            mc.handleAction(MainController.VIEW_INVENTORY);
+            mc.handleIdepotentAction(MainController.VIEW_INVENTORY);
             DrawItemCatalogue();
             DrawEvents();
             DrawEventCatalogue();
@@ -360,7 +360,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             int newLocationID = 0;
 
             int.TryParse(changeLocTB.Text, out newLocationID);
-            mc.handleAction(MainController.CHANGE_LOC, newLocationID);
+            mc.handlePotentAction(MainController.CHANGE_LOC, newLocationID);
 
             DrawLocations();
             DrawCharacterResources();
@@ -376,7 +376,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             int newSubLocID = 0;
             int.TryParse(changeSubLocTB.Text, out newSubLocID);
-            mc.handleAction(MainController.CHANGE_SUB, newSubLocID);
+            mc.handlePotentAction(MainController.CHANGE_SUB, newSubLocID);
 
             DrawLocations();
             DrawCharacterResources();
@@ -465,6 +465,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             rectBck.RenderTransform = transform;
             transform.BeginAnimation(TranslateTransform.XProperty, da);
             current2++;
+        }
+
+        public void ReturnToMainMenu()
+        {
+
         }
     }
 }

@@ -30,7 +30,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
         void UpdatePlayer();
 
-        
+
+
+        void ReturnToMainMenu();
     }
 
 }
