@@ -20,6 +20,7 @@ using uk.ac.dundee.arpond.longRoadHome.Model.Discovery;
 using uk.ac.dundee.arpond.longRoadHome.Model.Location;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 using uk.ac.dundee.arpond.longRoadHome.View.UIObjects;
+using System.Windows.Threading;
 
 namespace uk.ac.dundee.arpond.longRoadHome.View
 {
@@ -28,6 +29,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
     /// </summary>
     public partial class GameView : Page, IGameView
     {
+        #region Fields
         private static Action EmptyDelegate = delegate() { };
 
         MainController mc;
@@ -35,15 +37,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         private const int WORLD_MAP = 0, SUB_MAP = 1, INVENTORY = 2;
         private UIModel _UIModel;
 
-        private int _CurrentSublocation;
-        private Location _CurrentLocation;
-        private Inventory _CurrentInventory;
         //private WorldMap wm;
         private SortedList<int, TransparentButton> worldMapButtons;
         private SortedList<int, System.Windows.Point> buttonAreas;
         private System.Drawing.Bitmap worldMapBM;
         private MainMenu mainMenu;
+        #endregion
 
+        #region Constructors
         public GameView()
         {
             InitializeComponent();
@@ -76,70 +77,30 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             mc = new MainController(this);
             mc.handlePotentAction(MainController.NEW_GAME, 0);
         }
+        #endregion
 
-        public void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, SortedList<int, System.Windows.Point> buttonAreas)
+        #region General UI Functions
+        /// <summary>
+        /// Starts a new game
+        /// </summary>
+        public void StartNewGame()
         {
-            this.worldMapBM = worldMapBM;
-            this.buttonAreas = buttonAreas;
-
-            worldMapButtons = new SortedList<int, TransparentButton>();
-
-            BitmapImage unvisitedBMI = new BitmapImage();
-            unvisitedBMI.BeginInit();
-            unvisitedBMI.UriSource = new Uri("pack://application:,,,/Resources/unvisited_location.png");
-            unvisitedBMI.EndInit();
-
-            BitmapImage visitedBMI = new BitmapImage();
-            visitedBMI.BeginInit();
-            visitedBMI.UriSource = new Uri("pack://application:,,,/Resources/visited_location.png");
-            visitedBMI.EndInit();
-
-            foreach (var kvpair in buttonAreas)
-            {
-                TransparentButton tb = new TransparentButton();
-                tb.EnabledImage = unvisitedBMI;
-                tb.DisabledImage = visitedBMI;
-                tb.DisplayedImage = unvisitedBMI;
-                tb.data = kvpair.Key;
-                tb.ImageSwitch = false;
-                tb.Click += location_Click;
-
-                Canvas.SetLeft(tb, kvpair.Value.X - 5);
-                Canvas.SetTop(tb, kvpair.Value.Y - 4);
-                worldMap.Children.Add(tb);
-                worldMapButtons.Add(kvpair.Key, tb);
-
-            }
-            mapView.Source = Bitmap2BitmapSource(worldMapBM);
-            worldMap.Height = mapView.Source.Height * 1.65;
-            worldMap.Width = mapView.Source.Width * 1.65;
+            Dispatcher.Invoke(new Action(() => DrawTutorial()));
         }
 
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        public static extern bool DeleteObject(IntPtr hObject);
-
-
-        private BitmapSource Bitmap2BitmapSource(System.Drawing.Bitmap bitmap)
+        /// <summary>
+        /// Loads the saved game
+        /// </summary>
+        public void LoadGame()
         {
-            IntPtr hBitmap = bitmap.GetHbitmap();
-            BitmapSource retval;
-
-            try
-            {
-                retval = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                             hBitmap,
-                             IntPtr.Zero,
-                             Int32Rect.Empty,
-                             BitmapSizeOptions.FromEmptyOptions());
-            }
-            finally
-            {
-                DeleteObject(hBitmap);
-            }
-
-            return retval;
+            mc.handlePotentAction(MainController.CONTINUE, 0);
         }
 
+        /// <summary>
+        /// Handles changing between various UI views
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void changeUI_Click(object sender, RoutedEventArgs e)
         {
             ImageButton clicked = sender as ImageButton;
@@ -162,11 +123,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         }
 
         /// <summary>
-        /// Starts a new game
+        /// When UI is loaded
         /// </summary>
-        public void StartNewGame()
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void game_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdatePlayer();
+            zoomBorder.Reset();
+        }
+
+        /// <summary>
+        /// Returns to the main menu
+        /// </summary>
+        public void ReturnToMainMenu()
+        {
+            mainMenu.ReturnToMainMenu(mainMenu);
+        }
+
+        public Dispatcher GetDispatcher()
+        {
+            return Application.Current.Dispatcher;
         }
 
         public void UpdatePlayer()
@@ -185,174 +161,36 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             _UIModel.PlayerModel.Sanity = sanity;
         }
 
-        public void UpdateSublocation()
-        {
-            
-        }
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
 
-        public void UpdateInventory()
+        private BitmapSource Bitmap2BitmapSource(System.Drawing.Bitmap bitmap)
         {
+            IntPtr hBitmap = bitmap.GetHbitmap();
+            BitmapSource retval;
 
-        }
-
-        /// <summary>
-        /// Loads the saved game
-        /// </summary>
-        public void LoadGame()
-        {
-            mc.handlePotentAction(MainController.CONTINUE, 0);
-        }
-
-        public void DrawMainMenu()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DrawDiscoveries(List<Discovery> discs)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DrawWorldMap(List<Location> visited, int currentLoc)
-        {
-            screenState = WORLD_MAP;
-            worldMapBtn.EnabledButton = false;
-            subMapBtn.EnabledButton = true;
-            inventoryBtn.EnabledButton = true;
-            SublocationMapView.Visibility = Visibility.Hidden;
-            InventoryView.Visibility = Visibility.Hidden;
-            WorldMapView.Visibility = Visibility.Visible;
-            foreach(Location vist in visited)
+            try
             {
-                TransparentButton tb;
-                if(worldMapButtons.TryGetValue(vist.GetLocationID(), out tb))
-                {
-                    tb.ImageSwitch = true;
-                }
+                retval = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                             hBitmap,
+                             IntPtr.Zero,
+                             Int32Rect.Empty,
+                             BitmapSizeOptions.FromEmptyOptions());
             }
-            Point point;
-            if (buttonAreas.TryGetValue(currentLoc, out point))
+            finally
             {
-                worldMap.Children.Remove(characterPointer);
-                zoomBorder.charLoc = point;
-                zoomBorder.Reset();
-                BitmapImage temp = new BitmapImage();
-                temp.BeginInit();
-                temp.UriSource = new Uri("pack://application:,,,/Resources/Character-stand.png");
-                temp.EndInit();
-                characterPointer.Source = temp;
-                characterPointer.Height = 35;
-                characterPointer.Width = 10;
-                Canvas.SetLeft(characterPointer, point.X + 4);
-                Canvas.SetTop(characterPointer, point.Y - 20);
-                worldMap.Children.Add(characterPointer);
-            }
-        }
-
-        /// <summary>
-        /// Draws the sublocation map
-        /// </summary>
-        /// <param name="subloc">The list of sublocations to draw</param>
-        /// <param name="currentSubLocation">The current sublocation</param>
-        public void DrawSublocationMap(List<Sublocation> subloc, int currentSubLocation)
-        {
-            screenState = SUB_MAP;
-            worldMapBtn.EnabledButton = true;
-            subMapBtn.EnabledButton = false;
-            inventoryBtn.EnabledButton = true;
-            SublocationMapView.Visibility = Visibility.Visible;
-            InventoryView.Visibility = Visibility.Hidden;
-            WorldMapView.Visibility = Visibility.Hidden;
-
-            List<String> imagePaths = subloc.Select(value => value.GetImagePath()).ToList();
-            List<bool> scavenged = subloc.Select(value => value.GetScavenged()).ToList();
-
-            _UIModel.SublocationModel.ImagePaths = imagePaths;
-            _UIModel.SublocationModel.Scavenged = scavenged;
-            _UIModel.SublocationModel.CurrentSublocation = currentSubLocation;
-
-            Sublocations.Children.Clear();
-
-            for (int i = 0; i < subloc.Count; i++ )
-            {
-                BitmapImage temp = new BitmapImage();
-                temp.BeginInit();
-                //temp.UriSource = new Uri("pack://application:,,,/LongRoadHome;Resources/" + subloc[i].GetImagePath());
-                temp.UriSource = new Uri("pack://application:,,,/Resources/Loc_Res_PlaceHolder.png");
-                temp.EndInit();
-                BitmapImage temp2 = new BitmapImage();
-                temp2.BeginInit();
-                temp2.UriSource = new Uri("pack://application:,,,/Resources/Loc_Res_PlaceHolder_Scavenged.png");
-                temp2.EndInit();
-                //Image image = new Image();
-                //image.Source = temp;
-                TransparentButton button = new TransparentButton();
-                button.EnabledImage = temp;
-                button.DisabledImage = temp2;
-                button.DisplayedImage = temp;
-                button.ImageSwitch = scavenged[i];
-                button.Click += new RoutedEventHandler(SublocationClicked);
-
-                Grid.SetRow(button, 0);
-                Grid.SetColumn(button, i);
-                Grid.SetRowSpan(button, 2);
-                Sublocations.Children.Add(button);
-            }
-        }
-
-        /// <summary>
-        /// Draws the inventory passed
-        /// </summary>
-        /// <param name="inventory">The inventory to draw</param>
-        public void DrawInventory(ArrayList inventory)
-        {
-            screenState = INVENTORY;
-            worldMapBtn.EnabledButton = true;
-            subMapBtn.EnabledButton = true;
-            inventoryBtn.EnabledButton = false;
-            SublocationMapView.Visibility = Visibility.Hidden;
-            InventoryView.Visibility = Visibility.Visible;
-            WorldMapView.Visibility = Visibility.Hidden;
-            List<UIItem> inv = new List<UIItem>();
-
-            InventoryGrid.Children.Clear();
-
-            for (int i = 0; i < inventory.Count; i++ )
-            {
-                Item item = inventory[i] as Item;
-
-                ItemButton button = new ItemButton();
-                BitmapImage temp = new BitmapImage();
-                temp.BeginInit();
-                //temp.UriSource = new Uri("pack://application:,,,/LongRoadHome;Resources/" + inventory[i].GetImagePath());
-                temp.UriSource = new Uri("pack://application:,,,/Resources/item_placeholder.png");
-                temp.EndInit();
-                button.ItemIcon = temp;
-                button.Description = item.description;
-                button.ItemSlot = i;
-                button.Amount = item.amount;
-                button.UseClick += new RoutedEventHandler(UseItemClicked);
-                button.DiscardClick += new RoutedEventHandler(DiscardItemClicked);
-
-                Grid.SetRow(button, i/4 + 1);
-                Grid.SetColumn(button, (i % 4) + 1 );
-
-                InventoryGrid.Children.Add(button);
+                DeleteObject(hBitmap);
             }
 
-            //foreach (item i in inventory)
-            //{
-            //    uiitem t = new uiitem()
-            //    {
-            //        id = i.itemid,
-            //        description = i.description,
-            //        iconpath = "item_placeholder.png"
-            //        iconpath = i.iconpath
-            //    };
-            //}
-            //_uimodel.uiinventory = new uiinventory() { inventory = inv };
+            return retval;
         }
+        #endregion
 
+        #region Dialogue Boxes
+        private void DrawTutorial()
+        {
+            SimpleMessageBox.Show("Tutorial", "The Tutorial will go here", Window.GetWindow(this));
+        }
         /// <summary>
         /// Draws the game over dialogue
         /// </summary>
@@ -401,12 +239,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <returns>The selected option</returns>
         public int DrawEvent(String eventText, List<String> options)
         {
-            List<String> buttonText = new List<string>(){ "Option 1", "Option 2", "Option 3", "Option 4"};
+            List<String> buttonText = new List<string>() { "Option 1", "Option 2", "Option 3", "Option 4" };
 
             string optionsText = "";
-            for(int i = 1; i<=options.Count; i++)
+            for (int i = 1; i <= options.Count; i++)
             {
-                optionsText += i + ". " + options[i-1] + "\n";
+                optionsText += i + ". " + options[i - 1] + "\n";
             }
 
             MessageBoxResult result = MessageBoxResult.None;
@@ -469,15 +307,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             SimpleMessageBox.Show(optionResult, effectResults, MessageBoxButton.OK, Window.GetWindow(this));
         }
 
-        public void PlayAudio(String audioFile)
-        {
-            throw new NotImplementedException();
-        }
-        public void Animate(List<String> imageFileNames)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Displays the results from scavenging
         /// </summary>
@@ -485,18 +314,81 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         public void DrawScavengeResults(List<Item> scavenged)
         {
             String results = "You scavenged the following:\n";
-            foreach(Item item in scavenged)
+            foreach (Item item in scavenged)
             {
                 results += String.Format("{0} x {1}\n", item.name, item.amount);
             }
             SimpleMessageBox.Show("Scavenging Results", results, Window.GetWindow(this));
         }
 
-        public void DrawDiscovery(string discovery)
+        #endregion
+
+        #region Discovery Functions
+        public void DrawDiscoveries(List<Discovery> discs)
         {
             throw new NotImplementedException();
         }
 
+        public void DrawDiscovery(string discovery)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Inventory Functions
+        /// <summary>
+        /// Initialising the inventory with the items in the inventory
+        /// </summary>
+        /// <param name="inventory">The inventory to et up</param>
+        public void InitialiseInventory(ArrayList inventory)
+        {
+            List<UIItem> inv = new List<UIItem>();
+
+            InventoryGrid.Children.Clear();
+
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                Item item = inventory[i] as Item;
+
+                ItemButton button = new ItemButton();
+                BitmapImage temp = new BitmapImage();
+                temp.BeginInit();
+                //temp.UriSource = new Uri("pack://application:,,,/LongRoadHome;Resources/" + inventory[i].GetImagePath());
+                temp.UriSource = new Uri("pack://application:,,,/Resources/item_placeholder.png");
+                temp.EndInit();
+                button.ItemIcon = temp;
+                button.Description = item.description;
+                button.ItemSlot = i;
+                button.Amount = item.amount;
+                button.UseClick += new RoutedEventHandler(UseItemClicked);
+                button.DiscardClick += new RoutedEventHandler(DiscardItemClicked);
+
+                Grid.SetRow(button, i / 4 + 1);
+                Grid.SetColumn(button, (i % 4) + 1);
+
+                InventoryGrid.Children.Add(button);
+            }
+        }
+
+        /// <summary>
+        /// Draws the inventory passed
+        /// </summary>
+        public void DisplayInventory()
+        {
+            screenState = INVENTORY;
+            worldMapBtn.EnabledButton = true;
+            subMapBtn.EnabledButton = true;
+            inventoryBtn.EnabledButton = false;
+            SublocationMapView.Visibility = Visibility.Hidden;
+            InventoryView.Visibility = Visibility.Visible;
+            WorldMapView.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Event click for a use item button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UseItemClicked(object sender, RoutedEventArgs e)
         {
             ItemButton itemBtn = sender as ItemButton;
@@ -506,6 +398,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             }
         }
 
+        /// <summary>
+        /// Event click for a discard item button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DiscardItemClicked(object sender, RoutedEventArgs e)
         {
             ItemButton itemBtn = sender as ItemButton;
@@ -514,21 +411,94 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 mc.handlePotentAction(MainController.DISCARD_ITEM, itemBtn.ItemSlot);
             }
         }
+        #endregion
 
-        void location_Click(object sender, RoutedEventArgs e)
+        #region Sublocation Map Functions
+        /// <summary>
+        /// Initialises the sublocation map
+        /// </summary>
+        /// <param name="subloc">List of sublocation for this map</param>
+        /// <param name="currentSubLocation">The current sublocation which the player is at</param>
+        public void InitialiseSublocationMap(List<Sublocation> subloc, int currentSubLocation)
         {
-            TransparentButton tb = sender as TransparentButton;
-            int id = tb.data;
-            mc.handlePotentAction(MainController.CHANGE_LOC, id);
-        }
+            List<String> imagePaths = subloc.Select(value => value.GetImagePath()).ToList();
+            List<bool> scavenged = subloc.Select(value => value.GetScavenged()).ToList();
 
+            _UIModel.SublocationModel.Scavenged = scavenged;
+            _UIModel.SublocationModel.CurrentSublocation = currentSubLocation;
+
+            Sublocations.Children.Clear();
+
+            for (int i = 0; i < subloc.Count; i++)
+            {
+                BitmapImage temp = new BitmapImage();
+                temp.BeginInit();
+                //temp.UriSource = new Uri("pack://application:,,,/LongRoadHome;Resources/" + subloc[i].GetImagePath());
+                temp.UriSource = new Uri("pack://application:,,,/Resources/Loc_Res_PlaceHolder.png");
+                temp.EndInit();
+                BitmapImage temp2 = new BitmapImage();
+                temp2.BeginInit();
+                temp2.UriSource = new Uri("pack://application:,,,/Resources/Loc_Res_PlaceHolder_Scavenged.png");
+                temp2.EndInit();
+
+                TransparentButton button = new TransparentButton();
+                button.EnabledImage = temp;
+                button.DisabledImage = temp2;
+                button.DisplayedImage = temp;
+                button.ImageSwitch = scavenged[i];
+                button.Click += new RoutedEventHandler(SublocationClicked);
+
+                Grid.SetRow(button, 0);
+                Grid.SetColumn(button, i);
+                Grid.SetRowSpan(button, 2);
+                Sublocations.Children.Add(button);
+            }
+        }
+        /// <summary>
+        /// Draws the sublocation map
+        /// </summary>
+        public void DisplaySublocationMap()
+        {
+            screenState = SUB_MAP;
+            worldMapBtn.EnabledButton = true;
+            subMapBtn.EnabledButton = false;
+            inventoryBtn.EnabledButton = true;
+            SublocationMapView.Visibility = Visibility.Visible;
+            InventoryView.Visibility = Visibility.Hidden;
+            WorldMapView.Visibility = Visibility.Hidden;            
+        }
+        /// <summary>
+        /// Updates the data behind the sublocation map
+        /// </summary>
+        /// <param name="sublocation">The sublocation to update</param>
+        /// <param name="mode">The mode for the update, 
+        /// 0 = change current location to sublocation passed
+        /// 1 = update sublocation so that it is scavenged</param>
+        public void UpdateSublocationMap(int sublocation, int mode)
+        {
+            if (mode == 0)
+            {
+                _UIModel.SublocationModel.CurrentSublocation = sublocation;
+            }
+            else if (mode == 1)
+            {
+                TransparentButton tb = Sublocations.Children[sublocation-1] as TransparentButton;
+                tb.ImageSwitch = true;
+                _UIModel.SublocationModel.Scavenged[sublocation-1] = true;
+            }
+        }
+        /// <summary>
+        /// Determines what happens when a sublocation is clicked
+        /// </summary>
+        /// <param name="sender">The sender for this event</param>
+        /// <param name="e">Event arguments</param>
         private void SublocationClicked(object sender, RoutedEventArgs e)
         {
             TransparentButton sbtn = sender as TransparentButton;
-            if(sbtn != null)
+            if (sbtn != null)
             {
                 int index = Sublocations.Children.IndexOf(sbtn);
-                if (index+1 == _UIModel.SublocationModel.CurrentSublocation)
+                if (index + 1 == _UIModel.SublocationModel.CurrentSublocation)
                 {
                     if (!_UIModel.SublocationModel.Scavenged[index] && DrawYesNoOption("Do you wish to scavenge the location?"))
                     {
@@ -546,19 +516,142 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 }
             }
         }
+        #endregion
 
-        private void game_Loaded(object sender, RoutedEventArgs e)
+        #region World Map Functions
+        /// <summary>
+        /// Initialise the world map
+        /// </summary>
+        /// <param name="worldMapBM">Bit representing the background of the map</param>
+        /// <param name="buttonAreas">The Points on the map for the location buttons</param>
+        public void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, SortedList<int, System.Windows.Point> buttonAreas)
         {
-            zoomBorder.Reset();
+            this.worldMapBM = worldMapBM;
+            this.buttonAreas = buttonAreas;
+            worldMapButtons = new SortedList<int, TransparentButton>();
+
+            // Get images for unvisited and visited locations
+            BitmapImage unvisitedBMI = new BitmapImage();
+            unvisitedBMI.BeginInit();
+            unvisitedBMI.UriSource = new Uri("pack://application:,,,/Resources/unvisited_location.png");
+            unvisitedBMI.EndInit();
+
+            BitmapImage visitedBMI = new BitmapImage();
+            visitedBMI.BeginInit();
+            visitedBMI.UriSource = new Uri("pack://application:,,,/Resources/visited_location.png");
+            visitedBMI.EndInit();
+
+            // Add buttons for each button area
+            foreach (var kvpair in buttonAreas)
+            {
+                TransparentButton tb = new TransparentButton();
+                tb.EnabledImage = unvisitedBMI;
+                tb.DisabledImage = visitedBMI;
+                tb.DisplayedImage = unvisitedBMI;
+                tb.data = kvpair.Key;
+                tb.ImageSwitch = false;
+                tb.Click += location_Click;
+
+                Canvas.SetLeft(tb, kvpair.Value.X - 5);
+                Canvas.SetTop(tb, kvpair.Value.Y - 4);
+                worldMap.Children.Add(tb);
+                worldMapButtons.Add(kvpair.Key, tb);
+
+            }
+            // Set up background
+            mapView.Source = Bitmap2BitmapSource(worldMapBM);
+            worldMap.Height = mapView.Source.Height * 1.65;
+            worldMap.Width = mapView.Source.Width * 1.65;
+
+            // Set start location to visited and set the character pointer to that location button
+            TransparentButton startButton;
+            if (worldMapButtons.TryGetValue(0, out startButton))
+            {
+                startButton.ImageSwitch = true;
+            }
+
+            Point characterLocation;
+            if (buttonAreas.TryGetValue(0, out characterLocation))
+            {
+                zoomBorder.charLoc = characterLocation;
+                zoomBorder.Reset();
+                BitmapImage temp = new BitmapImage();
+                temp.BeginInit();
+                temp.UriSource = new Uri("pack://application:,,,/Resources/Character-stand.png");
+                temp.EndInit();
+                characterPointer.Source = temp;
+                characterPointer.Height = 35;
+                characterPointer.Width = 10;
+                Canvas.SetLeft(characterPointer, characterLocation.X + 4);
+                Canvas.SetTop(characterPointer, characterLocation.Y - 20);
+                worldMap.Children.Remove(characterPointer);
+                worldMap.Children.Add(characterPointer);
+            }
         }
 
-        public void ReturnToMainMenu()
+        /// <summary>
+        /// Displays the WorldMap
+        /// </summary>
+        public void DisplayWorldMap()
         {
-            mainMenu.ReturnToMainMenu();
+            screenState = WORLD_MAP;
+            worldMapBtn.EnabledButton = false;
+            subMapBtn.EnabledButton = true;
+            inventoryBtn.EnabledButton = true;
+            SublocationMapView.Visibility = Visibility.Hidden;
+            InventoryView.Visibility = Visibility.Hidden;
+            WorldMapView.Visibility = Visibility.Visible;
         }
+
+        /// <summary>
+        /// Updates the world map
+        /// </summary>
+        /// <param name="newLocation"></param>
+        public void UpdateWorldMap(int newLocation)
+        {
+            TransparentButton tb;
+            if (worldMapButtons.TryGetValue(newLocation, out tb))
+            {
+                tb.ImageSwitch = true;
+            }
+
+            Point characterLocation;
+            if (buttonAreas.TryGetValue(newLocation, out characterLocation))
+            {
+                zoomBorder.charLoc = characterLocation;
+                zoomBorder.Reset();
+                Canvas.SetLeft(characterPointer, characterLocation.X + 4);
+                Canvas.SetTop(characterPointer, characterLocation.Y - 20);
+            }
+        }
+
+        /// <summary>
+        /// Determines what happens when a location is clicked
+        /// </summary>
+        /// <param name="sender">The object which sent the click</param>
+        /// <param name="e">Event arguments</param>
+        private void location_Click(object sender, RoutedEventArgs e)
+        {
+            TransparentButton tb = sender as TransparentButton;
+            int id = tb.data;
+            mc.handlePotentAction(MainController.CHANGE_LOC, id);
+        }
+        #endregion
+
+        #region Animation Functions
+        public void Animate(List<String> imageFileNames)
+        {
+            throw new NotImplementedException();
+        }   
+        #endregion
+
+        #region Audio Functions
+        public void PlayAudio(String audioFile)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
-
-
 }
 
 

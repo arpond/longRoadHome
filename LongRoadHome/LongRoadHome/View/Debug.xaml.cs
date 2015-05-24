@@ -110,9 +110,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// Updates the inventory
         /// </summary>
         /// <param name="inventory">The inventory</param>
-        public void DrawInventory(ArrayList inventory)
+        public void DisplayInventory()
         {
-            inventoryLB.ItemsSource = inventory;
+            //inventoryLB.ItemsSource = inventory;
+        }
+
+        public void InitialiseInventory(ArrayList inventory)
+        {
+
         }
 
         /// <summary>
@@ -237,6 +242,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             bestFitLineLB.ItemsSource = yValues;
         }
 
+        public Dispatcher GetDispatcher()
+        {
+            throw new NotImplementedException();
+        }
+
         public void DrawMainMenu()
         {
             throw new NotImplementedException();
@@ -245,11 +255,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new NotImplementedException();
         }
-        public void DrawWorldMap(List<Location> visited, int currentLoc)
+        public void DisplayWorldMap()
         {
             throw new NotImplementedException();
         }
-        public void DrawSublocationMap(List<Sublocation> subloc, int currentSubLocation)
+
+        public void InitialiseSublocationMap(List<Sublocation> subloc, int currentSubLocation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplaySublocationMap()
         {
             throw new NotImplementedException();
         }
@@ -471,5 +487,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
 
         }
+
+        public void UpdateSublocationMap(int sublocation, int mode)
+        {
+
+        }
+
+        public void UpdateWorldMap(int newLocation)
+        {
+
+        }
+
     }
 }

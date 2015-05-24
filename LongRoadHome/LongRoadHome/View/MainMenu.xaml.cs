@@ -38,9 +38,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             this.NavigationService.Navigate(gv);
         }
 
-        public void ReturnToMainMenu()
+        public void ReturnToMainMenu(MainMenu mainMenu)
         {
-            this.NavigationService.Navigate(this);
+            NavigationService ns = mainMenu.NavigationService;
+            if (ns == null)
+            {
+                (Application.Current.MainWindow as NavigationWindow).Navigate(mainMenu);
+            }
         }
     }
 }

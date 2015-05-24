@@ -6,7 +6,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="728" d:DesignWidth="1024"
 	Title="MainMenu">
-
     <Grid Margin="10">
         <Grid.Background>
             <ImageBrush ImageSource="../Title.png"/>
