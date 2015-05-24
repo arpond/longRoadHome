@@ -321,16 +321,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             SimpleMessageBox.Show("Scavenging Results", results, Window.GetWindow(this));
         }
 
+        /// <summary>
+        /// Draws a discovery dialogue box
+        /// </summary>
+        /// <param name="discovery">The discovery text</param>
+        public void DrawDiscovery(string discovery)
+        {
+            SimpleMessageBox.Show("You made a discovery!", discovery, Window.GetWindow(this));
+        }
+
         #endregion
 
         #region Discovery Functions
         public void DrawDiscoveries(List<Discovery> discs)
         {
-            throw new NotImplementedException();
-        }
+            foreach(Discovery disc in discs)
+            {
+                int id = disc.GetDiscoveryID();
+                String text = disc.GetDiscoveryText();
+            }
 
-        public void DrawDiscovery(string discovery)
-        {
             throw new NotImplementedException();
         }
         #endregion
@@ -431,20 +441,21 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
             for (int i = 0; i < subloc.Count; i++)
             {
-                BitmapImage temp = new BitmapImage();
-                temp.BeginInit();
-                //temp.UriSource = new Uri("pack://application:,,,/LongRoadHome;Resources/" + subloc[i].GetImagePath());
-                temp.UriSource = new Uri("pack://application:,,,/Resources/Loc_Res_PlaceHolder.png");
-                temp.EndInit();
-                BitmapImage temp2 = new BitmapImage();
-                temp2.BeginInit();
-                temp2.UriSource = new Uri("pack://application:,,,/Resources/Loc_Res_PlaceHolder_Scavenged.png");
-                temp2.EndInit();
+                BitmapImage sublocationIcon = new BitmapImage();
+                sublocationIcon.BeginInit();
+                //Cannot locate resource 'longroadhome;resources/civic-1.png
+                sublocationIcon.UriSource = new Uri("pack://application:,,,/Resources/" + subloc[i].GetImagePath() + ".png");
+                //sublocationIcon.UriSource = new Uri("pack://application:,,,/Resources/Civic_1.png");
+                sublocationIcon.EndInit();
+                BitmapImage scavengedIcon = new BitmapImage();
+                scavengedIcon.BeginInit();
+                scavengedIcon.UriSource = new Uri("pack://application:,,,/Resources/" + subloc[i].GetImagePath() + "_Scavenged.png");
+                scavengedIcon.EndInit();
 
                 TransparentButton button = new TransparentButton();
-                button.EnabledImage = temp;
-                button.DisabledImage = temp2;
-                button.DisplayedImage = temp;
+                button.EnabledImage = sublocationIcon;
+                button.DisabledImage = scavengedIcon;
+                button.DisplayedImage = sublocationIcon;
                 button.ImageSwitch = scavenged[i];
                 button.Click += new RoutedEventHandler(SublocationClicked);
 
@@ -583,7 +594,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 characterPointer.Height = 35;
                 characterPointer.Width = 10;
                 Canvas.SetLeft(characterPointer, characterLocation.X + 4);
-                Canvas.SetTop(characterPointer, characterLocation.Y - 20);
+                Canvas.SetTop(characterPointer, characterLocation.Y - 23);
                 worldMap.Children.Remove(characterPointer);
                 worldMap.Children.Add(characterPointer);
             }
@@ -621,7 +632,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 zoomBorder.charLoc = characterLocation;
                 zoomBorder.Reset();
                 Canvas.SetLeft(characterPointer, characterLocation.X + 4);
-                Canvas.SetTop(characterPointer, characterLocation.Y - 20);
+                Canvas.SetTop(characterPointer, characterLocation.Y - 23);
             }
         }
 

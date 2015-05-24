@@ -88,9 +88,6 @@
     <Compile Include="View\Debug.xaml.cs">
       <DependentUpon>Debug.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EventDialog.xaml.cs">
-      <DependentUpon>EventDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
@@ -139,10 +136,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Debug.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EventDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -221,6 +214,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -328,7 +322,7 @@
     <Resource Include="Resources\item_placeholder.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Libraries\" />
+    <Resource Include="Resources\Civic_1.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\boy.ico" />
@@ -348,6 +342,75 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\unvisited_location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_1_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_2_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_3_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_4_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_1_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_2_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_3_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_4_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_1_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_2_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_3_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_4_Scavenged.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

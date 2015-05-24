@@ -24,6 +24,7 @@ using uk.ac.dundee.arpond.longRoadHome.View;
 using System.Drawing;
 using System.Windows.Threading;
 using System.Timers;
+using uk.ac.dundee.arpond.longRoadHome.View.Controls;
 
 namespace uk.ac.dundee.arpond.longRoadHome.View
 {
@@ -322,9 +323,56 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <returns>The selected option by the used</returns>
         public int DrawEvent(String eventText, List<String> options)
         {
-            EventDialog ed = new EventDialog(eventText, options, false);
-            ed.ShowDialog();
-            return ed.GetSelected();
+            List<String> buttonText = new List<string>() { "Option 1", "Option 2", "Option 3", "Option 4" };
+
+            string optionsText = "";
+            for (int i = 1; i <= options.Count; i++)
+            {
+                optionsText += i + ". " + options[i - 1] + "\n";
+            }
+
+            MessageBoxResult result = MessageBoxResult.None;
+            switch (options.Count)
+            {
+                case 1:
+                    SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OK, Window.GetWindow(this));
+                    result = MessageBoxResult.Yes;
+                    break;
+                case 2:
+                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNo, buttonText, Window.GetWindow(this));
+                    break;
+                case 3:
+                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNoCancel, buttonText, Window.GetWindow(this));
+                    break;
+                case 4:
+                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OKCancel, buttonText, Window.GetWindow(this));
+                    break;
+            }
+
+            int selected = 1;
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    selected = 1;
+                    break;
+                case MessageBoxResult.No:
+                    selected = 2;
+                    break;
+                case MessageBoxResult.OK:
+                    selected = 4;
+                    break;
+                case MessageBoxResult.Cancel:
+                    if (options.Count == 3)
+                    {
+                        selected = 3;
+                    }
+                    else
+                    {
+                        selected = 4;
+                    }
+                    break;
+            }
+            return selected;
         }
 
         /// <summary>
@@ -334,8 +382,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <param name="results">The results of the selected option</param>
         public void DrawEventResult(String optionResult, List<String> results)
         {
-            EventDialog ed = new EventDialog(optionResult, results, true);
-            ed.ShowDialog();
+            String effectResults = "";
+            foreach (String result in results)
+            {
+                effectResults += result + "\n";
+            }
+
+            SimpleMessageBox.Show(optionResult, effectResults, MessageBoxButton.OK, Window.GetWindow(this));
         }
 
         public void PlayAudio(String audioFile)
