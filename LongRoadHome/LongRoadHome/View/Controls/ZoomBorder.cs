@@ -48,8 +48,8 @@ namespace PanAndZoom
             {
                 TransformGroup group = new TransformGroup();
                 ScaleTransform st = new ScaleTransform();
-                st.ScaleX = 2.0;
-                st.ScaleY = 2.0;
+                st.ScaleX = 3;
+                st.ScaleY = 3;
                 group.Children.Add(st);
                 TranslateTransform tt = new TranslateTransform();
                 group.Children.Add(tt);
@@ -70,16 +70,22 @@ namespace PanAndZoom
             {
                 // reset zoom
                 var st = GetScaleTransform(child);
-                st.ScaleX = 2.0;
-                st.ScaleY = 2.0;
+                st.ScaleX = 3;
+                st.ScaleY = 3;
 
                 if (charLoc != null)
                 {
                     var tt = GetTranslateTransform(child);
-                    tt.X = 0.0;
-                    tt.Y = 0.0;
-                    tt.X = charLoc.X;
-                    tt.Y = charLoc.Y;
+                    //tt.X = 0.0;
+                    //tt.Y = 0.0;
+
+                    //FrameworkElement uielem = (FrameworkElement)child;
+                    var parentWindow = Window.GetWindow(child);
+                    if (parentWindow != null)
+                    {
+                        tt.X = -charLoc.X * st.ScaleX + parentWindow.Width / 2; //- (uielem.Width/2);
+                        tt.Y = -charLoc.Y * st.ScaleY + parentWindow.Height / 2; //- (uielem.Height/2);
+                    }
                 }
                 else
                 {
@@ -111,10 +117,10 @@ namespace PanAndZoom
                 abosuluteX = relative.X * st.ScaleX + tt.X;
                 abosuluteY = relative.Y * st.ScaleY + tt.Y;
 
-                if (st.ScaleX + zoom < 1)
+                if (st.ScaleX + zoom < 3)
                 {
-                    st.ScaleX = 1;
-                    st.ScaleY = 1;
+                    st.ScaleX = 3;
+                    st.ScaleY = 3;
                 }
                 else if (st.ScaleX + zoom > 4)
                 {

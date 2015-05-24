@@ -9,6 +9,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="728" d:DesignWidth="1024"
       Name="game"
+      Loaded="game_Loaded"
 	Title="GameView">
     <Page.Resources>
         <BitmapImage x:Key="background" UriSource="../Resources/background.png" />

@@ -125,6 +125,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             return lm.GetCurentLocation().GetLocationID();
         }
 
+        /// <summary>
+        /// Calculates the movement cost
+        /// </summary>
+        /// <param name="gs"></param>
+        /// <param name="locationID"></param>
+        /// <returns></returns>
         public double CalculateMoveCost(GameState gs, int locationID)
         {
             LocationModel lm = gs.GetLM();
@@ -139,7 +145,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
                 double yDistance = source.Y - target.Y;
                 double distance = Math.Sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                return distance/4;
+                return distance/8;
             }
 
             return 0;

@@ -216,7 +216,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             if (buttonAreas.TryGetValue(currentLoc, out point))
             {
                 worldMap.Children.Remove(characterPointer);
-                //zoomBorder.charLoc = point;
+                zoomBorder.charLoc = point;
+                zoomBorder.Reset();
                 BitmapImage temp = new BitmapImage();
                 temp.BeginInit();
                 temp.UriSource = new Uri("pack://application:,,,/Resources/Character-stand.png");
@@ -228,8 +229,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 Canvas.SetTop(characterPointer, point.Y - 20);
                 worldMap.Children.Add(characterPointer);
             }
-            
-
         }
 
         /// <summary>
@@ -520,6 +519,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                     UpdatePlayer();
                 }
             }
+        }
+
+        private void game_Loaded(object sender, RoutedEventArgs e)
+        {
+            zoomBorder.Reset();
         }
     }
 

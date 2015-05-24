@@ -36,8 +36,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             GameView gv = new GameView();
             this.NavigationService.Navigate(gv);
-
-
         }
     }
 }
