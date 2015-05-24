@@ -13,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LongRoadHome
+namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
 {
     /// <summary>
-    /// Interaction logic for MainMenu.xaml
+    /// Interaction logic for Inventory.xaml
     /// </summary>
-    public partial class MainMenu : Page
+    public partial class InventoryControl : UserControl
     {
-        public MainMenu()
+        public InventoryControl()
         {
             InitializeComponent();
-            this.ShowsNavigationUI = false;
-        }
-
-        private void debugBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Debug debug = new Debug();
-            this.NavigationService.Navigate(debug);
         }
     }
 }

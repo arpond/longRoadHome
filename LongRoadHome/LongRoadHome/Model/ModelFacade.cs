@@ -105,6 +105,52 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             }
         }
 
+        public int GetCurrentSublocation(GameState gs)
+        {
+            LocationModel lm = gs.GetLM();
+            Sublocation sub = lm.GetSubLocation();
+            if (sub != null)
+            {
+                return sub.GetSublocationID();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int GetCurrentLocation(GameState gs)
+        {
+            LocationModel lm = gs.GetLM();
+            return lm.GetCurentLocation().GetLocationID();
+        }
+
+        /// <summary>
+        /// Calculates the movement cost
+        /// </summary>
+        /// <param name="gs"></param>
+        /// <param name="locationID"></param>
+        /// <returns></returns>
+        public double CalculateMoveCost(GameState gs, int locationID)
+        {
+            LocationModel lm = gs.GetLM();
+            int current = lm.GetCurentLocation().GetLocationID();
+            var buttonAreas = lm.GetButtonAreas();
+            
+            System.Windows.Point source;
+            System.Windows.Point target;
+            if(buttonAreas.TryGetValue(current, out source) && buttonAreas.TryGetValue(locationID, out target))
+            {
+                double xDistance = source.X - target.X;
+                double yDistance = source.Y - target.Y;
+                double distance = Math.Sqrt(xDistance * xDistance + yDistance * yDistance);
+
+                return distance/8;
+            }
+
+            return 0;
+        }
+
         /// <summary>
         /// Checks if the Player in this game state can afford to move
         /// </summary>
@@ -347,6 +393,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
 
             string discoveryText = dm.GetNewDiscovery(lm.GetVisited().Count);
             return discoveryText;
+        }
+
+        public SortedList<int, System.Windows.Point> GetButtonAreas(GameState gs)
+        {
+            return gs.GetLM().GetButtonAreas();
+        }
+
+        public System.Drawing.Bitmap GetWorldMap(GameState gs)
+        {
+            return gs.GetLM().GetWorldMap();
         }
     }
 

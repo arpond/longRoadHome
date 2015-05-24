@@ -1,0 +1,223 @@
+﻿<Page x:Class="uk.ac.dundee.arpond.longRoadHome.View.GameView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:uk.ac.dundee.arpond.longRoadHome.View"
+      xmlns:uControl="clr-namespace:uk.ac.dundee.arpond.longRoadHome.View.Controls"
+      xmlns:panZoom="clr-namespace:PanAndZoom"
+      mc:Ignorable="d" 
+      d:DesignHeight="728" d:DesignWidth="1024"
+      Name="game"
+      Loaded="game_Loaded"
+	Title="GameView">
+    <Page.Resources>
+        <BitmapImage x:Key="background" UriSource="../Resources/background.png" />
+        <BitmapImage x:Key="health" UriSource="../Resources/health.png" />
+        <BitmapImage x:Key="hunger" UriSource="../Resources/hunger.png" />
+        <BitmapImage x:Key="thirst" UriSource="../Resources/thirst.png" />
+        <BitmapImage x:Key="sanity" UriSource="../Resources/sanity.png" />
+        <BitmapImage x:Key="disabledLocMap" UriSource="../Resources/LocMap-Active.png" />
+        <BitmapImage x:Key="enabledLocMap" UriSource="../Resources/LocMap-Inactive.png" />
+        <BitmapImage x:Key="disabledInventory" UriSource="../Resources/Inv-Active.png" />
+        <BitmapImage x:Key="enabledInventory" UriSource="../Resources/Inv-Inactive.png" />
+        <BitmapImage x:Key="disabledSubMap" UriSource="../Resources/SubMap-Active.png" />
+        <BitmapImage x:Key="enabledSubMap" UriSource="../Resources/SubMap-Inactive.png" />
+        <BitmapImage x:Key="charStand" UriSource="../Resources/Character-stand.png" />
+        <BitmapImage x:Key="subPlaceHolder" UriSource="../Resources/Loc_Res_PlaceHolder.png" />
+        <BitmapImage x:Key="invBck" UriSource="../Resources/inventoryBck.png" />
+        <BitmapImage x:Key="itemBck" UriSource="../Resources/itemBck.png" />
+        <BitmapImage x:Key="charStandLeft" UriSource="../Resources/Character-stand-Reverse.png" />
+        <BitmapImage x:Key="itemIcon" UriSource="../Resources/item_placeholder.png" />
+    </Page.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="{StaticResource background}"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="141" />
+            <RowDefinition Height="251*" />
+            <RowDefinition Height="336*" />
+        </Grid.RowDefinitions>
+        
+        <!-- Health -->
+        <uControl:ResourceBar
+                        Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                        x:Name="healthBar"
+                        Resource="{Binding Path=PlayerModel.Health, UpdateSourceTrigger=PropertyChanged}"
+                        ImgSource="{StaticResource health}"/>
+
+        <!-- Hunger -->
+        <uControl:ResourceBar
+                        Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" 
+                        Resource="{Binding Path=PlayerModel.Hunger, UpdateSourceTrigger=PropertyChanged}"
+                        ImgSource="{StaticResource hunger}"/>
+        <!-- Thirst -->
+        <uControl:ResourceBar
+                        Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" 
+                        Resource="{Binding Path=PlayerModel.Thirst, UpdateSourceTrigger=PropertyChanged}"
+                        ImgSource="{StaticResource thirst}"/>
+        <!-- Sanity -->
+        <uControl:ResourceBar
+                        Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" 
+                        Resource="{Binding Path=PlayerModel.Sanity, UpdateSourceTrigger=PropertyChanged}"
+                        ImgSource="{StaticResource sanity}"/>
+        <!-- NavBar -->
+        <Grid Grid.Column="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="95*" />
+                <ColumnDefinition Width="15*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="1" Grid.Row="0" Background="Black" BorderBrush="Gainsboro" BorderThickness="1" Margin="5">
+                <Grid Margin="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition Height="1"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Column="0" Grid.Row="0" Background="Gray"  BorderThickness="1" Margin="2 2 2 0">
+                        <uControl:ImageButton 
+                            x:Name="worldMapBtn"
+                            EnabledButton="True"
+                            Click="changeUI_Click"
+                            EnabledImage="{StaticResource enabledLocMap}"
+                            DisabledImage="{StaticResource disabledLocMap}"
+                            DisplayedImage="{StaticResource enabledLocMap}"
+                            />
+                    </Border>
+                    <Border Grid.Column="0" Grid.Row="1" Background="Gray"  BorderThickness="1" Margin="2 0">
+                        <uControl:ImageButton
+                            x:Name="subMapBtn"
+                            EnabledButton="True"
+                            Click="changeUI_Click"
+                            EnabledImage="{StaticResource enabledSubMap}"
+                            DisabledImage="{StaticResource disabledSubMap}"
+                            DisplayedImage="{StaticResource enabledSubMap}"
+                            />
+                    </Border>
+                    <Border Grid.Column="0" Grid.Row="2" Background="Gray"  BorderThickness="1" Margin="2 0">
+                        <uControl:ImageButton
+                            x:Name="inventoryBtn"
+                            EnabledButton="True"
+                            Click="changeUI_Click"
+                            EnabledImage="{StaticResource enabledInventory}"
+                            DisabledImage="{StaticResource disabledInventory}"
+                            DisplayedImage="{StaticResource enabledInventory}"
+                            />
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Name="WorldMapView" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="0" Panel.ZIndex="-1">
+            <panZoom:ZoomBorder ClipToBounds="True" x:Name="zoomBorder">
+                <Canvas Name="worldMap">
+                    <Image Name="characterPointer"/>
+                    <Image Name="mapView"/>
+                </Canvas>
+            </panZoom:ZoomBorder>
+        </Border>
+        
+        <Border Name="SublocationMapView" DataContext="{Binding SublocationModel}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
+            <Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Name="Sublocations">
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                    <Image Grid.Column="{Binding Path=CurrentSublocation, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"  Source="{StaticResource charStand}" Margin="10 10 10 0" VerticalAlignment="Bottom" >
+                    </Image>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border Name="InventoryView" Visibility="Hidden" DataContext="{Binding SublocationModel}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="7" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="299*" />
+                        <ColumnDefinition Width="275*" />
+                        <ColumnDefinition Width="322*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"  Source="{StaticResource invBck}" Margin="0" Panel.ZIndex="-1">
+                    </Image>
+                    <Grid Name="InventoryGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="130*" />
+                            <ColumnDefinition Width="130*" />
+                            <ColumnDefinition Width="130*" />
+                            <ColumnDefinition Width="130*" />
+                            <ColumnDefinition Width="17"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="57" />
+                            <RowDefinition Height="145*" />
+                            <RowDefinition Height="145*" />
+                            <RowDefinition Height="145*" />
+                            <RowDefinition Height="145*" />
+                            <RowDefinition Height="57" />
+                        </Grid.RowDefinitions>
+                        
+                    </Grid>
+                    <Image Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Source="{StaticResource charStandLeft}" Margin="100 100 100 0" VerticalAlignment="Bottom" >
+                    </Image>
+                </Grid>
+            </Grid>
+        </Border>
+        <Grid Name="popUpArea"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
+        </Grid>
+    </Grid>
+</Page>

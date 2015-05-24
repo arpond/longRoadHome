@@ -139,10 +139,10 @@ namespace UnitTests_LongRoadHome.ControllerTests
             dm = new DiscoveryModel(discovered, discoveryCatalogue);
 
             // Game State
-            gs = new GameState(pc, inventory, itemCatalogue,
-                usedEvents, currentEvent, eventCatalogue,
-                discovered, discoveryCatalogue,
-                visitedLocs, unvisitedLocs, currLoc, currSLoc);
+            //gs = new GameState(pc, inventory, itemCatalogue,
+            //    usedEvents, currentEvent, eventCatalogue,
+            //    discovered, discoveryCatalogue,
+            //    visitedLocs, unvisitedLocs, currLoc, currSLoc);
 
             // Difficulty Controller
             difficultyController = DifficultyController.TAG + ":1.1:Tracker|1.1|1|0.9|0.7|1.1|1|1.075|0.9|0.85|0.7|0.6|0.8|1|0.9|1.1|1.05|1|1.05|1.1|0.9|1.1";
@@ -175,7 +175,7 @@ namespace UnitTests_LongRoadHome.ControllerTests
             Assert.AreEqual(eventCatalogue, workingEventCat, "Event catalogues should match");
             Assert.AreEqual(discoveryCatalogue, workingDiscCat, "Discovery catalogues should match");
             Assert.AreEqual(itemCatalogue, workingItemCat, "Item catalogues should match");
-            Assert.AreEqual(1024, workingLM.GetUnvisited().Count, "Should be 1024 unvisited nodes");
+            Assert.AreEqual(512, workingLM.GetUnvisited().Count, "Should be 1024 unvisited nodes");
         }
 
         [TestCategory("MainController"), TestCategory("Controller"), TestMethod()]

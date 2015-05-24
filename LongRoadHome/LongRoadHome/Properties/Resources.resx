@@ -142,8 +142,23 @@
   <data name="CharacterWalk_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CharacterWalk-8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Character_stand" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Character-stand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="health" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\health.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hunger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hunger.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Inv_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Inv-Active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Inv_Inactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Inv-Inactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LocMap_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LocMap-Active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LocMap_Inactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LocMap-Inactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Loc_Res_PlaceHolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\loc_res_placeholder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -162,5 +177,53 @@
   </data>
   <data name="parallax_mountain_trees" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\parallax-mountain-trees.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sanity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sanity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SubMap_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SubMap-Active.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SubMap_Inactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SubMap-Inactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="thirst" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\thirst.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="inventoryBck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inventoryBck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Character_stand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Character-stand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Character_stand_Reverse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Character-stand-Reverse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="itemBck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\itemBck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Loc_Res_PlaceHolder_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Loc_Res_PlaceHolder_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="item_placeholder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\item_placeholder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="t" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\t.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="location" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\location.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="worldTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\worldTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="unvisited_location" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unvisited_location.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="visited_location" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\visited_location.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

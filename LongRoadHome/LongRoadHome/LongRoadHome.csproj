@@ -7,7 +7,7 @@
     <ProjectGuid>{583F53DC-BF7D-47E2-81F0-A22F79F48474}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LongRoadHome</RootNamespace>
+    <RootNamespace>uk.ac.dundee.arpond.longRoadHome</RootNamespace>
     <AssemblyName>LongRoadHome</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -34,9 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GraphSharp.Contracts">
+      <HintPath>Libraries\GraphSharp.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Contracts">
+      <HintPath>Libraries\Microsoft.Contracts.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,21 +61,84 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Debug.xaml.cs">
+    <Compile Include="Model\Location\WorldMap.cs" />
+    <Compile Include="View\Controls\DemoTextBox.xaml.cs">
+      <DependentUpon>DemoTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ImageButton.xaml.cs">
+      <DependentUpon>ImageButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\InventoryControl.xaml.cs">
+      <DependentUpon>InventoryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ItemButton.xaml.cs">
+      <DependentUpon>ItemButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ResourceBar.xaml.cs">
+      <DependentUpon>ResourceBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\SimpleMessageBoxView.xaml.cs">
+      <DependentUpon>SimpleMessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\SimpleMessageBox.cs" />
+    <Compile Include="View\Controls\TransparentButton.xaml.cs">
+      <DependentUpon>TransparentButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ZoomBorder.cs" />
+    <Compile Include="View\Debug.xaml.cs">
       <DependentUpon>Debug.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventDialog.xaml.cs">
       <DependentUpon>EventDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainMenu.xaml.cs">
+    <Compile Include="View\GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Animation.cs" />
     <Compile Include="View\Animator.cs" />
     <Compile Include="View\AudioPlayer.cs" />
-    <Compile Include="View\GameView.cs" />
     <Compile Include="View\IGameView.cs" />
-    <Page Include="Debug.xaml">
+    <Compile Include="View\UIObjects\UIImageButton.cs" />
+    <Compile Include="View\UIObjects\UIInvetory.cs" />
+    <Compile Include="View\UIObjects\UIItem.cs" />
+    <Compile Include="View\UIObjects\UIModel.cs" />
+    <Compile Include="View\UIObjects\UIPlayer.cs" />
+    <Compile Include="View\UIObjects\UISublocations.cs" />
+    <Page Include="View\Controls\DemoTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\ImageButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\InventoryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\ItemButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\ResourceBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\SimpleMessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\TransparentButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Debug.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -76,7 +146,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainMenu.xaml">
+    <Page Include="View\GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,6 +169,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Discovery\Discovery.cs" />
@@ -184,9 +262,6 @@
     <None Include="Resources\CharacterWalk-8.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Character-stand.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\parallax-mountain-bg.png" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +275,79 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\parallax-mountain-trees.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LocMap-Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LocMap-Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SubMap-Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SubMap-Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Inv-Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Inv-Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\hunger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sanity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\thirst.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\health.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\inventoryBck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\itemBck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Character-stand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Character-stand-Reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Loc_Res_PlaceHolder_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\item_placeholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Libraries\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\boy.ico" />
+    <Resource Include="Images\girl.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\t.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\worldTile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\visited_location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\unvisited_location.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

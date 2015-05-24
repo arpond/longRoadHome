@@ -79,6 +79,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             {
                 gs = new GameState(itemCatalogue, eventCatalogue, discoveryCatalogue);
                 dc = new DifficultyController();
+                var worldMap = mf.GetWorldMap(gs);
+                var buttonAreas = mf.GetButtonAreas(gs);
+                gameView.InitialiseWorldMap(worldMap, buttonAreas);
                 return true;
             }
             return false;
@@ -103,7 +106,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             String unvisitedLocs = frw.ReadSaveDataFile(FileReadWriter.UNVISISTED);
             String currLoc = frw.ReadSaveDataFile(FileReadWriter.CURRENT_LOCATION);
             String currSLoc = frw.ReadSaveDataFile(FileReadWriter.CURRENT_SUBLOCATION);
+            String buttonAreas = frw.ReadSaveDataFile(FileReadWriter.BUTTONS_AREA);
             String difficultyController = frw.ReadSaveDataFile(FileReadWriter.DIFFICULTY_CONTROLLER);
+
+            System.Drawing.Bitmap worldMap = frw.ReadBitmap(FileReadWriter.WORLD_MAP);
 
             if  (GameState.IsValidGameState(pc, inventory, itemCatalogue, usedEvents, currentEvent, eventCatalogue,discovered,
                 discoveryCatalogue, visitedLocs, unvisitedLocs, currLoc, currSLoc) && DifficultyController.IsValidDifficultyController(difficultyController))
@@ -111,7 +117,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 gs = new GameState(pc, inventory, itemCatalogue,
                 usedEvents, currentEvent, eventCatalogue,
                 discovered, discoveryCatalogue,
-                visitedLocs, unvisitedLocs, currLoc, currSLoc);
+                visitedLocs, unvisitedLocs, currLoc, currSLoc, buttonAreas, worldMap);
                 dc = new DifficultyController(difficultyController);
                 return true;
             }
@@ -136,6 +142,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.CURRENT_LOCATION, gs.ParseCurrLocationToString());
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.CURRENT_SUBLOCATION, gs.ParseCurrSublocationToString());
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.DIFFICULTY_CONTROLLER, dc.ParseToString());
+            saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.BUTTONS_AREA, gs.ParseButtonAreasToString());
+            saveSucessful &= frw.WriteBitmap(FileReadWriter.WORLD_MAP, gs.GetLM().GetWorldMap());
 
             return saveSucessful;
         }
@@ -151,8 +159,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     case 0:
                         // Thread 1 - Start new game
                         InitialiseNewGame();
-                        // Thread 2 - Display Instructions
 
+                        // Thread 2 - Display Instructions
+                        gameView.StartNewGame();
+                        handleAction(VIEW_LOC_MAP);
                         // When both done display location Map
                         break;
                     // Continue
@@ -164,7 +174,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                         }
                         else
                         {
-                            //handleAction("View Location Map");
+                            handleAction(VIEW_LOC_MAP);
                         }
                         break;
                     // View location Map
@@ -181,7 +191,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                         break;
                     // Scavenge
                     case 9:
-                        ScavangeLocation();
+                        ScavangeSublocation();
                         break;
                     // Game Over
                     case 10:
@@ -204,22 +214,27 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     // Change location
                     case 5:
                         ChangeLocation(variable);
+                        DisplayLocations();
                         break;
                     // Change Sublocation
                     case 6:
                         ChangeSubLocation(variable);
+                        DisplaySubLocationsMap();
                         break;
                     // Use Item
                     case 7:
                         UseItem(variable);
+                        DisplayInventory();
                         break;
                     // Discard Item
                     case 8:
                         DiscardItem(variable);
+                        DisplayInventory();
                         break;
                 }
                 // Write Save Data
                 // Check if Game over
+                gameView.UpdatePlayer();
             }
         }
 
@@ -231,7 +246,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public bool ChangeLocation(int locationID)
         {
             bool visited = true;
-            if (!mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
+
+            var cost = Convert.ToInt32(mf.CalculateMoveCost(gs, locationID));
+            if (!gameView.DrawYesNoOption("Are you sure you wish to move to this location? It will cost you " + cost + " hunger and thirst"))
+            {
+                return false;
+            }
+            else if (!mf.CanAffordMove(gs, cost) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
             {
                 int risk = rnd.Next(1, 101);
                 if(risk <= 25)
@@ -240,13 +261,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 }
                 else
                 {
-                    mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+                    mf.ReduceResourcesByMoveCost(gs, cost);
                     return false;
                 }
             }
-            else if (mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST))
+            else if (mf.CanAffordMove(gs, cost))
             {
-                mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+                mf.ReduceResourcesByMoveCost(gs, cost);
                 visited = PerformMove(locationID);
             }
             else
@@ -408,7 +429,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             gameView.DrawEventResult(optionResult, effectResults);
         }
 
-        public bool ScavangeLocation()
+        public bool ScavangeSublocation()
         {
             if(CheckIfEventTriggered())
             {
@@ -425,6 +446,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             // Thread 1
             // Save Game
             // Thread 2
+            gameView.DrawSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
             gameView.DrawScavengeResults(scavenged);
             return true;
         }
@@ -477,7 +499,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public void DisplaySubLocationsMap()
         {
             List<Sublocation> sublocations = mf.GetCurrentSublocations(gs);
-            gameView.DrawSublocationMap(sublocations);
+            int currentSub = mf.GetCurrentSublocation(gs);
+            gameView.DrawSublocationMap(sublocations, currentSub);
         }
 
         /// <summary>
@@ -486,9 +509,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public void DisplayLocations()
         {
             List<Location> visited = mf.GetVisitedLocations(gs);
-            List<DummyLocation> unvisited = mf.GetUnvisitedLocations(gs);
-
-            gameView.DrawWorldMap(visited, unvisited);
+            int currentID = mf.GetCurrentLocation(gs);
+            gameView.DrawWorldMap(visited, currentID);
         }
 
         /// <summary>
@@ -525,7 +547,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             return mf.GetPlayerCharacterResources(gs);
         }
-
     }
 
 }

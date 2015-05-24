@@ -12,8 +12,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         void StartNewGame();
         void DrawMainMenu();
         void DrawDiscoveries(List<Discovery> discs);
-        void DrawWorldMap(List<Location> visited, List<DummyLocation> unvisited);
-        void DrawSublocationMap(List<Sublocation> subloc);
+        void DrawWorldMap(List<Location> visited, int currentID);
+        void DrawSublocationMap(List<Sublocation> subloc, int currentSubLocation);
         void DrawDialogueBox(String text);
         bool DrawYesNoOption(String text);
         void DrawInventory(ArrayList inventory);
@@ -25,6 +25,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         void Animate(List<String> imageFileNames);
         void DrawScavengeResults(List<Item> scavenged);
         void DrawDiscovery(string discovery);
+
+        void InitialiseWorldMap(System.Drawing.Bitmap worldMapBM, SortedList<int, System.Windows.Point> buttonAreas);
+
+        void UpdatePlayer();
+
+        
     }
 
 }
