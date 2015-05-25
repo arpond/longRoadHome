@@ -298,4 +298,19 @@
   <data name="Residential_4_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Residential_4_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="parallax_mountain_montain_far2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-montain-far2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_mountains2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-mountains2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_trees2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-trees2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_trees21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-trees2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_foreground_trees2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-foreground-trees2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

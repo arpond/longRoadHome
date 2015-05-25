@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Threading;
 using uk.ac.dundee.arpond.longRoadHome.Controller;
 using uk.ac.dundee.arpond.longRoadHome.Model.Discovery;
@@ -117,7 +118,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         #endregion
 
         #region Animation Functions
-        void Animate(List<String> imageFileNames);
+        void AnimateFrames(List<String> imageFileNames);
+        void EndAnimation();
         #endregion
 
         #region Audio Functions

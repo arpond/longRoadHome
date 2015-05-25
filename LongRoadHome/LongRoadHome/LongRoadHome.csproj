@@ -256,19 +256,19 @@
     <None Include="Resources\CharacterWalk-8.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\parallax-mountain-bg.png" />
+    <Resource Include="Resources\parallax-mountain-bg.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\parallax-mountain-foreground-trees.png" />
+    <Resource Include="Resources\parallax-mountain-foreground-trees.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\parallax-mountain-montain-far.png" />
+    <Resource Include="Resources\parallax-mountain-montain-far.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\parallax-mountain-mountains.png" />
+    <Resource Include="Resources\parallax-mountain-mountains.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\parallax-mountain-trees.png" />
+    <Resource Include="Resources\parallax-mountain-trees.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\LocMap-Active.png" />
@@ -411,6 +411,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Residential_4_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-trees2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-montain-far2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-mountains2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-foreground-trees2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

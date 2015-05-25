@@ -473,9 +473,29 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap parallax_mountain_foreground_trees2 {
+            get {
+                object obj = ResourceManager.GetObject("parallax_mountain_foreground_trees2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap parallax_mountain_montain_far {
             get {
                 object obj = ResourceManager.GetObject("parallax_mountain_montain_far", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap parallax_mountain_montain_far2 {
+            get {
+                object obj = ResourceManager.GetObject("parallax_mountain_montain_far2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -493,9 +513,39 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap parallax_mountain_mountains2 {
+            get {
+                object obj = ResourceManager.GetObject("parallax_mountain_mountains2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap parallax_mountain_trees {
             get {
                 object obj = ResourceManager.GetObject("parallax_mountain_trees", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap parallax_mountain_trees2 {
+            get {
+                object obj = ResourceManager.GetObject("parallax_mountain_trees2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap parallax_mountain_trees21 {
+            get {
+                object obj = ResourceManager.GetObject("parallax_mountain_trees21", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

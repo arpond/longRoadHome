@@ -301,6 +301,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 return false;
             }
 
+            delayEventCheck(visited);
+            return true;
+        }
+
+        private async void delayEventCheck(bool visited)
+        {
+            await PutTaskDelay();
             //Check if event happens
             if (!visited && CheckIfEventTriggered())
             {
@@ -308,7 +315,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 // Check if discovery is made
                 if (CheckIfDiscoveryTriggered())
                 {
-                    
+
                     String discoveryText = mf.TryToMakeNewDiscovery(gs);
                     if (discoveryText != "")
                     {
@@ -319,8 +326,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     }
                 }
             }
-            return true;
+            
         }
+
 
         /// <summary>
         /// Changes the current location dependant on if the new location has been visisted previously or not
@@ -337,8 +345,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     mf.ChangeLocation(gs, locationID);
                 });
                 // Main Thread - Animate movement
-                //gameView.Animate();
+                gameView.AnimateFrames(null);
                 Task.WaitAll(task1);
+                delayEndAnimation();
                 return true;
             }
             else
@@ -357,10 +366,23 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 });
 
                 // Main Thread - Animate movement
-                //gameView.Animate();
+                gameView.AnimateFrames(null);
+
                 Task.WaitAll(task1, task2);
+                delayEndAnimation();
                 return false;
             }
+        }
+
+        private async void delayEndAnimation()
+        {
+            await PutTaskDelay();
+            gameView.EndAnimation();
+        }
+
+        async Task PutTaskDelay()
+        {
+            await Task.Delay(2500);
         }
 
         /// <summary>
@@ -381,8 +403,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     dc.UpdatePlayerStatus(gs.Clone() as GameState);
                 });
                 // Main Thread - Animate movement
-                // gameView.Animate();
+                gameView.AnimateFrames(null);
                 Task.WaitAll(task1);
+                delayEndAnimation();
                 return true;
             }
             else

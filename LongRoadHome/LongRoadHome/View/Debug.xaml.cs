@@ -395,10 +395,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new NotImplementedException();
         }
-        public void Animate(List<String> imageFileNames)
+        public void AnimateFrames(List<String> imageFileNames)
         {
             throw new NotImplementedException();
         }
+
+        public static readonly RoutedEvent AnimateEvent = EventManager.RegisterRoutedEvent(
+    "Animate", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(GameView));
+
+        public event RoutedEventHandler Animate
+        {
+            add { AddHandler(AnimateEvent, value); }
+            remove { RemoveHandler(AnimateEvent, value); }
+        }
+
         public void DrawScavengeResults(List<Item> scavenged)
         {
             throw new NotImplementedException();
@@ -551,5 +561,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
         }
 
+        public void EndAnimation()
+        {
+        }
     }
 }

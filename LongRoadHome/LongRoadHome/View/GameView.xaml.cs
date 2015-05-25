@@ -21,6 +21,7 @@ using uk.ac.dundee.arpond.longRoadHome.Model.Location;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 using uk.ac.dundee.arpond.longRoadHome.View.UIObjects;
 using System.Windows.Threading;
+using System.Windows.Media.Animation;
 
 namespace uk.ac.dundee.arpond.longRoadHome.View
 {
@@ -130,6 +131,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         private void game_Loaded(object sender, RoutedEventArgs e)
         {
             zoomBorder.Reset();
+            walkingStory.Storyboard.Stop();
+            stop = true;
         }
 
         /// <summary>
@@ -650,10 +653,126 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         #endregion
 
         #region Animation Functions
-        public void Animate(List<String> imageFileNames)
+
+        int current = 0;
+        bool stop = false;
+        List<System.Drawing.Bitmap> images = new List<System.Drawing.Bitmap>();
+
+        public void AnimateFrames(List<String> imageFileNames)
         {
-            throw new NotImplementedException();
-        }   
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_1);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_2);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_3);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_4);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_5);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_6);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_7);
+            images.Add(uk.ac.dundee.arpond.longRoadHome.Properties.Resources.CharacterWalk_8);
+
+            animationImage.Visibility = Visibility.Visible;
+            animationBackground.Visibility = Visibility.Visible;
+            healthBar.Visibility = Visibility.Hidden;
+            hungerBar.Visibility = Visibility.Hidden;
+            thirstbar.Visibility = Visibility.Hidden;
+            sanityBar.Visibility = Visibility.Hidden;
+            navMenu.Visibility = Visibility.Hidden;
+            SublocationMapView.Visibility = Visibility.Hidden;
+            stop = false;
+            walkingStory.Storyboard.Begin();
+
+            mountainsFarSV.Visibility = Visibility.Visible;
+            mountainsFarSV.ScrollToBottom();
+            MoveTo(mountainsFar, -120);
+
+            mountainsSV.Visibility = Visibility.Visible;
+            mountainsSV.ScrollToBottom();
+            MoveTo(mountains, -200);
+
+            treesSV.Visibility = Visibility.Visible;
+            treesSV.ScrollToBottom();
+            MoveTo(trees, -400);
+
+            treesForeSV.Visibility = Visibility.Visible;
+            treesForeSV.ScrollToBottom();
+            MoveTo(treesForground, -700);
+
+            bck.Visibility = Visibility.Visible;
+        }
+
+
+
+        private ImageSource ResourceToImageSource(System.Drawing.Bitmap res)
+        {
+            return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                      res.GetHbitmap(),
+                      IntPtr.Zero,
+                      Int32Rect.Empty,
+                      BitmapSizeOptions.FromEmptyOptions());
+        }
+
+
+        public void MoveTo(Image target, double newX)
+        {
+            Vector offset = VisualTreeHelper.GetOffset(target);
+            //var left = offset.X;
+            TranslateTransform trans = new TranslateTransform();
+            target.RenderTransform = trans;
+            DoubleAnimation anim2 = new DoubleAnimation(0, newX, TimeSpan.FromSeconds(20));
+            trans.BeginAnimation(TranslateTransform.XProperty, anim2);
+        }
+
+        public void EndAnimation()
+        {
+            animationImage.Visibility = Visibility.Hidden;
+            animationBackground.Visibility = Visibility.Hidden;
+            healthBar.Visibility = Visibility.Visible;
+            hungerBar.Visibility = Visibility.Visible;
+            thirstbar.Visibility = Visibility.Visible;
+            sanityBar.Visibility = Visibility.Visible;
+            navMenu.Visibility = Visibility.Visible;
+            walkingStory.Storyboard.Stop();
+            stop = true;
+            mountainsFarSV.Visibility = Visibility.Collapsed;
+            mountainsSV.Visibility = Visibility.Collapsed;
+            treesSV.Visibility = Visibility.Collapsed;
+            treesForeSV.Visibility = Visibility.Collapsed;
+
+            bck.Visibility = Visibility.Hidden;
+            if (screenState == SUB_MAP)
+            {
+                SublocationMapView.Visibility = Visibility.Visible;
+            }
+            
+        }
+
+        private void walkingAnimation_Completed(object sender, EventArgs e)
+        {
+            ShowImage();
+            if (!stop)
+            {
+                walkingStory.Storyboard.Begin();
+            }
+        }
+
+        private void ShowImage()
+        {
+            if (images != null && images.Count > 0)
+            {
+                animationImage.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                      images[current].GetHbitmap(),
+                      IntPtr.Zero,
+                      Int32Rect.Empty,
+                      BitmapSizeOptions.FromEmptyOptions());
+
+
+                current++;
+                if (current >= images.Count)
+                {
+                    current = 0;
+                }
+            }
+            
+        }
         #endregion
 
         #region Audio Functions
@@ -662,6 +781,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             throw new NotImplementedException();
         }
         #endregion
+
+
+
+        
     }
 }
 
