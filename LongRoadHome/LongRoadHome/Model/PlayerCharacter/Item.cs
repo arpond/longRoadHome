@@ -9,6 +9,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public HashSet<int> requirements { get; set; }
         public List<ActiveEffect> activeEffects { get; set; }
         public List<PassiveEffect> passiveEffects { get; set; }
+        public String iconFileName { get; set; }
 
         /// <summary>
         /// Standard Constructor for an Item
@@ -22,6 +23,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             requirements = new HashSet<int>();
             activeEffects = new List<ActiveEffect>();
             passiveEffects = new List<PassiveEffect>();
+            iconFileName = "test.png";
         }
 
         /// <summary>
@@ -83,6 +85,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                                 }
                             }
                         }
+                        break;
+                    case "Icon":
+                        iconFileName = itemElement[1];
                         break;
                     //default: throw new FormatException();
                 }
@@ -218,7 +223,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                 reqs += ":" + id;
             }
 
-            pretty = String.Format("ID:{0} Name:{1} Amount:{2} Description:{3} Active Effects:{4} Passive Effects:{5} Requirements:{6}", itemID, name, amount, description, activeEffect, passiveEffect, reqs);
+            pretty = String.Format("ID:{0} Name:{1} Amount:{2} Description:{3} Active Effects:{4} Passive Effects:{5} Requirements:{6} Icon:{7}", itemID, name, amount, description, activeEffect, passiveEffect, reqs, iconFileName);
 
             return pretty;
         }
@@ -269,6 +274,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                 parsed += ":" + id;
             }
 
+            parsed += ",Icon:" + iconFileName;
+
             return parsed;
         }
 
@@ -306,6 +313,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                         break;
                     case "Name":
                     case "Description":
+                    case "Icon":
                         if (itemElement.Length < 2 || itemElement.Length > 2 || itemElement[1] == "")
                         {
                             return false;
