@@ -37,6 +37,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         int screenState = 5;
         private const int WORLD_MAP = 0, SUB_MAP = 1, INVENTORY = 2;
         private UIModel _UIModel;
+        private MediaPlayer mp = new MediaPlayer();
 
         //private WorldMap wm;
         private SortedList<int, TransparentButton> worldMapButtons;
@@ -87,6 +88,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         public void StartNewGame()
         {
             Dispatcher.Invoke(new Action(() => DrawTutorial()));
+           
         }
 
         /// <summary>
@@ -95,6 +97,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         public void LoadGame()
         {
             mc.handlePotentAction(MainController.CONTINUE, 0);
+
         }
 
         /// <summary>
@@ -778,7 +781,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         #region Audio Functions
         public void PlayAudio(String audioFile)
         {
-            throw new NotImplementedException();
+            mp.Open(new Uri("audio/"+audioFile, UriKind.Relative));
+            mp.MediaEnded += new EventHandler(Media_Ended);
+            mp.Play();
+        }
+        private void Media_Ended(object sender, EventArgs e)
+        {
+            mp.Position = TimeSpan.Zero;
+            mp.Play();
         }
         #endregion
 
