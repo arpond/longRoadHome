@@ -24,6 +24,7 @@ using uk.ac.dundee.arpond.longRoadHome.View;
 using System.Drawing;
 using System.Windows.Threading;
 using System.Timers;
+using uk.ac.dundee.arpond.longRoadHome.View.Controls;
 
 namespace uk.ac.dundee.arpond.longRoadHome.View
 {
@@ -58,9 +59,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void StartNewGame()
         {
-            mc.handleAction(MainController.NEW_GAME);
+            mc.handlePotentAction(MainController.NEW_GAME, 0);
             DrawCharacterResources();
-            mc.handleAction(MainController.VIEW_INVENTORY);
+            mc.handleIdepotentAction(MainController.VIEW_INVENTORY);
             DrawItemCatalogue();
             DrawEvents();
             DrawEventCatalogue();
@@ -73,9 +74,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void LoadGame()
         {
-            mc.handleAction(MainController.CONTINUE);
+            mc.handlePotentAction(MainController.CONTINUE, 0);
             DrawCharacterResources();
-            mc.handleAction(MainController.VIEW_INVENTORY);
+            mc.handleIdepotentAction(MainController.VIEW_INVENTORY);
             DrawItemCatalogue();
             DrawEvents();
             DrawEventCatalogue();
@@ -110,9 +111,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// Updates the inventory
         /// </summary>
         /// <param name="inventory">The inventory</param>
-        public void DrawInventory(ArrayList inventory)
+        public void DisplayInventory()
         {
-            inventoryLB.ItemsSource = inventory;
+            //inventoryLB.ItemsSource = inventory;
+        }
+
+        public void InitialiseInventory(ArrayList inventory)
+        {
+
         }
 
         /// <summary>
@@ -237,6 +243,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             bestFitLineLB.ItemsSource = yValues;
         }
 
+        public Dispatcher GetDispatcher()
+        {
+            throw new NotImplementedException();
+        }
+
         public void DrawMainMenu()
         {
             throw new NotImplementedException();
@@ -245,11 +256,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new NotImplementedException();
         }
-        public void DrawWorldMap(List<Location> visited, int currentLoc)
+        public void DisplayWorldMap()
         {
             throw new NotImplementedException();
         }
-        public void DrawSublocationMap(List<Sublocation> subloc, int currentSubLocation)
+
+        public void InitialiseSublocationMap(List<Sublocation> subloc, int currentSubLocation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplaySublocationMap()
         {
             throw new NotImplementedException();
         }
@@ -306,9 +323,56 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <returns>The selected option by the used</returns>
         public int DrawEvent(String eventText, List<String> options)
         {
-            EventDialog ed = new EventDialog(eventText, options, false);
-            ed.ShowDialog();
-            return ed.GetSelected();
+            List<String> buttonText = new List<string>() { "Option 1", "Option 2", "Option 3", "Option 4" };
+
+            string optionsText = "";
+            for (int i = 1; i <= options.Count; i++)
+            {
+                optionsText += i + ". " + options[i - 1] + "\n";
+            }
+
+            MessageBoxResult result = MessageBoxResult.None;
+            switch (options.Count)
+            {
+                case 1:
+                    SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OK, Window.GetWindow(this));
+                    result = MessageBoxResult.Yes;
+                    break;
+                case 2:
+                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNo, buttonText, Window.GetWindow(this));
+                    break;
+                case 3:
+                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNoCancel, buttonText, Window.GetWindow(this));
+                    break;
+                case 4:
+                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OKCancel, buttonText, Window.GetWindow(this));
+                    break;
+            }
+
+            int selected = 1;
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    selected = 1;
+                    break;
+                case MessageBoxResult.No:
+                    selected = 2;
+                    break;
+                case MessageBoxResult.OK:
+                    selected = 4;
+                    break;
+                case MessageBoxResult.Cancel:
+                    if (options.Count == 3)
+                    {
+                        selected = 3;
+                    }
+                    else
+                    {
+                        selected = 4;
+                    }
+                    break;
+            }
+            return selected;
         }
 
         /// <summary>
@@ -318,18 +382,33 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <param name="results">The results of the selected option</param>
         public void DrawEventResult(String optionResult, List<String> results)
         {
-            EventDialog ed = new EventDialog(optionResult, results, true);
-            ed.ShowDialog();
+            String effectResults = "";
+            foreach (String result in results)
+            {
+                effectResults += result + "\n";
+            }
+
+            SimpleMessageBox.Show(optionResult, effectResults, MessageBoxButton.OK, Window.GetWindow(this));
         }
 
         public void PlayAudio(String audioFile)
         {
             throw new NotImplementedException();
         }
-        public void Animate(List<String> imageFileNames)
+        public void AnimateFrames(List<String> imageFileNames)
         {
             throw new NotImplementedException();
         }
+
+        public static readonly RoutedEvent AnimateEvent = EventManager.RegisterRoutedEvent(
+    "Animate", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(GameView));
+
+        public event RoutedEventHandler Animate
+        {
+            add { AddHandler(AnimateEvent, value); }
+            remove { RemoveHandler(AnimateEvent, value); }
+        }
+
         public void DrawScavengeResults(List<Item> scavenged)
         {
             throw new NotImplementedException();
@@ -360,7 +439,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             int newLocationID = 0;
 
             int.TryParse(changeLocTB.Text, out newLocationID);
-            mc.handleAction(MainController.CHANGE_LOC, newLocationID);
+            mc.handlePotentAction(MainController.CHANGE_LOC, newLocationID);
 
             DrawLocations();
             DrawCharacterResources();
@@ -376,7 +455,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             int newSubLocID = 0;
             int.TryParse(changeSubLocTB.Text, out newSubLocID);
-            mc.handleAction(MainController.CHANGE_SUB, newSubLocID);
+            mc.handlePotentAction(MainController.CHANGE_SUB, newSubLocID);
 
             DrawLocations();
             DrawCharacterResources();
@@ -465,6 +544,25 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             rectBck.RenderTransform = transform;
             transform.BeginAnimation(TranslateTransform.XProperty, da);
             current2++;
+        }
+
+        public void ReturnToMainMenu()
+        {
+
+        }
+
+        public void UpdateSublocationMap(int sublocation, int mode)
+        {
+
+        }
+
+        public void UpdateWorldMap(int newLocation)
+        {
+
+        }
+
+        public void EndAnimation()
+        {
         }
     }
 }

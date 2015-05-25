@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests-LongRoadHome", "U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRoadHome", "LongRoadHome\LongRoadHome.csproj", "{583F53DC-BF7D-47E2-81F0-A22F79F48474}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRoadHomeTools", "LongRoadHomeTools\LongRoadHomeTools.csproj", "{AF39B3A7-B866-47C5-8A5C-956C4E5E3902}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{583F53DC-BF7D-47E2-81F0-A22F79F48474}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{583F53DC-BF7D-47E2-81F0-A22F79F48474}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{583F53DC-BF7D-47E2-81F0-A22F79F48474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF39B3A7-B866-47C5-8A5C-956C4E5E3902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF39B3A7-B866-47C5-8A5C-956C4E5E3902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF39B3A7-B866-47C5-8A5C-956C4E5E3902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF39B3A7-B866-47C5-8A5C-956C4E5E3902}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

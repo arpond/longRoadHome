@@ -162,26 +162,29 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         /// <returns></returns>
         public List<Tuple<int, double>> GenerateBestFitLine()
         {
+            List<Tuple<int, double>> xyValues = new List<Tuple<int, double>>();
             int numPoints = playerStatusTracker.Count;
-            List<Tuple<int, double>> xyValues = new List<Tuple<int,double>>();
-            for (int i = 0; i< numPoints; i++)
+            if (numPoints > 0)
             {
-                xyValues.Add(new Tuple<int, double>(i, playerStatusTracker[i]));
+                for (int i = 0; i < numPoints; i++)
+                {
+                    xyValues.Add(new Tuple<int, double>(i, playerStatusTracker[i]));
+                }
+
+                double meanX = xyValues.Average(value => value.Item1);
+                double meanY = xyValues.Average(value => value.Item2);
+
+                double sumXSquared = xyValues.Sum(value => value.Item1 * value.Item1);
+                double sumXY = xyValues.Sum(value => value.Item1 * value.Item2);
+
+                double a = (sumXY / numPoints - meanX * meanY) / (sumXSquared / numPoints - meanX * meanX);
+                double b = (a * meanX - meanY);
+
+                double a1 = a;
+                double b1 = b;
+                return xyValues.Select(value => new Tuple<int, double>(value.Item1, a1 * value.Item1 - b1)).ToList();
             }
-
-            double meanX = xyValues.Average(value => value.Item1);
-            double meanY = xyValues.Average(value => value.Item2);
-
-            double sumXSquared = xyValues.Sum(value => value.Item1 * value.Item1);
-            double sumXY = xyValues.Sum(value => value.Item1 * value.Item2);
-
-            double a = (sumXY / numPoints - meanX * meanY) / (sumXSquared / numPoints - meanX * meanX);
-            double b = (a * meanX - meanY);
-
-            double a1 = a;
-            double b1 = b;
-
-            return xyValues.Select(value => new Tuple<int, double>(value.Item1, a1 * value.Item1 - b1)).ToList();
+            return xyValues;
         }
 
         /// <summary>
@@ -196,7 +199,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             {
                 return true;
             }
-            else if (bestFit[bestFit.Count-1].Item2*100 < endLocationChance*100)
+            else if (bestFit.Count > 0 && bestFit[bestFit.Count-1].Item2*100 < endLocationChance*100)
             {
                 return true;
             }

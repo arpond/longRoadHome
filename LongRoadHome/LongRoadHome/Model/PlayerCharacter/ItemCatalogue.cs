@@ -162,5 +162,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             return items;
         }
+
+        public List<int> GetIDs()
+        {
+            return ids;
+        }
+
+        public void SetItems(List<Item> items)
+        {
+            this.items = items;
+        }
+
+        public void SetIDs(List<int> ids)
+        {
+            this.ids = ids;
+        }
     }
 }

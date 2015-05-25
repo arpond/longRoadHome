@@ -29,6 +29,11 @@
         <BitmapImage x:Key="itemBck" UriSource="../Resources/itemBck.png" />
         <BitmapImage x:Key="charStandLeft" UriSource="../Resources/Character-stand-Reverse.png" />
         <BitmapImage x:Key="itemIcon" UriSource="../Resources/item_placeholder.png" />
+        <BitmapImage x:Key="treesClose" UriSource="../Resources/parallax-mountain-foreground-trees2.png"/>
+        <BitmapImage x:Key="treesFar" UriSource="../Resources/parallax-mountain-trees2.png"/>
+        <BitmapImage x:Key="mountainsClose" UriSource="../Resources/parallax-mountain-mountains2.png"/>
+        <BitmapImage x:Key="mountainsFar" UriSource="../Resources/parallax-mountain-montain-far2.png"/>
+        <BitmapImage x:Key="mountainBack" UriSource="../Resources/parallax-mountain-bg.png"/>
     </Page.Resources>
     <Grid>
         <Grid.Background>
@@ -49,6 +54,38 @@
             <RowDefinition Height="251*" />
             <RowDefinition Height="336*" />
         </Grid.RowDefinitions>
+        <Border Name="animationArea" Grid.ColumnSpan="8" Grid.RowSpan="3">
+            <Grid>
+                <Rectangle Name="animationBackground" Fill="Black" Visibility="Hidden" Panel.ZIndex="2"/>
+                <Image Name="bck" Source="{StaticResource mountainBack}"  Visibility="Hidden" VerticalAlignment="Top" Panel.ZIndex="3"/>      
+                <ScrollViewer Name="mountainsFarSV" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Bottom" Visibility="Collapsed" Panel.ZIndex="4">
+                    <Image Name="mountainsFar" Source="{StaticResource mountainsFar}" VerticalAlignment="Bottom" Panel.ZIndex="3" HorizontalAlignment="Left" Stretch="None"/>
+                </ScrollViewer>
+                <ScrollViewer Name="mountainsSV" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Bottom" Visibility="Collapsed" Panel.ZIndex="5">
+                    <Image Name="mountains" Source="{StaticResource mountainsClose}" VerticalAlignment="Bottom" Panel.ZIndex="3" HorizontalAlignment="Left" Stretch="None"/>
+                </ScrollViewer>
+                <ScrollViewer Name="treesSV" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Bottom" Visibility="Collapsed" Panel.ZIndex="6">
+                    <Image Name="trees" Source="{StaticResource treesFar}" VerticalAlignment="Bottom" Panel.ZIndex="3" HorizontalAlignment="Left" Stretch="None"/>
+                </ScrollViewer>
+                <ScrollViewer Name="treesForeSV" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Bottom" Visibility="Collapsed" Panel.ZIndex="7">
+                    <Image Name="treesForground" Source="{StaticResource treesClose}" VerticalAlignment="Bottom" Panel.ZIndex="3" HorizontalAlignment="Left" Stretch="None"/>
+                </ScrollViewer>
+                <Image Name="animationImage" Height="200" VerticalAlignment="Bottom" Visibility="Hidden" Panel.ZIndex="8" Margin="0 0 0 -10">
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="Window.Loaded">
+                            <BeginStoryboard Name="walkingStory">
+                                <Storyboard>
+                                    <DoubleAnimation Name="testDA" Storyboard.TargetName="animationImage" 
+                               Storyboard.TargetProperty="Width" From="200" To="200" 
+                               Duration="0:0:0.1" Completed="walkingAnimation_Completed"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Image.Triggers>
+                </Image>
+            </Grid>
+        </Border>
+        
         
         <!-- Health -->
         <uControl:ResourceBar
@@ -59,21 +96,24 @@
 
         <!-- Hunger -->
         <uControl:ResourceBar
-                        Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" 
+                        Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2"
+                        x:Name="hungerBar"
                         Resource="{Binding Path=PlayerModel.Hunger, UpdateSourceTrigger=PropertyChanged}"
                         ImgSource="{StaticResource hunger}"/>
         <!-- Thirst -->
         <uControl:ResourceBar
                         Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" 
+                        x:Name="thirstbar"
                         Resource="{Binding Path=PlayerModel.Thirst, UpdateSourceTrigger=PropertyChanged}"
                         ImgSource="{StaticResource thirst}"/>
         <!-- Sanity -->
         <uControl:ResourceBar
                         Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" 
+                        x:Name="sanityBar"
                         Resource="{Binding Path=PlayerModel.Sanity, UpdateSourceTrigger=PropertyChanged}"
                         ImgSource="{StaticResource sanity}"/>
         <!-- NavBar -->
-        <Grid Grid.Column="0" Grid.Row="2">
+        <Grid Grid.Column="0" Grid.Row="2" Name="navMenu">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="15*" />
                 <ColumnDefinition Width="95*" />

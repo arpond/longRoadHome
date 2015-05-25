@@ -425,6 +425,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             unvisitedLocation.Remove(0);
 
             Location startLocation = new Location(0);
+            startLocation.GenerateSubLocations(2);
             visitedLocation.Add(0, startLocation);
             currentLocation = startLocation;
             currentSublocation = null;

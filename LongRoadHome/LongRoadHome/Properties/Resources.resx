@@ -226,4 +226,91 @@
   <data name="visited_location" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\visited_location.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Civic_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Civic_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Civic_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Civic_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Civic_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Civic_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Civic_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Civic_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Commercial_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Commercial_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Commercial_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Commercial_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Commercial_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Commercial_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Commercial_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Commercial_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Residential_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Residential_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Residential_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Residential_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Residential_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Residential_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Residential_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Residential_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Civic_1_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Civic_1_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Civic_2_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Civic_2_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Civic_3_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Civic_3_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Civic_4_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Civic_4_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Commercial_1_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Commercial_1_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Commercial_2_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Commercial_2_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Commercial_3_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Commercial_3_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Commercial_4_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Commercial_4_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Residential_1_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Residential_1_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Residential_2_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Residential_2_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Residential_3_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Residential_3_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Residential_4_Scavenged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Residential_4_Scavenged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_montain_far2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-montain-far2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_mountains2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-mountains2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_trees2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-trees2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_trees21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-trees2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="parallax_mountain_foreground_trees2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\parallax-mountain-foreground-trees2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
