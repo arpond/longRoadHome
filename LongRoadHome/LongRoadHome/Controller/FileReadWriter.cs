@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.Windows.Forms;
+//////using System.Windows;.Forms;
 namespace uk.ac.dundee.arpond.longRoadHome.Controller
 {
     public class FileReadWriter
@@ -11,7 +11,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             DISCOVERY_CATALOGUE = "discoveryCatalogue", 
             PLAYER_CHARACTER = "playerCharacter", INVENTORY = "inventory", USED_EVENTS = "usedEvents",
             CURRENT_EVENT = "currentEvent", DISCOVERED = "discovered", VISITED = "visited", UNVISISTED = "unvisited",
-            CURRENT_LOCATION = "currentLocation", CURRENT_SUBLOCATION = "currentSublocation", DIFFICULTY_CONTROLLER= "difficultyController";
+            CURRENT_LOCATION = "currentLocation", CURRENT_SUBLOCATION = "currentSublocation", BUTTONS_AREA = "mapData", WORLD_MAP = "worldMap",
+            DIFFICULTY_CONTROLLER= "difficultyController";
+
 
         static FileReadWriter()
         {
@@ -57,6 +59,18 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             filename = SAVE_PATH + filename;
             return WriteFile(filename, toWrite);
+        }
+
+        public bool WriteBitmap(String filename, System.Drawing.Bitmap image)
+        {
+            image.Save(SAVE_PATH + filename + ".png");
+            return true;
+        }
+
+        public System.Drawing.Bitmap ReadBitmap(String filename)
+        {
+            System.Drawing.Bitmap image = (System.Drawing.Bitmap) System.Drawing.Bitmap.FromFile(SAVE_PATH + filename + ".png");
+            return image;
         }
 
         /// <summary>

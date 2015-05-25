@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Threading;
 using uk.ac.dundee.arpond.longRoadHome.Model;
 using uk.ac.dundee.arpond.longRoadHome.Model.Location;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
@@ -10,37 +12,28 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 {
     public class MainController
     {
+        #region Public Constant Fields
         public const String NEW_GAME = "New Game", CONTINUE = "Continue", VIEW_LOC_MAP = "View Location Map", VIEW_SUB_MAP = "View Sublocation Map",
             VIEW_INVENTORY = "View Inventory", CHANGE_LOC = "Change Location", CHANGE_SUB = "Change Sublocation", USE_ITEM = "Use Item", 
-            DISCARD_ITEM = "Discard Item", SCAVENGE = "Scavenge", GAME_OVER = "Game Over", QUIT = "Quit";
+            DISCARD_ITEM = "Discard Item", SCAVENGE = "Scavenge", EVENT="Event", GAME_OVER = "Game Over", QUIT = "Quit";
+        #endregion
 
+        #region Private Fields
         private DifficultyController dc;
         private GameState gs;
         private ModelFacade mf;
         private IGameView gameView;
-        private AutoResetEvent difficultyEvent;
-        private AutoResetEvent guiEvent;
-        private AutoResetEvent modelEvent;
         private Random rnd = new Random();
         private Dictionary<string,int> commandMap = new Dictionary<string, int>();
+        #endregion
 
+        #region Constructors
         public MainController()
         {
             mf = new ModelFacade();
             dc = new DifficultyController();
             //gameView = new GameView();
-            commandMap.Add(NEW_GAME, 0);
-            commandMap.Add(CONTINUE, 1);
-            commandMap.Add(VIEW_LOC_MAP, 2);
-            commandMap.Add(VIEW_SUB_MAP, 3);
-            commandMap.Add(VIEW_INVENTORY, 4);
-            commandMap.Add(CHANGE_LOC, 5);
-            commandMap.Add(CHANGE_SUB, 6);
-            commandMap.Add(USE_ITEM, 7);
-            commandMap.Add(DISCARD_ITEM, 8);
-            commandMap.Add(SCAVENGE, 9);
-            commandMap.Add(GAME_OVER, 10);
-            commandMap.Add(QUIT, 11);
+            IntializeCommandMap();
             
         }
 
@@ -49,7 +42,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             mf = new ModelFacade();
             dc = new DifficultyController();
             this.gameView = gameView;
+            IntializeCommandMap();
+        }
+        #endregion
 
+        private void IntializeCommandMap()
+        {
             commandMap.Add(NEW_GAME, 0);
             commandMap.Add(CONTINUE, 1);
             commandMap.Add(VIEW_LOC_MAP, 2);
@@ -60,15 +58,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             commandMap.Add(USE_ITEM, 7);
             commandMap.Add(DISCARD_ITEM, 8);
             commandMap.Add(SCAVENGE, 9);
-            commandMap.Add(GAME_OVER, 10);
-            commandMap.Add(QUIT, 11);
+            commandMap.Add(EVENT, 10);
+            commandMap.Add(GAME_OVER, 11);
+            commandMap.Add(QUIT, 12);
         }
 
+        
         /// <summary>
         /// Initialises the game state of a new game
         /// </summary>
         /// <returns>If the game state was sucessfully initialised</returns>
-        public bool InitialiseNewGame()
+        public void InitialiseNewGame()
         {
             FileReadWriter frw = new FileReadWriter();
             String itemCatalogue = frw.ReadCatalogueFile(FileReadWriter.ITEM_CATALOGUE);
@@ -79,9 +79,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             {
                 gs = new GameState(itemCatalogue, eventCatalogue, discoveryCatalogue);
                 dc = new DifficultyController();
-                return true;
+                var worldMap = mf.GetWorldMap(gs);
+                var buttonAreas = mf.GetButtonAreas(gs);
+
+                //Dispatcher.Invoke(new Action(() => createTransparentButtons(buttonAreas, unvisitedBMI, visitedBMI)));
+
+                //Dispatcher dispatcher = gameView.GetDispatcher();
+                //dispatcher.Invoke(new Action(() => gameView.InitialiseWorldMap(worldMap, buttonAreas)));
+                gameView.InitialiseWorldMap(worldMap, buttonAreas);
+                gameView.InitialiseSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
+                gameView.InitialiseInventory(mf.GetInventory(gs));
             }
-            return false;
         }
 
         /// <summary>
@@ -103,7 +111,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             String unvisitedLocs = frw.ReadSaveDataFile(FileReadWriter.UNVISISTED);
             String currLoc = frw.ReadSaveDataFile(FileReadWriter.CURRENT_LOCATION);
             String currSLoc = frw.ReadSaveDataFile(FileReadWriter.CURRENT_SUBLOCATION);
+            String buttonAreas = frw.ReadSaveDataFile(FileReadWriter.BUTTONS_AREA);
             String difficultyController = frw.ReadSaveDataFile(FileReadWriter.DIFFICULTY_CONTROLLER);
+
+            System.Drawing.Bitmap worldMap = frw.ReadBitmap(FileReadWriter.WORLD_MAP);
 
             if  (GameState.IsValidGameState(pc, inventory, itemCatalogue, usedEvents, currentEvent, eventCatalogue,discovered,
                 discoveryCatalogue, visitedLocs, unvisitedLocs, currLoc, currSLoc) && DifficultyController.IsValidDifficultyController(difficultyController))
@@ -111,8 +122,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 gs = new GameState(pc, inventory, itemCatalogue,
                 usedEvents, currentEvent, eventCatalogue,
                 discovered, discoveryCatalogue,
-                visitedLocs, unvisitedLocs, currLoc, currSLoc);
+                visitedLocs, unvisitedLocs, currLoc, currSLoc, buttonAreas, worldMap);
                 dc = new DifficultyController(difficultyController);
+
+                gameView.InitialiseWorldMap(mf.GetWorldMap(gs), mf.GetButtonAreas(gs));
+                gameView.InitialiseSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
+                gameView.InitialiseInventory(mf.GetInventory(gs));
                 return true;
             }
             return false;
@@ -136,37 +151,19 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.CURRENT_LOCATION, gs.ParseCurrLocationToString());
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.CURRENT_SUBLOCATION, gs.ParseCurrSublocationToString());
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.DIFFICULTY_CONTROLLER, dc.ParseToString());
+            saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.BUTTONS_AREA, gs.ParseButtonAreasToString());
+            saveSucessful &= frw.WriteBitmap(FileReadWriter.WORLD_MAP, gs.GetLM().GetWorldMap());
 
             return saveSucessful;
         }
 
-        public void handleAction(string command)
+        public void handleIdepotentAction(string command)
         {
             int action;
             if (commandMap.TryGetValue(command, out action))
             {
                 switch (action)
                 {
-                    // New Game
-                    case 0:
-                        // Thread 1 - Start new game
-                        InitialiseNewGame();
-                        // Thread 2 - Display Instructions
-
-                        // When both done display location Map
-                        break;
-                    // Continue
-                    case 1:
-                        // Load game from save
-                        if(!InitialiseGameFromSave())
-                        {
-                            InitialiseNewGame();
-                        }
-                        else
-                        {
-                            handleAction("View Location Map");
-                        }
-                        break;
                     // View location Map
                     case 2:
                         DisplayLocations();
@@ -179,48 +176,92 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     case 4:
                         DisplayInventory();
                         break;
-                    // Scavenge
-                    case 9:
-                        ScavangeLocation();
-                        break;
-                    // Game Over
-                    case 10:
+                        // Game Over
+                    case 11:
                         DisplayEndGameScreen();
                         break;
                     // Quit
-                    case 11:
+                    case 12:
                         break;
                 }
             }
         }
 
-        public void handleAction(string command, int variable)
+        public void handlePotentAction(string command, int variable)
         {
             int action;
             if (commandMap.TryGetValue(command, out action))
             {
                 switch (action)
                 {
+                    // New Game
+                    case 0:
+                        // Main Thread - Start new game
+                        InitialiseNewGame();
+                        handleIdepotentAction(VIEW_LOC_MAP);
+
+                        // Thread 1 - Display Instructions
+                        gameView.StartNewGame();                      
+                        break;
+                    // Continue
+                    case 1:
+                        // Load game from save
+                        if (!InitialiseGameFromSave())
+                        {
+                            InitialiseNewGame();
+                        }
+                        else
+                        {
+                            handleIdepotentAction(VIEW_LOC_MAP);
+                        }
+                        break;
                     // Change location
                     case 5:
-                        ChangeLocation(variable);
+                        if (ChangeLocation(variable))
+                        {
+                            gameView.UpdateWorldMap(variable);
+                            gameView.InitialiseSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
+                        }
                         break;
                     // Change Sublocation
                     case 6:
-                        ChangeSubLocation(variable);
+                        if (ChangeSubLocation(variable))
+                            gameView.UpdateSublocationMap(variable, 0);
                         break;
                     // Use Item
                     case 7:
-                        UseItem(variable);
+                        if (UseItem(variable))
+                            gameView.InitialiseInventory(mf.GetInventory(gs));
                         break;
                     // Discard Item
                     case 8:
-                        DiscardItem(variable);
+                        if (DiscardItem(variable))
+                            gameView.InitialiseInventory(mf.GetInventory(gs));
+                        break;
+                    // Scavenge
+                    case 9:
+                        if (ScavangeSublocation())
+                            gameView.InitialiseInventory(mf.GetInventory(gs));
+                        break;
+                    case 10:
+                        TriggerEvent();
                         break;
                 }
-                // Write Save Data
-                // Check if Game over
+                PostAction();
             }
+        }
+
+        private void PostAction()
+        {
+            //Update Player
+            gameView.UpdatePlayer();
+            //WriteSaveData
+            //Check if Game Over
+            if (mf.IsGameOver(gs) || IsEndLocation())
+            {
+                handleIdepotentAction(GAME_OVER);
+            }
+            
         }
 
         /// <summary>
@@ -231,7 +272,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public bool ChangeLocation(int locationID)
         {
             bool visited = true;
-            if (!mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
+
+            var cost = Convert.ToInt32(mf.CalculateMoveCost(gs, locationID));
+            if (!gameView.DrawYesNoOption("Are you sure you wish to move to this location? It will cost you " + cost + " hunger and thirst"))
+            {
+                return false;
+            }
+            else if (!mf.CanAffordMove(gs, cost) && gameView.DrawYesNoOption("You do not have sufficient resources. Do you wish to risk it all?"))
             {
                 int risk = rnd.Next(1, 101);
                 if(risk <= 25)
@@ -240,13 +287,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 }
                 else
                 {
-                    mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+                    mf.ReduceResourcesByMoveCost(gs, cost);
                     return false;
                 }
             }
-            else if (mf.CanAffordMove(gs, ModelFacade.LOCATION_MOVE_COST))
+            else if (mf.CanAffordMove(gs, cost))
             {
-                mf.ReduceResourcesByMoveCost(gs, ModelFacade.LOCATION_MOVE_COST);
+                mf.ReduceResourcesByMoveCost(gs, cost);
                 visited = PerformMove(locationID);
             }
             else
@@ -254,33 +301,34 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 return false;
             }
 
+            delayEventCheck(visited);
+            return true;
+        }
+
+        private async void delayEventCheck(bool visited)
+        {
+            await PutTaskDelay();
             //Check if event happens
             if (!visited && CheckIfEventTriggered())
             {
-                TriggerEvent();
-                // Check if game over
-                if (mf.IsGameOver(gs))
-                {
-                    // Display the Game over screen
-                    // Clean Up save files etc
-                    return false;
-                }
+                handlePotentAction(EVENT, 0);
                 // Check if discovery is made
                 if (CheckIfDiscoveryTriggered())
                 {
-                    
+
                     String discoveryText = mf.TryToMakeNewDiscovery(gs);
                     if (discoveryText != "")
                     {
                         // Thread 1 - Save Game
                         // WriteSaveData();
-                        // Thread 2 - Display Discovery
+                        // Main Thread - Display Discovery
                         gameView.DrawDiscovery(discoveryText);
                     }
                 }
             }
-            return true;
+            
         }
+
 
         /// <summary>
         /// Changes the current location dependant on if the new location has been visisted previously or not
@@ -292,22 +340,49 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             if (mf.LocationVisited(gs, locationID))
             {
                 // Thread 1 - Change location
-                mf.ChangeLocation(gs, locationID);
-                // Thread 2 - Animate movement
-                //gameView.Animate();
+                var task1 = Task.Factory.StartNew(() =>
+                {
+                    mf.ChangeLocation(gs, locationID);
+                });
+                // Main Thread - Animate movement
+                gameView.AnimateFrames(null);
+                Task.WaitAll(task1);
+                delayEndAnimation();
                 return true;
             }
             else
             {
                 // Thread 1 - Recalculate Difficulty
-                dc.UpdatePlayerStatus(gs.Clone() as GameState);
-                dc.UpdateStatusTracker();
+                var task1 = Task.Factory.StartNew(() =>
+                {
+                    dc.UpdatePlayerStatus(gs.Clone() as GameState);
+                    dc.UpdateStatusTracker();
+                });
+
                 // Thread 2 - Change location
-                mf.ChangeLocation(gs, locationID);
-                // Thread 3 - Animate movement
-                //gameView.Animate();
+                var task2 = Task.Factory.StartNew(() =>
+                {
+                    mf.ChangeLocation(gs, locationID);
+                });
+
+                // Main Thread - Animate movement
+                gameView.AnimateFrames(null);
+
+                Task.WaitAll(task1, task2);
+                delayEndAnimation();
                 return false;
             }
+        }
+
+        private async void delayEndAnimation()
+        {
+            await PutTaskDelay();
+            gameView.EndAnimation();
+        }
+
+        async Task PutTaskDelay()
+        {
+            await Task.Delay(2500);
         }
 
         /// <summary>
@@ -322,10 +397,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 mf.ReduceResourcesByMoveCost(gs, ModelFacade.SUBLOCATION_MOVE_COST);
 
                 // Thread 1 - Change sublocation
-                mf.ChangeSubLocation(gs, sublocationID);
-                dc.UpdatePlayerStatus(gs.Clone() as GameState);
-                // Thread 2 - Animate movement
-                // gameView.Animate();
+                var task1 = Task.Factory.StartNew(() =>
+                {
+                    mf.ChangeSubLocation(gs, sublocationID);
+                    dc.UpdatePlayerStatus(gs.Clone() as GameState);
+                });
+                // Main Thread - Animate movement
+                gameView.AnimateFrames(null);
+                Task.WaitAll(task1);
+                delayEndAnimation();
                 return true;
             }
             else
@@ -336,10 +416,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     if (risk <= 25)
                     {
                         // Thread 1 - Change sublocation
-                        mf.ChangeSubLocation(gs, sublocationID);
-                        dc.UpdatePlayerStatus(gs.Clone() as GameState);
-                        // Thread 2 - Animate movement
+                        var task1 = Task.Factory.StartNew(() =>
+                        {
+                            mf.ChangeSubLocation(gs, sublocationID);
+                            dc.UpdatePlayerStatus(gs.Clone() as GameState);
+                        });
+                        // Main Thread  - Animate movement
                         // gameView.Animate();
+                        Task.WaitAll(task1);
                         return true;
                     }
                     mf.ReduceResourcesByMoveCost(gs, ModelFacade.SUBLOCATION_MOVE_COST);
@@ -389,12 +473,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             double eventMod = dc.GetEventModifier();
             //Thread 1 - Resolve Event
-            mf.ResolveEvent(gs, optionSelected, eventMod);
-            //Save Game
-            //WriteSaveData();
-
-            //Thread 2 - Display Results
+            var task1 = Task.Factory.StartNew(() =>
+            {
+                mf.ResolveEvent(gs, optionSelected, eventMod);
+                //Save Game
+                //WriteSaveData();
+            });
+            //MainThread - Display Results
             DisplayEventResults(optionSelected);
+            Task.WaitAll(task1);
         }
 
         /// <summary>
@@ -405,26 +492,24 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             String optionResult = mf.GetOptionResult(gs, optionSelected);
             List<String> effectResults = mf.GetOptionEffectResults(gs, optionSelected);
-            gameView.DrawEventResult(optionResult, effectResults);
+
+            Dispatcher dispatcher = gameView.GetDispatcher();
+            dispatcher.Invoke(new Action(() => gameView.DrawEventResult(optionResult, effectResults)));
         }
 
-        public bool ScavangeLocation()
+        public bool ScavangeSublocation()
         {
             if(CheckIfEventTriggered())
             {
-                TriggerEvent();
-                if (mf.IsGameOver(gs))
-                {
-                    // Display the Game over screen
-                    // Clean Up save files etc
-                    return false;
-                }
+                handlePotentAction(EVENT, 0);
             }
 
             List<Item> scavenged = mf.ScavangeSubLocation(gs);
             // Thread 1
             // Save Game
-            // Thread 2
+            // Main Thread 
+            //gameView.DrawSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
+            gameView.UpdateSublocationMap(mf.GetCurrentSublocation(gs), 1);
             gameView.DrawScavengeResults(scavenged);
             return true;
         }
@@ -434,8 +519,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         /// </summary>
         public void DisplayInventory()
         {
-            ArrayList inv = mf.GetInventory(gs);
-            gameView.DrawInventory(inv);
+            gameView.DisplayInventory();
         }
 
         /// <summary>
@@ -476,8 +560,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         /// </summary>
         public void DisplaySubLocationsMap()
         {
-            List<Sublocation> sublocations = mf.GetCurrentSublocations(gs);
-            gameView.DrawSublocationMap(sublocations);
+            
+            gameView.DisplaySublocationMap();
         }
 
         /// <summary>
@@ -485,10 +569,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         /// </summary>
         public void DisplayLocations()
         {
-            List<Location> visited = mf.GetVisitedLocations(gs);
-            List<DummyLocation> unvisited = mf.GetUnvisitedLocations(gs);
-
-            gameView.DrawWorldMap(visited, unvisited);
+            gameView.DisplayWorldMap();
         }
 
         /// <summary>
@@ -497,12 +578,20 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public void DisplayEndGameScreen()
         {
             if (mf.IsGameOver(gs))
-            {
+            {    
+                // Thread 1 - Save Game
+                // Save Game
+                // Main Thread
                 gameView.DrawGameOver();
+                gameView.ReturnToMainMenu();
             }
             else
             {
+                // Thread 1 - Save Game
+                // Save Game
+                // Main Thread
                 gameView.DrawVictory();
+                gameView.ReturnToMainMenu();
             }
         }
 
@@ -526,6 +615,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             return mf.GetPlayerCharacterResources(gs);
         }
 
+        private bool IsEndLocation()
+        {
+            return dc.IsEndLocation();
+        }
     }
 
 }

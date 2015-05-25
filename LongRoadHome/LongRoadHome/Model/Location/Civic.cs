@@ -5,6 +5,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
     public class Civic : Sublocation
     {
         public const String TYPE = "Civic";
+        private String[] IMAGES = { "Civic_1", "Civic_2", "Civic_3", "Civic_4" };
+        private Random rnd = new Random();
 
         static Civic()
         {
@@ -31,7 +33,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             scavenged = false;
             this.maxItems = maxItems;
             this.maxAmount = maxAmount;
-            imagePath = "temp";
+            imagePath = IMAGES[rnd.Next(IMAGES.Length)];
         }
 
         /// <summary>

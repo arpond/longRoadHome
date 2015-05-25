@@ -21,7 +21,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             {
                 for (int i = 1; i < catalogueElements.Length; i++)
                 {
-                    String[] eventElements = catalogueElements[i].Split('_');
+                    String[] eventElements = catalogueElements[i].Split('$');
                     int eventID;
                     if (Event.IsValidEvent(catalogueElements[i]) && int.TryParse(eventElements[1], out eventID))
                     {
@@ -114,7 +114,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             {
                 for (int i = 1; i < catalogueElements.Length; i++)
                 {
-                    String[] eventElements = catalogueElements[i].Split('_');
+                    String[] eventElements = catalogueElements[i].Split('$');
                     int eventID;
                     if(eventElements.Length > 2 && int.TryParse(eventElements[1], out eventID))
                     {
@@ -139,6 +139,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         public IList<Event> GetEvents()
         {
             return events.Values;
+        }
+
+        public SortedList<int,Event> GetEventCat()
+        {
+            return events;
+        }
+
+        public void SetEventCat(SortedList<int,Event> newCat)
+        {
+            events = newCat;
         }
     }
 

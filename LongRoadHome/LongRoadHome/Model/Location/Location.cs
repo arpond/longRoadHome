@@ -10,7 +10,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         private const int STD_MAX_ITEMS = SubLocationFactory.STD_MAX_ITEMS;
         private const int STD_MAX_AMOUNT = SubLocationFactory.STD_MAX_AMOUNT;
 
-        private bool visited;
         private Dictionary<int, Sublocation> sublocations;
         private Sublocation currentSubLocation;
         private Random rnd = new Random();
@@ -25,16 +24,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             currentSubLocation = null;
         }
 
-        public Location(int id, HashSet<int> connections) : base(id, connections)
+        public Location(int id) : base(id)
         {
-            visited = false;
+            visited = true;
             sublocations = new Dictionary<int, Sublocation>();
             currentSubLocation = null;
         }
 
         public Location(String toParse)
         {
-            visited = false;
+            visited = true;
             sublocations = new Dictionary<int, Sublocation>();
             String[] lElems = toParse.Split(',');
             foreach (String elem in lElems)
@@ -43,20 +42,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 switch (locElem[0])
                 {
                     case "ID":
-                        int.TryParse(locElem[1], out locationID);
-                        break;
-                    case "Connections":
-                        for (int i = 1; i < locElem.Length; i++)
-                        {
-                            int loc;
-                            if (int.TryParse(locElem[i], out loc))
-                            {
-                                connections.Add(loc);
-                            }
-                        }
+                        int tempID;
+                        int.TryParse(locElem[1], out tempID);
+                        locationID = tempID;
                         break;
                     case "Visited":
-                        bool.TryParse(locElem[1], out visited);
+                        bool tempVis;
+                        bool.TryParse(locElem[1], out tempVis);
+                        visited = tempVis;
                         break;
                     case "Sublocations":
                         if (locElem.Length > 1)
@@ -87,7 +80,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 
         public static Location ConvertToLocation(DummyLocation dl)
         {
-            return new Location(dl.GetLocationID(), dl.GetConnections());
+            return new Location(dl.GetLocationID());
         }
 
         /// <summary>
@@ -348,24 +341,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                         }
                         
                         break;
-                    case "Connections":
-                        for (int i = 1; i < locElem.Length; i++)
-                        {
-                            int loc;
-                            if (int.TryParse(locElem[i], out loc))
-                            {
-                                if (tempID.Contains(loc) || loc == id || loc < 0)
-                                {
-                                    return false;
-                                }
-                                tempID.Add(loc);
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        break;
                     case "Visited":
                         if (locElem.Length != 2 || !bool.TryParse(locElem[1], out visited))
                         {
@@ -422,7 +397,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 currentSubloc = ":" + currentSubLocation.GetSublocationID();
             }
 
-            parsed = String.Format("Type:{0},ID:{1},Connections{2},Visited:{3},Sublocations{4},CurrentSublocation{5}",TAG,locationID,ParseConnections(),visited, sublocStr, currentSubloc);
+            parsed = String.Format("Type:{0},ID:{1},Visited:{2},Sublocations{3},CurrentSublocation{4}",TAG,locationID,visited, sublocStr, currentSubloc);
             return parsed;
         }
 

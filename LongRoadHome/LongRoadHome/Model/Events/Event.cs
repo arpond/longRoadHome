@@ -22,7 +22,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         public Event(String toParse)
         {
             options = new List<Option>();
-            String[] eventElements = toParse.Split('_');
+            String[] eventElements = toParse.Split('$');
             if (int.TryParse(eventElements[1], out eventID))
             {
                 eventType = eventElements[2];
@@ -122,7 +122,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
                 optionsString += "*" + op.ParseToString();
             }
 
-            return String.Format("{0}_{1}_{2}_{3}_{4}", TAG, eventID, eventType, eventText, optionsString);
+            return String.Format("{0}${1}${2}${3}${4}", TAG, eventID, eventType, eventText, optionsString);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         public static bool IsValidEvent(String toTest)
         {
             int eventID;
-            String[] eventElements = toTest.Split('_');
+            String[] eventElements = toTest.Split('$');
             if (eventElements[0] != TAG || eventElements.Length != 5)
             {
                 return false;

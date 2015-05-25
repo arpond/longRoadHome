@@ -6,8 +6,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
     {
         private const String TAG = "DummyLocation";
 
-        protected HashSet<int> connections = new HashSet<int>();
         protected int locationID;
+        protected bool visited;
 
         public DummyLocation()
         {
@@ -17,13 +17,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         public DummyLocation(int locationID)
         {
             this.locationID = locationID;
+            visited = false;
         }
 
-        public DummyLocation(int locationID, HashSet<int> connections)
-        {
-            this.locationID = locationID;
-            this.connections = connections;
-        }
 
         /// <summary>
         /// Parses DummyLocation from a string
@@ -38,63 +34,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 switch (locElem[0])
                 {
                     case "ID":
-                        int.TryParse(locElem[1], out locationID);
-                        break;
-                    case "Connections":
-                        for (int i = 1; i < locElem.Length; i++ )
-                        {
-                            int loc;
-                            if (int.TryParse(locElem[i], out loc))
-                            {
-                                connections.Add(loc);
-                            }
-                        }
+                        int tempID;
+                        int.TryParse(locElem[1], out tempID);
+                        locationID = tempID;
                         break;
                 }
             }
+            visited = false;
         }
 
-        /// <summary>
-        /// Checks if two dummy locations are connected
-        /// </summary>
-        /// <param name="dl">The location to check if it is connected to</param>
-        /// <returns>If they are connected</returns>
-        public bool IsConnected(DummyLocation dl)
-        {
-            return connections.Contains(dl.GetLocationID());
-        }
-
-        /// <summary>
-        /// Gets the connections of a Dummylocation
-        /// </summary>
-        /// <returns>The connections</returns>
-        public HashSet<int> GetConnections()
-        {
-            return this.connections;
-        }
-        public void SetConnections(HashSet<int> connections)
-        {
-            this.connections = connections;
-        }
-
-        public void AddConnection(int idToAdd)
-        {
-            connections.Add(idToAdd);
-        }
-
-        public void RemoveConnection(DummyLocation toRemove)
-        {
-            int idToRemove = toRemove.GetLocationID();
-            if(connections.Contains(idToRemove))
-            {
-                connections.Remove(idToRemove);
-            }
-        }
-
-        public int NumberOfConnections()
-        {
-            return this.connections.Count;
-        }
 
         /// <summary>
         /// Gets the location ID
@@ -137,24 +85,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                         }
                         
                         break;
-                    case "Connections":
-                        for (int i = 1; i < locElem.Length; i++)
-                        {
-                            int loc;
-                            if (int.TryParse(locElem[i], out loc))
-                            {
-                                if (tempID.Contains(loc) || loc == id || loc <= 0)
-                                {
-                                    return false;
-                                }
-                                tempID.Add(loc);
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        break;
                     default:
                         return false;
                 }
@@ -168,21 +98,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <returns>the string representing the dummy location</returns>
         public virtual String ParseToString()
         {
-            return String.Format("Type:{0},ID:{1},Connections{2}",TAG, locationID, ParseConnections());
+            return String.Format("Type:{0},ID:{1}",TAG, locationID);
         }
         
-        /// <summary>
-        /// Parses the connections
-        /// </summary>
-        /// <returns>String representing the parsed connections</returns>
-        protected String ParseConnections()
-        {
-            String parse = "";
-            foreach(int connection in connections)
-            {
-                parse += ":" + connection;
-            }
-            return parse;
-        }
     }
 }

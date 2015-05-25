@@ -25,7 +25,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                 {
                     Item temp = new Item(catalogueElements[i]);
                     items.Add(temp);
-                    ids.Add(temp.GetID());
+                    ids.Add(temp.itemID);
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         {
             foreach(Item item in items)
             {
-                if (item.GetID() == itemID)
+                if (item.itemID == itemID)
                 {
                     return (Item)item.Clone();
                 }
@@ -161,6 +161,21 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public List<Item> GetItems()
         {
             return items;
+        }
+
+        public List<int> GetIDs()
+        {
+            return ids;
+        }
+
+        public void SetItems(List<Item> items)
+        {
+            this.items = items;
+        }
+
+        public void SetIDs(List<int> ids)
+        {
+            this.ids = ids;
         }
     }
 }

@@ -4,13 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{68FCF77B-39FB-4A4C-B94C-9AE756FAFF46}</ProjectGuid>
+    <ProjectGuid>{583F53DC-BF7D-47E2-81F0-A22F79F48474}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>uk.ac.dundee.arpond.longRoadHome</RootNamespace>
     <AssemblyName>LongRoadHome</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,48 +34,151 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GraphSharp.Contracts">
+      <HintPath>Libraries\GraphSharp.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Contracts">
+      <HintPath>Libraries\Microsoft.Contracts.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Model\Location\WorldMap.cs" />
+    <Compile Include="View\Controls\DemoTextBox.xaml.cs">
+      <DependentUpon>DemoTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ImageButton.xaml.cs">
+      <DependentUpon>ImageButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\InventoryControl.xaml.cs">
+      <DependentUpon>InventoryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ItemButton.xaml.cs">
+      <DependentUpon>ItemButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ResourceBar.xaml.cs">
+      <DependentUpon>ResourceBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\SimpleMessageBoxView.xaml.cs">
+      <DependentUpon>SimpleMessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\SimpleMessageBox.cs" />
+    <Compile Include="View\Controls\TransparentButton.xaml.cs">
+      <DependentUpon>TransparentButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ZoomBorder.cs" />
+    <Compile Include="View\Debug.xaml.cs">
+      <DependentUpon>Debug.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Animation.cs" />
+    <Compile Include="View\Animator.cs" />
+    <Compile Include="View\AudioPlayer.cs" />
+    <Compile Include="View\IGameView.cs" />
+    <Compile Include="View\UIObjects\UIImageButton.cs" />
+    <Compile Include="View\UIObjects\UIInvetory.cs" />
+    <Compile Include="View\UIObjects\UIItem.cs" />
+    <Compile Include="View\UIObjects\UIModel.cs" />
+    <Compile Include="View\UIObjects\UIPlayer.cs" />
+    <Compile Include="View\UIObjects\UISublocations.cs" />
+    <Page Include="View\Controls\DemoTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\ImageButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\InventoryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\ItemButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\ResourceBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\SimpleMessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\TransparentButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Debug.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controller\DifficultyController.cs" />
     <Compile Include="Controller\FileReadWriter.cs" />
     <Compile Include="Controller\MainController.cs" />
-    <Compile Include="Debug.cs">
-      <SubType>Form</SubType>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Debug.Designer.cs">
-      <DependentUpon>Debug.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EventDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EventDialog.Designer.cs">
-      <DependentUpon>EventDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Events\Event.cs" />
-    <Compile Include="Model\Events\EventCatalogue.cs" />
-    <Compile Include="Model\Events\EventEffect.cs" />
-    <Compile Include="Model\Events\EventModel.cs" />
-    <Compile Include="Game.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Game.Designer.cs">
-      <DependentUpon>Game.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Events\ItemEventEffect.cs" />
+    <Page Include="TestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Model\Discovery\Discovery.cs" />
     <Compile Include="Model\Discovery\DiscoveryCatalogue.cs" />
     <Compile Include="Model\Discovery\DiscoveryModel.cs" />
     <Compile Include="Model\Effect.cs" />
+    <Compile Include="Model\Events\Event.cs" />
+    <Compile Include="Model\Events\EventCatalogue.cs" />
+    <Compile Include="Model\Events\EventEffect.cs" />
+    <Compile Include="Model\Events\EventModel.cs" />
+    <Compile Include="Model\Events\ItemEventEffect.cs" />
+    <Compile Include="Model\Events\Option.cs" />
+    <Compile Include="Model\Events\PREventEffect.cs" />
     <Compile Include="Model\GameState.cs" />
     <Compile Include="Model\Location\Civic.cs" />
     <Compile Include="Model\Location\Commercial.cs" />
@@ -84,58 +189,240 @@
     <Compile Include="Model\Location\Sublocation.cs" />
     <Compile Include="Model\Location\SubLocationFactory.cs" />
     <Compile Include="Model\ModelFacade.cs" />
-    <Compile Include="Model\Events\Option.cs" />
-    <Compile Include="Model\Events\PREventEffect.cs" />
+    <Compile Include="Model\PlayerCharacter\ActiveEffect.cs" />
     <Compile Include="Model\PlayerCharacter\Inventory.cs" />
     <Compile Include="Model\PlayerCharacter\Item.cs" />
     <Compile Include="Model\PlayerCharacter\ItemCatalogue.cs" />
-    <Compile Include="Model\PlayerCharacter\ActiveEffect.cs" />
     <Compile Include="Model\PlayerCharacter\PassiveEffect.cs" />
     <Compile Include="Model\PlayerCharacter\PCModel.cs" />
     <Compile Include="Model\PlayerCharacter\PlayerCharacter.cs" />
     <Compile Include="Model\PlayerCharacter\PrimaryReource.cs" />
     <Compile Include="Model\PlayerCharacter\Resource.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\Animation.cs" />
-    <Compile Include="View\Animator.cs" />
-    <Compile Include="View\AudioPlayer.cs" />
-    <Compile Include="View\GameView.cs" />
-    <Compile Include="View\IGameView.cs" />
-    <EmbeddedResource Include="Debug.resx">
-      <DependentUpon>Debug.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EventDialog.resx">
-      <DependentUpon>EventDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Game.resx">
-      <DependentUpon>Game.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Loc_Res_PlaceHolder.png" />
+    <Resource Include="Resources\Loc_Res_PlaceHolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CharacterWalk-8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-foreground-trees.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-montain-far.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-mountains.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-trees.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LocMap-Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LocMap-Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SubMap-Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SubMap-Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Inv-Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Inv-Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\hunger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sanity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\thirst.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\health.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\inventoryBck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\itemBck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Character-stand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Character-stand-Reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Loc_Res_PlaceHolder_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\item_placeholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\boy.ico" />
+    <Resource Include="Images\girl.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\t.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\worldTile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\visited_location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\unvisited_location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_1_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_2_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_3_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Civic_4_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_1_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_2_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_3_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Commercial_4_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_1_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_2_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_3_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Residential_4_Scavenged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-trees2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-montain-far2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-mountains2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\parallax-mountain-foreground-trees2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

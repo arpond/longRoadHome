@@ -5,6 +5,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
     public class Residential : Sublocation
     {
         public const String TYPE = "Residential";
+        private String[] IMAGES = { "Residential_1", "Residential_2", "Residential_3", "Residential_4" };
+        private Random rnd = new Random();
 
         static Residential()
         {
@@ -31,7 +33,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             scavenged = false;
             this.maxItems = maxItems;
             this.maxAmount = maxAmount;
-            imagePath = "temp";
+            imagePath = IMAGES[rnd.Next(IMAGES.Length)];
         }
 
         /// <summary>

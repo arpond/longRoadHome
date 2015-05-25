@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Windows;
 using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
@@ -8,6 +10,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
     {
         public const String VISITED_TAG = "VisitedLocations";
         public const String UNVISITED_TAG = "UnvisitedLocations";
+        public const String BUTTONS_AREAS_TAG = "ButtonAreas";
 
         private const int STD_MIN_SIZE = 1, STD_MAX_SIZE = 5, STD_MAX_ITEMS = 5, STD_MAX_AMOUNT = 10;
         private const int MAX_CONNECTIONS = 4, MIN_CONNECTIONS = 2;
@@ -19,6 +22,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         private Sublocation currentSublocation;
 
         private Random rnd = new Random();
+
+        private Bitmap worldMap;
+        private SortedList<int, System.Windows.Point> buttonAreas;
 
         static LocationModel()
         {
@@ -44,6 +50,48 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             unvisitedLocation = new SortedList<int, DummyLocation>();
 
             InitializeLocationModel(numOfLocations);
+
+            
+        }
+
+        public LocationModel(String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc)
+        {
+            visitedLocation = new SortedList<int, Location>();
+            unvisitedLocation = new SortedList<int, DummyLocation>();
+            this.buttonAreas = new SortedList<int, System.Windows.Point>();
+
+            String[] visitedElem = visitedLocs.Split('#');
+            for (int i = 1; i < visitedElem.Length; i++)
+            {
+                Location temp = new Location(visitedElem[i]);
+                visitedLocation.Add(temp.GetLocationID(), temp);
+            }
+
+            String[] unvisitedElem = unvisitedLocs.Split('#');
+            for (int j = 1; j < unvisitedElem.Length; j++)
+            {
+                DummyLocation temp = new DummyLocation(unvisitedElem[j]);
+                unvisitedLocation.Add(temp.GetLocationID(), temp);
+            }
+
+            int currID;
+            if (int.TryParse(currLoc, out currID))
+            {
+                visitedLocation.TryGetValue(currID, out currentLocation);
+            }
+
+            int currSub;
+            if (int.TryParse(currSLoc, out currSub))
+            {
+                if (currSub == 0)
+                {
+                    currentSublocation = null;
+                }
+                else
+                {
+                    currentSublocation = currentLocation.GetSublocationByID(currSub);
+                }
+            }
         }
 
         /// <summary>
@@ -53,10 +101,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <param name="unvisitedLocs">Unvisited locations string</param>
         /// <param name="currLoc">Current location string</param>
         /// <param name="currSLoc">Current sublocation string</param>
-        public LocationModel(String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc)
+        public LocationModel(String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc, String buttonAreas, Bitmap worldMap)
         {
             visitedLocation = new SortedList<int, Location>();
             unvisitedLocation = new SortedList<int, DummyLocation>();
+            this.buttonAreas = new SortedList<int, System.Windows.Point>();
+            this.worldMap = worldMap;
 
             String[] visitedElem = visitedLocs.Split('#');
             for (int i = 1; i < visitedElem.Length; i++ )
@@ -70,6 +120,19 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             {
                 DummyLocation temp = new DummyLocation(unvisitedElem[j]);
                 unvisitedLocation.Add(temp.GetLocationID(), temp);
+            }
+
+            String[] areasElem = unvisitedLocs.Split('#');
+            for (int k = 1; k < areasElem.Length; k++)
+            {
+                String[] kvPair = areasElem[k].Split(':');
+                double xCoord, yCoord;
+                int id;
+                if (int.TryParse(kvPair[0], out id) && double.TryParse(kvPair[1], out xCoord) && double.TryParse(kvPair[2], out yCoord))
+                {
+                    var point = new System.Windows.Point(xCoord,yCoord);
+                    this.buttonAreas.Add(id, point);
+                }
             }
 
             int currID;
@@ -90,6 +153,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                     currentSublocation = currentLocation.GetSublocationByID(currSub);
                 }
             }
+
+
         }
 
         /// <summary>
@@ -134,6 +199,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 }
             }
             return true;
+        }
+
+        public String ParseButtonArea()
+        {
+            String parsed = BUTTONS_AREAS_TAG;
+            foreach (var buttonArea in buttonAreas)
+            {
+                parsed += "#" + buttonArea.Key + ":" + buttonArea.Value.X + ":" + buttonArea.Value.Y;
+            }
+            return parsed;
         }
 
         /// <summary>
@@ -243,16 +318,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             return visitedLocation.ContainsKey(locationID);
         }
 
-        /// <summary>
-        /// Checks if the move to the locationID is valid
-        /// </summary>
-        /// <param name="locationID">The location ID to check</param>
-        /// <returns>If current is connected to the ID</returns>
-        public bool IsValidMove(int locationID)
-        {
-            HashSet<int> connections = currentLocation.GetConnections();
-            return connections.Contains(locationID);
-        }
 
         /// <summary>
         /// Moves from current location to the location ID
@@ -262,7 +327,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <returns>If the move was successful</returns>
         public bool MoveToLocation(int locationID)
         {
-            if(!IsValidMove(locationID) || locationID < 0 || locationID == currentLocation.GetLocationID() || (!visitedLocation.ContainsKey(locationID) && !unvisitedLocation.ContainsKey(locationID)))
+            if(locationID < 0 || locationID == currentLocation.GetLocationID() || (!visitedLocation.ContainsKey(locationID) && !unvisitedLocation.ContainsKey(locationID)))
             {
                 return false;
             }
@@ -285,7 +350,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         private bool MoveToUnvisitedLocation(int locationID)
         {
             DummyLocation toChangeTo;
-            if (IsValidMove(locationID) && unvisitedLocation.TryGetValue(locationID, out toChangeTo))
+            if (unvisitedLocation.TryGetValue(locationID, out toChangeTo))
             {
                 Location temp = Location.ConvertToLocation(toChangeTo);
 
@@ -313,7 +378,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         private bool MoveToVisitedLocation(int locationID)
         {
             Location toChangeTo;
-            if (IsValidMove(locationID) && visitedLocation.TryGetValue(locationID, out toChangeTo))
+            if (visitedLocation.TryGetValue(locationID, out toChangeTo))
             {
                 currentLocation = toChangeTo;
                 currentSublocation = null;
@@ -346,24 +411,22 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// <param name="totalLocations">Total number of locations</param>
         public void InitializeLocationModel(int total)
         {
-            CreateDummyLocations(total);
-            ConnectUnvisitedIntoGroupsOfFour();
-            GenerateConnections();
-            
-            HashSet<int> tempConn = new HashSet<int>();
-            tempConn.Add(1);
-            Location startLocation = new Location(0, tempConn);
-
-            startLocation.SetVisited();
-            startLocation.GenerateSubLocations();
-            visitedLocation.Add(0, startLocation);
-
-            DummyLocation dl1;
-            if (unvisitedLocation.TryGetValue(1, out dl1))
+            List<DummyLocation> newLocations = CreateDummyLocations(total);
+            foreach(var loc in newLocations)
             {
-                dl1.AddConnection(0);
+                unvisitedLocation.Add(loc.GetLocationID(), loc);
             }
 
+            DummyLocation loc0 = new DummyLocation(0);
+            unvisitedLocation.Add(0, loc0);
+            var wm = new WorldMap(unvisitedLocation.Values);
+            worldMap = wm.tmpBitmap;
+            buttonAreas = wm.buttonAreas;
+            unvisitedLocation.Remove(0);
+
+            Location startLocation = new Location(0);
+            startLocation.GenerateSubLocations(2);
+            visitedLocation.Add(0, startLocation);
             currentLocation = startLocation;
             currentSublocation = null;
         }
@@ -408,8 +471,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         /// Always rounds these to the next multiple of 4.
         /// </summary>
         /// <param name="numberOfLocations">Number of locations to generate (rounded to the next multiple of 4)</param>
-        public void CreateDummyLocations(int numberOfLocations)
+        public List<DummyLocation> CreateDummyLocations(int numberOfLocations)
         {
+            List<DummyLocation> newLocations = new List<DummyLocation>();
             if (numberOfLocations % 4 != 0)
             {
                 numberOfLocations = numberOfLocations + (4 - numberOfLocations % 4); 
@@ -417,301 +481,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             for(int i = 1; i<numberOfLocations+1; i++)
             {
                 DummyLocation temp = new DummyLocation(i);
-                unvisitedLocation.Add(i,temp);
+                newLocations.Add(temp);
+                //unvisitedLocation.Add(i,temp);
             }
+            return newLocations;
         }
 
-        /// <summary>
-        /// Connects all unvisited locations into randomly connected groups of 4 
-        /// </summary>
-        public void ConnectUnvisitedIntoGroupsOfFour()
-        {
-            for(int i = 1; i<unvisitedLocation.Count+1; i = i+4)
-            {
-                List<DummyLocation> tempDLs = new List<DummyLocation>();
-                for (int j = 0; j<4; j++)
-                {
-                    DummyLocation tempDL;
-                    if(unvisitedLocation.TryGetValue(i+j, out tempDL))
-                    {
-                        tempDLs.Add(tempDL);
-                    }
-                }
-
-                ConnectDummyLocations(tempDLs);
-                int removalCase, rand1, rand2, rand3;
-                removalCase = rnd.Next(3);
-                rand1 = rnd.Next(1, 101);
-                rand2 = rnd.Next(1, 101);
-                rand3 = rnd.Next(1, 101);
-                RemoveConnections(tempDLs[0], tempDLs[1], tempDLs[2], tempDLs[3], removalCase, rand1, rand2, rand3);
-            }
-        }
-
-        /// <summary>
-        /// Generates connections between unvisited locations
-        /// </summary>
-        public void GenerateConnections()
-        {
-            List<DummyLocation> dls = new List<DummyLocation>(unvisitedLocation.Values);
-
-            int groupSize = 16;
-            int powerOfFour = Convert.ToInt32(Math.Ceiling(Math.Log(unvisitedLocation.Count) / Math.Log(4)));
-
-            for (int i = 1; i <= powerOfFour; i++)
-            {
-                groupSize = Convert.ToInt32(Math.Pow(4, i));
-                int numOfReps = unvisitedLocation.Count / groupSize;
-
-                for (int j = 0; j < numOfReps; j++)
-                {
-                    int start = j * groupSize;
-                    int count = groupSize;
-                    if (start + groupSize > unvisitedLocation.Count)
-                    {
-                        count = unvisitedLocation.Count - start;
-                    }
-                    List<DummyLocation> group = dls.GetRange(start, count);
-                    ConnectByGroupsOfFour(group);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Connects the locations passed when split into 4 groups
-        /// </summary>
-        /// <param name="dummyLocations">Locations to connect</param>
-        /// <returns>If it was succesful</returns>
-        public bool ConnectByGroupsOfFour(List<DummyLocation> dummyLocations)
-        {
-            int numberOfDL = dummyLocations.Count;
-            int sizeOfGroup = numberOfDL / 4;
-            List<DummyLocation> selectedDLs = new List<DummyLocation>();
-
-            if (numberOfDL % 4 != 0)
-            {
-                //Then there is a problem
-                return false;
-            }
-            else
-            {
-                for (int i = 0; i< 4; i++)
-                {
-                    var group = dummyLocations.GetRange(i * sizeOfGroup, sizeOfGroup);
-                    for (int j = 1; j < 4; j++)
-                    {
-                        var temp = GroupByConnectionNumber(j, group);
-                        if (temp.Count > 0)
-                        {
-                            int index = rnd.Next(temp.Count);
-                            selectedDLs.Add(temp[index]);
-                            break;
-                        }
-                    }
-                }
-            }
-            var connected = ConnectDummyLocations(selectedDLs);
-            int removalCase, rand1, rand2, rand3;
-            removalCase = rnd.Next(3);
-            rand1 = rnd.Next(1, 101);
-            rand2 = rnd.Next(1, 101);
-            rand3 = rnd.Next(1, 101);
-            RemoveConnections(connected[0], connected[1], connected[2], connected[3], removalCase, rand1, rand2, rand3);
-            return true;
-        }
-
-        /// <summary>
-        /// Groups by number of connections
-        /// </summary>
-        /// <param name="numberToGroup">Number of connections</param>
-        /// <param name="dummyLocations">Location to get group from</param>
-        /// <returns>Locations with that number of connections</returns>
-        public List<DummyLocation> GroupByConnectionNumber(int numberToGroup, List<DummyLocation> dummyLocations)
-        {
-            var list = new List<DummyLocation>();
-            foreach(DummyLocation dl in dummyLocations)
-            {
-                if (dl.NumberOfConnections() == numberToGroup)
-                {
-                    list.Add(dl);
-                }
-            }
-            return list;
-        }
-
-        /// <summary>
-        /// Connects dummy locations in a list to each otehr dummmy location in the list
-        /// </summary>
-        /// <param name="dummyLocations">List of dummyLocations to connect togehter</param>
-        /// <returns>SortedList of dummy locations</returns>
-        public List<DummyLocation> ConnectDummyLocations(List<DummyLocation> dummyLocations)
-        {
-           var connected = new List<DummyLocation>();
-
-            foreach(DummyLocation dl in dummyLocations)
-            {
-                for (int i = 0; i < dummyLocations.Count; i++ )
-                {
-                    DummyLocation temp = dummyLocations[i];
-                    if (!temp.Equals(dl))
-                    {
-                        dl.AddConnection(temp.GetLocationID());
-                    }
-                }
-                connected.Add(dl);
-            }
-            return connected;
-        }
-
-        /// <summary>
-        /// Removes connections between the 4 dummy locations given based on the values passed
-        /// </summary>
-        /// <param name="a">Dummy location a</param>
-        /// <param name="b">Dummy location b</param>
-        /// <param name="c">Dummy location c</param>
-        /// <param name="d">Dummy location d</param>
-        /// <param name="removalCase">The case for removal, 0 - Both diagonals (a,d and b,c)  , 1 - One diagonal (a,d), 2 - One diagonal (b,c) 
-        /// In case  0 an exterior connection may be removed, in cases 1 and 2, 2,1 or 0 exterior connections may be removed</param>
-        /// <param name="rand1">Random number between 1-100</param>
-        /// <param name="rand2">Random number between 1-100</param>
-        /// <param name="rand3">Random number between 1-100</param>
-        public void RemoveConnections(DummyLocation a, DummyLocation b, DummyLocation c, DummyLocation d, int removalCase, int rand1, int rand2, int rand3)
-        {
-            switch (removalCase)
-            {
-                case 0: 
-                    RemoveTwoDiagonals(a, b, c, d, rand1, rand2);
-                    break;
-                case 1:
-                    RemoveOneDiagonal(a, b, c, d, rand1, rand2, rand3);
-                    break;
-                case 2:
-                    RemoveOneDiagonal(c, a, d, b, rand1, rand2, rand3);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Removes two diagonals (a,d and b,c) may remove an exterior
-        /// </summary>
-        /// <param name="a">Dummy location a</param>
-        /// <param name="b">Dummy location b</param>
-        /// <param name="c">Dummy location c</param>
-        /// <param name="d">Dummy location d</param>
-        /// <param name="rand1">Random number between 1-100</param>
-        /// <param name="rand2">Random number between 1-100</param>
-        public void RemoveTwoDiagonals(DummyLocation a, DummyLocation b, DummyLocation c, DummyLocation d, int rand1, int rand2)
-        {
-            // Remove 2 diagonals
-            RemoveConnection(a, d);
-            RemoveConnection(c, b);
-            // Remove at most one side
-            // 25% to remove a side
-            if (rand1 > 75)
-            {
-                RemoveOneExterior(a, b, c, d, rand2);
-            }
-            // Else remove nothing
-        }
-
-        /// <summary>
-        /// Removes one diagonal (a,d)
-        /// </summary>
-        /// <param name="a">Dummy location a</param>
-        /// <param name="b">Dummy location b</param>
-        /// <param name="c">Dummy location c</param>
-        /// <param name="d">Dummy location d</param>
-        /// <param name="rand1">Random number between 1-100</param>
-        /// <param name="rand2">Random number between 1-100</param>
-        /// <param name="rand3">Random number between 1-100</param>
-        public void RemoveOneDiagonal(DummyLocation a, DummyLocation b, DummyLocation c, DummyLocation d, int rand1, int rand2, int rand3)
-        {
-            // Remove a,d
-            RemoveConnection(a, d);
-            if (rand1 > 80)
-            {
-                RemoveTwoExterior(a, b, c, d, rand2, rand3);
-            }
-            else if (rand1 > 33)
-            {
-                //Remove 1 exterior connections
-                RemoveOneExterior(a, b, c, d, rand2);
-            }
-            // Remove nothing
-        }
-
-        /// <summary>
-        /// Removes one exterior
-        /// </summary>
-        /// <param name="a">Dummy location a</param>
-        /// <param name="b">Dummy location b</param>
-        /// <param name="c">Dummy location c</param>
-        /// <param name="d">Dummy location d</param>
-        /// <param name="rand1">Random number between 1-100</param>
-        public void RemoveOneExterior(DummyLocation a, DummyLocation b, DummyLocation c, DummyLocation d, int rand1)
-        {
-            if (rand1 > 75)
-            {
-                RemoveConnection(a, b);
-            }
-            else if (rand1 > 50)
-            {
-                RemoveConnection(a, c);
-            }
-            else if (rand1 > 25)
-            {
-                RemoveConnection(b, d);
-            }
-            else
-            {
-                RemoveConnection(c, d);
-            }
-        }
-
-        /// <summary>
-        /// Removes two exterior
-        /// </summary>
-        /// <param name="a">Dummy location a</param>
-        /// <param name="b">Dummy location b</param>
-        /// <param name="c">Dummy location c</param>
-        /// <param name="d">Dummy location d</param>
-        /// <param name="rand1">Random number between 1-100</param>
-        /// <param name="rand2">Random number between 1-100</param>
-        public void RemoveTwoExterior(DummyLocation a, DummyLocation b, DummyLocation c, DummyLocation d, int rand1, int rand2)
-        {
-            if (rand1 > 50)
-            {
-                RemoveConnection(a, b);
-            }
-            else
-            {
-                RemoveConnection(a, c);
-            }
-
-            if (rand2 > 50)
-            {
-                RemoveConnection(c, d);
-            }
-            else
-            {
-                RemoveConnection(b, d);
-            }
-        }
-
-        /// <summary>
-        /// Removes connection between two dummy locations
-        /// </summary>
-        /// <param name="dl1">First dummy location</param>
-        /// <param name="dl2">Second dummy location</param>
-        public void RemoveConnection(DummyLocation dl1, DummyLocation dl2)
-        {
-            dl1.RemoveConnection(dl2);
-            dl2.RemoveConnection(dl1);
-        }
 
         public Location GetCurentLocation()
         {
             return currentLocation;
+        }
+
+        public Bitmap GetWorldMap()
+        {
+            return worldMap;
+        }
+
+        public SortedList<int, System.Windows.Point> GetButtonAreas()
+        {
+            return buttonAreas;
         }
     }
 }
