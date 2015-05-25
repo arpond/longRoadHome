@@ -140,6 +140,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         {
             return events.Values;
         }
+
+        public SortedList<int,Event> GetEventCat()
+        {
+            return events;
+        }
+
+        public void SetEventCat(SortedList<int,Event> newCat)
+        {
+            events = newCat;
+        }
     }
 
 }
