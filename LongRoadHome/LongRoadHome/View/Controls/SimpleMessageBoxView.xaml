@@ -8,26 +8,47 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner">
-    <Border BorderThickness="2" Background="Black">
-        <Grid>
-            <Grid.Background>
-                <SolidColorBrush Color="Gray" />
-            </Grid.Background>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBlock Name="mainText"  Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="10" TextWrapping="Wrap"/>
-            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Name="btnYes" Height="25" Width="75" Click="btnYes_Click" Margin="5" Content="Yes"/>
-                <Button Name="btnNo" Height="25" Width="75" Click="btnNo_Click" Margin="5" Content="No"/>
-                <Button Name="btnOk" Height="25" Width="75" Click="btnOk_Click" Margin="5" Content="Okay"/>
-                <Button Name="btnCancel" Height="25" Width="75" Click="btnCancel_Click" Margin="5" Content="Cancel"/>
-            </StackPanel>
-        </Grid>
-    </Border>
+    <Window.Resources>
+        <BitmapImage x:Key="background" UriSource="../../Resources/dialogueBck.png" />
+        <Style x:Key="TextOnlyButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontFamily" Value="Oswald"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="LightGray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Image Grid.RowSpan="6"  Source="{StaticResource background}" Stretch="Fill"/>
+        <TextBlock Name="title" Grid.Row="0" Grid.Column="1" Margin="50 5" FontFamily="Oswald" FontSize="20" Foreground="LightGray" TextAlignment="Center"/>
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" Margin=" 5" VerticalScrollBarVisibility="Auto">
+            <TextBlock Name="mainText" Margin="5" TextWrapping="Wrap" FontFamily="Oswald" FontSize="16" Foreground="LightGray" TextAlignment="Justify"/>
+        </ScrollViewer>
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="btnYes" Height="25" Width="75" Click="btnYes_Click" Margin="5" Content="Yes" Style="{StaticResource TextOnlyButton}"/>
+            <Button Name="btnNo" Height="25" Width="75" Click="btnNo_Click" Margin="5" Content="No" Style="{StaticResource TextOnlyButton}"/>
+            <Button Name="btnOk" Height="25" Width="75" Click="btnOk_Click" Margin="5" Content="Okay" Style="{StaticResource TextOnlyButton}"/>
+            <Button Name="btnCancel" Height="25" Width="75" Click="btnCancel_Click" Margin="5" Content="Cancel" Style="{StaticResource TextOnlyButton}"/>
+        </StackPanel>
+    </Grid>
 </Window>

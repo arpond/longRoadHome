@@ -12,7 +12,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         public const String UNVISITED_TAG = "UnvisitedLocations";
         public const String BUTTONS_AREAS_TAG = "ButtonAreas";
 
-        private const int STD_MIN_SIZE = 1, STD_MAX_SIZE = 5, STD_MAX_ITEMS = 5, STD_MAX_AMOUNT = 10;
+        private const int STD_MIN_SIZE = 1, STD_MAX_SIZE = 4, STD_MAX_ITEMS = 3, STD_MAX_AMOUNT = 2;
         private const int MAX_CONNECTIONS = 4, MIN_CONNECTIONS = 2;
 
         private SortedList<int,Location> visitedLocation;
@@ -21,7 +21,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         private Location currentLocation;
         private Sublocation currentSublocation;
 
-        private Random rnd = new Random();
+        private static Random rnd = new Random();
 
         private Bitmap worldMap;
         private SortedList<int, System.Windows.Point> buttonAreas;

@@ -10,7 +10,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
     public class ModelFacade
     {
         public const int LOCATION_MOVE_COST = 10;
-        public const int SUBLOCATION_MOVE_COST = 2;
+        public const int SUBLOCATION_MOVE_COST = 5;
         
         /// <summary>
         /// Sets a new random event as the current event and returns it
@@ -145,7 +145,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
                 double yDistance = source.Y - target.Y;
                 double distance = Math.Sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                return distance/8;
+                return distance/5;
             }
 
             return 0;

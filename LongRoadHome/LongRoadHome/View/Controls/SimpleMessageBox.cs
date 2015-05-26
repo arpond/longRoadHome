@@ -14,18 +14,18 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
             return Show(title, string.Empty, MessageBoxButton.OK, owner);
         }
 
-        public static MessageBoxResult Show(string text, string title, Window owner)
+        public static MessageBoxResult Show(string title, string text, Window owner)
         {
-            return Show(text, title, MessageBoxButton.OK, owner);
+            return Show(title, text, MessageBoxButton.OK, owner);
         }
 
 
-        public static MessageBoxResult Show(string text, string title, MessageBoxButton buttons, Window owner)
+        public static MessageBoxResult Show(string title, string text, MessageBoxButton buttons, Window owner)
         {
             MessageBoxResult result = MessageBoxResult.None;
             SimpleMessageBoxView simpleMessageBox = new SimpleMessageBoxView();
 
-            simpleMessageBox.Title = title;
+            simpleMessageBox.title.Text = title;
             simpleMessageBox.mainText.Text = text;
             simpleMessageBox.Buttons = buttons;
             simpleMessageBox.Owner = owner;
@@ -37,12 +37,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
             return result;
         }
 
-        public static MessageBoxResult Show(String text, String title, MessageBoxButton buttons, List<String> buttonsText, Window owner)
+        public static MessageBoxResult Show(String title, String text, MessageBoxButton buttons, List<String> buttonsText, Window owner)
         {
             MessageBoxResult result = MessageBoxResult.None;
             SimpleMessageBoxView simpleMessageBox = new SimpleMessageBoxView();
 
-            simpleMessageBox.Title = title;
+            simpleMessageBox.title.Text = title;
             simpleMessageBox.mainText.Text = text;
             simpleMessageBox.Buttons = buttons;
             simpleMessageBox.Owner = owner;

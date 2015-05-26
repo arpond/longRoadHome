@@ -4,10 +4,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="110" d:DesignWidth="110"
              Name="itemBtn">
     <UserControl.Resources>
         <BitmapImage x:Key="itemBck" UriSource="../../Resources/itemBck.png" />
+        <Style x:Key="TextOnlyButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="FontFamily" Value="Oswald"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="LightGray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="NoChromeButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -24,16 +50,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
-        <Style x:Key="hoverButton" TargetType="{x:Type Button}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="True">
-                    <Setter Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="False">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                </DataTrigger>
-            </Style.Triggers>
         </Style>
         <Style x:Key="hoverText" TargetType="{x:Type TextBlock}">
             <Style.Triggers>
@@ -86,27 +102,25 @@
             <TextBlock
                 DockPanel.Dock="Top"
                 Text="{Binding ElementName=itemBtn, Path=Description, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                Margin="8 5"
+                Margin="10 7"
                 TextWrapping="Wrap"
                 Style="{DynamicResource hoverText}"
                 Foreground="White"
+                FontFamily="Oswald"
+                FontSize="12"
                 >
             </TextBlock>
-            <Grid DockPanel.Dock="Bottom" Height="Auto">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+            <StackPanel DockPanel.Dock="Bottom" Height="Auto" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button
                     Grid.Column="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     x:Name="useItemBtn"
                     Content="Use"
-                    Style="{DynamicResource hoverButton}"
+                    Style="{DynamicResource TextOnlyButton}"
                     Height="25"
-                    Width="44"
-                    Margin="4 5 2 8"
+                    Width="30"
+                    Margin="0 2 0 5"
                     Click="UseButton_Click"
                     />
                 <Button
@@ -115,13 +129,13 @@
                     VerticalAlignment="Bottom"
                     x:Name="discardItemBtn"
                     Content="Discard"
-                    Style="{DynamicResource hoverButton}"
+                    Style="{DynamicResource TextOnlyButton}"
                     Height="25"
-                    Width="44"
-                    Margin="2 5 4 8"
+                    Width="50"
+                    Margin="0 2 0 5"
                     Click="DiscardButton_Click"
                     />
-            </Grid>
+            </StackPanel>
         </DockPanel>
     </Grid>
     

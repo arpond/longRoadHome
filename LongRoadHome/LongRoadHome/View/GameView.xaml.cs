@@ -229,7 +229,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <returns>If yes was selected</returns>
         public bool DrawYesNoOption(String text)
         {
-            MessageBoxResult result = SimpleMessageBox.Show(text, string.Empty, MessageBoxButton.YesNo, Window.GetWindow(this));
+            MessageBoxResult result = SimpleMessageBox.Show(string.Empty, text, MessageBoxButton.YesNo, Window.GetWindow(this));
             if (result == MessageBoxResult.Yes)
             {
                 return true;
@@ -322,7 +322,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             String results = "You scavenged the following:\n";
             foreach (Item item in scavenged)
             {
-                results += String.Format("{0} x {1}\n", item.name, item.amount);
+                results += String.Format("{0} x {1} - {2}\n", item.name, item.amount, item.description);
             }
             SimpleMessageBox.Show("Scavenging Results", results, Window.GetWindow(this));
         }

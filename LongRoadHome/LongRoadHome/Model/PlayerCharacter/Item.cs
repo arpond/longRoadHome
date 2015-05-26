@@ -299,14 +299,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                             return false;
                         }
                         int val;
-                        if (int.TryParse(itemElement[1], out val))
-                        {
-                            if (val < 0)
-                            {
-                                return false;
-                            }
-                        }
-                        else
+                        if (!int.TryParse(itemElement[1], out val))
                         {
                             return false;
                         }
