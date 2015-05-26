@@ -40,15 +40,15 @@ namespace UnitTests_LongRoadHome.LocationTests
             com = new Commercial(2, 4, 7);
             civ = new Civic(3, 6, 3);
 
-            validLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:True,Sublocations,CurrentSublocation", "Standard location is valid"));
-            validLoc.Add(new Tuple<String, String>("Type:Location,ID:2,Connections:1:3:4,Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1", "Standard location is valid"));
-            validLoc.Add(new Tuple<String, String>("Type:Location,ID:3,Connections:1:2:5,Visited:True,Sublocations:" + res.ParseToString() + ":" + civ.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1", "Standard location is valid"));
+            validLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:True,Sublocations,CurrentSublocation", "Standard location is valid"));
+            validLoc.Add(new Tuple<String, String>("Type:Location,ID:2,Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1", "Standard location is valid"));
+            validLoc.Add(new Tuple<String, String>("Type:Location,ID:3,Visited:True,Sublocations:" + res.ParseToString() + ":" + civ.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1", "Standard location is valid"));
 
-            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:4,Connections:2:6", "Standard dummy location is valid"));
-            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:5,Connections:3:6", "Standard dummy location is valid"));
-            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:6,Connections:4:5:7", "Standard dummy location is valid"));
-            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:7,Connections:6:8", "Standard dummy location is valid"));
-            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:8,Connections:7", "Standard dummy location is valid"));
+            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:4", "Standard dummy location is valid"));
+            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:5", "Standard dummy location is valid"));
+            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:6", "Standard dummy location is valid"));
+            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:7", "Standard dummy location is valid"));
+            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:8", "Standard dummy location is valid"));
         }
 
 
@@ -88,12 +88,12 @@ namespace UnitTests_LongRoadHome.LocationTests
             String currentLoc = lm.ParseCurrLocationToString();
             String currentSub = lm.ParseCurrSubLocToString();
 
-            //LocationModel temp = new LocationModel(visited, unvisited, currentLoc, currentSub);
-            //Assert.AreEqual(visited, temp.ParseVisitedToString(), "Visited strings should be the same");
-            //Assert.AreEqual(unvisited, temp.ParseUnvisitedToString(), "Unvisited strings should be the same");
-            //Assert.AreEqual(currentLoc, temp.ParseCurrLocationToString(), "Current Location strings should be the same");
-            //Assert.AreEqual(currentSub, temp.ParseCurrSubLocToString(), "Current Sublocation strings should be the same");
-            Assert.Fail();
+            LocationModel temp = new LocationModel(visited, unvisited, currentLoc, currentSub);
+            Assert.AreEqual(visited, temp.ParseVisitedToString(), "Visited strings should be the same");
+            Assert.AreEqual(unvisited, temp.ParseUnvisitedToString(), "Unvisited strings should be the same");
+            Assert.AreEqual(currentLoc, temp.ParseCurrLocationToString(), "Current Location strings should be the same");
+            Assert.AreEqual(currentSub, temp.ParseCurrSubLocToString(), "Current Sublocation strings should be the same");
+            
         }
 
         [TestCategory("Location"), TestCategory("LocationModel"), TestMethod()]

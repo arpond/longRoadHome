@@ -12,10 +12,10 @@ namespace UnitTests_LongRoadHome
         PCModel pcm;
         PCModel std_pcm;
 
-        String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements";
-        String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":10" + ",PassiveEffect,Requirements:1";
-        String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements:1:2";
-        String itemStr4 = "ID:4,Name:TestItem,Amount:1,Description:test item 4,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":30:" + ActiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":10" +",PassiveEffect,Requirements:10";
+        String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
+        String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":10" + ",PassiveEffect,Requirements:1,Icon:test.png";
+        String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements:1:2,Icon:test.png";
+        String itemStr4 = "ID:4,Name:TestItem,Amount:1,Description:test item 4,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":30:" + ActiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":10" + ",PassiveEffect,Requirements:10,Icon:test.png";
 
         String pcStr, invStr, catalogue;
         Item item1, item2, item3, item4;

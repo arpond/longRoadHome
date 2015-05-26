@@ -54,7 +54,7 @@ namespace UnitTests_LongRoadHome.ModelTests
             eventCatalogue = EventCatalogue.TAG;
             for (int i = 1; i < 21; i++)
             {
-                String evt = Event.TAG + "_" + i + "_Type_Test text_EventOptions*" + validOption1 + "*" + validOption2 + "*" + validOption3 + "*" + validOption4;
+                String evt = Event.TAG + "$" + i + "$Type$Test text$EventOptions*" + validOption1 + "*" + validOption2 + "*" + validOption3 + "*" + validOption4;
                 if (!Event.IsValidEvent(evt))
                 {
                     String wrong = evt;
@@ -90,19 +90,19 @@ namespace UnitTests_LongRoadHome.ModelTests
                 {
                     if (i - 1 > 0)
                     {
-                        loc = "Type:Location,ID:" + i + ",Connections:" + (i + 1) + ":" + (i - 1) + ",Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1";
-                        dloc = "Type:DummyLocation,ID:" + j + ",Connections:" + (j - 1) + ":" + (j + 1);
+                        loc = "Type:Location,ID:" + i + ",Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1";
+                        dloc = "Type:DummyLocation,ID:" + j;
                     }
                     else
                     {
-                        loc = "Type:Location,ID:" + i + ",Connections:" + (i + 1) + ",Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1";
-                        dloc = "Type:DummyLocation,ID:" + j + ",Connections:" + (j - 1) + ":" + (j + 1);
+                        loc = "Type:Location,ID:" + i + ",Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1";
+                        dloc = "Type:DummyLocation,ID:" + j;
                     }
                 }
                 else
                 {
-                    loc = "Type:Location,ID:" + i + ",Connections:" + (i + 1) + ":" + (i - 1) + ",Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1";
-                    dloc = "Type:DummyLocation,ID:" + j + ",Connections:" + (j - 1);
+                    loc = "Type:Location,ID:" + i + ",Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1";
+                    dloc = "Type:DummyLocation,ID:" + j;
                 }
 
                 Location temp = new Location(loc);

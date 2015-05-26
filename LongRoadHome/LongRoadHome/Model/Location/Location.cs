@@ -321,7 +321,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             bool visited;
             int id = -1;
             String[] lElems = toTest.Split(',');
-            if (lElems.Length != 6)
+            if (lElems.Length != 5)
             {
                 return false;
             }

@@ -238,11 +238,11 @@ namespace UnitTests_LongRoadHome
         {
             Inventory inv = new Inventory();
             Inventory emptyInv = new Inventory();
-            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
-            String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
-            String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
+            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
+            String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
+            String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
 
-            String itemStr4 = "ID:1,Name:TestItem,Amount:3,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
+            String itemStr4 = "ID:1,Name:TestItem,Amount:3,Description:test item 3,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
             String expected = Inventory.TAG + "#" + itemStr4 + "#" + itemStr2 + "#" + itemStr3;
 
             Item item1a = new Item(itemStr1);
@@ -290,11 +290,11 @@ namespace UnitTests_LongRoadHome
         [TestCategory("PlayerCharacter"), TestCategory("Inventory"), TestMethod()]
         public void Inventory_ParseFromString()
         {
-            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
-            String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
-            String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
+            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
+            String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
+            String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
 
-            String itemStr4 = "ID:1,Name:TestItem,Amount:3,Description:test item 3,ActiveEffect,PassiveEffect,Requirements";
+            String itemStr4 = "ID:1,Name:TestItem,Amount:3,Description:test item 3,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
             String expected = Inventory.TAG + "#" + itemStr4 + "#" + itemStr2 + "#" + itemStr3;
             
             Inventory parsedInv = new Inventory(expected);

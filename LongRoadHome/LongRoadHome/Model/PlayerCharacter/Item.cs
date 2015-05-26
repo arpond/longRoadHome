@@ -286,6 +286,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         /// <returns>If the string is valid or invalid</returns>
         public static bool IsValidItem(String toTest)
         {
+            int val;
             String[] itemElements = toTest.Split(',');
             foreach (String curr in itemElements)
             {
@@ -293,12 +294,27 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
                 switch (itemElement[0])
                 {
                     case "ID":
+                        if (itemElement.Length < 2 || itemElement.Length > 2)
+                        {
+                            return false;
+                        }
+                        if (int.TryParse(itemElement[1], out val))
+                        {
+                            if(val < 0)
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        break;
                     case "Amount" :
                         if (itemElement.Length < 2 || itemElement.Length > 2)
                         {
                             return false;
                         }
-                        int val;
                         if (!int.TryParse(itemElement[1], out val))
                         {
                             return false;
@@ -393,6 +409,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
             return itemID == i.itemID;
         }
 
-        
+
+
+        public string GetIcon()
+        {
+            return iconFileName;
+        }
     }
 }

@@ -63,7 +63,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             HashSet<int> tempID = new HashSet<int>();
             int id = -1;
             String[] dlElems = toTest.Split(',');
-            if (dlElems.Length != 3)
+            if (dlElems.Length != 2)
             {
                 return false;
             }

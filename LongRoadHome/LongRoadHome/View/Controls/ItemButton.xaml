@@ -34,6 +34,26 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="hoverLabel" TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="True">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="hoverImage" TargetType="Image">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="True">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="NoChromeButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -61,69 +81,75 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="hoverDock" TargetType="{x:Type DockPanel}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="True">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <SolidColorBrush Color="Gray" Opacity="0.7"/>
-                        </Setter.Value>
-                    </Setter>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=outline, Path=IsMouseOver}" Value="False">
-                    <Setter Property="Background" Value="Transparent"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
     </UserControl.Resources>
-    <Grid x:Name="outline">
+    <Grid x:Name="outline" Margin="0 1">
         <Image Source="{StaticResource itemBck}" />
-        <Label
-            VerticalAlignment="Bottom" 
-            HorizontalAlignment="Right" 
-            Height="40" Width="125" 
-            Margin="0 0 12 8" 
-            FontSize="22" 
-            FontFamily="Oswald" 
-            Foreground="White" 
-            Content="{Binding ElementName=itemBtn, Path=Amount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-            ContentStringFormat="x{0}" FlowDirection="RightToLeft"/>
         <Border Grid.Column="0" Grid.Row="0" Background="Transparent"  BorderThickness="1" >
-            <Image 
+            <Grid >
+                <Image 
                 x:Name="image" 
-                Source="{Binding ElementName=itemBtn, Path=ItemIcon, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
-                Margin="3" />
-        </Border>
-        <DockPanel 
-            x:Name="hoverDock" Grid.Column="0" Grid.Row="0" Style="{DynamicResource hoverDock}"
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch" 
-            Height="Auto">
-            <TextBlock
-                DockPanel.Dock="Top"
-                Text="{Binding ElementName=itemBtn, Path=Description, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                Margin="10 7"
-                TextWrapping="Wrap"
-                Style="{DynamicResource hoverText}"
-                Foreground="White"
-                FontFamily="Oswald"
-                FontSize="12"
-                >
-            </TextBlock>
-            <StackPanel DockPanel.Dock="Bottom" Height="Auto" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button
-                    Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"
-                    x:Name="useItemBtn"
-                    Content="Use"
-                    Style="{DynamicResource TextOnlyButton}"
-                    Height="25"
-                    Width="30"
-                    Margin="0 2 0 5"
-                    Click="UseButton_Click"
-                    />
-                <Button
+                Source="{Binding ElementName=itemBtn, Path=ItemIcon, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{DynamicResource hoverImage}"
+                Margin="5 9"
+                 />
+                <DockPanel
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" >
+                    <Label
+                        x:Name="itemNameLabel"
+                        DockPanel.Dock="Top"
+                        Margin="0 5 0 0"
+                        FontSize="14" 
+                        FontFamily="Oswald" 
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        Content="{Binding ElementName=itemBtn, Path=ItemName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{DynamicResource hoverLabel}"/>
+                    <Label
+                        x:Name="amountLabel"
+                        DockPanel.Dock="Bottom"
+                        VerticalAlignment="Bottom" 
+                        HorizontalAlignment="Right"
+                        FontSize="22" 
+                        FontFamily="Oswald" 
+                        Foreground="White" 
+                        Content="{Binding ElementName=itemBtn, Path=Amount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        ContentStringFormat="x{0}" FlowDirection="RightToLeft" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"
+                        Margin="0 0 12 12"
+                        Style="{DynamicResource hoverLabel}"/>
+                </DockPanel>
+                <DockPanel 
+                    x:Name="hoverDock" Grid.Column="0" Grid.Row="0"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
+                    Height="Auto">
+                    <TextBlock
+                        DockPanel.Dock="Top"
+                        Text="{Binding ElementName=itemBtn, Path=Description, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="16 12"
+                        TextWrapping="Wrap"
+                        Style="{DynamicResource hoverText}"
+                        Foreground="White"
+                        FontFamily="Oswald"
+                        FontSize="11"
+                        >
+                    </TextBlock>
+                    <StackPanel DockPanel.Dock="Bottom" Height="Auto" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border Visibility="{Binding ElementName=itemBtn, Path=Usable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Button
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            x:Name="useItemBtn"
+                            Content="Use"
+                            Style="{DynamicResource TextOnlyButton}"
+                            Height="25"
+                            Width="30"
+                            Margin="0 2 0 1"
+                            Click="UseButton_Click"
+                            />
+                        </Border>
+
+                        <Button
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
@@ -132,11 +158,14 @@
                     Style="{DynamicResource TextOnlyButton}"
                     Height="25"
                     Width="50"
-                    Margin="0 2 0 5"
+                    Margin="0 2 0 1"
                     Click="DiscardButton_Click"
                     />
-            </StackPanel>
-        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+            
+        </Border>
     </Grid>
     
 </UserControl>

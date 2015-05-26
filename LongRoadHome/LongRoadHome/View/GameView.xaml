@@ -57,7 +57,7 @@
         <Border Name="animationArea" Grid.ColumnSpan="8" Grid.RowSpan="3">
             <Grid>
                 <Rectangle Name="animationBackground" Fill="Black" Visibility="Hidden" Panel.ZIndex="2"/>
-                <Image Name="bck" Source="{StaticResource mountainBack}"  Visibility="Hidden" VerticalAlignment="Top" Panel.ZIndex="3"/>      
+                <Image Name="bck" Source="{StaticResource mountainBack}"  Visibility="Hidden" VerticalAlignment="Top" Panel.ZIndex="3"/>
                 <ScrollViewer Name="mountainsFarSV" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Bottom" Visibility="Collapsed" Panel.ZIndex="4">
                     <Image Name="mountainsFar" Source="{StaticResource mountainsFar}" VerticalAlignment="Bottom" Panel.ZIndex="3" HorizontalAlignment="Left" Stretch="None"/>
                 </ScrollViewer>
@@ -85,8 +85,8 @@
                 </Image>
             </Grid>
         </Border>
-        
-        
+
+
         <!-- Health -->
         <uControl:ResourceBar
                         Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
@@ -167,7 +167,7 @@
                 </Canvas>
             </panZoom:ZoomBorder>
         </Border>
-        
+
         <Border Name="SublocationMapView" DataContext="{Binding SublocationModel}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
             <Grid>
                 <Grid>
@@ -188,12 +188,12 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Name="Sublocations">
                         <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                     </Grid>
                     <Image Grid.Column="{Binding Path=CurrentSublocation, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"  Source="{StaticResource charStand}" Margin="10 10 10 0" VerticalAlignment="Bottom" >
@@ -202,58 +202,47 @@
             </Grid>
         </Border>
 
-        <Border Name="InventoryView" Visibility="Hidden" DataContext="{Binding SublocationModel}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
+        <Border Name="InventoryView" Visibility="Visible" DataContext="{Binding SublocationModel}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="325*" />
+                    <ColumnDefinition Width="123*" />
+                    
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="7" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="299*" />
-                        <ColumnDefinition Width="275*" />
-                        <ColumnDefinition Width="322*" />
-                    </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1" Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
-                        <RowDefinition Height="5"/>
                     </Grid.RowDefinitions>
-                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"  Source="{StaticResource invBck}" Margin="0" Panel.ZIndex="-1">
-                    </Image>
-                    <Grid Name="InventoryGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource charStandLeft}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                </Grid>
+                
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="4"  Source="{StaticResource invBck}" Margin="0" Panel.ZIndex="-1" Stretch="Fill"/>
+                    <Grid Name="InventoryGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Margin="25 25">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="15"/>
-                            <ColumnDefinition Width="130*" />
-                            <ColumnDefinition Width="130*" />
-                            <ColumnDefinition Width="130*" />
-                            <ColumnDefinition Width="130*" />
-                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="57" />
-                            <RowDefinition Height="145*" />
-                            <RowDefinition Height="145*" />
-                            <RowDefinition Height="145*" />
-                            <RowDefinition Height="145*" />
-                            <RowDefinition Height="57" />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
-                        
                     </Grid>
-                    <Image Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Source="{StaticResource charStandLeft}" Margin="100 100 100 0" VerticalAlignment="Bottom" >
-                    </Image>
                 </Grid>
+                
             </Grid>
+
         </Border>
         <Grid Name="popUpArea"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
         </Grid>

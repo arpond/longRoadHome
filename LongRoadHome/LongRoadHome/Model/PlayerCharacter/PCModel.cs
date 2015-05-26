@@ -228,7 +228,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public bool ItemUsable(int invSlot)
         {
             Item toCheck = currentInventory.GetItemSlot(invSlot);
-            if (toCheck == null || (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs())))
+            if (toCheck == null)
+            {
+                return false;
+            }
+            if (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs()))
             {
                 return false;
             }

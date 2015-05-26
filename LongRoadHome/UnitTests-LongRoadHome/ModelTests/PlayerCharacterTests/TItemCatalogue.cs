@@ -36,12 +36,12 @@ namespace UnitTests_LongRoadHome
         [TestCategory("PlayerCharacter"), TestCategory("ItemCatalogue"), TestMethod()]
         public void ItemCatalogue_ParseFromString()
         {
-            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements";
+            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
             String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,"
                             + "ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "10"
                             + ":" + ActiveEffect.TAG + ":" + PlayerCharacter.THIRST + ":" + "10"
                             + ",PassiveEffect:" + PassiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "0.8"
-                            + ",Requirements:2";
+                            + ",Requirements:2,Icon:test.png";
             String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,"
                             + "ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "10"
                             + ":" + ActiveEffect.TAG + ":" + PlayerCharacter.THIRST + ":" + "10"
@@ -49,7 +49,7 @@ namespace UnitTests_LongRoadHome
                             + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":" + "0.9"
                             + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":" + "0.8"
                             + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.THIRST + ":" + "0.8"
-                            + ",Requirements:2";
+                            + ",Requirements:2,Icon:test.png";
 
             String catalogueStr = ItemCatalogue.TAG + ";" + itemStr1 + ";" + itemStr2 + ";" + itemStr3;
 
@@ -64,12 +64,12 @@ namespace UnitTests_LongRoadHome
         [TestCategory("PlayerCharacter"), TestCategory("ItemCatalogue"), TestMethod()]
         public void ItemCatalogue_GetRandomItem()
         {
-            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements";
+            String itemStr1 = "ID:1,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
             String itemStr2 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,"
                             + "ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "10"
                             + ":" + ActiveEffect.TAG + ":" + PlayerCharacter.THIRST + ":" + "10"
                             + ",PassiveEffect:" + PassiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "0.8"
-                            + ",Requirements:2";
+                            + ",Requirements:2,Icon:test.png";
             String itemStr3 = "ID:3,Name:TestItem,Amount:1,Description:test item 3,"
                             + "ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":" + "10"
                             + ":" + ActiveEffect.TAG + ":" + PlayerCharacter.THIRST + ":" + "10"
@@ -77,7 +77,7 @@ namespace UnitTests_LongRoadHome
                             + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":" + "0.9"
                             + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":" + "0.8"
                             + ":" + PassiveEffect.TAG + ":" + PlayerCharacter.THIRST + ":" + "0.8"
-                            + ",Requirements:2";
+                            + ",Requirements:2,Icon:test.png";
             
             String catalogueStr = ItemCatalogue.TAG + ";" + itemStr1 + ";" + itemStr2 + ";" + itemStr3;
 

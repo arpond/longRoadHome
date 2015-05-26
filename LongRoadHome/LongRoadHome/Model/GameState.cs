@@ -217,9 +217,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             return this.MemberwiseClone();
         }
 
-        internal string ParseButtonAreasToString()
+        public string ParseButtonAreasToString()
         {
-            throw new NotImplementedException();
+            return lm.ParseButtonArea();
         }
     }
 

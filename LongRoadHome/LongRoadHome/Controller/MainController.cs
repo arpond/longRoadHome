@@ -32,7 +32,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             mf = new ModelFacade();
             dc = new DifficultyController();
-            //gameView = new GameView();
+            gameView = new GameView();
             IntializeCommandMap();
             
         }
@@ -82,10 +82,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 var worldMap = mf.GetWorldMap(gs);
                 var buttonAreas = mf.GetButtonAreas(gs);
 
-                //Dispatcher.Invoke(new Action(() => createTransparentButtons(buttonAreas, unvisitedBMI, visitedBMI)));
-
-                //Dispatcher dispatcher = gameView.GetDispatcher();
-                //dispatcher.Invoke(new Action(() => gameView.InitialiseWorldMap(worldMap, buttonAreas)));
                 gameView.InitialiseWorldMap(worldMap, buttonAreas);
                 gameView.InitialiseSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
                 gameView.InitialiseInventory(mf.GetInventory(gs));
@@ -255,7 +251,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         {
             //Update Player
             gameView.UpdatePlayer();
-            //WriteSaveData
+            WriteSaveData();
             //Check if Game Over
             if (mf.IsGameOver(gs) || IsEndLocation())
             {
@@ -320,9 +316,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     if (discoveryText != "")
                     {
                         // Thread 1 - Save Game
-                        // WriteSaveData();
+                        var task1 = Task.Factory.StartNew(() =>
+                        {
+                            //WriteSaveData();
+                        });
                         // Main Thread - Display Discovery
                         gameView.DrawDiscovery(discoveryText);
+                        Task.WaitAll(task1);
                     }
                 }
             }
@@ -493,8 +493,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             String optionResult = mf.GetOptionResult(gs, optionSelected);
             List<String> effectResults = mf.GetOptionEffectResults(gs, optionSelected);
 
-            Dispatcher dispatcher = gameView.GetDispatcher();
-            dispatcher.Invoke(new Action(() => gameView.DrawEventResult(optionResult, effectResults)));
+            //Dispatcher dispatcher = gameView.GetDispatcher();
+            //dispatcher.Invoke(new Action(() => gameView.DrawEventResult(optionResult, effectResults)));
+            gameView.DrawEventResult(optionResult, effectResults);
         }
 
         public bool ScavangeSublocation()
@@ -506,11 +507,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 
             List<Item> scavenged = mf.ScavangeSubLocation(gs);
             // Thread 1
-            // Save Game
+            var task1 = Task.Factory.StartNew(() =>
+            {
+                //WriteSaveData();
+            });
             // Main Thread 
             //gameView.DrawSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
             gameView.UpdateSublocationMap(mf.GetCurrentSublocation(gs), 1);
             gameView.DrawScavengeResults(scavenged);
+            Task.WaitAll(task1);
             return true;
         }
 
@@ -529,7 +534,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         /// <returns>If the item was used sucessfully</returns>
         public bool UseItem(int inventorySlot)
         {
-            if (mf.ItemUsable(gs, inventorySlot))
+            if (!mf.ItemUsable(gs, inventorySlot))
             {
                 gameView.DrawDialogueBox("Item is not usable");
                 return false;
@@ -580,17 +585,25 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             if (mf.IsGameOver(gs))
             {    
                 // Thread 1 - Save Game
-                // Save Game
+                var task1 = Task.Factory.StartNew(() =>
+                {
+                    //WriteSaveData();
+                });
                 // Main Thread
                 gameView.DrawGameOver();
+                Task.WaitAll(task1);
                 gameView.ReturnToMainMenu();
             }
             else
             {
                 // Thread 1 - Save Game
-                // Save Game
+                var task1 = Task.Factory.StartNew(() =>
+                {
+                    //WriteSaveData();
+                });
                 // Main Thread
                 gameView.DrawVictory();
+                Task.WaitAll(task1);
                 gameView.ReturnToMainMenu();
             }
         }

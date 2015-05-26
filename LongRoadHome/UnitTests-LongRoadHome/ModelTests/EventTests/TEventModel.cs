@@ -21,7 +21,7 @@ namespace UnitTests_LongRoadHome.EventTests
         [TestInitialize]
         public void Setup()
         {
-            String basicItem1 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements";
+            String basicItem1 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
             validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20";
             validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1;
             validOption = Option.TAG + ";" + "7;TestText;EventEffects|" + validPREE + "|" + validIEE;
@@ -32,27 +32,27 @@ namespace UnitTests_LongRoadHome.EventTests
             validOptions.Add(Option.TAG + ";" + "3;TestText;EventEffects|" + validIEE + "|" + validPREE);
             validOptions.Add(validOption);
 
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text_EventOptions", "Basic Event is valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_2_Type_Test text_EventOptions*" + validOption, "Event with a valid option should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_3_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_4_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_5_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_6_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_7_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_8_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_9_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_10_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_11_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
-            validEvents.Add(new Tuple<string, string>(Event.TAG + "_12_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text$EventOptions", "Basic Event is valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$2$Type$Test text$EventOptions*" + validOption, "Event with a valid option should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$3$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$4$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$5$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$6$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$7$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$8$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$9$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$10$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$11$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validEvents.Add(new Tuple<string, string>(Event.TAG + "$12$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
 
             invalidEvents.Add(new Tuple<string, string>("", "Empty String is invalid"));
-            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text", "Should have at least 5 elements"));
-            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text_EventOptions_haha", "Should have at most 5 elements"));
-            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text_EventOptions*", "If there are event options there should be at least one"));
-            invalidEvents.Add(new Tuple<string, string>("Not a tag_1_Type_Test text_EventOptions", "Should start with " + Event.TAG));
-            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "_ha_Type_Test text_EventOptions", "ID should be an int"));
-            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "_-1_Type_Test text_EventOptions", "ID should be positive"));
-            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text_EventOptions*" + invalidOption, "Invalid option should mean invalid event"));
+            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text", "Should have at least 5 elements"));
+            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text$EventOptions$haha", "Should have at most 5 elements"));
+            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text$EventOptions*", "If there are event options there should be at least one"));
+            invalidEvents.Add(new Tuple<string, string>("Not a tag$1$Type$Test text$EventOptions", "Should start with " + Event.TAG));
+            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "$ha$Type$Test text$EventOptions", "ID should be an int"));
+            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "$-1$Type$Test text$EventOptions", "ID should be positive"));
+            invalidEvents.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text$EventOptions*" + invalidOption, "Invalid option should mean invalid event"));
 
             validCat.Add(new Tuple<string, string>(EventCatalogue.TAG, "Empty event catalogue is valid"));
             validCat.Add(new Tuple<string, string>(EventCatalogue.TAG + "^" + validEvents[0].Item1, "Event Catalogue with a single event is valid"));

@@ -113,22 +113,43 @@ namespace UnitTests_LongRoadHome.LocationTests
         [TestCategory("Location"), TestCategory("Sublocation"), TestCategory("Residential"), TestMethod()]
         public void Residential_ParseToString()
         {
-            String exp = Residential.TYPE + ":" + "1:False:3:5:temp";
-            Assert.AreEqual(exp, res.ParseToString(), "Strings should match");
+            String exp = Residential.TYPE + ":" + "1:False:3:5";
+            String[] elems = res.ParseToString().Split(':');
+            String result = elems[0];
+            for (int i = 1; i < elems.Length -1; i++ )
+            {
+                result += ':' + elems[i];
+            }
+
+            Assert.AreEqual(exp, result, "Strings should match");
         }
 
         [TestCategory("Location"), TestCategory("Sublocation"), TestCategory("Commecial"), TestMethod()]
         public void Commercial_ParseToString()
         {
-            String exp = Commercial.TYPE + ":" + "2:False:4:7:temp";
-            Assert.AreEqual(exp, com.ParseToString(), "Strings should match");
+            String exp = Commercial.TYPE + ":" + "2:False:4:7";
+            String[] elems = com.ParseToString().Split(':');
+            String result = elems[0];
+            for (int i = 1; i < elems.Length - 1; i++)
+            {
+                result += ':' + elems[i];
+            }
+
+            Assert.AreEqual(exp, result, "Strings should match");
         }
 
         [TestCategory("Location"), TestCategory("Sublocation"), TestCategory("Civic"), TestMethod()]
         public void Civic_ParseToString()
         {
-            String exp = Civic.TYPE + ":" + "3:False:6:3:temp";
-            Assert.AreEqual(exp, civ.ParseToString(), "Strings should match");
+            String exp = Civic.TYPE + ":" + "3:False:6:3";
+            String[] elems = civ.ParseToString().Split(':');
+            String result = elems[0];
+            for (int i = 1; i < elems.Length - 1; i++)
+            {
+                result += ':' + elems[i];
+            }
+
+            Assert.AreEqual(exp, result, "Strings should match");
         }
 
         [TestCategory("Location"), TestCategory("Sublocation"), TestCategory("Residential"), TestMethod()]

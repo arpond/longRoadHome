@@ -257,17 +257,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             switch (options.Count)
             {
                 case 1:
-                    SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OK, Window.GetWindow(this));
+                    SimpleMessageBox.Show("Event!", eventText + "\n\n" + optionsText, MessageBoxButton.OK, Window.GetWindow(this));
                     result = MessageBoxResult.Yes;
                     break;
                 case 2:
-                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNo, buttonText, Window.GetWindow(this));
+                    result = SimpleMessageBox.Show("Event!",eventText +"\n\n" + optionsText, MessageBoxButton.YesNo, buttonText, Window.GetWindow(this));
                     break;
                 case 3:
-                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNoCancel, buttonText, Window.GetWindow(this));
+                    result = SimpleMessageBox.Show("Event!", eventText + "\n\n" + optionsText, MessageBoxButton.YesNoCancel, buttonText, Window.GetWindow(this));
                     break;
                 case 4:
-                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OKCancel, buttonText, Window.GetWindow(this));
+                    result = SimpleMessageBox.Show("Event!", eventText + "\n\n" + optionsText, MessageBoxButton.OKCancel, buttonText, Window.GetWindow(this));
                     break;
             }
 
@@ -304,13 +304,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <param name="results">The text from the effects of the result</param>
         public void DrawEventResult(String optionResult, List<String> results)
         {
-            String effectResults = "";
-            foreach (String result in results)
-            {
-                effectResults += result + "\n";
-            }
-
-            SimpleMessageBox.Show(optionResult, effectResults, MessageBoxButton.OK, Window.GetWindow(this));
+            SimpleMessageBox.Show(string.Empty, optionResult, MessageBoxButton.OK, Window.GetWindow(this));
         }
 
         /// <summary>
@@ -322,7 +316,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             String results = "You scavenged the following:\n";
             foreach (Item item in scavenged)
             {
-                results += String.Format("{0} x {1} - {2}\n", item.name, item.amount, item.description);
+                String[] desc = item.description.Split('(');
+                results += String.Format("{0} x {1} - {2}\n", item.name, item.amount, desc[0]);
             }
             SimpleMessageBox.Show("Scavenging Results", results, Window.GetWindow(this));
         }
@@ -369,18 +364,31 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 ItemButton button = new ItemButton();
                 BitmapImage temp = new BitmapImage();
                 temp.BeginInit();
-                //temp.UriSource = new Uri("pack://application:,,,/LongRoadHome;Resources/" + inventory[i].GetImagePath());
-                temp.UriSource = new Uri("pack://application:,,,/Resources/item_placeholder.png");
+                temp.UriSource = new Uri("pack://application:,,,/Resources/Items/" + item.GetIcon());
+                //temp.UriSource = new Uri("pack://application:,,,/Resources/Items/item_placeholder.png");
                 temp.EndInit();
                 button.ItemIcon = temp;
+
+                String[] desc = item.description.Split('(');
+
                 button.Description = item.description;
                 button.ItemSlot = i;
                 button.Amount = item.amount;
                 button.UseClick += new RoutedEventHandler(UseItemClicked);
                 button.DiscardClick += new RoutedEventHandler(DiscardItemClicked);
+                button.ItemName = item.name;
 
-                Grid.SetRow(button, i / 4 + 1);
-                Grid.SetColumn(button, (i % 4) + 1);
+                if(item.HasActiveEffect())
+                {
+                    button.Usable = Visibility.Visible;
+                }
+                else
+                {
+                    button.Usable = Visibility.Collapsed;
+                }
+
+                Grid.SetRow(button, i / 4);
+                Grid.SetColumn(button, (i % 4));
 
                 InventoryGrid.Children.Add(button);
             }

@@ -62,6 +62,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Location\WorldMap.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="View\Controls\DemoTextBox.xaml.cs">
       <DependentUpon>DemoTextBox.xaml</DependentUpon>
     </Compile>
@@ -201,11 +206,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -213,8 +213,8 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -232,28 +232,28 @@
     <Resource Include="Title.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CharacterWalk-1.png" />
+    <Resource Include="Resources\CharacterWalk-1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CharacterWalk-2.png" />
+    <Resource Include="Resources\CharacterWalk-2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CharacterWalk-3.png" />
+    <Resource Include="Resources\CharacterWalk-3.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CharacterWalk-4.png" />
+    <Resource Include="Resources\CharacterWalk-4.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CharacterWalk-5.png" />
+    <Resource Include="Resources\CharacterWalk-5.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CharacterWalk-6.png" />
+    <Resource Include="Resources\CharacterWalk-6.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CharacterWalk-7.png" />
+    <Resource Include="Resources\CharacterWalk-7.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CharacterWalk-8.png" />
+    <Resource Include="Resources\CharacterWalk-8.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\parallax-mountain-bg.png" />
@@ -319,9 +319,6 @@
     <Resource Include="Resources\Loc_Res_PlaceHolder_Scavenged.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\item_placeholder.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Civic_1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -335,7 +332,8 @@
     <Resource Include="Resources\location.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\worldTile.png" />
+    <Resource Include="Resources\Items\glitch-icons.xcf" />
+    <Resource Include="Resources\worldTile.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\visited_location.png" />
@@ -426,6 +424,1596 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\dialogueBck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Armor04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Armor05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Armour01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Armour02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Armour03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Clothing01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Clothing02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Shoes01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Shoes02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Shoes03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Shoes04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Shoes05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Shoes06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\A_Shoes07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Earing01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Earing02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Gloves01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Gloves02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Gloves03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Gloves04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Gloves05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Gloves06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Gloves07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Medal01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Medal02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Medal03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Medal04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Necklace01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Necklace02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Necklace03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Necklace04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Ring01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Ring02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Ring03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Ac_Ring04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\C_Elm01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\C_Elm02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\C_Elm03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\C_Elm04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\C_Hat01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\C_Hat02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\C_Hat03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\coffee1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\donut1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Bones01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Bones02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Bones03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Gold01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Gold02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Metal01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Metal02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Metal03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Metal04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Metal05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Wood01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Wood02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Wood03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\E_Wood04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\eggsbenedict1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-15.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-17.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-18.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-19.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-23.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-27.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-28.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-33.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-34.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-37.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-38.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-39.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-41.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-42.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-43.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-44.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-46.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-47.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-49.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-51.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-52.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-53.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-54.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-55.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-56.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-57.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-58.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-59.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-60.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-61.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-62.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-63.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-65.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-66.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-67.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-68.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-69.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-70.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-71.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-72.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-73.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-74.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-75.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-77.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-78.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-79.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-81.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-82.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-83.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-84.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-85.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-86.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-87.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-88.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-89.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-91.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-92.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-93.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-94.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-95.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-97.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-98.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-99.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\glitch-icon-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\honeybun1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Agate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Amethist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Antidote.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_BatWing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_BirdsBeak.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Bone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Bottle01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Bottle02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Bottle03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Bottle04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_BronzeBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_BronzeCoin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Apple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Banana.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Bread.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Carrot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Cheese.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Cherry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Egg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Fish.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Grapes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_GreenGrapes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_GreenPepper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Lemon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Meat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Mulberry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Mushroom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Nut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Pear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Pie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Pineapple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Radish.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_RawFish.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_RawMeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_RedPepper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Strawberry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_UnripeApple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_Watermellon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_C_YellowPepper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Cannon01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Cannon02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Cannon03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Cannon04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Cannon05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Chest01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Chest02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Coal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Crystal01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Crystal02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Crystal03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Diamond.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Eye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Fabric.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Fang.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Feather01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Feather02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_FishTail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_FoxTail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_FrogLeg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_GoldBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_GoldCoin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Ink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_IronBall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Jade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Key01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Key02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Key03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Key04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Key05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Key06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Key07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Leaf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Mirror.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Opal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Rock01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Rock02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Rock03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Rock04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Rock05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Rubi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Saphire.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_ScorpionClaw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Scroll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Scroll02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_SilverBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_SilverCoin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_SnailShell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_SolidShell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Telescope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Tentacle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Torch01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Torch02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_Water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\I_WolfFur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\muffin1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Blue01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Blue02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Blue03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Blue04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Green01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Green02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Green03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Green04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Medicine01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Medicine02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Medicine03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Medicine04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Medicine05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Medicine06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Medicine07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Medicine08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Medicine09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Orange01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Orange02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Orange03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Orange04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Pink01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Pink02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Pink03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Pink04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Red01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Red02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Red03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Red04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_White01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_White02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_White03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_White04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Yellow01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Yellow02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Yellow03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\P_Yellow04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\pancakes1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Bow14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Buff14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Death01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Death02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Earth01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Earth02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Earth03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Earth04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Earth05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Earth06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Earth07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Fire01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Fire02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Fire03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Fire04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Fire05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Fire06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Fire07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Holy01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Holy02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Holy03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Holy04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Holy05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Holy06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Holy07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Ice01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Ice02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Ice03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Ice04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Ice05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Ice06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Ice07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Light01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Light02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Light03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Magic01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Magic02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Magic03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Magic04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Physic01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Physic02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Poison01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Poison02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Poison03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Poison04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Poison05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Poison06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Poison07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Shadow01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Shadow02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Shadow03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Shadow04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Shadow05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Shadow06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Shadow07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Sword10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Thunder01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Thunder02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Thunder03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Thunder04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Thunder05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Thunder06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Thunder07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Water01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Water02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Water03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Water04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Water05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Water06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Water07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Wind01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Wind02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Wind03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Wind04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Wind05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Wind06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\S_Wind07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\tea1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe003.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe004.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe005.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe006.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe007.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe008.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe009.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe010.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe011.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe012.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe013.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Axe014.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Book01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Book02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Book03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Book04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Book05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Book06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Book07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Bow14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger003.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger004.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger005.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger006.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger007.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger008.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger009.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger010.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger011.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger012.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger013.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger014.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger015.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger016.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger017.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger018.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger019.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger020.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Dagger021.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Fist001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Fist002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Fist003.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Fist004.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Fist005.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Gun001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Gun002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Gun003.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace003.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace004.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace005.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace006.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace007.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace008.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace009.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace010.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace011.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace012.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace013.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Mace014.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear003.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear004.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear005.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear006.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear007.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear008.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear009.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear010.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear011.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear012.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear013.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Spear014.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword003.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword004.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword005.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword006.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword007.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword008.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword009.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword010.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword011.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword012.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword013.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword014.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword015.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword016.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword017.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword018.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword019.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword020.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Sword021.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Throw001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Throw002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Throw003.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Throw004.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\W_Throw05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\waffles1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Items\item_placeholder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
