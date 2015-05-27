@@ -1,0 +1,65 @@
+﻿<Page x:Class="uk.ac.dundee.arpond.longRoadHome.View.DiscoveriesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="728" d:DesignWidth="1024"
+	Title="Discoveries">
+    <Page.Resources>
+        <BitmapImage x:Key="background" UriSource="../Resources/background.png" />
+        <BitmapImage x:Key="discBck" UriSource="../Resources/discBck.png" />
+        <BitmapImage x:Key="discHeader" UriSource="../Resources/DiscoveriesHeader.png" />
+        <Style x:Key="TextOnlyButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontFamily" Value="Oswald"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Foreground" Value="LightGray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="{StaticResource background}"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="20*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Image Grid.Column="1" Source="{StaticResource discHeader}" HorizontalAlignment="Center" />
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
+            <Grid.Background>
+                <ImageBrush ImageSource="{StaticResource discBck}" />
+            </Grid.Background>
+            <ScrollViewer Margin="6">
+                <StackPanel Name="discoveriesView" Grid.Column="1" HorizontalAlignment="Left" Margin="0"/>
+            </ScrollViewer>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center">
+            <Button Style="{DynamicResource TextOnlyButton}" Click="Button_Click">
+                Return to Main Menu
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Page>

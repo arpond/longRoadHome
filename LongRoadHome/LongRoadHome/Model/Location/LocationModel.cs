@@ -122,7 +122,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
                 unvisitedLocation.Add(temp.GetLocationID(), temp);
             }
 
-            String[] areasElem = unvisitedLocs.Split('#');
+            String[] areasElem = buttonAreas.Split('#');
             for (int k = 1; k < areasElem.Length; k++)
             {
                 String[] kvPair = areasElem[k].Split(':');

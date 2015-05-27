@@ -93,6 +93,9 @@
     <Compile Include="View\Debug.xaml.cs">
       <DependentUpon>Debug.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DiscoveriesView.xaml.cs">
+      <DependentUpon>DiscoveriesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
@@ -102,9 +105,6 @@
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Animation.cs" />
-    <Compile Include="View\Animator.cs" />
-    <Compile Include="View\AudioPlayer.cs" />
     <Compile Include="View\IGameView.cs" />
     <Compile Include="View\UIObjects\UIImageButton.cs" />
     <Compile Include="View\UIObjects\UIInvetory.cs" />
@@ -141,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Debug.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DiscoveriesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +220,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -2014,6 +2019,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Items\item_placeholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\discBck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DiscoveriesHeader.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

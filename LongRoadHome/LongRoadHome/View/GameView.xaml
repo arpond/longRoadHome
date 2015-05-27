@@ -10,6 +10,7 @@
       d:DesignHeight="728" d:DesignWidth="1024"
       Name="game"
       Loaded="game_Loaded"
+      KeyDown="game_KeyDown"
 	Title="GameView">
     <Page.Resources>
         <BitmapImage x:Key="background" UriSource="../Resources/background.png" />
@@ -28,17 +29,14 @@
         <BitmapImage x:Key="invBck" UriSource="../Resources/inventoryBck.png" />
         <BitmapImage x:Key="itemBck" UriSource="../Resources/itemBck.png" />
         <BitmapImage x:Key="charStandLeft" UriSource="../Resources/Character-stand-Reverse.png" />
-        <BitmapImage x:Key="itemIcon" UriSource="../Resources/item_placeholder.png" />
+        <BitmapImage x:Key="itemIcon" UriSource="../Resources/Items/item_placeholder.png" />
         <BitmapImage x:Key="treesClose" UriSource="../Resources/parallax-mountain-foreground-trees2.png"/>
         <BitmapImage x:Key="treesFar" UriSource="../Resources/parallax-mountain-trees2.png"/>
         <BitmapImage x:Key="mountainsClose" UriSource="../Resources/parallax-mountain-mountains2.png"/>
         <BitmapImage x:Key="mountainsFar" UriSource="../Resources/parallax-mountain-montain-far2.png"/>
         <BitmapImage x:Key="mountainBack" UriSource="../Resources/parallax-mountain-bg.png"/>
     </Page.Resources>
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="{StaticResource background}"/>
-        </Grid.Background>
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -113,23 +111,20 @@
                         Resource="{Binding Path=PlayerModel.Sanity, UpdateSourceTrigger=PropertyChanged}"
                         ImgSource="{StaticResource sanity}"/>
         <!-- NavBar -->
-        <Grid Grid.Column="0" Grid.Row="2" Name="navMenu">
+        <Grid Grid.Column="0" Grid.Row="2" Margin="0 0 0 10" Name="navMenu">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="15*" />
-                <ColumnDefinition Width="95*" />
-                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1" Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition Height="1"/>
-                </Grid.RowDefinitions>
-                <Rectangle Grid.Row="0" Fill="Black" Margin="5 1"/>
-                <Rectangle Grid.Row="1" Fill="Black" Margin="5 1"/>
-                <Rectangle Grid.Row="2" Fill="Black" Margin="5 1"/>
-                <uControl:ImageButton 
+            <uControl:ImageButton
+                            Grid.Column="1"
                             Grid.Row="0"
                             x:Name="worldMapBtn"
                             EnabledButton="True"
@@ -138,17 +133,20 @@
                             DisabledImage="{StaticResource disabledLocMap}"
                             DisplayedImage="{StaticResource enabledLocMap}"
                             />
-                <uControl:ImageButton
-                        Grid.Row="1"
+            <uControl:ImageButton
+                            Grid.Column="1"
+                            Grid.Row="1"
                             x:Name="subMapBtn"
                             EnabledButton="True"
                             Click="changeUI_Click"
                             EnabledImage="{StaticResource enabledSubMap}"
                             DisabledImage="{StaticResource disabledSubMap}"
                             DisplayedImage="{StaticResource enabledSubMap}"
+                            
                             />
-                <uControl:ImageButton
-                        Grid.Row="2"
+            <uControl:ImageButton
+                            Grid.Column="1"
+                            Grid.Row="2"
                             x:Name="inventoryBtn"
                             EnabledButton="True"
                             Click="changeUI_Click"
@@ -156,8 +154,10 @@
                             DisabledImage="{StaticResource disabledInventory}"
                             DisplayedImage="{StaticResource enabledInventory}"
                             />
-            </Grid>
         </Grid>
+            
+            
+            
 
         <Border Name="WorldMapView" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="0" Panel.ZIndex="-1">
             <panZoom:ZoomBorder ClipToBounds="True" x:Name="zoomBorder">
@@ -244,7 +244,5 @@
             </Grid>
 
         </Border>
-        <Grid Name="popUpArea"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2">
-        </Grid>
     </Grid>
 </Page>

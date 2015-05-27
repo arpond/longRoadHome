@@ -63,7 +63,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             mc.handlePotentAction(MainController.NEW_GAME, 0);
         }
 
-        public GameView(MainMenu mainMenu)
+        public GameView(MainMenu mainMenu, int mode)
         {
             this.mainMenu = mainMenu;
             InitializeComponent();
@@ -77,7 +77,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             this.DataContext = _UIModel;
 
             mc = new MainController(this);
-            mc.handlePotentAction(MainController.NEW_GAME, 0);
+            if (mode == 0)
+            {
+                mc.handlePotentAction(MainController.NEW_GAME, 0);
+            }
+            else if (mode == 1)
+            {
+                mc.handlePotentAction(MainController.CONTINUE, 0);
+            }
+            
         }
         #endregion
 
@@ -334,14 +342,24 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         #endregion
 
         #region Discovery Functions
-        public void DrawDiscoveries(List<Discovery> discs)
+        public void DrawDiscoveries(List<Discovery> discs, int max)
         {
-            foreach(Discovery disc in discs)
+            String discoveries = "";
+            for (int i = 1; i <= max; i++)
             {
-                int id = disc.GetDiscoveryID();
-                String text = disc.GetDiscoveryText();
+                String discText = String.Format("No. {0} - {1}\n",i, "UNDISCOVERED");
+                foreach (Discovery disc in discs)
+                {
+                    int id = disc.GetDiscoveryID();
+                    if(i==id)
+                    {
+                        String text = disc.GetDiscoveryText();
+                        discText = String.Format("No. {0} - {1}\n", i, text);
+                        break;
+                    }
+                }
+                discoveries += discText;
             }
-
             throw new NotImplementedException();
         }
         #endregion
@@ -365,7 +383,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 BitmapImage temp = new BitmapImage();
                 temp.BeginInit();
                 temp.UriSource = new Uri("pack://application:,,,/Resources/Items/" + item.GetIcon());
-                //temp.UriSource = new Uri("pack://application:,,,/Resources/Items/item_placeholder.png");
                 temp.EndInit();
                 button.ItemIcon = temp;
 
@@ -614,6 +631,28 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             }
         }
 
+        public void UpdateFromSave(int currentLocation, List<int> visited)
+        {
+            foreach(int i in visited)
+            {
+                TransparentButton tb;
+                if (worldMapButtons.TryGetValue(i, out tb))
+                {
+                    tb.ImageSwitch = true;
+                }
+
+            }
+
+            Point characterLocation;
+            if (buttonAreas.TryGetValue(currentLocation, out characterLocation))
+            {
+                zoomBorder.charLoc = characterLocation;
+                zoomBorder.Reset();
+                Canvas.SetLeft(characterPointer, characterLocation.X + 4);
+                Canvas.SetTop(characterPointer, characterLocation.Y - 23);
+            }
+        }
+
         /// <summary>
         /// Displays the WorldMap
         /// </summary>
@@ -799,6 +838,19 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             mp.Play();
         }
         #endregion
+
+        private void game_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(DrawYesNoOption("Are you sure you wish to quit?"))
+            {
+                mc.handleIdepotentAction(MainController.QUIT);
+            }
+        }
+
+        public void ExitGame()
+        {
+            mainMenu.ExitGame();
+        }
 
 
 

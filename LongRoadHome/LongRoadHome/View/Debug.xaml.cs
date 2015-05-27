@@ -252,11 +252,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             throw new NotImplementedException();
         }
-        public void DrawDiscoveries(List<Discovery> discs)
+        public void DrawDiscoveries(List<Discovery> discs, int max)
         {
             throw new NotImplementedException();
         }
         public void DisplayWorldMap()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateFromSave(int currentLocation, List<int> visited)
         {
             throw new NotImplementedException();
         }
@@ -563,6 +568,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
         public void EndAnimation()
         {
+        }
+
+        public void ExitGame()
+        {
+
         }
     }
 }

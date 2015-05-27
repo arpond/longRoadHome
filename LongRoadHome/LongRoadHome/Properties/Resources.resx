@@ -1906,4 +1906,13 @@
   <data name="W_Throw05" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Items\W_Throw05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="discBck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\discBck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="title" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\title.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DiscoveriesHeader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DiscoveriesHeader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

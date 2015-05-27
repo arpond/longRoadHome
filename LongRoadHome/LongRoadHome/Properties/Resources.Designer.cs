@@ -773,6 +773,26 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap discBck {
+            get {
+                object obj = ResourceManager.GetObject("discBck", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DiscoveriesHeader {
+            get {
+                object obj = ResourceManager.GetObject("DiscoveriesHeader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap donut1 {
             get {
                 object obj = ResourceManager.GetObject("donut1", resourceCulture);
@@ -4796,6 +4816,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         internal static System.Drawing.Bitmap thirst {
             get {
                 object obj = ResourceManager.GetObject("thirst", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap title {
+            get {
+                object obj = ResourceManager.GetObject("title", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

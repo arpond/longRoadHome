@@ -35,7 +35,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         /// <param name="curEvent">String of current event</param>
         public EventModel(String usedEvents, String catalogue, String curEvent)
         {
-            currentEvent = new Event(curEvent);
+            if (curEvent != "")
+            {
+                currentEvent = new Event(curEvent);
+            }
+            else
+            {
+                currentEvent = null;
+            }
             this.usedEvents = new HashSet<int>();
             eventCatalogue = new EventCatalogue(catalogue);
 
@@ -57,6 +64,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
         {
             Event temp;
             int i = 0;
+            if (usedEvents.Count == eventCatalogue.GetEvents().Count - 5)
+            {
+                usedEvents = new HashSet<int>();
+            }
             do
             {
                 temp = eventCatalogue.GetRandomEvent();

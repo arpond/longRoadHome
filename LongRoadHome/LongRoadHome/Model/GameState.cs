@@ -18,12 +18,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         /// <param name="itemCatalogue">Item Catalogue String</param>
         /// <param name="eventCatalogue">Event Catalogue String</param>
         /// <param name="discoveryCatalogue">Discovery Catalogue String</param>
-        public GameState(String itemCatalogue, String eventCatalogue, String discoveryCatalogue)
+        public GameState(String itemCatalogue, String eventCatalogue, String discoveryCatalogue, String discovered)
         {
             pcm = new PCModel(itemCatalogue);
             em = new EventModel(eventCatalogue);
             lm = new LocationModel(512);
-            dm = new DiscoveryModel(discoveryCatalogue);
+            dm = new DiscoveryModel(discovered, discoveryCatalogue);
         }
 
         /// <summary>
@@ -48,6 +48,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
             em = new EventModel(usedEvents, eventCatalogue, currentEvent);
             dm = new DiscoveryModel(discovered, discoveryCatalogue);
             lm = new LocationModel(visitedLocs, unvisitedLocs, currLoc, currSLoc, buttonArea, worldMap);
+        }
+
+        public GameState(String discoveryCatalogue, String discovered)
+        {
+            dm = new DiscoveryModel(discovered, discoveryCatalogue);
         }
 
         /// <summary>
@@ -200,16 +205,21 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         public static bool IsValidGameState(String pc, String inventory, String itemCatalogue, String usedEvents, String currentEvent, String eventCatalogue, String discovered, String discoveryCatalogue, String visitedLocs, String unvisitedLocs, String currLoc, String currSLoc)
         {
             int currID, currSub;
-            return  PCModel.IsValidPCModel(pc, inventory, itemCatalogue) && 
-                    EventModel.IsValidCatalogue(eventCatalogue) &&
-                    EventModel.IsValidCurrentEvent(currentEvent) &&
-                    EventModel.IsValidUsedEvents(usedEvents) &&
-                    DiscoveryModel.IsValidDiscoveryCatalogue(discoveryCatalogue) &&
-                    DiscoveryModel.IsValidDiscovered(discovered) &&
-                    LocationModel.IsValidUnvisitedLocations(unvisitedLocs) &&
-                    LocationModel.IsValidVisitedLocations(visitedLocs) &&
-                    int.TryParse(currLoc, out currID) &&
-                    int.TryParse(currSLoc, out currSub);
+            bool valid = true;
+            valid &= PCModel.IsValidPCModel(pc, inventory, itemCatalogue);
+            valid &= EventModel.IsValidCatalogue(eventCatalogue);
+            if (currentEvent != "")
+            {
+                valid &= EventModel.IsValidCurrentEvent(currentEvent);
+            }
+            valid &= EventModel.IsValidUsedEvents(usedEvents);
+            valid &= DiscoveryModel.IsValidDiscoveryCatalogue(discoveryCatalogue);
+            valid &= DiscoveryModel.IsValidDiscovered(discovered);
+            valid &= LocationModel.IsValidUnvisitedLocations(unvisitedLocs);
+            valid &= LocationModel.IsValidVisitedLocations(visitedLocs);
+            valid &= int.TryParse(currLoc, out currID);
+            valid &= int.TryParse(currSLoc, out currSub);
+            return valid;
         }
 
         public object Clone()
@@ -220,6 +230,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         public string ParseButtonAreasToString()
         {
             return lm.ParseButtonArea();
+        }
+
+        public static bool IsValidDiscoveries(string discoveryCatalogue, string discovered)
+        {
+            return DiscoveryModel.IsValidDiscoveryCatalogue(discoveryCatalogue) && DiscoveryModel.IsValidDiscovered(discovered);
         }
     }
 

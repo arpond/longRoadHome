@@ -404,6 +404,27 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         {
             return gs.GetLM().GetWorldMap();
         }
+
+        public int GetMaximumNumberOfDiscoveries(GameState gs)
+        {
+            return gs.GetDM().GetDiscoveryCatalogue().GetDiscoveries().Count;
+        }
+
+        public List<Discovery.Discovery> GetDiscovered(GameState gs)
+        {
+            DiscoveryModel dm = gs.GetDM();
+            HashSet<int> discovered = dm.GetDiscovered();
+            List<Discovery.Discovery> discs = new List<Discovery.Discovery>();
+            foreach(int disc in discovered)
+            {
+                var d = dm.GetDiscoveryCatalogue().GetDiscovery(disc);
+                if (d != null)
+                {
+                    discs.Add(d);
+                }
+            }
+            return discs;
+        }
     }
 
 }
