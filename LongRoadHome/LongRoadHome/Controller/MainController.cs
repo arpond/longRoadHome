@@ -47,6 +47,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         }
         #endregion
 
+        /// <summary>
+        /// Creates the command map
+        /// </summary>
         private void IntializeCommandMap()
         {
             commandMap.Add(NEW_GAME, 0);
@@ -159,6 +162,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             return false;
         }
 
+        /// <summary>
+        /// Initialises Discoveries only
+        /// </summary>
+        /// <returns></returns>
         public bool IntialiseDiscoveries()
         {
             FileReadWriter frw = new FileReadWriter();
@@ -176,6 +183,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             return true;
         }
 
+        /// <summary>
+        /// Gets the maximum number of possible discoveries
+        /// </summary>
+        /// <returns></returns>
         public int GetMaxNumberOfDiscoveries()
         {
             return mf.GetMaximumNumberOfDiscoveries(gs);
@@ -211,6 +222,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             return saveSucessful;
         }
 
+        /// <summary>
+        /// Handles any Idepotent actions
+        /// </summary>
+        /// <param name="command"></param>
         public void handleIdepotentAction(string command)
         {
             int action;
@@ -243,6 +258,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             }
         }
 
+        /// <summary>
+        /// Handles any Potent actions
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="variable"></param>
         public void handlePotentAction(string command, int variable)
         {
             int action;
@@ -307,6 +327,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             }
         }
 
+        /// <summary>
+        /// Performs any post action cleanup
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="delay"></param>
         private void PostAction(string command, bool delay)
         {
             //Update Player
@@ -706,11 +731,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.CURRENT_SUBLOCATION, "");
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.DIFFICULTY_CONTROLLER, "");
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.BUTTONS_AREA, "");
-        }
-
-        public void ExitGame()
-        {
-            throw new System.Exception("Not implemented");
         }
 
         public GameState GetGameState()

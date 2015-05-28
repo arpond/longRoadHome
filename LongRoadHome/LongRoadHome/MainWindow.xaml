@@ -3,6 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:my="clr-namespace:uk.ac.dundee.arpond.longRoadHome.View"
         WindowState="Maximized"
-        Title="Long Road Home" Height="728" Width="1024" Source="View/MainMenu.xaml">
+        Title="Long Road Home" Height="728" Width="1366" Source="View/MainMenu.xaml">
     
 </NavigationWindow>

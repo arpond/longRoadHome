@@ -10,7 +10,7 @@
         <BitmapImage x:Key="itemBck" UriSource="../../Resources/itemBck.png" />
         <Style x:Key="TextOnlyButton" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="FontFamily" Value="Oswald"/>
+            <Setter Property="FontFamily" Value="../../Resources/fonts/#Oswald"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="LightGray"/>
             <Setter Property="Template">
@@ -102,7 +102,7 @@
                         DockPanel.Dock="Top"
                         Margin="0 5 0 0"
                         FontSize="14" 
-                        FontFamily="Oswald" 
+                        FontFamily="../../Resources/fonts/#Oswald" 
                         Foreground="White"
                         HorizontalAlignment="Center"
                         Content="{Binding ElementName=itemBtn, Path=ItemName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -113,7 +113,7 @@
                         VerticalAlignment="Bottom" 
                         HorizontalAlignment="Right"
                         FontSize="22" 
-                        FontFamily="Oswald" 
+                        FontFamily="../../Resources/fonts/#Oswald"
                         Foreground="White" 
                         Content="{Binding ElementName=itemBtn, Path=Amount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         ContentStringFormat="x{0}" FlowDirection="RightToLeft" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"
@@ -132,7 +132,7 @@
                         TextWrapping="Wrap"
                         Style="{DynamicResource hoverText}"
                         Foreground="White"
-                        FontFamily="Oswald"
+                        FontFamily="../../Resources/fonts/#Oswald"
                         FontSize="11"
                         >
                     </TextBlock>

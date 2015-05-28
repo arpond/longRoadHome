@@ -13,7 +13,7 @@
         <Style x:Key="TextOnlyButton" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontFamily" Value="Oswald"/>
+            <Setter Property="FontFamily" Value="../Resources/fonts/#Oswald"/>
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="Foreground" Value="LightGray"/>
             <Setter Property="Template">

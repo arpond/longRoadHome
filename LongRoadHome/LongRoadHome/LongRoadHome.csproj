@@ -212,6 +212,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\fonts\OSWALD-REGULAR.TTF" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -13,7 +13,7 @@
         <Style x:Key="TextOnlyButton" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontFamily" Value="Oswald"/>
+            <Setter Property="FontFamily" Value="../../Resources/fonts/#Oswald"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Foreground" Value="LightGray"/>
             <Setter Property="Template">
@@ -40,9 +40,9 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Image Grid.RowSpan="6"  Source="{StaticResource background}" Stretch="Fill"/>
-        <TextBlock Name="title" Grid.Row="0" Grid.Column="1" Margin="50 5" FontFamily="Oswald" FontSize="20" Foreground="LightGray" TextAlignment="Center"/>
+        <TextBlock Name="title" Grid.Row="0" Grid.Column="1" Margin="50 5" FontFamily="../../Resources/fonts/#Oswald" FontSize="20" Foreground="LightGray" TextAlignment="Center"/>
         <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" Margin=" 5" VerticalScrollBarVisibility="Auto">
-            <TextBlock Name="mainText" Margin="5" TextWrapping="Wrap" FontFamily="Oswald" FontSize="16" Foreground="LightGray" TextAlignment="Justify"/>
+            <TextBlock Name="mainText" Margin="5" TextWrapping="Wrap" FontFamily="../../Resources/fonts/#Oswald" FontSize="16" Foreground="LightGray" TextAlignment="Justify"/>
         </ScrollViewer>
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Name="btnYes" Height="25" Width="75" Click="btnYes_Click" Margin="5" Content="Yes" Style="{StaticResource TextOnlyButton}"/>

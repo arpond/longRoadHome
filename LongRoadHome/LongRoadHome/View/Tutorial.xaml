@@ -40,14 +40,14 @@
         <Style x:Key="headingText" TargetType="TextBlock">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontFamily" Value="Oswald"/>
+            <Setter Property="FontFamily" Value="../Resources/fonts/#Oswald"/>
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="Foreground" Value="LightGray"/>
         </Style>
         <Style x:Key="tutorialText" TargetType="TextBlock">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontFamily" Value="Oswald"/>
+            <Setter Property="FontFamily" Value="../Resources/fonts/#Oswald"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="LightGray"/>
             <Setter Property="TextAlignment" Value="Justify"/>
@@ -55,7 +55,7 @@
         <Style x:Key="TextOnlyButton" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontFamily" Value="Oswald"/>
+            <Setter Property="FontFamily" Value="../Resources/fonts/#Oswald"/>
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="Foreground" Value="LightGray"/>
             <Setter Property="Template">
@@ -96,64 +96,68 @@
                 <RowDefinition Height="431*" />
                 <RowDefinition Height="33*" />
             </Grid.RowDefinitions>
-            <Image Source="{StaticResource invBck}" Grid.Row="1" Grid.Column="1"/>
-            <ScrollViewer Grid.Column="1" Grid.Row="1" Margin="50">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">Welcome to Long Road Home, a game about exploration and discovery. The aim of the game is to find your way home by visiting as many locations as you can. These instructions will help you become familar with the game's basic gameplay.</TextBlock>
-                    <TextBlock Style="{StaticResource headingText}">The Basics</TextBlock>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">Your main character has four different primary stats, Health, Hunger, Thirst and Sanity. The current values of these stats can be seen at any time by looking at the various resources bars each will have the relevant icons as below.</TextBlock>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
-                        <StackPanel Margin="10 0">
-                            <Image Source="{StaticResource healthIcon}"/>
-                            <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Health</TextBlock>
+            <Grid Grid.Row="1" Grid.Column="1" >
+                <Grid.Background>
+                    <ImageBrush ImageSource="{StaticResource invBck}"/>
+                </Grid.Background>
+                <ScrollViewer Grid.Column="1" Grid.Row="1" Margin="50" HorizontalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">Welcome to Long Road Home, a game about exploration and discovery. The aim of the game is to find your way home by visiting as many locations as you can. These instructions will help you become familar with the game's basic gameplay.</TextBlock>
+                        <TextBlock Style="{StaticResource headingText}">The Basics</TextBlock>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">Your main character has four different primary stats, Health, Hunger, Thirst and Sanity. The current values of these stats can be seen at any time by looking at the various resources bars each will have the relevant icons as below.</TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
+                            <StackPanel Margin="10 0">
+                                <Image Source="{StaticResource healthIcon}"/>
+                                <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Health</TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="10 0">
+                                <Image Source="{StaticResource hungerIcon}" />
+                                <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Hunger</TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="10 0">
+                                <Image Source="{StaticResource thirstIcon}" />
+                                <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Thirst</TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="10 0">
+                                <Image Source="{StaticResource sanityIcon}" />
+                                <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Sanity</TextBlock>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Margin="10 0">
-                            <Image Source="{StaticResource hungerIcon}" />
-                            <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Hunger</TextBlock>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">At the start of a new game all of these stats will be at 100/100. Should at any point one of your stats drop to or below 0 the game will be over and you will have to start again.</TextBlock>
+                        <TextBlock Style="{StaticResource headingText}">Movement</TextBlock>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">When the game begins you will see the world map as well as a vareity of icons which can be seen below</TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
+                            <StackPanel Margin="10 0">
+                                <Image Source="{StaticResource charStand}" MaxHeight="30"/>
+                                <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Character Icon</TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="10 0">
+                                <Image Source="{StaticResource unvis}" Height="30"/>
+                                <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Unvisited Location</TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="10 0">
+                                <Image Source="{StaticResource vis}" Height="30"/>
+                                <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Visited Location</TextBlock>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Margin="10 0">
-                            <Image Source="{StaticResource thirstIcon}" />
-                            <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Thirst</TextBlock>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">The character icon indicates your current position in the world while the location icons indicates locations you can visit. You can move to any other location on the map by clicking on it. This will cost you some hunger and thirst depending on how far away the location you wish to move to is from your current location.</TextBlock>
+                        <TextBlock Style="{StaticResource headingText}">Exploring Locations</TextBlock>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">At each location in the world map you can explore it further to get items which will help you progress. To do this you click on the following icon.</TextBlock>
+                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0">
+                            <Image Source="{StaticResource enabledSubMap}" Height="50"/>
                         </StackPanel>
-                        <StackPanel Margin="10 0">
-                            <Image Source="{StaticResource sanityIcon}" />
-                            <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Sanity</TextBlock>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">Once open you will see various icons representing specific areas and a character icon. To scavenge one of these areas and find more items, first you must move to an area by clicking on it, before clicking it again to scavenge it. Each area can only be scavenged once, so to do it again you will have to find more areas.</TextBlock>
+                        <TextBlock Style="{StaticResource headingText}">The Inventory</TextBlock>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">In order to use items you may have gained through scavenging you have to open up the Inventory. This can be done by clicking the following icon.</TextBlock>
+                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0">
+                            <Image Source="{StaticResource enabledInventory}" Height="50"/>
                         </StackPanel>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">Once the inventory is open you will see your inventory, if you have no items it will appear empty. Otherwise you will be able to see the items you are carrying. Some items can be used while others may confer a passive benifit. To use an item mouse over it and click the use button, the effects will immediately be applied to your character. You can also discard items, this is because you can carry at most 16 different items if your inventory is full any items you scavenge will be lost.</TextBlock>
+                        <TextBlock Style="{StaticResource headingText}">Events</TextBlock>
+                        <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">When you travel to location to location or scavenge an area, events can occur. These may offer you choices which you can make. Chose wisely because depending on your choices you may recieve a bonus or a penalty, these can take the form of instantaneous changes to your stats or in the form of gaining and losing items.</TextBlock>
                     </StackPanel>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">At the start of a new game all of these stats will be at 100/100. Should at any point one of your stats drop to or below 0 the game will be over and you will have to start again.</TextBlock>
-                    <TextBlock Style="{StaticResource headingText}">Movement</TextBlock>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">When the game begins you will see the world map as well as a vareity of icons which can be seen below</TextBlock>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
-                        <StackPanel Margin="10 0">
-                            <Image Source="{StaticResource charStand}" MaxHeight="30"/>
-                            <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Character Icon</TextBlock>
-                        </StackPanel>
-                        <StackPanel Margin="10 0">
-                            <Image Source="{StaticResource unvis}" Height="30"/>
-                            <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Unvisited Location</TextBlock>
-                        </StackPanel>
-                        <StackPanel Margin="10 0">
-                            <Image Source="{StaticResource vis}" Height="30"/>
-                            <TextBlock Style="{StaticResource tutorialText}" TextAlignment="Center">Visited Location</TextBlock>
-                        </StackPanel>
-                    </StackPanel>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">The character icon indicates your current position in the world while the location icons indicates locations you can visit. You can move to any other location on the map by clicking on it. This will cost you some hunger and thirst depending on how far away the location you wish to move to is from your current location.</TextBlock>
-                    <TextBlock Style="{StaticResource headingText}">Exploring Locations</TextBlock>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">At each location in the world map you can explore it further to get items which will help you progress. To do this you click on the following icon.</TextBlock>
-                    <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0">
-                        <Image Source="{StaticResource enabledSubMap}" Height="50"/>
-                    </StackPanel>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">Once open you will see various icons representing specific areas and a character icon. To scavenge one of these areas and find more items, first you must move to an area by clicking on it, before clicking it again to scavenge it. Each area can only be scavenged once, so to do it again you will have to find more areas.</TextBlock>
-                    <TextBlock Style="{StaticResource headingText}">The Inventory</TextBlock>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">In order to use items you may have gained through scavenging you have to open up the Inventory. This can be done by clicking the following icon.</TextBlock>
-                    <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0">
-                        <Image Source="{StaticResource enabledInventory}" Height="50"/>
-                    </StackPanel>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">Once the inventory is open you will see your inventory, if you have no items it will appear empty. Otherwise you will be able to see the items you are carrying. Some items can be used while others may confer a passive benifit. To use an item mouse over it and click the use button, the effects will immediately be applied to your character. You can also discard items, this is because you can carry at most 16 different items if your inventory is full any items you scavenge will be lost.</TextBlock>
-                    <TextBlock Style="{StaticResource headingText}">Events</TextBlock>
-                    <TextBlock Style="{StaticResource tutorialText}" TextWrapping="Wrap">When you travel to location to location or scavenge an area, events can occur. These may offer you choices which you can make. Chose wisely because depending on your choices you may recieve a bonus or a penalty, these can take the form of instantaneous changes to your stats or in the form of gaining and losing items.</TextBlock>
-                </StackPanel>
-            </ScrollViewer>
+                </ScrollViewer>
+            </Grid>
         </Grid>
         <Button Style="{DynamicResource TextOnlyButton}" Click="Button_Click" Grid.Column="1" Grid.Row="2">
             Return to Main Menu

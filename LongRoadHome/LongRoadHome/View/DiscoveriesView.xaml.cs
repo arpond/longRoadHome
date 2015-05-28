@@ -50,7 +50,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 }
                 TextBlock tb = new TextBlock();
                 tb.Text = discText;
-                tb.FontFamily = new FontFamily("Oswald");
+                tb.FontFamily = new FontFamily(new Uri("pack://application:,,,/Resources/fonts/"), "./#Oswald");
                 tb.FontSize = 22;
                 tb.HorizontalAlignment = HorizontalAlignment.Left;
                 tb.Foreground = new SolidColorBrush(Colors.LightGray);
