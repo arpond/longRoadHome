@@ -49,6 +49,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             return ReadFile(filename);
         }
 
+        public bool WriteCatalogueFile(String filename, String toWrite)
+        {
+            filename = CATALOGUE_PATH + filename;
+            return WriteFile(filename, toWrite);
+        }
+
         /// <summary>
         /// The save data file to write
         /// </summary>
@@ -69,8 +75,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 
         public System.Drawing.Bitmap ReadBitmap(String filename)
         {
-            System.Drawing.Bitmap image = (System.Drawing.Bitmap) System.Drawing.Bitmap.FromFile(SAVE_PATH + filename + ".png");
-            return image;
+            System.Drawing.Bitmap clone;
+            using (var fs = new System.IO.FileStream(SAVE_PATH + filename + ".png", System.IO.FileMode.Open))
+            {
+                var bmp = new System.Drawing.Bitmap(fs);
+                clone = (System.Drawing.Bitmap)bmp.Clone();
+            }
+
+            return clone;
         }
 
         /// <summary>

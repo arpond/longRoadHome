@@ -190,7 +190,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 
             for (int i = 1; i < size + 1; i++)
             {
-                sublocations.Add(i, GenerateRandomSublocation(i, keys, maxItems, maxAmount));
+                int sub_maxItems = rnd.Next(1, maxItems);
+                int sub_maxAmount = rnd.Next(1, maxAmount);
+                sublocations.Add(i, GenerateRandomSublocation(i, keys, sub_maxItems, sub_maxAmount));
             }
             currentSubLocation = null;
         }
@@ -319,7 +321,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
             bool visited;
             int id = -1;
             String[] lElems = toTest.Split(',');
-            if (lElems.Length != 6)
+            if (lElems.Length != 5)
             {
                 return false;
             }

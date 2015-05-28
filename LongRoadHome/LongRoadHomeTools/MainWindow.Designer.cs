@@ -30,6 +30,9 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.saveItemCatalogue = new System.Windows.Forms.Button();
+            this.itemCatalogueList = new System.Windows.Forms.ListBox();
+            this.addItemToCatalogue = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.itemStringTextBox = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -45,6 +48,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.activeResource = new System.Windows.Forms.ComboBox();
             this.itemGroupBox = new System.Windows.Forms.GroupBox();
+            this.clearItemCreator = new System.Windows.Forms.Button();
+            this.nameBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.iconSelect = new System.Windows.Forms.ListBox();
+            this.iconBox = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.requirementTextBox = new System.Windows.Forms.TextBox();
             this.removeRequirement = new System.Windows.Forms.Button();
             this.addRequirement = new System.Windows.Forms.Button();
@@ -62,36 +71,23 @@
             this.activeEffects = new System.Windows.Forms.ListBox();
             this.itemIDTextBox = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label7 = new System.Windows.Forms.Label();
-            this.iconBox = new System.Windows.Forms.PictureBox();
-            this.iconSelect = new System.Windows.Forms.ListBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.nameBox = new System.Windows.Forms.TextBox();
-            this.addItemToCatalogue = new System.Windows.Forms.Button();
-            this.itemCatalogueList = new System.Windows.Forms.ListBox();
-            this.saveItemCatalogue = new System.Windows.Forms.Button();
-            this.eventItemCatalogue = new System.Windows.Forms.ListBox();
-            this.eventID = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.eventText = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.eventType = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.createPREffect = new System.Windows.Forms.Button();
-            this.minResource = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.eventResource = new System.Windows.Forms.ComboBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.createItemEffect = new System.Windows.Forms.Button();
-            this.itemAmount = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.itemResource = new System.Windows.Forms.ComboBox();
-            this.maxResource = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.removeOption = new System.Windows.Forms.Button();
+            this.clearEvent = new System.Windows.Forms.Button();
+            this.saveEventCat = new System.Windows.Forms.Button();
+            this.addEventToCatalogue = new System.Windows.Forms.Button();
+            this.generateEventString = new System.Windows.Forms.Button();
+            this.eventOutput = new System.Windows.Forms.TextBox();
+            this.eventCreatorCatalogue = new System.Windows.Forms.ListBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.options = new System.Windows.Forms.ListBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.optionNumberTB = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.addOption = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.optionResult = new System.Windows.Forms.TextBox();
+            this.optionText = new System.Windows.Forms.TextBox();
             this.removePREffect = new System.Windows.Forms.Button();
             this.removeItemEffect = new System.Windows.Forms.Button();
             this.addPREffect = new System.Windows.Forms.Button();
@@ -100,37 +96,41 @@
             this.prEffects = new System.Windows.Forms.ListBox();
             this.itemEffectSelect = new System.Windows.Forms.ComboBox();
             this.itemEffects = new System.Windows.Forms.ListBox();
-            this.optionText = new System.Windows.Forms.TextBox();
-            this.optionResult = new System.Windows.Forms.TextBox();
-            this.options = new System.Windows.Forms.ListBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.eventCreatorCatalogue = new System.Windows.Forms.ListBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.addOption = new System.Windows.Forms.Button();
-            this.saveEventCat = new System.Windows.Forms.Button();
-            this.addEventToCatalogue = new System.Windows.Forms.Button();
-            this.generateEventString = new System.Windows.Forms.Button();
-            this.eventOutput = new System.Windows.Forms.TextBox();
-            this.clearEvent = new System.Windows.Forms.Button();
-            this.removeOption = new System.Windows.Forms.Button();
-            this.clearItemCreator = new System.Windows.Forms.Button();
-            this.resultTB = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label21 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.prResult = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.optionNumberTB = new System.Windows.Forms.TextBox();
+            this.maxResource = new System.Windows.Forms.TextBox();
+            this.createPREffect = new System.Windows.Forms.Button();
+            this.minResource = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.eventResource = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.resultTB = new System.Windows.Forms.TextBox();
+            this.createItemEffect = new System.Windows.Forms.Button();
+            this.itemAmount = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.itemResource = new System.Windows.Forms.ComboBox();
+            this.eventID = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.eventText = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.eventType = new System.Windows.Forms.TextBox();
+            this.eventItemCatalogue = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.itemGroupBox.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -160,6 +160,34 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Item Creator";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // saveItemCatalogue
+            // 
+            this.saveItemCatalogue.Location = new System.Drawing.Point(522, 529);
+            this.saveItemCatalogue.Name = "saveItemCatalogue";
+            this.saveItemCatalogue.Size = new System.Drawing.Size(241, 23);
+            this.saveItemCatalogue.TabIndex = 19;
+            this.saveItemCatalogue.Text = "Save Item Catalogue";
+            this.saveItemCatalogue.UseVisualStyleBackColor = true;
+            this.saveItemCatalogue.Click += new System.EventHandler(this.saveItemCatalogue_Click);
+            // 
+            // itemCatalogueList
+            // 
+            this.itemCatalogueList.FormattingEnabled = true;
+            this.itemCatalogueList.Location = new System.Drawing.Point(770, 14);
+            this.itemCatalogueList.Name = "itemCatalogueList";
+            this.itemCatalogueList.Size = new System.Drawing.Size(209, 537);
+            this.itemCatalogueList.TabIndex = 18;
+            // 
+            // addItemToCatalogue
+            // 
+            this.addItemToCatalogue.Location = new System.Drawing.Point(522, 500);
+            this.addItemToCatalogue.Name = "addItemToCatalogue";
+            this.addItemToCatalogue.Size = new System.Drawing.Size(241, 23);
+            this.addItemToCatalogue.TabIndex = 17;
+            this.addItemToCatalogue.Text = "Add Item to Catalogue";
+            this.addItemToCatalogue.UseVisualStyleBackColor = true;
+            this.addItemToCatalogue.Click += new System.EventHandler(this.addItemToCatalogue_Click);
             // 
             // button1
             // 
@@ -323,6 +351,58 @@
             this.itemGroupBox.TabIndex = 5;
             this.itemGroupBox.TabStop = false;
             this.itemGroupBox.Text = "Item Creator";
+            // 
+            // clearItemCreator
+            // 
+            this.clearItemCreator.Location = new System.Drawing.Point(254, 22);
+            this.clearItemCreator.Name = "clearItemCreator";
+            this.clearItemCreator.Size = new System.Drawing.Size(241, 23);
+            this.clearItemCreator.TabIndex = 20;
+            this.clearItemCreator.Text = "Clear Item";
+            this.clearItemCreator.UseVisualStyleBackColor = true;
+            this.clearItemCreator.Click += new System.EventHandler(this.clearItemCreator_Click);
+            // 
+            // nameBox
+            // 
+            this.nameBox.Location = new System.Drawing.Point(108, 27);
+            this.nameBox.Name = "nameBox";
+            this.nameBox.Size = new System.Drawing.Size(93, 20);
+            this.nameBox.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 30);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Name";
+            // 
+            // iconSelect
+            // 
+            this.iconSelect.FormattingEnabled = true;
+            this.iconSelect.Location = new System.Drawing.Point(406, 151);
+            this.iconSelect.Name = "iconSelect";
+            this.iconSelect.Size = new System.Drawing.Size(89, 121);
+            this.iconSelect.TabIndex = 18;
+            this.iconSelect.SelectedIndexChanged += new System.EventHandler(this.iconSelection_Changed);
+            // 
+            // iconBox
+            // 
+            this.iconBox.Location = new System.Drawing.Point(271, 150);
+            this.iconBox.Name = "iconBox";
+            this.iconBox.Size = new System.Drawing.Size(124, 122);
+            this.iconBox.TabIndex = 17;
+            this.iconBox.TabStop = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(120, 153);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(81, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Requirement ID";
             // 
             // requirementTextBox
             // 
@@ -493,132 +573,244 @@
             this.tabPage2.Text = "Event Creator";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label7
+            // removeOption
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(120, 153);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(81, 13);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "Requirement ID";
+            this.removeOption.Location = new System.Drawing.Point(12, 224);
+            this.removeOption.Name = "removeOption";
+            this.removeOption.Size = new System.Drawing.Size(86, 50);
+            this.removeOption.TabIndex = 36;
+            this.removeOption.Text = "Remove Option";
+            this.removeOption.UseVisualStyleBackColor = true;
+            this.removeOption.Click += new System.EventHandler(this.removeOption_Click);
             // 
-            // iconBox
+            // clearEvent
             // 
-            this.iconBox.Location = new System.Drawing.Point(271, 150);
-            this.iconBox.Name = "iconBox";
-            this.iconBox.Size = new System.Drawing.Size(124, 122);
-            this.iconBox.TabIndex = 17;
-            this.iconBox.TabStop = false;
+            this.clearEvent.Location = new System.Drawing.Point(218, 19);
+            this.clearEvent.Name = "clearEvent";
+            this.clearEvent.Size = new System.Drawing.Size(226, 23);
+            this.clearEvent.TabIndex = 37;
+            this.clearEvent.Text = "Clear Events";
+            this.clearEvent.UseVisualStyleBackColor = true;
+            this.clearEvent.Click += new System.EventHandler(this.clearEvent_Click);
             // 
-            // iconSelect
+            // saveEventCat
             // 
-            this.iconSelect.FormattingEnabled = true;
-            this.iconSelect.Location = new System.Drawing.Point(406, 151);
-            this.iconSelect.Name = "iconSelect";
-            this.iconSelect.Size = new System.Drawing.Size(89, 121);
-            this.iconSelect.TabIndex = 18;
-            this.iconSelect.SelectedIndexChanged += new System.EventHandler(this.iconSelection_Changed);
+            this.saveEventCat.Location = new System.Drawing.Point(840, 296);
+            this.saveEventCat.Name = "saveEventCat";
+            this.saveEventCat.Size = new System.Drawing.Size(341, 23);
+            this.saveEventCat.TabIndex = 36;
+            this.saveEventCat.Text = "Save Event Catalogue";
+            this.saveEventCat.UseVisualStyleBackColor = true;
+            this.saveEventCat.Click += new System.EventHandler(this.saveEventCat_Click);
             // 
-            // label8
+            // addEventToCatalogue
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 30);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 19;
-            this.label8.Text = "Name";
+            this.addEventToCatalogue.Location = new System.Drawing.Point(840, 267);
+            this.addEventToCatalogue.Name = "addEventToCatalogue";
+            this.addEventToCatalogue.Size = new System.Drawing.Size(341, 23);
+            this.addEventToCatalogue.TabIndex = 35;
+            this.addEventToCatalogue.Text = "Add Event to Catalogue";
+            this.addEventToCatalogue.UseVisualStyleBackColor = true;
+            this.addEventToCatalogue.Click += new System.EventHandler(this.addEventToCatalogue_Click);
             // 
-            // nameBox
+            // generateEventString
             // 
-            this.nameBox.Location = new System.Drawing.Point(108, 27);
-            this.nameBox.Name = "nameBox";
-            this.nameBox.Size = new System.Drawing.Size(93, 20);
-            this.nameBox.TabIndex = 20;
+            this.generateEventString.Location = new System.Drawing.Point(840, 238);
+            this.generateEventString.Name = "generateEventString";
+            this.generateEventString.Size = new System.Drawing.Size(341, 23);
+            this.generateEventString.TabIndex = 34;
+            this.generateEventString.Text = "Generate Event String";
+            this.generateEventString.UseVisualStyleBackColor = true;
+            this.generateEventString.Click += new System.EventHandler(this.generateEventString_Click);
             // 
-            // addItemToCatalogue
+            // eventOutput
             // 
-            this.addItemToCatalogue.Location = new System.Drawing.Point(522, 500);
-            this.addItemToCatalogue.Name = "addItemToCatalogue";
-            this.addItemToCatalogue.Size = new System.Drawing.Size(241, 23);
-            this.addItemToCatalogue.TabIndex = 17;
-            this.addItemToCatalogue.Text = "Add Item to Catalogue";
-            this.addItemToCatalogue.UseVisualStyleBackColor = true;
-            this.addItemToCatalogue.Click += new System.EventHandler(this.addItemToCatalogue_Click);
+            this.eventOutput.Location = new System.Drawing.Point(840, 31);
+            this.eventOutput.Multiline = true;
+            this.eventOutput.Name = "eventOutput";
+            this.eventOutput.Size = new System.Drawing.Size(341, 202);
+            this.eventOutput.TabIndex = 33;
             // 
-            // itemCatalogueList
+            // eventCreatorCatalogue
             // 
-            this.itemCatalogueList.FormattingEnabled = true;
-            this.itemCatalogueList.Location = new System.Drawing.Point(770, 14);
-            this.itemCatalogueList.Name = "itemCatalogueList";
-            this.itemCatalogueList.Size = new System.Drawing.Size(209, 537);
-            this.itemCatalogueList.TabIndex = 18;
+            this.eventCreatorCatalogue.FormattingEnabled = true;
+            this.eventCreatorCatalogue.Location = new System.Drawing.Point(870, 354);
+            this.eventCreatorCatalogue.Name = "eventCreatorCatalogue";
+            this.eventCreatorCatalogue.Size = new System.Drawing.Size(311, 225);
+            this.eventCreatorCatalogue.TabIndex = 32;
             // 
-            // saveItemCatalogue
+            // label17
             // 
-            this.saveItemCatalogue.Location = new System.Drawing.Point(522, 529);
-            this.saveItemCatalogue.Name = "saveItemCatalogue";
-            this.saveItemCatalogue.Size = new System.Drawing.Size(241, 23);
-            this.saveItemCatalogue.TabIndex = 19;
-            this.saveItemCatalogue.Text = "Save Item Catalogue";
-            this.saveItemCatalogue.UseVisualStyleBackColor = true;
-            this.saveItemCatalogue.Click += new System.EventHandler(this.saveItemCatalogue_Click);
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(12, 143);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(43, 13);
+            this.label17.TabIndex = 31;
+            this.label17.Text = "Options";
             // 
-            // eventItemCatalogue
+            // options
             // 
-            this.eventItemCatalogue.FormattingEnabled = true;
-            this.eventItemCatalogue.Location = new System.Drawing.Point(710, 31);
-            this.eventItemCatalogue.Name = "eventItemCatalogue";
-            this.eventItemCatalogue.Size = new System.Drawing.Size(124, 303);
-            this.eventItemCatalogue.TabIndex = 19;
+            this.options.FormattingEnabled = true;
+            this.options.Location = new System.Drawing.Point(108, 143);
+            this.options.Name = "options";
+            this.options.Size = new System.Drawing.Size(324, 134);
+            this.options.TabIndex = 30;
             // 
-            // eventID
+            // groupBox5
             // 
-            this.eventID.Location = new System.Drawing.Point(108, 19);
-            this.eventID.Name = "eventID";
-            this.eventID.Size = new System.Drawing.Size(93, 20);
-            this.eventID.TabIndex = 26;
+            this.groupBox5.Controls.Add(this.optionNumberTB);
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.addOption);
+            this.groupBox5.Controls.Add(this.label19);
+            this.groupBox5.Controls.Add(this.label18);
+            this.groupBox5.Controls.Add(this.optionResult);
+            this.groupBox5.Controls.Add(this.optionText);
+            this.groupBox5.Controls.Add(this.removePREffect);
+            this.groupBox5.Controls.Add(this.removeItemEffect);
+            this.groupBox5.Controls.Add(this.addPREffect);
+            this.groupBox5.Controls.Add(this.prEffectSelect);
+            this.groupBox5.Controls.Add(this.addItemEffect);
+            this.groupBox5.Controls.Add(this.prEffects);
+            this.groupBox5.Controls.Add(this.itemEffectSelect);
+            this.groupBox5.Controls.Add(this.itemEffects);
+            this.groupBox5.Location = new System.Drawing.Point(12, 344);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(852, 266);
+            this.groupBox5.TabIndex = 29;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Option Creator";
             // 
-            // label9
+            // optionNumberTB
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 47);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 13);
-            this.label9.TabIndex = 25;
-            this.label9.Text = "Event Type";
+            this.optionNumberTB.Location = new System.Drawing.Point(116, 49);
+            this.optionNumberTB.Name = "optionNumberTB";
+            this.optionNumberTB.Size = new System.Drawing.Size(93, 20);
+            this.optionNumberTB.TabIndex = 38;
             // 
-            // label10
+            // label22
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 73);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 13);
-            this.label10.TabIndex = 24;
-            this.label10.Text = "Event Text";
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(11, 52);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(99, 13);
+            this.label22.TabIndex = 36;
+            this.label22.Text = "Option Number(1-4)";
             // 
-            // eventText
+            // addOption
             // 
-            this.eventText.Location = new System.Drawing.Point(108, 70);
-            this.eventText.Multiline = true;
-            this.eventText.Name = "eventText";
-            this.eventText.Size = new System.Drawing.Size(324, 56);
-            this.eventText.TabIndex = 23;
+            this.addOption.Location = new System.Drawing.Point(12, 20);
+            this.addOption.Name = "addOption";
+            this.addOption.Size = new System.Drawing.Size(417, 23);
+            this.addOption.TabIndex = 35;
+            this.addOption.Text = "Add Option";
+            this.addOption.UseVisualStyleBackColor = true;
+            this.addOption.Click += new System.EventHandler(this.addOption_Click);
             // 
-            // label11
+            // label19
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 23);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(92, 13);
-            this.label11.TabIndex = 22;
-            this.label11.Text = "Event ID (Unique)";
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(11, 154);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(95, 13);
+            this.label19.TabIndex = 34;
+            this.label19.Text = "Option Result Text";
             // 
-            // eventType
+            // label18
             // 
-            this.eventType.Location = new System.Drawing.Point(108, 44);
-            this.eventType.Name = "eventType";
-            this.eventType.Size = new System.Drawing.Size(93, 20);
-            this.eventType.TabIndex = 21;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(11, 79);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(62, 13);
+            this.label18.TabIndex = 33;
+            this.label18.Text = "Option Text";
+            // 
+            // optionResult
+            // 
+            this.optionResult.Location = new System.Drawing.Point(14, 175);
+            this.optionResult.Multiline = true;
+            this.optionResult.Name = "optionResult";
+            this.optionResult.Size = new System.Drawing.Size(418, 51);
+            this.optionResult.TabIndex = 31;
+            // 
+            // optionText
+            // 
+            this.optionText.Location = new System.Drawing.Point(14, 95);
+            this.optionText.Multiline = true;
+            this.optionText.Name = "optionText";
+            this.optionText.Size = new System.Drawing.Size(418, 51);
+            this.optionText.TabIndex = 30;
+            // 
+            // removePREffect
+            // 
+            this.removePREffect.Location = new System.Drawing.Point(758, 81);
+            this.removePREffect.Name = "removePREffect";
+            this.removePREffect.Size = new System.Drawing.Size(88, 23);
+            this.removePREffect.TabIndex = 17;
+            this.removePREffect.Text = "Remove Effect";
+            this.removePREffect.UseVisualStyleBackColor = true;
+            this.removePREffect.Click += new System.EventHandler(this.removePREffect_Click);
+            // 
+            // removeItemEffect
+            // 
+            this.removeItemEffect.Location = new System.Drawing.Point(553, 79);
+            this.removeItemEffect.Name = "removeItemEffect";
+            this.removeItemEffect.Size = new System.Drawing.Size(94, 23);
+            this.removeItemEffect.TabIndex = 16;
+            this.removeItemEffect.Text = "Remove Effect";
+            this.removeItemEffect.UseVisualStyleBackColor = true;
+            this.removeItemEffect.Click += new System.EventHandler(this.removeItemEffect_Click);
+            // 
+            // addPREffect
+            // 
+            this.addPREffect.Location = new System.Drawing.Point(758, 52);
+            this.addPREffect.Name = "addPREffect";
+            this.addPREffect.Size = new System.Drawing.Size(88, 23);
+            this.addPREffect.TabIndex = 14;
+            this.addPREffect.Text = "Add Effect";
+            this.addPREffect.UseVisualStyleBackColor = true;
+            this.addPREffect.Click += new System.EventHandler(this.addPREffect_Click);
+            // 
+            // prEffectSelect
+            // 
+            this.prEffectSelect.FormattingEnabled = true;
+            this.prEffectSelect.Location = new System.Drawing.Point(654, 22);
+            this.prEffectSelect.Name = "prEffectSelect";
+            this.prEffectSelect.Size = new System.Drawing.Size(193, 21);
+            this.prEffectSelect.TabIndex = 15;
+            // 
+            // addItemEffect
+            // 
+            this.addItemEffect.Location = new System.Drawing.Point(553, 50);
+            this.addItemEffect.Name = "addItemEffect";
+            this.addItemEffect.Size = new System.Drawing.Size(94, 23);
+            this.addItemEffect.TabIndex = 12;
+            this.addItemEffect.Text = "Add Effect";
+            this.addItemEffect.UseVisualStyleBackColor = true;
+            this.addItemEffect.Click += new System.EventHandler(this.addItemEffect_Click);
+            // 
+            // prEffects
+            // 
+            this.prEffects.FormattingEnabled = true;
+            this.prEffects.Location = new System.Drawing.Point(653, 108);
+            this.prEffects.Name = "prEffects";
+            this.prEffects.Size = new System.Drawing.Size(194, 147);
+            this.prEffects.TabIndex = 11;
+            // 
+            // itemEffectSelect
+            // 
+            this.itemEffectSelect.FormattingEnabled = true;
+            this.itemEffectSelect.Location = new System.Drawing.Point(438, 22);
+            this.itemEffectSelect.Name = "itemEffectSelect";
+            this.itemEffectSelect.Size = new System.Drawing.Size(209, 21);
+            this.itemEffectSelect.TabIndex = 13;
+            // 
+            // itemEffects
+            // 
+            this.itemEffects.FormattingEnabled = true;
+            this.itemEffects.Location = new System.Drawing.Point(438, 108);
+            this.itemEffects.Name = "itemEffects";
+            this.itemEffects.Size = new System.Drawing.Size(209, 147);
+            this.itemEffects.TabIndex = 10;
             // 
             // groupBox2
             // 
@@ -637,6 +829,38 @@
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Primary Resource Effect Creator";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(7, 100);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(37, 13);
+            this.label21.TabIndex = 8;
+            this.label21.Text = "Result";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 74);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(51, 13);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "Maximum";
+            // 
+            // prResult
+            // 
+            this.prResult.Location = new System.Drawing.Point(108, 97);
+            this.prResult.Name = "prResult";
+            this.prResult.Size = new System.Drawing.Size(121, 20);
+            this.prResult.TabIndex = 7;
+            // 
+            // maxResource
+            // 
+            this.maxResource.Location = new System.Drawing.Point(108, 72);
+            this.maxResource.Name = "maxResource";
+            this.maxResource.Size = new System.Drawing.Size(121, 20);
+            this.maxResource.TabIndex = 5;
             // 
             // createPREffect
             // 
@@ -697,6 +921,22 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Item Event Effect Creator";
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(53, 85);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(37, 13);
+            this.label20.TabIndex = 6;
+            this.label20.Text = "Result";
+            // 
+            // resultTB
+            // 
+            this.resultTB.Location = new System.Drawing.Point(108, 82);
+            this.resultTB.Name = "resultTB";
+            this.resultTB.Size = new System.Drawing.Size(121, 20);
+            this.resultTB.TabIndex = 5;
+            // 
             // createItemEffect
             // 
             this.createItemEffect.Location = new System.Drawing.Point(108, 110);
@@ -740,302 +980,62 @@
             this.itemResource.Size = new System.Drawing.Size(121, 21);
             this.itemResource.TabIndex = 0;
             // 
-            // maxResource
+            // eventID
             // 
-            this.maxResource.Location = new System.Drawing.Point(108, 72);
-            this.maxResource.Name = "maxResource";
-            this.maxResource.Size = new System.Drawing.Size(121, 20);
-            this.maxResource.TabIndex = 5;
+            this.eventID.Location = new System.Drawing.Point(108, 19);
+            this.eventID.Name = "eventID";
+            this.eventID.Size = new System.Drawing.Size(93, 20);
+            this.eventID.TabIndex = 26;
             // 
-            // label16
+            // label9
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(7, 74);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(51, 13);
-            this.label16.TabIndex = 6;
-            this.label16.Text = "Maximum";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(9, 47);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 13);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "Event Type";
             // 
-            // groupBox5
+            // label10
             // 
-            this.groupBox5.Controls.Add(this.optionNumberTB);
-            this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Controls.Add(this.addOption);
-            this.groupBox5.Controls.Add(this.label19);
-            this.groupBox5.Controls.Add(this.label18);
-            this.groupBox5.Controls.Add(this.optionResult);
-            this.groupBox5.Controls.Add(this.optionText);
-            this.groupBox5.Controls.Add(this.removePREffect);
-            this.groupBox5.Controls.Add(this.removeItemEffect);
-            this.groupBox5.Controls.Add(this.addPREffect);
-            this.groupBox5.Controls.Add(this.prEffectSelect);
-            this.groupBox5.Controls.Add(this.addItemEffect);
-            this.groupBox5.Controls.Add(this.prEffects);
-            this.groupBox5.Controls.Add(this.itemEffectSelect);
-            this.groupBox5.Controls.Add(this.itemEffects);
-            this.groupBox5.Location = new System.Drawing.Point(12, 344);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(852, 240);
-            this.groupBox5.TabIndex = 29;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Option Creator";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(9, 73);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(59, 13);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "Event Text";
             // 
-            // removePREffect
+            // eventText
             // 
-            this.removePREffect.Location = new System.Drawing.Point(758, 52);
-            this.removePREffect.Name = "removePREffect";
-            this.removePREffect.Size = new System.Drawing.Size(88, 23);
-            this.removePREffect.TabIndex = 17;
-            this.removePREffect.Text = "Remove Effect";
-            this.removePREffect.UseVisualStyleBackColor = true;
-            this.removePREffect.Click += new System.EventHandler(this.removePREffect_Click);
+            this.eventText.Location = new System.Drawing.Point(108, 70);
+            this.eventText.Multiline = true;
+            this.eventText.Name = "eventText";
+            this.eventText.Size = new System.Drawing.Size(324, 56);
+            this.eventText.TabIndex = 23;
             // 
-            // removeItemEffect
+            // label11
             // 
-            this.removeItemEffect.Location = new System.Drawing.Point(553, 50);
-            this.removeItemEffect.Name = "removeItemEffect";
-            this.removeItemEffect.Size = new System.Drawing.Size(94, 23);
-            this.removeItemEffect.TabIndex = 16;
-            this.removeItemEffect.Text = "Remove Effect";
-            this.removeItemEffect.UseVisualStyleBackColor = true;
-            this.removeItemEffect.Click += new System.EventHandler(this.removeItemEffect_Click);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 23);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(92, 13);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Event ID (Unique)";
             // 
-            // addPREffect
+            // eventType
             // 
-            this.addPREffect.Location = new System.Drawing.Point(758, 19);
-            this.addPREffect.Name = "addPREffect";
-            this.addPREffect.Size = new System.Drawing.Size(88, 23);
-            this.addPREffect.TabIndex = 14;
-            this.addPREffect.Text = "Add Effect";
-            this.addPREffect.UseVisualStyleBackColor = true;
-            this.addPREffect.Click += new System.EventHandler(this.addPREffect_Click);
+            this.eventType.Location = new System.Drawing.Point(108, 44);
+            this.eventType.Name = "eventType";
+            this.eventType.Size = new System.Drawing.Size(93, 20);
+            this.eventType.TabIndex = 21;
             // 
-            // prEffectSelect
+            // eventItemCatalogue
             // 
-            this.prEffectSelect.FormattingEnabled = true;
-            this.prEffectSelect.Location = new System.Drawing.Point(653, 21);
-            this.prEffectSelect.Name = "prEffectSelect";
-            this.prEffectSelect.Size = new System.Drawing.Size(94, 21);
-            this.prEffectSelect.TabIndex = 15;
-            // 
-            // addItemEffect
-            // 
-            this.addItemEffect.Location = new System.Drawing.Point(553, 21);
-            this.addItemEffect.Name = "addItemEffect";
-            this.addItemEffect.Size = new System.Drawing.Size(94, 23);
-            this.addItemEffect.TabIndex = 12;
-            this.addItemEffect.Text = "Add Effect";
-            this.addItemEffect.UseVisualStyleBackColor = true;
-            this.addItemEffect.Click += new System.EventHandler(this.addItemEffect_Click);
-            // 
-            // prEffects
-            // 
-            this.prEffects.FormattingEnabled = true;
-            this.prEffects.Location = new System.Drawing.Point(653, 79);
-            this.prEffects.Name = "prEffects";
-            this.prEffects.Size = new System.Drawing.Size(194, 147);
-            this.prEffects.TabIndex = 11;
-            // 
-            // itemEffectSelect
-            // 
-            this.itemEffectSelect.FormattingEnabled = true;
-            this.itemEffectSelect.Location = new System.Drawing.Point(438, 22);
-            this.itemEffectSelect.Name = "itemEffectSelect";
-            this.itemEffectSelect.Size = new System.Drawing.Size(109, 21);
-            this.itemEffectSelect.TabIndex = 13;
-            // 
-            // itemEffects
-            // 
-            this.itemEffects.FormattingEnabled = true;
-            this.itemEffects.Location = new System.Drawing.Point(438, 79);
-            this.itemEffects.Name = "itemEffects";
-            this.itemEffects.Size = new System.Drawing.Size(209, 147);
-            this.itemEffects.TabIndex = 10;
-            // 
-            // optionText
-            // 
-            this.optionText.Location = new System.Drawing.Point(14, 95);
-            this.optionText.Multiline = true;
-            this.optionText.Name = "optionText";
-            this.optionText.Size = new System.Drawing.Size(418, 51);
-            this.optionText.TabIndex = 30;
-            // 
-            // optionResult
-            // 
-            this.optionResult.Location = new System.Drawing.Point(14, 175);
-            this.optionResult.Multiline = true;
-            this.optionResult.Name = "optionResult";
-            this.optionResult.Size = new System.Drawing.Size(418, 51);
-            this.optionResult.TabIndex = 31;
-            // 
-            // options
-            // 
-            this.options.FormattingEnabled = true;
-            this.options.Location = new System.Drawing.Point(108, 143);
-            this.options.Name = "options";
-            this.options.Size = new System.Drawing.Size(324, 134);
-            this.options.TabIndex = 30;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 143);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(43, 13);
-            this.label17.TabIndex = 31;
-            this.label17.Text = "Options";
-            // 
-            // eventCreatorCatalogue
-            // 
-            this.eventCreatorCatalogue.FormattingEnabled = true;
-            this.eventCreatorCatalogue.Location = new System.Drawing.Point(870, 354);
-            this.eventCreatorCatalogue.Name = "eventCreatorCatalogue";
-            this.eventCreatorCatalogue.Size = new System.Drawing.Size(311, 225);
-            this.eventCreatorCatalogue.TabIndex = 32;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(11, 79);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(62, 13);
-            this.label18.TabIndex = 33;
-            this.label18.Text = "Option Text";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(11, 154);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(95, 13);
-            this.label19.TabIndex = 34;
-            this.label19.Text = "Option Result Text";
-            // 
-            // addOption
-            // 
-            this.addOption.Location = new System.Drawing.Point(12, 20);
-            this.addOption.Name = "addOption";
-            this.addOption.Size = new System.Drawing.Size(417, 23);
-            this.addOption.TabIndex = 35;
-            this.addOption.Text = "Add Option";
-            this.addOption.UseVisualStyleBackColor = true;
-            this.addOption.Click += new System.EventHandler(this.addOption_Click);
-            // 
-            // saveEventCat
-            // 
-            this.saveEventCat.Location = new System.Drawing.Point(840, 296);
-            this.saveEventCat.Name = "saveEventCat";
-            this.saveEventCat.Size = new System.Drawing.Size(341, 23);
-            this.saveEventCat.TabIndex = 36;
-            this.saveEventCat.Text = "Save Event Catalogue";
-            this.saveEventCat.UseVisualStyleBackColor = true;
-            this.saveEventCat.Click += new System.EventHandler(this.saveEventCat_Click);
-            // 
-            // addEventToCatalogue
-            // 
-            this.addEventToCatalogue.Location = new System.Drawing.Point(840, 267);
-            this.addEventToCatalogue.Name = "addEventToCatalogue";
-            this.addEventToCatalogue.Size = new System.Drawing.Size(341, 23);
-            this.addEventToCatalogue.TabIndex = 35;
-            this.addEventToCatalogue.Text = "Add Event to Catalogue";
-            this.addEventToCatalogue.UseVisualStyleBackColor = true;
-            this.addEventToCatalogue.Click += new System.EventHandler(this.addEventToCatalogue_Click);
-            // 
-            // generateEventString
-            // 
-            this.generateEventString.Location = new System.Drawing.Point(840, 238);
-            this.generateEventString.Name = "generateEventString";
-            this.generateEventString.Size = new System.Drawing.Size(341, 23);
-            this.generateEventString.TabIndex = 34;
-            this.generateEventString.Text = "Generate Event String";
-            this.generateEventString.UseVisualStyleBackColor = true;
-            this.generateEventString.Click += new System.EventHandler(this.generateEventString_Click);
-            // 
-            // eventOutput
-            // 
-            this.eventOutput.Location = new System.Drawing.Point(840, 31);
-            this.eventOutput.Multiline = true;
-            this.eventOutput.Name = "eventOutput";
-            this.eventOutput.Size = new System.Drawing.Size(341, 202);
-            this.eventOutput.TabIndex = 33;
-            // 
-            // clearEvent
-            // 
-            this.clearEvent.Location = new System.Drawing.Point(218, 19);
-            this.clearEvent.Name = "clearEvent";
-            this.clearEvent.Size = new System.Drawing.Size(226, 23);
-            this.clearEvent.TabIndex = 37;
-            this.clearEvent.Text = "Clear Events";
-            this.clearEvent.UseVisualStyleBackColor = true;
-            this.clearEvent.Click += new System.EventHandler(this.clearEvent_Click);
-            // 
-            // removeOption
-            // 
-            this.removeOption.Location = new System.Drawing.Point(12, 224);
-            this.removeOption.Name = "removeOption";
-            this.removeOption.Size = new System.Drawing.Size(86, 50);
-            this.removeOption.TabIndex = 36;
-            this.removeOption.Text = "Remove Option";
-            this.removeOption.UseVisualStyleBackColor = true;
-            this.removeOption.Click += new System.EventHandler(this.removeOption_Click);
-            // 
-            // clearItemCreator
-            // 
-            this.clearItemCreator.Location = new System.Drawing.Point(254, 22);
-            this.clearItemCreator.Name = "clearItemCreator";
-            this.clearItemCreator.Size = new System.Drawing.Size(241, 23);
-            this.clearItemCreator.TabIndex = 20;
-            this.clearItemCreator.Text = "Clear Item";
-            this.clearItemCreator.UseVisualStyleBackColor = true;
-            this.clearItemCreator.Click += new System.EventHandler(this.clearItemCreator_Click);
-            // 
-            // resultTB
-            // 
-            this.resultTB.Location = new System.Drawing.Point(108, 82);
-            this.resultTB.Name = "resultTB";
-            this.resultTB.Size = new System.Drawing.Size(121, 20);
-            this.resultTB.TabIndex = 5;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(53, 85);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(37, 13);
-            this.label20.TabIndex = 6;
-            this.label20.Text = "Result";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(7, 100);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(37, 13);
-            this.label21.TabIndex = 8;
-            this.label21.Text = "Result";
-            // 
-            // prResult
-            // 
-            this.prResult.Location = new System.Drawing.Point(108, 97);
-            this.prResult.Name = "prResult";
-            this.prResult.Size = new System.Drawing.Size(121, 20);
-            this.prResult.TabIndex = 7;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(11, 52);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(99, 13);
-            this.label22.TabIndex = 36;
-            this.label22.Text = "Option Number(1-4)";
-            // 
-            // optionNumberTB
-            // 
-            this.optionNumberTB.Location = new System.Drawing.Point(116, 49);
-            this.optionNumberTB.Name = "optionNumberTB";
-            this.optionNumberTB.Size = new System.Drawing.Size(93, 20);
-            this.optionNumberTB.TabIndex = 38;
+            this.eventItemCatalogue.FormattingEnabled = true;
+            this.eventItemCatalogue.Location = new System.Drawing.Point(710, 31);
+            this.eventItemCatalogue.Name = "eventItemCatalogue";
+            this.eventItemCatalogue.Size = new System.Drawing.Size(124, 303);
+            this.eventItemCatalogue.TabIndex = 19;
             // 
             // MainWindow
             // 
@@ -1054,15 +1054,15 @@
             this.groupBox1.PerformLayout();
             this.itemGroupBox.ResumeLayout(false);
             this.itemGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconBox)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconBox)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }

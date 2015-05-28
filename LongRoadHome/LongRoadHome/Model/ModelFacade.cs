@@ -10,7 +10,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
     public class ModelFacade
     {
         public const int LOCATION_MOVE_COST = 10;
-        public const int SUBLOCATION_MOVE_COST = 2;
+        public const int SUBLOCATION_MOVE_COST = 5;
         
         /// <summary>
         /// Sets a new random event as the current event and returns it
@@ -145,7 +145,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
                 double yDistance = source.Y - target.Y;
                 double distance = Math.Sqrt(xDistance * xDistance + yDistance * yDistance);
 
-                return distance/8;
+                return distance/5;
             }
 
             return 0;
@@ -403,6 +403,27 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model
         public System.Drawing.Bitmap GetWorldMap(GameState gs)
         {
             return gs.GetLM().GetWorldMap();
+        }
+
+        public int GetMaximumNumberOfDiscoveries(GameState gs)
+        {
+            return gs.GetDM().GetDiscoveryCatalogue().GetDiscoveries().Count;
+        }
+
+        public List<Discovery.Discovery> GetDiscovered(GameState gs)
+        {
+            DiscoveryModel dm = gs.GetDM();
+            HashSet<int> discovered = dm.GetDiscovered();
+            List<Discovery.Discovery> discs = new List<Discovery.Discovery>();
+            foreach(int disc in discovered)
+            {
+                var d = dm.GetDiscoveryCatalogue().GetDiscovery(disc);
+                if (d != null)
+                {
+                    discs.Add(d);
+                }
+            }
+            return discs;
         }
     }
 

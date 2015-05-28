@@ -6,7 +6,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
     {
         public const String TYPE = "Commercial";
         private String[] IMAGES = { "Commercial_1", "Commercial_2", "Commercial_3", "Commercial_4" };
-        private Random rnd = new Random();
+        private static Random rnd = new Random();
 
         static Commercial()
         {

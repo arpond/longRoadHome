@@ -7,6 +7,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         private PlayerCharacter currentPC;
         private ItemCatalogue itemCatalogue;
         private Inventory currentInventory;
+        private Random rnd = new Random();
 
         /// <summary>
         /// Constructor for a standard PCModel
@@ -108,6 +109,30 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         }
 
         /// <summary>
+        /// Removes random items from inventory
+        /// </summary>
+        /// <param name="numberToRemove">The number of items to randomly remove</param>
+        public void RemoveRandomItemFromInventory(int numberToRemove)
+        {
+            int total = 0;
+            foreach(var item in currentInventory.GetInventory())
+            {
+                total += (item as Item).amount;
+            }
+
+            if (numberToRemove > total)
+            {
+                numberToRemove = total;
+            }
+            
+            for (int i = 0; i< numberToRemove; i++)
+            {
+                int maxInvSlot = currentInventory.GetInventory().Count;
+                currentInventory.RemoveItem(rnd.Next(maxInvSlot));
+            }
+        }
+
+        /// <summary>
         /// Gets the total value of the inventory
         /// </summary>
         /// <returns>The total value of the inventory</returns>
@@ -203,7 +228,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter
         public bool ItemUsable(int invSlot)
         {
             Item toCheck = currentInventory.GetItemSlot(invSlot);
-            if (toCheck == null || (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs())))
+            if (toCheck == null)
+            {
+                return false;
+            }
+            if (toCheck.HasRequirements() && !toCheck.CheckReqs(currentInventory.GetItemIDs()))
             {
                 return false;
             }

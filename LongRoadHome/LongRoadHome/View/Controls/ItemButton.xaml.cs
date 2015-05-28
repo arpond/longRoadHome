@@ -44,6 +44,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
             }
         }
 
+        public String ItemName
+        {
+            get { return (String)GetValue(ItemButton.ItemNameProperty); }
+            set { SetValue(ItemButton.ItemNameProperty, value); }
+        }
+
         public String Description
         {
             get { return (String)GetValue(ItemButton.DesscriptionProperty); }
@@ -56,9 +62,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
             set { SetValue(ItemButton.ItemSlotProperty, value); }
         }
 
-        public bool Usable
+        public Visibility Usable
         {
-            get { return (bool)GetValue(ItemButton.UsableProperty); }
+            get { return (Visibility)GetValue(ItemButton.UsableProperty); }
             set { SetValue(ItemButton.UsableProperty, value); }
         }
 
@@ -73,6 +79,14 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
             get { return (BitmapImage)GetValue(ItemButton.ItemIconProperty); }
             set { SetValue(ItemButton.ItemIconProperty, value); }
         }
+
+
+        /// <summary>
+        /// Identifies the Description Dependency Property
+        /// </summary>
+        public static readonly DependencyProperty ItemNameProperty =
+            DependencyProperty.Register("ItemName", typeof(String), typeof(ItemButton),
+             new PropertyMetadata(OnEnabledChanged));
 
         /// <summary>
         /// Identifies the Description Dependency Property
@@ -91,7 +105,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
         /// Identifies the Usable Dependency Property
         /// </summary>
         public static readonly DependencyProperty UsableProperty =
-            DependencyProperty.Register("Usable", typeof(bool), typeof(ItemButton));
+            DependencyProperty.Register("Usable", typeof(Visibility), typeof(ItemButton));
 
         /// <summary>
         /// Identifies the Amount Dependency Property
@@ -107,7 +121,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
 
         private static void OnEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-
         }
     }
 }

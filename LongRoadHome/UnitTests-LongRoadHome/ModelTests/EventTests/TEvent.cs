@@ -22,7 +22,7 @@ namespace UnitTests_LongRoadHome.EventTests
         [TestInitialize]
         public void Setup()
         {
-            String basicItem1 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements";
+            String basicItem1 = "ID:2,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
             validPREE = PREventEffect.PR_EFFECT_TAG + ":" + PlayerCharacter.HEALTH + ":10:20:Test Result";
             validIEE = ItemEventEffect.ITEM_EFFECT_TAG + "#" + basicItem1 + "#Test Result";
             validOption = Option.TAG + ";" + "7;TestText;TestResult;EventEffects|" + validPREE + "|" + validIEE;
@@ -33,19 +33,19 @@ namespace UnitTests_LongRoadHome.EventTests
             validOptions.Add(Option.TAG + ";" + "3;TestText;TestResult;EventEffects|" + validIEE + "|" + validPREE);
             validOptions.Add(validOption);            
 
-            validStrings.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text_EventOptions", "Basic Event is valid"));
-            validStrings.Add(new Tuple<string, string>(Event.TAG + "_2_Type_Test text_EventOptions*" + validOption, "Event with a valid option should be valid"));
-            validStrings.Add(new Tuple<string, string>(Event.TAG + "_3_Type_Test text_EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
+            validStrings.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text$EventOptions", "Basic Event is valid"));
+            validStrings.Add(new Tuple<string, string>(Event.TAG + "$2$Type$Test text$EventOptions*" + validOption, "Event with a valid option should be valid"));
+            validStrings.Add(new Tuple<string, string>(Event.TAG + "$3$Type$Test text$EventOptions*" + validOptions[0] + "*" + validOptions[1] + "*" + validOptions[2] + "*" + validOptions[3], "Event with valid options should be valid"));
 
 
             invalidStrings.Add(new Tuple<string, string>("", "Empty String is invalid"));
-            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text", "Should have at least 5 elements"));
-            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text_EventOptions_haha", "Should have at most 5 elements"));
-            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text_EventOptions*", "If there are event options there should be at least one"));
-            invalidStrings.Add(new Tuple<string, string>("Not a tag_1_Type_Test text_EventOptions", "Should start with " + Event.TAG));
-            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "_ha_Type_Test text_EventOptions", "ID should be an int"));
-            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "_-1_Type_Test text_EventOptions", "ID should be positive"));
-            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "_1_Type_Test text_EventOptions*"+invalidOption, "Invalid option should mean invalid event"));
+            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text", "Should have at least 5 elements"));
+            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text$EventOptions$haha", "Should have at most 5 elements"));
+            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text$EventOptions*", "If there are event options there should be at least one"));
+            invalidStrings.Add(new Tuple<string, string>("Not a tag$1$Type$Test text$EventOptions", "Should start with " + Event.TAG));
+            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "$ha$Type$Test text$EventOptions", "ID should be an int"));
+            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "$-1$Type$Test text$EventOptions", "ID should be positive"));
+            invalidStrings.Add(new Tuple<string, string>(Event.TAG + "$1$Type$Test text$EventOptions*"+invalidOption, "Invalid option should mean invalid event"));
         }
 
         [TestCategory("Event"), TestCategory("EventModel"), TestMethod()]

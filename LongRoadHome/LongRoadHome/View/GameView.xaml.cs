@@ -50,20 +50,9 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         public GameView()
         {
             InitializeComponent();
-            _UIModel = new UIModel()
-            {
-                PlayerModel = new UIPlayer { Health = 90, Hunger = 90, Sanity = 90, Thirst = 90 },
-                SublocationModel = new UISublocations { CurrentSublocation = 1, ImagePaths = new List<string>(), Scavenged = new List<bool>() },
-                UIInventory = new UIInventory { Inventory = new List<UIItem>() }
-            };
-
-            this.DataContext = _UIModel;
-
-            mc = new MainController(this);
-            mc.handlePotentAction(MainController.NEW_GAME, 0);
         }
 
-        public GameView(MainMenu mainMenu)
+        public GameView(MainMenu mainMenu, int mode)
         {
             this.mainMenu = mainMenu;
             InitializeComponent();
@@ -77,7 +66,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             this.DataContext = _UIModel;
 
             mc = new MainController(this);
-            mc.handlePotentAction(MainController.NEW_GAME, 0);
+            if (mode == 0)
+            {
+                mc.handlePotentAction(MainController.NEW_GAME, 0);
+            }
+            else if (mode == 1)
+            {
+                mc.handlePotentAction(MainController.CONTINUE, 0);
+            }
+
+            PlayAudio("backgroundTrack.mp3");
+            
         }
         #endregion
 
@@ -229,7 +228,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <returns>If yes was selected</returns>
         public bool DrawYesNoOption(String text)
         {
-            MessageBoxResult result = SimpleMessageBox.Show(text, string.Empty, MessageBoxButton.YesNo, Window.GetWindow(this));
+            MessageBoxResult result = SimpleMessageBox.Show(string.Empty, text, MessageBoxButton.YesNo, Window.GetWindow(this));
             if (result == MessageBoxResult.Yes)
             {
                 return true;
@@ -257,17 +256,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             switch (options.Count)
             {
                 case 1:
-                    SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OK, Window.GetWindow(this));
+                    SimpleMessageBox.Show("Event!", eventText + "\n\n" + optionsText, MessageBoxButton.OK, Window.GetWindow(this));
                     result = MessageBoxResult.Yes;
                     break;
                 case 2:
-                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNo, buttonText, Window.GetWindow(this));
+                    result = SimpleMessageBox.Show("Event!",eventText +"\n\n" + optionsText, MessageBoxButton.YesNo, buttonText, Window.GetWindow(this));
                     break;
                 case 3:
-                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.YesNoCancel, buttonText, Window.GetWindow(this));
+                    result = SimpleMessageBox.Show("Event!", eventText + "\n\n" + optionsText, MessageBoxButton.YesNoCancel, buttonText, Window.GetWindow(this));
                     break;
                 case 4:
-                    result = SimpleMessageBox.Show(eventText, optionsText, MessageBoxButton.OKCancel, buttonText, Window.GetWindow(this));
+                    result = SimpleMessageBox.Show("Event!", eventText + "\n\n" + optionsText, MessageBoxButton.OKCancel, buttonText, Window.GetWindow(this));
                     break;
             }
 
@@ -304,13 +303,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// <param name="results">The text from the effects of the result</param>
         public void DrawEventResult(String optionResult, List<String> results)
         {
-            String effectResults = "";
-            foreach (String result in results)
-            {
-                effectResults += result + "\n";
-            }
-
-            SimpleMessageBox.Show(optionResult, effectResults, MessageBoxButton.OK, Window.GetWindow(this));
+            SimpleMessageBox.Show(string.Empty, optionResult, MessageBoxButton.OK, Window.GetWindow(this));
         }
 
         /// <summary>
@@ -322,7 +315,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             String results = "You scavenged the following:\n";
             foreach (Item item in scavenged)
             {
-                results += String.Format("{0} x {1}\n", item.name, item.amount);
+                String[] desc = item.description.Split('(');
+                results += String.Format("{0} x {1} - {2}\n", item.name, item.amount, desc[0]);
             }
             SimpleMessageBox.Show("Scavenging Results", results, Window.GetWindow(this));
         }
@@ -339,14 +333,24 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         #endregion
 
         #region Discovery Functions
-        public void DrawDiscoveries(List<Discovery> discs)
+        public void DrawDiscoveries(List<Discovery> discs, int max)
         {
-            foreach(Discovery disc in discs)
+            String discoveries = "";
+            for (int i = 1; i <= max; i++)
             {
-                int id = disc.GetDiscoveryID();
-                String text = disc.GetDiscoveryText();
+                String discText = String.Format("No. {0} - {1}\n",i, "UNDISCOVERED");
+                foreach (Discovery disc in discs)
+                {
+                    int id = disc.GetDiscoveryID();
+                    if(i==id)
+                    {
+                        String text = disc.GetDiscoveryText();
+                        discText = String.Format("No. {0} - {1}\n", i, text);
+                        break;
+                    }
+                }
+                discoveries += discText;
             }
-
             throw new NotImplementedException();
         }
         #endregion
@@ -369,18 +373,30 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                 ItemButton button = new ItemButton();
                 BitmapImage temp = new BitmapImage();
                 temp.BeginInit();
-                //temp.UriSource = new Uri("pack://application:,,,/LongRoadHome;Resources/" + inventory[i].GetImagePath());
-                temp.UriSource = new Uri("pack://application:,,,/Resources/item_placeholder.png");
+                temp.UriSource = new Uri("pack://application:,,,/Resources/Items/" + item.GetIcon());
                 temp.EndInit();
                 button.ItemIcon = temp;
+
+                String[] desc = item.description.Split('(');
+
                 button.Description = item.description;
                 button.ItemSlot = i;
                 button.Amount = item.amount;
                 button.UseClick += new RoutedEventHandler(UseItemClicked);
                 button.DiscardClick += new RoutedEventHandler(DiscardItemClicked);
+                button.ItemName = item.name;
 
-                Grid.SetRow(button, i / 4 + 1);
-                Grid.SetColumn(button, (i % 4) + 1);
+                if(item.HasActiveEffect())
+                {
+                    button.Usable = Visibility.Visible;
+                }
+                else
+                {
+                    button.Usable = Visibility.Collapsed;
+                }
+
+                Grid.SetRow(button, i / 4);
+                Grid.SetColumn(button, (i % 4));
 
                 InventoryGrid.Children.Add(button);
             }
@@ -606,6 +622,28 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             }
         }
 
+        public void UpdateFromSave(int currentLocation, List<int> visited)
+        {
+            foreach(int i in visited)
+            {
+                TransparentButton tb;
+                if (worldMapButtons.TryGetValue(i, out tb))
+                {
+                    tb.ImageSwitch = true;
+                }
+
+            }
+
+            Point characterLocation;
+            if (buttonAreas.TryGetValue(currentLocation, out characterLocation))
+            {
+                zoomBorder.charLoc = characterLocation;
+                zoomBorder.Reset();
+                Canvas.SetLeft(characterPointer, characterLocation.X + 4);
+                Canvas.SetTop(characterPointer, characterLocation.Y - 23);
+            }
+        }
+
         /// <summary>
         /// Displays the WorldMap
         /// </summary>
@@ -791,6 +829,19 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             mp.Play();
         }
         #endregion
+
+        public void ExitGame()
+        {
+            mainMenu.ExitGame();
+        }
+
+        private void quitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (DrawYesNoOption("Are you sure you wish to quit?"))
+            {
+                mc.handleIdepotentAction(MainController.QUIT);
+            }
+        }
 
 
 

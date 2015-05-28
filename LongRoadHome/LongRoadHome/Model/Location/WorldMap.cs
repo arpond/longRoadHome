@@ -11,6 +11,9 @@ using System.Windows.Controls;
 
 namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
 {
+    /// <summary>
+    /// Adapted from http://opengameart.org/content/natural-word
+    /// </summary>
     public class WorldMap
     {
         public SortedList<int, System.Windows.Point> buttonAreas { get; set; }

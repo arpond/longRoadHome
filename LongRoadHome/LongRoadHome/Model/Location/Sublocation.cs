@@ -9,7 +9,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Location
         protected String imagePath;
         protected bool scavenged;
         public const String TAG = "Sublocation";
-        private Random rnd = new Random();
+        private static Random rnd = new Random();
         
         public abstract String ParseToString();
         public abstract bool IsValidSublocation(String toTest);

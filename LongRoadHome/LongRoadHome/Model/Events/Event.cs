@@ -74,7 +74,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events
             }
             else
             {
-                return options[optionNum];
+                return options[optionNum-1];
             }
         }
         
