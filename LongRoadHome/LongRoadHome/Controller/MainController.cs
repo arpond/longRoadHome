@@ -77,17 +77,24 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             String discoveryCatalogue = frw.ReadCatalogueFile(FileReadWriter.DISCOVERY_CATALOGUE);
             String discovered = frw.ReadSaveDataFile(FileReadWriter.DISCOVERED);
 
-            if (GameState.AreValidCatalogues(itemCatalogue, eventCatalogue, discoveryCatalogue))
+            if (!GameState.AreValidCatalogues(itemCatalogue, eventCatalogue, discoveryCatalogue))
             {
-                gs = new GameState(itemCatalogue, eventCatalogue, discoveryCatalogue, discovered);
-                dc = new DifficultyController();
-                var worldMap = mf.GetWorldMap(gs);
-                var buttonAreas = mf.GetButtonAreas(gs);
-
-                gameView.InitialiseWorldMap(worldMap, buttonAreas);
-                gameView.InitialiseSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
-                gameView.InitialiseInventory(mf.GetInventory(gs));
+                itemCatalogue = uk.ac.dundee.arpond.longRoadHome.Properties.Resources.itemCatalogue;
+                eventCatalogue = uk.ac.dundee.arpond.longRoadHome.Properties.Resources.eventCatalogue;
+                discoveryCatalogue = uk.ac.dundee.arpond.longRoadHome.Properties.Resources.discoveryCatalogue;
+                frw.WriteCatalogueFile(FileReadWriter.ITEM_CATALOGUE, itemCatalogue);
+                frw.WriteCatalogueFile(FileReadWriter.EVENT_CATALOGUE, eventCatalogue);
+                frw.WriteCatalogueFile(FileReadWriter.DISCOVERY_CATALOGUE, discoveryCatalogue);
             }
+
+            gs = new GameState(itemCatalogue, eventCatalogue, discoveryCatalogue, discovered);
+            dc = new DifficultyController();
+            var worldMap = mf.GetWorldMap(gs);
+            var buttonAreas = mf.GetButtonAreas(gs);
+
+            gameView.InitialiseWorldMap(worldMap, buttonAreas);
+            gameView.InitialiseSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
+            gameView.InitialiseInventory(mf.GetInventory(gs));
         }
 
         /// <summary>
@@ -308,7 +315,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             bool visited = true;
 
             var cost = Convert.ToInt32(mf.CalculateMoveCost(gs, locationID));
-            if (!gameView.DrawYesNoOption("Are you sure you wish to move to this location? It will cost you " + cost + " hunger and thirst"))
+            if (mf.GetCurrentLocation(gs) == locationID|| !gameView.DrawYesNoOption("Are you sure you wish to move to this location?\n\nIt will cost you " + cost + " hunger and thirst"))
             {
                 return false;
             }

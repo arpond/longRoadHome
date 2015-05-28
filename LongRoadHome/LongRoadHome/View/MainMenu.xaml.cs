@@ -53,8 +53,29 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
         private void newGameBtn_Click(object sender, RoutedEventArgs e)
         {
-            gv = new GameView(this,0);
-            this.NavigationService.Navigate(gv);
+            MainController tmc = new MainController();
+            try
+            {
+                if (!tmc.CheckIfSaveExists())
+                {
+                    gv = new GameView(this, 0);
+                    this.NavigationService.Navigate(gv);
+                }
+                else
+                {
+                    GameView temp = new GameView();
+                    if (temp.DrawYesNoOption("This will overwrite your current save. Are you sure?"))
+                    {
+                        gv = new GameView(this, 0);
+                        this.NavigationService.Navigate(gv);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                gv = new GameView(this, 0);
+                this.NavigationService.Navigate(gv);
+            }
         }
 
         public void ReturnToMainMenu(MainMenu mainMenu)
@@ -76,22 +97,37 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         {
             
             MainController tmc = new MainController();
-            if (!tmc.CheckIfSaveExists())
+            try
+            {
+                if (!tmc.CheckIfSaveExists())
+                {
+                    Continue = false;
+                    continueBtn.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    Continue = true;
+                    continueBtn.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception e)
             {
                 Continue = false;
                 continueBtn.Visibility = Visibility.Collapsed;
             }
-            else
-            {
-                Continue = true;
-                continueBtn.Visibility = Visibility.Visible;
-            }
+            
         }
 
         private void continueBtn_Click(object sender, RoutedEventArgs e)
         {
             gv = new GameView(this,1);
             this.NavigationService.Navigate(gv);
+        }
+
+        private void instructionsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Tutorial tut = new Tutorial(this);
+            this.NavigationService.Navigate(tut);
         }
     }
 }

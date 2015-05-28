@@ -50,17 +50,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         public GameView()
         {
             InitializeComponent();
-            _UIModel = new UIModel()
-            {
-                PlayerModel = new UIPlayer { Health = 90, Hunger = 90, Sanity = 90, Thirst = 90 },
-                SublocationModel = new UISublocations { CurrentSublocation = 1, ImagePaths = new List<string>(), Scavenged = new List<bool>() },
-                UIInventory = new UIInventory { Inventory = new List<UIItem>() }
-            };
-
-            this.DataContext = _UIModel;
-
-            mc = new MainController(this);
-            mc.handlePotentAction(MainController.NEW_GAME, 0);
         }
 
         public GameView(MainMenu mainMenu, int mode)
@@ -85,6 +74,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             {
                 mc.handlePotentAction(MainController.CONTINUE, 0);
             }
+
+            PlayAudio("backgroundTrack.mp3");
             
         }
         #endregion
@@ -839,17 +830,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         }
         #endregion
 
-        private void game_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(DrawYesNoOption("Are you sure you wish to quit?"))
-            {
-                mc.handleIdepotentAction(MainController.QUIT);
-            }
-        }
-
         public void ExitGame()
         {
             mainMenu.ExitGame();
+        }
+
+        private void quitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (DrawYesNoOption("Are you sure you wish to quit?"))
+            {
+                mc.handleIdepotentAction(MainController.QUIT);
+            }
         }
 
 

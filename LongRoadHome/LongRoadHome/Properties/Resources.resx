@@ -1915,4 +1915,28 @@
   <data name="DiscoveriesHeader" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DiscoveriesHeader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="quit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\quit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="discoveryCatalogue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\discoveryCatalogue.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="eventCatalogue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\eventCatalogue.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="itemCatalogue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\itemCatalogue.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="healthIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\healthIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hungerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hungerIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sanityIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sanityIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="thirstIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\thirstIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

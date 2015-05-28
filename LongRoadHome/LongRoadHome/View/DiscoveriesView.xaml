@@ -46,7 +46,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Image Grid.Column="1" Source="{StaticResource discHeader}" HorizontalAlignment="Center" />
+        <Image Grid.Column="1" Source="{StaticResource discHeader}" HorizontalAlignment="Center" Margin="20"/>
         <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
             <Grid.Background>
                 <ImageBrush ImageSource="{StaticResource discBck}" />

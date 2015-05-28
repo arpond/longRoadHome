@@ -791,6 +791,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DiscoveryCatalogue#Discovery:1:Text:1#Discovery:2:Text:2#Discovery:3:Text:3#Discovery:4:Text:4#Discovery:5:Text:5#Discovery:6:Text:6#Discovery:7:Text:7#Discovery:8:Text:8#Discovery:9:Text:9#Discovery:10:Text:10#Discovery:11:Text:11#Discovery:12:Text:12#Discovery:13:Text:13#Discovery:14:Text:14#Discovery:15:Text:15#Discovery:16:Text:16#Discovery:17:Text:17#Discovery:18:Text:18#Discovery:19:Text:19#Discovery:20:Text:20.
+        /// </summary>
+        internal static string discoveryCatalogue {
+            get {
+                return ResourceManager.GetString("discoveryCatalogue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap donut1 {
@@ -947,6 +956,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
             get {
                 object obj = ResourceManager.GetObject("eggsbenedict1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EventCatalogue^Event$1$general$You are camping. The light from your camp fire attracts a few wolves.$EventOptions*Option;1;You run away.;You cannot outrun a wolf. You get mauled badly. ;EventEffects|PREventEffect:health:-40:-20:(Lose 20 to 40 health)*Option;2;You stand and fight. ;You fend off the wolves but get vounded.;EventEffects|PREventEffect:health:-20:-10:(Lose 10 to 20 health)*Option;3;You grab a log out of the fire and wave it about.;The wolves get frightened and run away.;EventEffects|PREventEffec [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string eventCatalogue {
+            get {
+                return ResourceManager.GetString("eventCatalogue", resourceCulture);
             }
         }
         
@@ -1973,6 +1991,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap healthIcon {
+            get {
+                object obj = ResourceManager.GetObject("healthIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap honeybun1 {
             get {
                 object obj = ResourceManager.GetObject("honeybun1", resourceCulture);
@@ -1986,6 +2014,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         internal static System.Drawing.Bitmap hunger {
             get {
                 object obj = ResourceManager.GetObject("hunger", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hungerIcon {
+            get {
+                object obj = ResourceManager.GetObject("hungerIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3011,6 +3049,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ItemCatalogue;ID:600,Name:Gold earing ,Amount:1,Description:A shiny piece of jewelry. (+10% sanity protection),ActiveEffect,PassiveEffect:PE:sanity:0.9,Requirements,Icon:Ac_Earing02.png;ID:601,Name:Silver earing ,Amount:1,Description:A shiny piece of jewelry. (+10% sanity protection),ActiveEffect,PassiveEffect:PE:sanity:0.9,Requirements,Icon:Ac_Earing01.png;ID:1,Name:Gloves,Amount:1,Description:A pair of heavy duty gardening gloves. (+10% health protection),ActiveEffect,PassiveEffect:PE:health:0.9,Requireme [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string itemCatalogue {
+            get {
+                return ResourceManager.GetString("itemCatalogue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Loc_Res_PlaceHolder {
@@ -3546,6 +3593,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         internal static System.Drawing.Bitmap parallax_mountain_trees21 {
             get {
                 object obj = ResourceManager.GetObject("parallax_mountain_trees21", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap quit {
+            get {
+                object obj = ResourceManager.GetObject("quit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -4773,6 +4830,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap sanityIcon {
+            get {
+                object obj = ResourceManager.GetObject("sanityIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SubMap_Active {
             get {
                 object obj = ResourceManager.GetObject("SubMap_Active", resourceCulture);
@@ -4816,6 +4883,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         internal static System.Drawing.Bitmap thirst {
             get {
                 object obj = ResourceManager.GetObject("thirst", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap thirstIcon {
+            get {
+                object obj = ResourceManager.GetObject("thirstIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

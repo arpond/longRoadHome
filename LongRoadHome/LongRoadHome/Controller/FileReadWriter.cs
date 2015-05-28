@@ -49,6 +49,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             return ReadFile(filename);
         }
 
+        public bool WriteCatalogueFile(String filename, String toWrite)
+        {
+            filename = CATALOGUE_PATH + filename;
+            return WriteFile(filename, toWrite);
+        }
+
         /// <summary>
         /// The save data file to write
         /// </summary>

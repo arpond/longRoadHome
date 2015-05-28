@@ -62,9 +62,11 @@
                     <Button x:Name="continueBtn" Grid.Column="0" Grid.Row="1"
                          Height="45" HorizontalAlignment="Center" Click="continueBtn_Click" Style="{DynamicResource TextOnlyButton}"
                          IsEnabled="{Binding ElementName=main, Path=Continue, Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}">Continue</Button>
-                    <!-- Debug button -->
+                    <!-- View Discoveries button -->
                     <Button x:Name="discoveriesBtn" Grid.Column="0" Grid.Row="3"
                         Height="45" HorizontalAlignment="Center" Click="discoveriesBtn_Click" Style="{DynamicResource TextOnlyButton}">View Discoveries</Button>
+                    <Button x:Name="instructionsBtn" Grid.Column="0" Grid.Row="3"
+                        Height="45" HorizontalAlignment="Center" Click="instructionsBtn_Click" Style="{DynamicResource TextOnlyButton}">Instructions</Button>
                 </StackPanel>
             </Grid>
         </Viewbox>

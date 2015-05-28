@@ -10,7 +10,6 @@
       d:DesignHeight="728" d:DesignWidth="1024"
       Name="game"
       Loaded="game_Loaded"
-      KeyDown="game_KeyDown"
 	Title="GameView">
     <Page.Resources>
         <BitmapImage x:Key="background" UriSource="../Resources/background.png" />
@@ -24,6 +23,7 @@
         <BitmapImage x:Key="enabledInventory" UriSource="../Resources/Inv-Inactive.png" />
         <BitmapImage x:Key="disabledSubMap" UriSource="../Resources/SubMap-Active.png" />
         <BitmapImage x:Key="enabledSubMap" UriSource="../Resources/SubMap-Inactive.png" />
+        <BitmapImage x:Key="quit" UriSource="../Resources/quit.png" />
         <BitmapImage x:Key="charStand" UriSource="../Resources/Character-stand.png" />
         <BitmapImage x:Key="subPlaceHolder" UriSource="../Resources/Loc_Res_PlaceHolder.png" />
         <BitmapImage x:Key="invBck" UriSource="../Resources/inventoryBck.png" />
@@ -52,6 +52,7 @@
             <RowDefinition Height="251*" />
             <RowDefinition Height="336*" />
         </Grid.RowDefinitions>
+        <Image Source="{StaticResource background}" Grid.ColumnSpan="8" Grid.RowSpan="3" Panel.ZIndex="-1"/>
         <Border Name="animationArea" Grid.ColumnSpan="8" Grid.RowSpan="3">
             <Grid>
                 <Rectangle Name="animationBackground" Fill="Black" Visibility="Hidden" Panel.ZIndex="2"/>
@@ -154,6 +155,16 @@
                             DisabledImage="{StaticResource disabledInventory}"
                             DisplayedImage="{StaticResource enabledInventory}"
                             />
+            <uControl:ImageButton
+                            Grid.Column="1"
+                            Grid.Row="3"
+                            x:Name="quitBtn"
+                            EnabledButton="True"
+                            Click="quitBtn_Click"
+                            EnabledImage="{StaticResource quit}"
+                            DisabledImage="{StaticResource quit}"
+                            DisplayedImage="{StaticResource quit}"
+                            />
         </Grid>
             
             
@@ -214,7 +225,7 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource charStandLeft}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                    <Image Grid.Column="1" Grid.Row="1" Source="{StaticResource charStandLeft}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 10" />
                 </Grid>
                 
                 <Grid Margin="10">

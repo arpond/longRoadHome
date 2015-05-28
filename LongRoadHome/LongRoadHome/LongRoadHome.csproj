@@ -67,6 +67,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="View\Tutorial.xaml.cs">
+      <DependentUpon>Tutorial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Controls\DemoTextBox.xaml.cs">
       <DependentUpon>DemoTextBox.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,10 @@
     <Compile Include="View\UIObjects\UIModel.cs" />
     <Compile Include="View\UIObjects\UIPlayer.cs" />
     <Compile Include="View\UIObjects\UISublocations.cs" />
+    <Page Include="View\Tutorial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Controls\DemoTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2028,6 +2035,30 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\DiscoveriesHeader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\quit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\eventCatalogue.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\itemCatalogue.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\discoveryCatalogue.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\healthIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\hungerIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sanityIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\thirstIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
