@@ -70,14 +70,8 @@
     <Compile Include="View\Tutorial.xaml.cs">
       <DependentUpon>Tutorial.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controls\DemoTextBox.xaml.cs">
-      <DependentUpon>DemoTextBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Controls\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Controls\InventoryControl.xaml.cs">
-      <DependentUpon>InventoryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controls\ItemButton.xaml.cs">
       <DependentUpon>ItemButton.xaml</DependentUpon>
@@ -105,9 +99,6 @@
     <Compile Include="View\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\IGameView.cs" />
     <Compile Include="View\UIObjects\UIImageButton.cs" />
     <Compile Include="View\UIObjects\UIInvetory.cs" />
@@ -119,15 +110,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controls\DemoTextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Controls\ImageButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Controls\InventoryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,10 +161,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Discovery\Discovery.cs" />
@@ -239,9 +218,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Loc_Res_PlaceHolder.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Title.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\CharacterWalk-1.png" />
