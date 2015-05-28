@@ -421,6 +421,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] backgroundTrack {
+            get {
+                object obj = ResourceManager.GetObject("backgroundTrack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap C_Elm01 {
@@ -791,7 +801,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DiscoveryCatalogue#Discovery:1:Text:1#Discovery:2:Text:2#Discovery:3:Text:3#Discovery:4:Text:4#Discovery:5:Text:5#Discovery:6:Text:6#Discovery:7:Text:7#Discovery:8:Text:8#Discovery:9:Text:9#Discovery:10:Text:10#Discovery:11:Text:11#Discovery:12:Text:12#Discovery:13:Text:13#Discovery:14:Text:14#Discovery:15:Text:15#Discovery:16:Text:16#Discovery:17:Text:17#Discovery:18:Text:18#Discovery:19:Text:19#Discovery:20:Text:20.
+        ///   Looks up a localized string similar to DiscoveryCatalogue#Discovery:1:The world seems to have fallen apart, the only clue I&apos;ve found so far is a newspaper article discussing some sort of outbreak. :3#Discovery:2:While looking through a partially looted store I discovered a working laptop. There seems to be no way to get online or contact anyone, but there were a few stored emails from the store clerk about the wonders of GenoMax :10#Discovery:3:Walking through the city I could hear an emergency broadcast repeating. Stay in your homes and avoid t [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string discoveryCatalogue {
             get {

@@ -44,6 +44,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         private SortedList<int, System.Windows.Point> buttonAreas;
         private System.Drawing.Bitmap worldMapBM;
         private MainMenu mainMenu;
+        private bool intro = false;
         #endregion
 
         #region Constructors
@@ -86,8 +87,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void StartNewGame()
         {
-            Dispatcher.Invoke(new Action(() => DrawTutorial()));
-           
+            //DrawIntro();
+            intro = true;
         }
 
         /// <summary>
@@ -96,7 +97,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         public void LoadGame()
         {
             mc.handlePotentAction(MainController.CONTINUE, 0);
-
         }
 
         /// <summary>
@@ -142,6 +142,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         public void ReturnToMainMenu()
         {
+            mp.Stop();
             mainMenu.ReturnToMainMenu(mainMenu);
         }
 
@@ -189,12 +190,37 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
 
             return retval;
         }
+
+        public void ExitGame()
+        {
+            mainMenu.ExitGame();
+        }
+
+        private void quitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (DrawYesNoOption("Are you sure you wish to quit?"))
+            {
+                mc.handleIdepotentAction(MainController.QUIT);
+            }
+        }
         #endregion
 
         #region Dialogue Boxes
-        private void DrawTutorial()
+        private void DrawIntro()
         {
-            SimpleMessageBox.Show("Tutorial", "The Tutorial will go here", Window.GetWindow(this));
+            if (intro)
+            {
+                SimpleMessageBox.Show("", "You wake up, somewhat groggy. How much did you drink last night?" +
+                "Looking at the door you notice you've propped it shut with a chair, what could you have" +
+                "possibly been thinking? You get your things together and try to work out where you are." +
+                "Going outside you find yourself at cheap run down motel. No one seems to be about, not even the staff." +
+                "Puzzled you decide to make your way to the nearest town. Walking along the road you soon find what remains of a burn out car, abandoned" +
+                "and discarded. It looks somewhat familar but you have no idea why. As you approach the town you begin to sense something is wrong, surely there should be some traffic some people." +
+                "As you turn the final bend you start to see smoke and more abandoned vehicles. This is wrong you think to yourself. Looking in your wallet you pull out the picture of your wife and daughter." +
+                "I must get home to them and make sure they are alright. Taking one step forward you begin on the long road home.", Window.GetWindow(this));
+                intro = false;
+            }
+
         }
         /// <summary>
         /// Draws the game over dialogue
@@ -656,6 +682,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             SublocationMapView.Visibility = Visibility.Hidden;
             InventoryView.Visibility = Visibility.Hidden;
             WorldMapView.Visibility = Visibility.Visible;
+            this.Dispatcher.BeginInvoke(new Action(() => DrawIntro()), DispatcherPriority.ContextIdle, null);
         }
 
         /// <summary>
@@ -805,7 +832,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
                       Int32Rect.Empty,
                       BitmapSizeOptions.FromEmptyOptions());
 
-
                 current++;
                 if (current >= images.Count)
                 {
@@ -819,7 +845,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         #region Audio Functions
         public void PlayAudio(String audioFile)
         {
-            mp.Open(new Uri("audio/"+audioFile, UriKind.Relative));
+            mp.Open(new Uri("Resources/" + audioFile, UriKind.Relative));
             mp.MediaEnded += new EventHandler(Media_Ended);
             mp.Play();
         }
@@ -829,23 +855,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             mp.Play();
         }
         #endregion
-
-        public void ExitGame()
-        {
-            mainMenu.ExitGame();
-        }
-
-        private void quitBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (DrawYesNoOption("Are you sure you wish to quit?"))
-            {
-                mc.handleIdepotentAction(MainController.QUIT);
-            }
-        }
-
-
-
-        
+  
     }
 }
 

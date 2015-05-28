@@ -76,6 +76,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Discovery
         public String GetNewDiscovery(int numOfVisited)
         {
             Discovery disc = dc.GetRandomDiscovery();
+            if(discovered.Count == 0)
+            {
+                disc = dc.GetDiscovery(1);
+            }
             if (discovered.Contains(disc.GetDiscoveryID()) || !disc.IsDiscoverable(numOfVisited))
             {
                 return "";

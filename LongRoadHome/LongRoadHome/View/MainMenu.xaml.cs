@@ -43,6 +43,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             CheckIfContinue();
         }
 
+        /// <summary>
+        /// Shows the discoveries
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void discoveriesBtn_Click(object sender, RoutedEventArgs e)
         {
             //Debug debug = new Debug();
@@ -51,6 +56,11 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             this.NavigationService.Navigate(discoveries);
         }
 
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void newGameBtn_Click(object sender, RoutedEventArgs e)
         {
             MainController tmc = new MainController();
@@ -78,6 +88,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             }
         }
 
+        /// <summary>
+        /// Returns to the main menu
+        /// </summary>
+        /// <param name="mainMenu"></param>
         public void ReturnToMainMenu(MainMenu mainMenu)
         {
             NavigationService ns = mainMenu.NavigationService;
@@ -88,11 +102,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             }
         }
 
+        /// <summary>
+        /// Exits the game
+        /// </summary>
         public void ExitGame()
         {
             Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// Checks if there is an existing save game
+        /// </summary>
         private void CheckIfContinue()
         {
             
@@ -118,12 +138,22 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
             
         }
 
+        /// <summary>
+        /// Loads a game from save
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void continueBtn_Click(object sender, RoutedEventArgs e)
         {
             gv = new GameView(this,1);
             this.NavigationService.Navigate(gv);
         }
 
+        /// <summary>
+        /// Shows the game isntructions
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void instructionsBtn_Click(object sender, RoutedEventArgs e)
         {
             Tutorial tut = new Tutorial(this);

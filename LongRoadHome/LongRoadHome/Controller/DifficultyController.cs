@@ -9,7 +9,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
     {
         public const String TAG = "DifficultyController";
         private double endLocationChance;
-        private int endLocationMinimum;
+        private const int END_LOCATION_MINIMUM = 50;
         private double eventModifier;
         private double eventChance;
         private List<double> playerStatusTracker;
@@ -23,7 +23,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             mf = new ModelFacade();
             playerStatusTracker = new List<double>();
             playerStatus = 1;
-            endLocationMinimum = 50;
             CalcEndLocationChance();
             CalcEventModifier();
             CalcEventChance();
@@ -48,7 +47,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                     playerStatusTracker.Add(temp);
                 }
             }
-            endLocationMinimum = 50;
             CalcEndLocationChance();
             CalcEventModifier();
             CalcEventChance();
@@ -56,7 +54,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
 
         public void CalcEventChance()
         {
-            eventChance = (double) rnd.Next(40,80) / 100;
+            eventChance = (double) rnd.Next(20,60) / 100;
         }
 
         /// <summary>
@@ -64,13 +62,13 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         /// </summary>
         private void CalcEndLocationChance()
         {
-            if (playerStatusTracker.Count < endLocationMinimum)
+            if (playerStatusTracker.Count < END_LOCATION_MINIMUM)
             {
                 endLocationChance = 0;
             }
             else
             {
-                endLocationChance = (double)playerStatusTracker.Count / endLocationMinimum - 1;
+                endLocationChance = (double)playerStatusTracker.Count / END_LOCATION_MINIMUM - 1;
             }
         }
 
@@ -197,10 +195,12 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             var bestFit = GenerateBestFitLine(); 
             if (value < endLocationChance*100)
             {
+                endLocationChance = 2.0;
                 return true;
             }
             else if (bestFit.Count > 0 && bestFit[bestFit.Count-1].Item2*100 < endLocationChance*100)
             {
+                endLocationChance = 2.0;
                 return true;
             }
             return false;

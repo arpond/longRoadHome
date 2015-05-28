@@ -16,7 +16,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         #region Public Constant Fields
         public const String NEW_GAME = "New Game", CONTINUE = "Continue", VIEW_LOC_MAP = "View Location Map", VIEW_SUB_MAP = "View Sublocation Map",
             VIEW_INVENTORY = "View Inventory", CHANGE_LOC = "Change Location", CHANGE_SUB = "Change Sublocation", USE_ITEM = "Use Item", 
-            DISCARD_ITEM = "Discard Item", SCAVENGE = "Scavenge", EVENT="Event", GAME_OVER = "Game Over", QUIT = "Quit";
+            DISCARD_ITEM = "Discard Item", SCAVENGE = "Scavenge", EVENT="Event", GAME_OVER = "Game Over", QUIT = "Quit", INTRO="Intro";
         #endregion
 
         #region Private Fields
@@ -62,6 +62,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             commandMap.Add(EVENT, 10);
             commandMap.Add(GAME_OVER, 11);
             commandMap.Add(QUIT, 12);
+            commandMap.Add(INTRO, 13);
         }
 
         
@@ -107,6 +108,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             String itemCatalogue = frw.ReadCatalogueFile(FileReadWriter.ITEM_CATALOGUE);
             String eventCatalogue = frw.ReadCatalogueFile(FileReadWriter.EVENT_CATALOGUE);
             String discoveryCatalogue = frw.ReadCatalogueFile(FileReadWriter.DISCOVERY_CATALOGUE);
+
+            if (!GameState.AreValidCatalogues(itemCatalogue, eventCatalogue, discoveryCatalogue))
+            {
+                itemCatalogue = uk.ac.dundee.arpond.longRoadHome.Properties.Resources.itemCatalogue;
+                eventCatalogue = uk.ac.dundee.arpond.longRoadHome.Properties.Resources.eventCatalogue;
+                discoveryCatalogue = uk.ac.dundee.arpond.longRoadHome.Properties.Resources.discoveryCatalogue;
+                frw.WriteCatalogueFile(FileReadWriter.ITEM_CATALOGUE, itemCatalogue);
+                frw.WriteCatalogueFile(FileReadWriter.EVENT_CATALOGUE, eventCatalogue);
+                frw.WriteCatalogueFile(FileReadWriter.DISCOVERY_CATALOGUE, discoveryCatalogue);
+            }
+
             String discovered = frw.ReadSaveDataFile(FileReadWriter.DISCOVERED);
             String pc = frw.ReadSaveDataFile(FileReadWriter.PLAYER_CHARACTER);
             String inventory = frw.ReadSaveDataFile(FileReadWriter.INVENTORY);
@@ -153,12 +165,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             String discoveryCatalogue = frw.ReadCatalogueFile(FileReadWriter.DISCOVERY_CATALOGUE);
             String discovered = frw.ReadSaveDataFile(FileReadWriter.DISCOVERED);
 
-            if (GameState.IsValidDiscoveries(discoveryCatalogue, discovered))
+            if (!GameState.IsValidDiscoveries(discoveryCatalogue, discovered))
             {
-                gs = new GameState(discoveryCatalogue, discovered);
-                return true;
+                discoveryCatalogue = uk.ac.dundee.arpond.longRoadHome.Properties.Resources.discoveryCatalogue;
+                frw.WriteCatalogueFile(FileReadWriter.DISCOVERY_CATALOGUE, discoveryCatalogue);
+                discovered = "Discovered";
             }
-            return false;
+
+            gs = new GameState(discoveryCatalogue, discovered);
+            return true;
         }
 
         public int GetMaxNumberOfDiscoveries()
@@ -231,18 +246,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         public void handlePotentAction(string command, int variable)
         {
             int action;
+            bool delay = false;
             if (commandMap.TryGetValue(command, out action))
             {
                 switch (action)
                 {
                     // New Game
                     case 0:
-                        // Main Thread - Start new game
                         InitialiseNewGame();
+                        gameView.StartNewGame();
                         handleIdepotentAction(VIEW_LOC_MAP);
-
-                        // Thread 1 - Display Instructions
-                        gameView.StartNewGame();                      
                         break;
                     // Continue
                     case 1:
@@ -258,7 +271,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                         break;
                     // Change location
                     case 5:
-                        if (ChangeLocation(variable))
+                        delay = ChangeLocation(variable);
+                        if (delay)
                         {
                             gameView.UpdateWorldMap(variable);
                             gameView.InitialiseSublocationMap(mf.GetCurrentSublocations(gs), mf.GetCurrentSublocation(gs));
@@ -284,15 +298,16 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                         if (ScavangeSublocation())
                             gameView.InitialiseInventory(mf.GetInventory(gs));
                         break;
+                    // Event
                     case 10:
                         TriggerEvent();
                         break;
                 }
-                PostAction();
+                PostAction(command, delay);
             }
         }
 
-        private void PostAction()
+        private void PostAction(string command, bool delay)
         {
             //Update Player
             gameView.UpdatePlayer();
@@ -300,9 +315,25 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             //Check if Game Over
             if (mf.IsGameOver(gs) || IsEndLocation())
             {
-                handleIdepotentAction(GAME_OVER);
+                int action;
+                if (commandMap.TryGetValue(command, out action) && action != 10)
+                {
+                    if (delay)
+                    {
+                        delayGameOver();
+                    }
+                    else
+                    {
+                        handleIdepotentAction(GAME_OVER);
+                    }
+                }
             }
-            
+        }
+
+        private async void delayGameOver()
+        {
+            await PutTaskDelay();
+            handleIdepotentAction(GAME_OVER);
         }
 
         /// <summary>
@@ -341,7 +372,10 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             {
                 return false;
             }
-
+            if (mf.IsGameOver(gs) || IsEndLocation())
+            {
+                return true;
+            }
             delayEventCheck(visited);
             return true;
         }
@@ -370,8 +404,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                         Task.WaitAll(task1);
                     }
                 }
-            }
-            
+            }            
         }
 
 
@@ -499,7 +532,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
         private bool CheckIfDiscoveryTriggered()
         {
             int chance = rnd.Next(1, 101);
-            if (chance > 80)
+            if (chance > 25)
             {
                 return true;
             }
@@ -638,7 +671,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 // Thread 1 - Save Game
                 var task1 = Task.Factory.StartNew(() =>
                 {
-                    WriteSaveData();
+                    ClearSaveData();
                 });
                 // Main Thread
                 gameView.DrawGameOver();
@@ -650,13 +683,17 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
                 // Thread 1 - Save Game
                 var task1 = Task.Factory.StartNew(() =>
                 {
-                    WriteSaveData();
+                    ClearSaveData();
                 });
                 // Main Thread
                 gameView.DrawVictory();
                 Task.WaitAll(task1);
                 gameView.ReturnToMainMenu();
             }
+        }
+
+        private void ClearSaveData()
+        {
             bool saveSucessful = true;
             FileReadWriter frw = new FileReadWriter();
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.PLAYER_CHARACTER, "");
@@ -669,7 +706,6 @@ namespace uk.ac.dundee.arpond.longRoadHome.Controller
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.CURRENT_SUBLOCATION, "");
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.DIFFICULTY_CONTROLLER, "");
             saveSucessful &= frw.WriteSaveDataFile(FileReadWriter.BUTTONS_AREA, "");
-
         }
 
         public void ExitGame()
