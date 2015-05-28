@@ -62,7 +62,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         #endregion
 
         #region Discovery Functions
-        void DrawDiscoveries(List<Discovery> discs);
+        void DrawDiscoveries(List<Discovery> discs, int max);
         void DrawDiscovery(string discovery);
         #endregion
 
@@ -115,6 +115,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         /// </summary>
         /// <param name="newLocation"></param>
         void UpdateWorldMap(int newLocation);
+
+        void UpdateFromSave(int currentLcoation, List<int> visited);
         #endregion
 
         #region Animation Functions
@@ -125,6 +127,8 @@ namespace uk.ac.dundee.arpond.longRoadHome.View
         #region Audio Functions
         void PlayAudio(String audioFile);
         #endregion
+
+        void ExitGame();
     }
 
 }

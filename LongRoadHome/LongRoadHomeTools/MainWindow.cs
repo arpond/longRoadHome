@@ -453,6 +453,7 @@ namespace LongRoadHomeTools
 
                 if (int.TryParse(selElem[0], out id) && itemList.TryGetValue(id, out item))
                 {
+                    item.amount = amount;
                     String itemEffect = String.Format("{0}#{1}#{2}", ItemEventEffect.ITEM_EFFECT_TAG, item.ParseToString(), resultTB.Text);
                     if(ItemEventEffect.IsValidItemEventEffect(itemEffect))
                     {

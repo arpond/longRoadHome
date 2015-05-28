@@ -32,6 +32,6 @@
         <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="12"  Source="{Binding ElementName=ResourceBarUC, Path=ImgSource, UpdateSourceTrigger=PropertyChanged}" Margin="10 5">
         </Image>
         <ProgressBar x:Name="resourcePB" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="8" Panel.ZIndex="-1" Value="{Binding ElementName=ResourceBarUC, Path=Resource, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label x:Name="resourceLabel"  Content="{Binding ElementName=ResourceBarUC, Path=Resource, UpdateSourceTrigger=PropertyChanged }" ContentStringFormat="{}{0} / 100" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="8" FontFamily="Ubuntu" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="22"/>
+        <Label x:Name="resourceLabel"  Content="{Binding ElementName=ResourceBarUC, Path=Resource, UpdateSourceTrigger=PropertyChanged }" ContentStringFormat="{}{0} / 100" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="8" FontFamily="Oswald" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="22" Padding="0 0 0 4" />
     </Grid>
 </UserControl>

@@ -23,54 +23,44 @@ namespace UnitTests_LongRoadHome.LocationTests
             //System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Civic).TypeHandle);
             //System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Residential).TypeHandle);
             //System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Commercial).TypeHandle);
-            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:2:3", "Standard dummy location is valid"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1","Should be at least 3 components"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections,Connections","At most 3 components"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,blah:1,Connections", "Components should be valid"));
-            invalidDummy.Add(new Tuple<String, String>("Type:sadas,ID:,Connections,", "Type should be DummyLocaiton"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:sadas,Connections", "ID should be an int"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:-1,Connections", "ID should be positive"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:", "If there are connections there should be at least one"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:1", "Can't connect to self"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:2:2", "Can't connect to locaiton more than once"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:2:3:4:-1", "Connections should all be positive"));
-            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections:4:2::3", "Each Connection should have a value"));
+            validDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1", "Standard dummy location is valid"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation","Should be at least 2 components"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:1,Connections","At most 2 components"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,blah:1", "Components should be valid"));
+            invalidDummy.Add(new Tuple<String, String>("Type:sadas,ID:", "Type should be DummyLocaiton"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:sadass", "ID should be an int"));
+            invalidDummy.Add(new Tuple<String, String>("Type:DummyLocation,ID:-1", "ID should be positive"));
 
             Residential res = new Residential(1, 3, 5);
             Commercial com = new Commercial(2, 4, 7);
             Civic civ = new Civic(3, 6, 3);
 
-            validLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations,CurrentSublocation", "Standard location is valid"));
-            validLoc.Add(new Tuple<String, String>("Type:Location,ID:2,Connections:1:3,Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1" , "Standard location is valid"));
+            validLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations,CurrentSublocation", "Standard location is valid"));
+            validLoc.Add(new Tuple<String, String>("Type:Location,ID:2,Visited:True,Sublocations:" + res.ParseToString() + ":" + com.ParseToString() + ",CurrentSublocation:1" , "Standard location is valid"));
             //invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations,CurrentSublocation", "Standard location is valid"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations", "Should be at least 6 components"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations,CurrentSublocation,CurrentSublocation", "Should be at most 6 components"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Invalid,CurrentSublocation", "Components should be valid"));
-            invalidLoc.Add(new Tuple<String, String>("Type:BlaLocation,ID:1,Connections:2:3,Visited:False,Sublocations,CurrentSublocation", "Type should be Location"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:megh,Connections:2:3,Visited:False,Sublocations,CurrentSublocation", "ID should be an int"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:-1,Connections:2:3,Visited:False,Sublocations,CurrentSublocation", "ID should be positive"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:,Visited:False,Sublocations,CurrentSublocation", "If there are connections there should be at least one"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:1,Visited:False,Sublocations,CurrentSublocation", "Can't connect to self"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3:2,Visited:False,Sublocations,CurrentSublocation", "Can't connect to location more than once"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3:-1,Visited:False,Sublocations,CurrentSublocation", "Connections should all be positive"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3::6,Visited:False,Sublocations,CurrentSublocation", "Each Connection should have a value"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited,Sublocations,CurrentSublocation", "Visited should have a value"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:True:False,Sublocations,CurrentSublocation", "Visited should a single value"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:4,Sublocations,CurrentSublocation", "Visited should be a bool"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:blah,Sublocations,CurrentSublocation", "Visited should be a bool"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations:,CurrentSublocation", "If there are sublocations there should be at least one"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations:Residential:1:False:2:blah:temp,CurrentSublocation", "Sublocation should be valid"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations:Residential:1:False,CurrentSublocation", "Sublocation should be complete"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations:Residential:1:False:2:3:temp:Civic:1:False:2:3:temp,CurrentSublocation", "Sublocations can not share IDs"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations,CurrentSublocation:", "if there is a Current Sublocation it should have a value"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations:Residential:1:False:2:3:temp,CurrentSublocation:one", "Current Sublocation should be an int"));
-            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Connections:2:3,Visited:False,Sublocations:Residential:1:False:2:3:temp,CurrentSublocation:2", "Current Sublocation should be defined in sublocations"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations", "Should be at least 6 components"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations,CurrentSublocation,CurrentSublocation", "Should be at most 6 components"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Invalid,CurrentSublocation", "Components should be valid"));
+            invalidLoc.Add(new Tuple<String, String>("Type:BlaLocation,ID:1,Visited:False,Sublocations,CurrentSublocation", "Type should be Location"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:megh,Visited:False,Sublocations,CurrentSublocation", "ID should be an int"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:-1,Visited:False,Sublocations,CurrentSublocation", "ID should be positive"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited,Sublocations,CurrentSublocation", "Visited should have a value"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:True:False,Sublocations,CurrentSublocation", "Visited should a single value"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:4,Sublocations,CurrentSublocation", "Visited should be a bool"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:blah,Sublocations,CurrentSublocation", "Visited should be a bool"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations:,CurrentSublocation", "If there are sublocations there should be at least one"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations:Residential:1:False:2:blah:temp,CurrentSublocation", "Sublocation should be valid"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations:Residential:1:False,CurrentSublocation", "Sublocation should be complete"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations:Residential:1:False:2:3:temp:Civic:1:False:2:3:temp,CurrentSublocation", "Sublocations can not share IDs"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations,CurrentSublocation:", "if there is a Current Sublocation it should have a value"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations:Residential:1:False:2:3:temp,CurrentSublocation:one", "Current Sublocation should be an int"));
+            invalidLoc.Add(new Tuple<String, String>("Type:Location,ID:1,Visited:False,Sublocations:Residential:1:False:2:3:temp,CurrentSublocation:2", "Current Sublocation should be defined in sublocations"));
         }
 
         [TestCategory("Location"), TestCategory("DummyLocation"), TestMethod()]
         public void DummyLocation_ParseToString()
         {
-            String expected = "Type:DummyLocation,ID:1,Connections:2:3";
+            String expected = "Type:DummyLocation,ID:1";
             dl = new DummyLocation(expected);
             Assert.AreEqual(expected, dl.ParseToString(), "String should be parsed correctly");
         }

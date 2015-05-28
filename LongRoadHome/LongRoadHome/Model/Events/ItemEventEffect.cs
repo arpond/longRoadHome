@@ -28,9 +28,15 @@ namespace uk.ac.dundee.arpond.longRoadHome.Model.Events {
         public override void ResolveEffect(double eventModifier, PCModel pcm)
         {
             int amount = item.GetAmount();
-            amount = Convert.ToInt32(amount*eventModifier);
-            item.SetAmount(amount);
-            pcm.ModifyInventory(item, amount);
+            if (amount < 0)
+            {
+                int remove = Math.Abs(amount);
+                pcm.RemoveRandomItemFromInventory(remove);
+            }
+            else
+            {
+                pcm.ModifyInventory(item, amount);
+            }
 		}
 
         /// <summary>

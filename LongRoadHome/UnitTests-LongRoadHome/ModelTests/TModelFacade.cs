@@ -6,6 +6,7 @@ using uk.ac.dundee.arpond.longRoadHome.Model.PlayerCharacter;
 using uk.ac.dundee.arpond.longRoadHome.Model.Discovery;
 using uk.ac.dundee.arpond.longRoadHome.Model.Location;
 using System.Collections.Generic;
+using System.Drawing;
 namespace UnitTests_LongRoadHome.ModelTests
 {
     [TestClass]
@@ -31,10 +32,10 @@ namespace UnitTests_LongRoadHome.ModelTests
             // PC Model
             items = new List<Item>();
 
-            String itemStr1 = "ID:21,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements";
-            String itemStr2 = "ID:22,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":10" + ",PassiveEffect,Requirements:1";
-            String itemStr3 = "ID:23,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements:1:2";
-            String itemStr4 = "ID:24,Name:TestItem,Amount:1,Description:test item 4,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":30:" + ActiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":10" + ",PassiveEffect,Requirements:10";
+            String itemStr1 = "ID:21,Name:TestItem,Amount:1,Description:test item 1,ActiveEffect,PassiveEffect,Requirements,Icon:test.png";
+            String itemStr2 = "ID:22,Name:TestItem,Amount:1,Description:test item 2,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HEALTH + ":10" + ",PassiveEffect,Requirements:1,Icon:test.png";
+            String itemStr3 = "ID:23,Name:TestItem,Amount:1,Description:test item 3,ActiveEffect,PassiveEffect,Requirements:1:2,Icon:test.png";
+            String itemStr4 = "ID:24,Name:TestItem,Amount:1,Description:test item 4,ActiveEffect:" + ActiveEffect.TAG + ":" + PlayerCharacter.HUNGER + ":30:" + ActiveEffect.TAG + ":" + PlayerCharacter.SANITY + ":10" + ",PassiveEffect,Requirements:10,Icon:test.png";
 
             itemCatalogue = ItemCatalogue.TAG;
             inventory = Inventory.TAG;
@@ -70,7 +71,7 @@ namespace UnitTests_LongRoadHome.ModelTests
             eventCatalogue = EventCatalogue.TAG;
             for (int i= 1; i<21; i++)
             {
-                String evt = Event.TAG + "_" + i + "_Type_Test text_EventOptions*" + validOption1 + "*" + validOption2 + "*" + validOption3 + "*" + validOption4;
+                String evt = Event.TAG + "$" + i + "$Type$Test text$EventOptions*" + validOption1 + "*" + validOption2 + "*" + validOption3 + "*" + validOption4;
                 if(!Event.IsValidEvent(evt))
                 {
                     String wrong = evt;
@@ -151,11 +152,11 @@ namespace UnitTests_LongRoadHome.ModelTests
 
             dm = new DiscoveryModel(discovered, discoveryCatalogue);
 
-            // Game State
-            //gs = new GameState(pc, inventory, itemCatalogue,
-            //    usedEvents, currentEvent, eventCatalogue,
-            //    discovered, discoveryCatalogue,
-            //    visitedLocs, unvisitedLocs, currLoc, currSLoc);
+            //Game State
+            gs = new GameState(pc, inventory, itemCatalogue,
+                usedEvents, currentEvent, eventCatalogue,
+                discovered, discoveryCatalogue,
+                visitedLocs, unvisitedLocs, currLoc, currSLoc, "", null);
         }
 
 
@@ -213,8 +214,6 @@ namespace UnitTests_LongRoadHome.ModelTests
             Assert.AreEqual(locations[18].ParseToString(), workingLM.GetCurentLocation().ParseToString(), "Location should be location 19");
             Assert.IsTrue(mf.ChangeLocation(gs, 20), "Moving to 20 should be successful");
             Assert.AreEqual(locations[19].ParseToString(), workingLM.GetCurentLocation().ParseToString(), "Location should now be location 20");
-            Assert.IsFalse(mf.ChangeLocation(gs, 7), "Moving to 7 should be unsuccessful");
-            Assert.AreEqual(locations[19].ParseToString(), workingLM.GetCurentLocation().ParseToString(), "Location should still be 20");
             Assert.IsFalse(mf.ChangeLocation(gs, 20), "Moving to 20 should be unsuccessful");
             Assert.AreEqual(locations[19].ParseToString(), workingLM.GetCurentLocation().ParseToString(), "Location should still be location 20");
             Assert.IsTrue(mf.ChangeLocation(gs, 21), "Moving to 21 should be successful");

@@ -62,7 +62,7 @@ namespace uk.ac.dundee.arpond.longRoadHome.View.Controls
         }
 
         /// <summary>
-        /// Identifies the Enabled Image Dependency Property
+        /// Identifies the Enabled Button Dependency Property
         /// </summary>
         public static readonly DependencyProperty EnabledButtonProperty =
             DependencyProperty.Register("EnabledButton", typeof(bool), typeof(ImageButton),

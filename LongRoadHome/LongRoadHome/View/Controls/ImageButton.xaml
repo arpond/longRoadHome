@@ -9,11 +9,10 @@
     <UserControl.Resources>
         <Style x:Key="NoChromeButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -25,15 +24,13 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Border Grid.Column="0" Grid.Row="0" Background="Gray"  BorderThickness="1" Margin="2 2 2 0">
-        <Button x:Name="button"  
+    <Button Grid.Column="0" Grid.Row="0" x:Name="button"  
                 Click="button_Click"
                 Style="{DynamicResource NoChromeButton}"
                 IsEnabled="{Binding ElementName=ImageButtonUC, Path=EnabledButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <Image 
+        <Image 
                 x:Name="image" 
                 Source="{Binding ElementName=ImageButtonUC, Path=DisplayedImage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                 Margin="3" />
-        </Button>
-    </Border>
+    </Button>
 </UserControl>
